@@ -10,9 +10,11 @@
 # Secrets scanning: publieke URL's zijn geen geheimen
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "SITE_BASE_URL,ALLOWED_ORIGIN,MAIL_FROM,INTERNAL_NOTIFY_EMAIL"
-  # Node 22: vereist door @supabase/supabase-js (native WebSocket; op Node 20 →
-  # "DB insert failed: native WebSocket not found"). Werkt ook voor chromium-min.
-  NODE_VERSION = "22"
+  # Node 20: bewezen stabiel voor @sparticuz/chromium-min (PDF-render). Node 22
+  # brak de PDF (Chromium faalde). De Supabase-"native WebSocket"-melding lossen
+  # we niet op met Node 22 maar door @supabase/supabase-js te pinnen op 2.45.0
+  # (versie vóór de native-WebSocket-vereiste). Zo werken PDF én DB-insert samen.
+  NODE_VERSION = "20"
 
 [functions]
   # esbuild bundles the JS; bundle the shared engine, PDF template and logo
