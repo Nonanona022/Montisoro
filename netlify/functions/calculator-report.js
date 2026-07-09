@@ -86,6 +86,45 @@ async function adminAction(payload) {
   return res(200, { ok: mailStatus === 'sent', action: 'resend', mail_status: mailStatus, pdf_url: pdfUrl });
 }
 
+/* ── Public PDF download (P11 follow-up) ──────────────────────────────
+   Returns the SAME Chromium-rendered report as the e-mail, as a direct download.
+   No e-mail, no DB write, no consent — the visitor just downloads their own
+   figures. Works whenever the function build has Chromium (independent of
+   Supabase/Resend). Rate-limited because the render is expensive. */
+async function downloadReport(payload, event) {
+  const ip = rl.clientIp(event);
+  const perMin  = rl.hit('calcdl:m:' + ip, 8, 60 * 1000);
+  const perHour = rl.hit('calcdl:h:' + ip, 40, 60 * 60 * 1000);
+  if (!perMin.ok || !perHour.ok) return res(429, { ok: false, error: 'rate_limited' });
+
+  const dLang = payload.lang === 'en' ? 'en' : 'nl';
+  const report = ENGINE.report(payload.input || {}, dLang);
+  const r = report.results;
+  const c = payload.contact || {};
+  try {
+    const pdfBuffer = await pdf.renderPdf({ lang: dLang, meta: {
+      name: c.name || '', company: c.company || '', email: c.email || '',
+      company_name: c.company || (dLang === 'en' ? 'Your organisation' : 'Uw organisatie'),
+      report_date: new Date().toLocaleDateString(dLang === 'en' ? 'en-GB' : 'nl-BE', { day: 'numeric', month: 'long', year: 'numeric' }),
+      lang_label: dLang === 'en' ? 'English' : 'Nederlands' },
+      vars: report.vars, results: r });
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="montisoro-verzuimrapport.pdf"',
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        'Cache-Control': 'no-store'
+      },
+      body: pdfBuffer.toString('base64'),
+      isBase64Encoded: true
+    };
+  } catch (e) {
+    console.error('[calculator-report:download] pdf failed:', e.message);
+    return res(500, { ok: false, error: 'pdf_failed' });
+  }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return res(204, {});
   if (event.httpMethod !== 'POST') return res(405, { ok: false, error: 'method_not_allowed' });
@@ -103,6 +142,12 @@ exports.handler = async (event) => {
   //    Returns before any visitor logic (rate-limit, consent, honeypot). ──
   if (payload.action === 'regenerate' || payload.action === 'resend') {
     return await adminAction(payload);
+  }
+
+  // ── Public PDF download — the SAME server-rendered report as the e-mail,
+  //    returned as a direct file download. No e-mail, no DB, no consent. ──
+  if (payload.action === 'download') {
+    return await downloadReport(payload, event);
   }
 
   // ── server-side validation + consent + honeypot ──

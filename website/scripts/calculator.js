@@ -740,31 +740,31 @@
     });
   })();
 
-  /* Download rapport → echte PDF-download (Blob + download-anchor), geen nieuw tabblad, geen print-dialoog */
+  /* Download rapport → SERVER-gerenderde PDF (Chromium) = exact het rapport uit
+     de e-mail. Betrouwbaar op elk toestel; geen browser-'foto'-truc meer. */
   function openFullReport(){
     var b=$('bDownloadPdf'); if(!b) return;
-    try{
-      var R = VerzuimEngine.compute(state);
-      var V = VerzuimEngine.format(R, LANG);
-      var rep = { lang:LANG, input:R.input, results:R, vars:V,
-        meta:{ name:($('cName')?$('cName').value:'')||'', company:($('cCompany')?$('cCompany').value:'')||'',
-          report_date:new Date().toLocaleDateString(LANG==='en'?'en-GB':'nl-BE',{day:'numeric',month:'long',year:'numeric'}) } };
-      sessionStorage.setItem('montisoro_report', JSON.stringify(rep));
-    }catch(e){}
-    if(typeof window.montisoroDownloadReport!=='function') return;
-    var url = (LANG==='en'?'../documents/verzuimrapport-test-report-en.html':'../documents/verzuimrapport-test-report.html');
-    var label = b.getAttribute('data-label') || b.textContent;
-    b.setAttribute('data-label', label);
-    var busy = LANG==='en' ? 'Preparing PDF…' : 'PDF voorbereiden…';
-    window.montisoroDownloadReport({
-      url: url,
-      filename: 'montisoro-calculator-rapport.pdf',
-      pagebreakBefore: '.page:not(:first-child)',
-      onstart: function(){ b.disabled=true; b.setAttribute('aria-busy','true'); b.textContent=busy; },
-      ondone:  function(){ b.disabled=false; b.removeAttribute('aria-busy'); b.textContent=label; },
-      onerror: function(){ b.disabled=false; b.removeAttribute('aria-busy'); b.textContent=label;
-        var msg=$('bPreviewMsg'); if(msg){ msg.textContent=(LANG==='en'?'Could not generate the PDF — please try again.':'Kon de PDF niet genereren — probeer het opnieuw.'); msg.style.display='block'; } }
-    });
+    var label=b.getAttribute('data-label')||b.textContent; b.setAttribute('data-label',label);
+    var busy=(LANG==='en'?'Preparing PDF…':'PDF voorbereiden…');
+    var errMsg=(LANG==='en'?'Could not generate the PDF — please try again.':'Kon de PDF niet genereren — probeer het opnieuw.');
+    function reset(){ b.disabled=false; b.removeAttribute('aria-busy'); b.textContent=label; }
+    b.disabled=true; b.setAttribute('aria-busy','true'); b.textContent=busy;
+    var payload={ action:'download', lang:LANG, input:(window.__betaState||state||{}),
+      contact:{ name:($('cName')?$('cName').value:'')||'', company:($('cCompany')?$('cCompany').value:'')||'' } };
+    fetch('/api/calculator-report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.blob(); })
+      .then(function(blob){
+        if(!blob || (String(blob.type).indexOf('pdf')===-1 && blob.size<1000)) throw new Error('geen pdf');
+        var url=URL.createObjectURL(blob);
+        var a=document.createElement('a'); a.href=url; a.download='montisoro-verzuimrapport.pdf';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){ try{URL.revokeObjectURL(url);}catch(e){} },5000);
+        reset();
+      })
+      .catch(function(){
+        reset();
+        var m=$('bPreviewMsg'); if(m){ m.textContent=errMsg; m.style.display='block'; }
+      });
   }
   (function(){ var b=$('bDownloadPdf'); if(b) b.addEventListener('click', openFullReport); })();
 
