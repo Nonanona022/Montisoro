@@ -78,9 +78,19 @@ function buildHtml(report) {
 
 async function renderPdf(report) {
   const html = buildHtml(report);
+  // @sparticuz/chromium: when the function is esbuild-bundled, its default
+  // executablePath() resolves the binary against the WRONG dir (e.g.
+  // /var/task/netlify/bin → ENOENT). Point it explicitly at where
+  // included_files placed the pack (node_modules/@sparticuz/chromium/bin).
+  let execPath;
+  try {
+    execPath = await chromium.executablePath(path.join(process.cwd(), 'node_modules', '@sparticuz', 'chromium', 'bin'));
+  } catch (e) {
+    execPath = await chromium.executablePath();
+  }
   const browser = await puppeteer.launch({
     args: chromium.args,
-    executablePath: await chromium.executablePath(),
+    executablePath: execPath,
     headless: chromium.headless,
     defaultViewport: { width: 1240, height: 1754, deviceScaleFactor: 2 }
   });
