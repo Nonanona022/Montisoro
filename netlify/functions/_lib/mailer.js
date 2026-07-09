@@ -16,7 +16,7 @@ async function sendCustomer({ lang, meta, vars, pdfBuffer, pdfUrl }) {
   const mail = EMAILS.customer({ lang, meta, vars, assetBase: ASSET_BASE, pdfUrl });
   const attachments = pdfBuffer
     ? [{ filename: lang === 'en' ? 'Montisoro-absence-report.pdf' : 'Montisoro-verzuimrapport.pdf',
-         content: pdfBuffer.toString('base64') }]
+         content: Buffer.from(pdfBuffer).toString('base64') }]
     : [];
   const { error } = await resend.emails.send({
     from: FROM, to: meta.email, replyTo: INTERNAL,
