@@ -164,8 +164,11 @@ h1.head{font-family:var(--serif);font-weight:700;font-size:31px;line-height:1.18
   'use strict';
   var store = {};
   try {
-    var raw = localStorage.getItem('montisoro.fitcheck.pdf.v1') || sessionStorage.getItem('montisoro.fitcheck.pdf.v1');
-    if (raw) store = JSON.parse(raw);
+    if (window.__MONTISORO_FITCHECK) { store = window.__MONTISORO_FITCHECK; }
+    else {
+      var raw = localStorage.getItem('montisoro.fitcheck.pdf.v1') || sessionStorage.getItem('montisoro.fitcheck.pdf.v1');
+      if (raw) store = JSON.parse(raw);
+    }
   } catch(e){}
 
   var DEMOS = {

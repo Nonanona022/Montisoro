@@ -125,6 +125,36 @@ async function downloadReport(payload, event) {
   }
 }
 
+async function downloadFitcheck(payload, event) {
+  const ip = rl.clientIp(event);
+  if (!rl.hit('fcdl:m:' + ip, 8, 60 * 1000).ok || !rl.hit('fcdl:h:' + ip, 40, 60 * 60 * 1000).ok) {
+    return res(429, { ok: false, error: 'rate_limited' });
+  }
+  const dLang = payload.lang === 'en' ? 'en' : 'nl';
+  try {
+    const pdfBuffer = await pdf.renderFitcheck({
+      lang: dLang,
+      answers: payload.answers || {},
+      name: payload.name || '',
+      date: payload.date || new Date().toLocaleDateString(dLang === 'en' ? 'en-GB' : 'nl-BE', { day: 'numeric', month: 'long', year: 'numeric' })
+    });
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="montisoro-fit-check-rapport.pdf"',
+        'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+        'Cache-Control': 'no-store'
+      },
+      body: Buffer.from(pdfBuffer).toString('base64'),
+      isBase64Encoded: true
+    };
+  } catch (e) {
+    console.error('[calculator-report:fitcheck] pdf failed:', e.message);
+    return res(500, { ok: false, error: 'pdf_failed' });
+  }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return res(204, {});
   if (event.httpMethod !== 'POST') return res(405, { ok: false, error: 'method_not_allowed' });
@@ -147,7 +177,9 @@ exports.handler = async (event) => {
   // ── Public PDF download — the SAME server-rendered report as the e-mail,
   //    returned as a direct file download. No e-mail, no DB, no consent. ──
   if (payload.action === 'download') {
-    return await downloadReport(payload, event);
+    return payload.kind === 'fitcheck'
+      ? await downloadFitcheck(payload, event)
+      : await downloadReport(payload, event);
   }
 
   // ── server-side validation + consent + honeypot ──
