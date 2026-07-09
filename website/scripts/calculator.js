@@ -20,7 +20,7 @@
       sending:'Rapport wordt aangemaakt… (± 10 sec)',
       successSent:'✓ Uw aanvraag is ontvangen — uw rapport komt per e-mail.',
       successPending:'✓ Uw aanvraag is ontvangen — uw rapport komt per e-mail.',
-      submitLabel:'Ontvang rapport →',
+      submitLabel:'Download mijn rapport →',
       emailErr:'Vul een geldig e-mailadres in.',
       consentErr:'Gelieve akkoord te gaan met de privacyverklaring.',
       riskLbl:'Risiconiveau',
@@ -36,7 +36,7 @@
       sending:'Preparing your report… (± 10 sec)',
       successSent:'✓ Your request has been received — your report will arrive by e-mail.',
       successPending:'✓ Your request has been received — your report will arrive by e-mail.',
-      submitLabel:'Receive report →',
+      submitLabel:'Download my report →',
       emailErr:'Please enter a valid e-mail address.',
       consentErr:'Please agree to the privacy statement.',
       riskLbl:'Risk level',
@@ -672,6 +672,7 @@
       var y=b.getBoundingClientRect().top+window.scrollY-130;
       try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
       setTimeout(function(){ try{ b.focus({preventScroll:true}); }catch(e){} },420);
+      try{ if(typeof openFullReport==='function'){ setTimeout(openFullReport, 500); } }catch(e){}
     }
     ['cName','cCompany','cMail'].forEach(function(id){var inp=$(id);if(!inp)return;inp.addEventListener('input',function(){var fi=inp.closest('.f-input');if(fi)fi.classList.remove('is-error');inp.setAttribute('aria-invalid','false');var e=$('bFormErr');if(e)e.classList.remove('show');});});
     (function(){var cc=$('cConsent');if(cc)cc.addEventListener('change',function(){var cl=cc.closest('.b-consent');if(cl)cl.classList.remove('is-error');});})();
