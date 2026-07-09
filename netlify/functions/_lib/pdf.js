@@ -63,15 +63,18 @@ async function readDataUri(rel, mime) {
   throw new Error('cannot load ' + rel + ' (not on disk, SITE_BASE_URL unset)');
 }
 
-// inline the brand fonts: rewrite the woff2 url()'s in fonts.css to data URIs
-async function inlineFonts() {
-  let css = await readText('website/stylesheets/fonts.css');
-  const files = [...new Set([...css.matchAll(/\.\.\/assets\/fonts\/([^'")]+\.woff2)/g)].map(function (m) { return m[1]; }))];
+// rewrite ../assets/fonts/*.woff2 url()'s in ANY text to data URIs
+async function inlineWoff2(text) {
+  const files = [...new Set([...text.matchAll(/\.\.\/assets\/fonts\/([^'")]+\.woff2)/g)].map(function (m) { return m[1]; }))];
   for (const f of files) {
     const uri = await readDataUri('website/assets/fonts/' + f, 'font/woff2');
-    css = css.split('../assets/fonts/' + f).join(uri);
+    text = text.split('../assets/fonts/' + f).join(uri);
   }
-  return css;
+  return text;
+}
+// inline the brand fonts from fonts.css
+async function inlineFonts() {
+  return inlineWoff2(await readText('website/stylesheets/fonts.css'));
 }
 
 async function buildHtml(report) {
@@ -112,8 +115,8 @@ async function buildHtml(report) {
   return html;
 }
 
-async function renderPdf(report) {
-  const html = await buildHtml(report);
+// shared: launch chromium, print the given HTML to an A4 PDF buffer
+async function launchAndPrint(html) {
   const execPath = await chromium.executablePath(CHROMIUM_PACK);
   const browser = await puppeteer.launch({
     args: chromium.args,
@@ -126,16 +129,41 @@ async function renderPdf(report) {
     await page.setContent(html, { waitUntil: 'networkidle0' });
     // give fonts + render a beat
     await page.evaluateHandle('document.fonts.ready');
-    const buffer = await page.pdf({
+    return await page.pdf({
       format: 'A4',
       printBackground: true,
       preferCSSPageSize: true,
       margin: { top: '0', right: '0', bottom: '0', left: '0' }
     });
-    return buffer;
   } finally {
     await browser.close();
   }
 }
 
-module.exports = { renderPdf, buildHtml };
+async function renderPdf(report) {
+  return launchAndPrint(await buildHtml(report));
+}
+
+/* ── Fit check report: same server-render pipeline, different template ──
+   Reads fitcheck-rapport.html + fitcheck-content.js from the live site,
+   inlines its @font-face woff2 + banner image, and injects the answers as
+   window.__MONTISORO_FITCHECK (the template prefers that over localStorage). */
+async function buildFitcheckHtml(data) {
+  let html = await readText('website/documents/fitcheck-rapport.html');
+  const content = await readText('website/scripts/fitcheck-content.js');
+  html = html.replace('<script src="../scripts/fitcheck-content.js"></script>', `<script>${content}</script>`);
+  html = await inlineWoff2(html);                       // @font-face woff2 → data URIs
+  try {                                                 // banner image → data URI
+    const banner = await readDataUri('website/assets/email-banner-fit.jpg', 'image/jpeg');
+    html = html.split('../assets/email-banner-fit.jpg').join(banner);
+  } catch (e) { /* banner optional — keep rendering */ }
+  const inject = `<script>window.__MONTISORO_FITCHECK = ${JSON.stringify(data)};</script>`;
+  html = html.replace('</head>', `${inject}</head>`);
+  return html;
+}
+
+async function renderFitcheck(data) {
+  return launchAndPrint(await buildFitcheckHtml(data));
+}
+
+module.exports = { renderPdf, buildHtml, renderFitcheck };
