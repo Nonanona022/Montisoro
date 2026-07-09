@@ -31,20 +31,45 @@ function P(rel) {
   return path.join(CANDIDATE_ROOTS[0], rel); // fallback → clear ENOENT path
 }
 
-function readText(rel) { return fs.readFileSync(P(rel), 'utf8'); }
-function readDataUri(rel, mime) {
-  const b64 = fs.readFileSync(P(rel)).toString('base64');
-  return `data:${mime};base64,${b64}`;
+const SITE = (process.env.SITE_BASE_URL || '').replace(/\/+$/, '');
+// public path on the live site for a repo-relative file (website/ = web root)
+function pub(rel) { return rel.replace(/^website/, ''); }
+
+// Load a text file: try disk first (if included_files bundled it), otherwise
+// fetch it from the LIVE site over HTTP. The report template, engine, params,
+// content and fonts are all public files the website already serves — so this
+// works no matter how Netlify bundles the function (no ENOENT surprises).
+async function readText(rel) {
+  try { const p = P(rel); if (fs.existsSync(p)) return fs.readFileSync(p, 'utf8'); } catch (e) {}
+  if (SITE) {
+    const r = await fetch(SITE + pub(rel));
+    if (r.ok) return await r.text();
+    throw new Error('fetch ' + pub(rel) + ' -> HTTP ' + r.status);
+  }
+  throw new Error('cannot load ' + rel + ' (not on disk, SITE_BASE_URL unset)');
+}
+async function readDataUri(rel, mime) {
+  try { const p = P(rel); if (fs.existsSync(p)) return `data:${mime};base64,` + fs.readFileSync(p).toString('base64'); } catch (e) {}
+  if (SITE) {
+    const r = await fetch(SITE + pub(rel));
+    if (r.ok) return `data:${mime};base64,` + Buffer.from(await r.arrayBuffer()).toString('base64');
+    throw new Error('fetch ' + pub(rel) + ' -> HTTP ' + r.status);
+  }
+  throw new Error('cannot load ' + rel + ' (not on disk, SITE_BASE_URL unset)');
 }
 
 // inline the brand fonts: rewrite the woff2 url()'s in fonts.css to data URIs
-function inlineFonts() {
-  const css = readText('website/stylesheets/fonts.css');
-  return css.replace(/url\('\.\.\/assets\/fonts\/([^']+\.woff2)'\)/g,
-    function (m, f) { return 'url(' + readDataUri('website/assets/fonts/' + f, 'font/woff2') + ')'; });
+async function inlineFonts() {
+  let css = await readText('website/stylesheets/fonts.css');
+  const files = [...new Set([...css.matchAll(/\.\.\/assets\/fonts\/([^'")]+\.woff2)/g)].map(function (m) { return m[1]; }))];
+  for (const f of files) {
+    const uri = await readDataUri('website/assets/fonts/' + f, 'font/woff2');
+    css = css.split('../assets/fonts/' + f).join(uri);
+  }
+  return css;
 }
 
-function buildHtml(report) {
+async function buildHtml(report) {
   const lang = (report && report.lang === 'en') ? 'en' : 'nl';
   const tpl = lang === 'en'
     ? 'website/documents/verzuimrapport-test-report-en.html'
@@ -56,10 +81,10 @@ function buildHtml(report) {
     ? 'website/documents/verzuimrapport-test-en.content.js'
     : 'website/documents/verzuimrapport-test.content.js';
 
-  let html = readText(tpl);
-  const engine = readText('website/services/verzuim-engine.js');
-  const content = readText(contentFile);
-  const params = readText('website/config/calculator-params.js');
+  let html = await readText(tpl);
+  const engine = await readText('website/services/verzuim-engine.js');
+  const content = await readText(contentFile);
+  const params = await readText('website/config/calculator-params.js');
 
   // inline external scripts (relative <script src> won't resolve in setContent)
   html = html.replace('<script src="../config/calculator-params.js"></script>', `<script>${params}</script>`);
@@ -67,7 +92,7 @@ function buildHtml(report) {
   html = html.replace(contentTag, `<script>${content}</script>`);
 
   // inline brand fonts (woff2 → data URI) so chromium renders self-contained
-  html = html.replace('<link rel="stylesheet" href="../stylesheets/fonts.css">', `<style>${inlineFonts()}</style>`);
+  html = html.replace('<link rel="stylesheet" href="../stylesheets/fonts.css">', `<style>${await inlineFonts()}</style>`);
 
   // inject the report data BEFORE the page's own render script runs
   const inject = `<script>window.__MONTISORO_REPORT = ${JSON.stringify(report)};</script>`;
@@ -77,7 +102,7 @@ function buildHtml(report) {
 }
 
 async function renderPdf(report) {
-  const html = buildHtml(report);
+  const html = await buildHtml(report);
   // @sparticuz/chromium: when the function is esbuild-bundled, its default
   // executablePath() resolves the binary against the WRONG dir (e.g.
   // /var/task/netlify/bin → ENOENT). Point it explicitly at where
