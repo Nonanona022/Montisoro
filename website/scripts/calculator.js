@@ -761,9 +761,9 @@
         setTimeout(function(){ try{URL.revokeObjectURL(url);}catch(e){} },5000);
         reset();
       })
-      .catch(function(){
+      .catch(function(err){
         reset();
-        var m=$('bPreviewMsg'); if(m){ m.textContent=errMsg; m.style.display='block'; }
+        alert(errMsg + (err && err.message ? '\n(' + err.message + ')' : ''));
       });
   }
   (function(){ var b=$('bDownloadPdf'); if(b) b.addEventListener('click', openFullReport); })();

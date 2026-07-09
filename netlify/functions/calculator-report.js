@@ -116,7 +116,7 @@ async function downloadReport(payload, event) {
         'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
         'Cache-Control': 'no-store'
       },
-      body: pdfBuffer.toString('base64'),
+      body: Buffer.from(pdfBuffer).toString('base64'),
       isBase64Encoded: true
     };
   } catch (e) {
