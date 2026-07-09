@@ -10,9 +10,9 @@
 # Secrets scanning: publieke URL's zijn geen geheimen
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "SITE_BASE_URL,ALLOWED_ORIGIN,MAIL_FROM,INTERNAL_NOTIFY_EMAIL"
-  # @sparticuz/chromium 131 ships Amazon-Linux-2023 shared libs → needs the
-  # Node 20 function runtime. Node 18 (AL2) misses them (libnspr4.so ENOENT).
-  NODE_VERSION = "20"
+  # Node 22: vereist door @supabase/supabase-js (native WebSocket; op Node 20 →
+  # "DB insert failed: native WebSocket not found"). Werkt ook voor chromium-min.
+  NODE_VERSION = "22"
 
 [functions]
   # esbuild bundles the JS; bundle the shared engine, PDF template and logo

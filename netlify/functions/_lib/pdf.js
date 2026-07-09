@@ -99,6 +99,12 @@ async function buildHtml(report) {
   // inline brand fonts (woff2 → data URI) so chromium renders self-contained
   html = html.replace('<link rel="stylesheet" href="../stylesheets/fonts.css">', `<style>${await inlineFonts()}</style>`);
 
+  // inline the title-page logo (relative <img src> won't resolve in setContent)
+  try {
+    const logoUri = await readDataUri('website/assets/montisoro-logo.png', 'image/png');
+    html = html.split('../assets/montisoro-logo.png').join(logoUri);
+  } catch (e) { /* logo optional — keep rendering */ }
+
   // inject the report data BEFORE the page's own render script runs
   const inject = `<script>window.__MONTISORO_REPORT = ${JSON.stringify(report)};</script>`;
   html = html.replace('</head>', `${inject}</head>`);

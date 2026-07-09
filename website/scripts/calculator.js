@@ -122,7 +122,7 @@
     applyStateToUI();
     var banner=$('bResumeBar'); if(banner) banner.hidden=true;
     if(window.__betaGo) window.__betaGo(1);
-    var ws=$('bMain'); if(ws) ws.scrollIntoView({behavior:'smooth',block:'start'});
+    var ws=$('bMain'); if(ws){ try{ws.scrollTop=0;}catch(e){} window.scrollTo({top:0,behavior:'smooth'}); }
   }
   window.__betaReset = resetAll;
 
@@ -630,13 +630,16 @@
 
     /* ── altijd leeg starten: reset-knoppen wiren + oude sessie wissen ── */
     (function(){
-      var resetBtns=document.querySelectorAll('.js-calc-reset');
-      resetBtns.forEach(function(btn){ btn.addEventListener('click',function(){
+      /* Event-delegatie zodat óók dynamisch geïnjecteerde reset-knoppen
+         (bv. de "Opnieuw beginnen" in de focus-overlay) werken. */
+      document.addEventListener('click',function(e){
+        var btn = e.target && e.target.closest && e.target.closest('.js-calc-reset');
+        if(!btn) return;
         var ok = (LANG==='en')
           ? confirm('Start over with a blank calculator? Your current entries will be cleared.')
           : confirm('Opnieuw beginnen met een lege calculator? Uw huidige invoer wordt gewist.');
         if(ok) resetAll();
-      }); });
+      });
       /* Sessie-herstel (op verzoek terug, 3 juli 2026): bewaarde invoer < 24u herstellen,
          anders wissen. Verder wissen bij "Opnieuw beginnen" (resetAll) en na verzenden (showDownload). */
       (function(){
