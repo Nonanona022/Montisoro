@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro Admin · Intelligence cockpit</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../assets/icons/tabler-icons.css">
+<link rel="stylesheet" href="../stylesheets/admin.css">
+<script src="../config/config.js"></script>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ════════════ TOP BAR ════════════ -->
+  <header class="topbar">
+    <button class="topbar-mobile" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+    <div class="topbar-brand">
+      <img src="../assets/montisoro-logo.png" alt="Montisoro">
+    </div>
+    <div class="topbar-search">
+      <i class="ti ti-search"></i>
+      <input type="text" id="globalSearch" placeholder="Zoek leads, e-mails, formulieren…" data-i18n-ph="tb_search_ph">
+      <kbd>⌘K</kbd>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="topbar-actions">
+      <div class="u-rel">
+        <button class="topbar-btn" id="btn-activitylog" title="Activity log" data-i18n-title="tb_activitylog"><i class="ti ti-history"></i></button>
+      </div>
+      <div class="u-rel">
+        <button class="topbar-btn" id="btn-notif" title="Notificaties" data-i18n-title="tb_notif" aria-haspopup="true"><i class="ti ti-bell"></i><span class="dot" id="notif-dot"></span></button>
+        <div class="popover" id="pop-notif"></div>
+      </div>
+      <div class="u-rel">
+        <button class="topbar-btn" id="btn-help" title="Hulp" data-i18n-title="tb_help" aria-haspopup="true"><i class="ti ti-help"></i></button>
+        <div class="popover" id="pop-help"></div>
+      </div>
+      <div class="u-rel">
+        <button class="topbar-lang" id="btn-lang" title="Admin taal" data-i18n-title="tb_lang" aria-haspopup="true"><i class="ti ti-language"></i><span id="lang-label">NL</span></button>
+        <div class="popover" id="pop-lang"></div>
+      </div>
+      <div class="u-rel">
+        <button class="topbar-user" id="btn-user" aria-haspopup="true" style="border:0;cursor:pointer;">
+          <div class="avatar" id="user-avatar">L</div>
+          <div class="meta">
+            <span class="name" id="user-name">Laurence</span>
+            <span class="role" id="user-role">Admin</span>
+          </div>
+        </button>
+        <div class="popover" id="pop-user"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════════ SIDEBAR ════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-section" data-i18n="sb_dashboard">Dashboard</div>
+    <div class="nav-item is-active" data-view="overview"><i class="ti ti-layout-dashboard"></i><span class="label" data-i18n="sb_overview">Overzicht</span></div>
+    <div class="nav-item" data-view="today"><i class="ti ti-sunrise"></i><span class="label">Vandaag</span><span class="badge" id="nav-badge-today" style="display:none;">0</span></div>
+
+    <div class="sidebar-section" data-i18n="sb_operational">Operationeel</div>
+    <div class="nav-item" data-view="leads"><i class="ti ti-users"></i><span class="label" data-i18n="sb_leads">Leads</span><span class="badge" id="nav-badge-leads">0</span></div>
+    <div class="nav-item" data-view="forms"><i class="ti ti-inbox"></i><span class="label" data-i18n="sb_inbox">Inbox</span><span class="badge" id="nav-badge-forms">0</span></div>
+    <div class="nav-item" data-view="bookings"><i class="ti ti-calendar-check"></i><span class="label">Agenda</span><span class="badge" id="nav-badge-bookings">0</span></div>
+    <div class="nav-item" data-view="pdfmanagement"><i class="ti ti-file-type-pdf"></i><span class="label">PDF Rapporten</span></div>
+
+    <div class="sidebar-section" data-i18n="sb_inzichten">Inzichten</div>
+    <div class="nav-item" data-view="analyse"><i class="ti ti-chart-line"></i><span class="label">Analyse</span></div>
+    <div class="nav-item" data-view="analytics"><i class="ti ti-chart-arcs"></i><span class="label" data-i18n="sb_analytics">Verzuim-inzichten</span></div>
+
+    <div class="sidebar-section sidebar-collapsible" data-section="content">
+      <span><span class="toggle-mark">+</span><span data-i18n="sb_content">Content</span></span>
+    </div>
+    <div class="nav-item" data-view="content" data-section="content"><i class="ti ti-file-text"></i><span class="label" data-i18n="sb_pages_langs">Pagina's &amp; talen</span></div>
+    <div class="nav-item" data-view="siteteam" data-section="content"><i class="ti ti-users-group"></i><span class="label" data-i18n="sb_siteteam">Team op website</span></div>
+    <div class="nav-item" data-view="trustedby" data-section="content"><i class="ti ti-building-store"></i><span class="label" data-i18n="sb_trustedby">Vertrouwd door</span></div>
+    <div class="nav-item" data-view="testimonials" data-section="content"><i class="ti ti-quote"></i><span class="label" data-i18n="sb_testimonials">Klantenquotes</span></div>
+    <div class="nav-item" data-view="cases" data-section="content"><i class="ti ti-award"></i><span class="label" data-i18n="sb_cases">Referenties</span></div>
+    <div class="nav-item" data-view="faq" data-section="content"><i class="ti ti-help-circle"></i><span class="label">FAQ</span></div>
+    <div class="nav-item" data-view="seo" data-section="content"><i class="ti ti-search"></i><span class="label">SEO</span></div>
+    <div class="nav-item" data-view="microcopy" data-section="content"><i class="ti ti-text-caption"></i><span class="label">Microcopy</span></div>
+    <div class="nav-item" data-view="emailtemplates" data-section="content"><i class="ti ti-mail"></i><span class="label">E-mail teksten</span></div>
+    <div class="nav-item" data-view="languages" data-section="content"><i class="ti ti-language"></i><span class="label" data-i18n="sb_langmgmt">Taalbeheer</span></div>
+
+    <div class="sidebar-section sidebar-collapsible" data-section="beheer">
+      <span><span class="toggle-mark">+</span><span data-i18n="sb_beheer">Beheer</span></span>
+    </div>
+    <div class="nav-item" data-view="team" data-section="beheer"><i class="ti ti-user-circle"></i><span class="label" data-i18n="sb_adminteam">Admin team</span></div>
+    <div class="nav-item" data-view="calcparams" data-section="beheer"><i class="ti ti-calculator"></i><span class="label" data-i18n="sb_calcparams">Calculator-parameters</span></div>
+    <div class="nav-item" data-view="bookingschedule" data-section="beheer"><i class="ti ti-calendar"></i><span class="label">Boekingsschema</span></div>
+    <div class="nav-item" data-view="emaillog" data-section="beheer"><i class="ti ti-mail"></i><span class="label">E-mail log</span></div>
+    <div class="nav-item" data-view="activity" data-section="beheer"><i class="ti ti-history"></i><span class="label">Activiteitenlog</span></div>
+    <div class="nav-item" data-view="featureflags" data-section="beheer"><i class="ti ti-toggle-right"></i><span class="label">Feature Flags</span></div>
+    <div class="nav-item" data-view="settings" data-section="beheer"><i class="ti ti-settings"></i><span class="label" data-i18n="sb_settings">Instellingen</span></div>
+
+    <div class="sidebar-foot">
+      <button class="sidebar-collapse" title="Sidebar inklappen" data-i18n-title="sb_collapse"><i class="ti ti-chevrons-left"></i></button>
+      <span class="sidebar-foot-text" id="admin-build">v1.0 · build 2026.05</span>
+    </div>
+  </aside>
+
+  <!-- ════════════ MAIN ════════════ -->
+  <main class="main">
+
+    <!-- ═══ SYSTEM ALERT BANNER ═══ -->
+    <div id="system-alert" style="display:none;margin:16px 24px 0;padding:13px 18px;background:rgba(216,101,79,.12);border:1px solid rgba(216,101,79,.35);border-radius:10px;align-items:center;gap:12px;">
+      <i class="ti ti-alert-triangle sh-alert-ico"></i>
+      <div class="sh-alert-txt" id="system-alert-msg"></div>
+      <button class="sh-alert-x" onclick="document.getElementById('system-alert').style.display='none';" title="Sluiten">&times;</button>
+    </div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <section class="view is-active" id="view-overview">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="ov_eyebrow">Cockpit</div>
+          <h1><span data-i18n="ov_greeting">Goedemiddag, </span><em>Laurence</em></h1>
+        </div>
+        <div class="page-head-actions">
+        </div>
+      </div>
+
+      <!-- KPI ROW -->
+      <div class="kpi-row">
+        <div class="kpi-card" data-jump="leads">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-trending-up"></i></span><span data-i18n="ov_kpi_pipeline">Pipeline waarde</span></div>
+          <div class="kpi-value"><span class="cur">€</span><span id="kpi-pipeline">0</span><small>K</small></div>
+          <div class="kpi-trend"><span>Totale open waarde</span></div>
+        </div>
+        <div class="kpi-card" data-jump="leads">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-users"></i></span><span data-i18n="ov_kpi_leads">Actieve leads</span></div>
+          <div class="kpi-value"><span id="kpi-leads">0</span></div>
+          <div class="kpi-trend"><span>Actief in pipeline</span></div>
+        </div>
+        <div class="kpi-card" data-jump="forms">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-inbox"></i></span><span data-i18n="ov_kpi_subs">Formulier inzendingen</span></div>
+          <div class="kpi-value"><span id="kpi-subs">0</span></div>
+          <div class="kpi-trend"><span>Totaal ontvangen</span></div>
+        </div>
+        <div class="kpi-card" data-jump="forms">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-calendar-event"></i></span><span data-i18n="ov_kpi_meetings">Geplande gesprekken</span></div>
+          <div class="kpi-value"><span id="kpi-meetings">0</span></div>
+          <div class="kpi-trend"><i class="ti ti-clock"></i><span>Via formulier-inzendingen</span></div>
+        </div>
+      </div>
+
+      <!-- 2-COL -->
+      <div class="grid-2">
+        <!-- Activity feed -->
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h3 data-i18n-html="ov_recent">Recente <em>activiteit</em></h3>
+              <div class="panel-sub" data-i18n="ov_recent_sub">Wat speelt er vandaag</div>
+            </div>
+            <a class="panel-link" data-jump="forms" data-i18n="ov_viewall">Alles bekijken →</a>
+          </div>
+          <div class="panel-body is-flush">
+            <div class="feed" id="overview-feed"></div>
+          </div>
+        </div>
+
+        <!-- Trend chart -->
+        <div class="panel chart-card">
+          <div class="chart-header">
+            <div>
+              <div class="label" data-i18n="ov_chart_label">Activiteit · 14 dagen</div>
+              <div class="val"><span id="kpi-subs-2">—</span><small class="sh-h1-sub" data-i18n="ov_submissions"> inzendingen</small></div>
+            </div>
+          </div>
+          <svg id="overview-chart" class="chart-svg"></svg>
+          <div class="sh-kpigrid">
+            <div>
+              <div class="sh-kpi-lbl" data-i18n="ov_won">Gewonnen</div>
+              <div class="sh-kpi-num"><span id="kpi-won">—</span></div>
+            </div>
+            <div>
+              <div class="sh-kpi-lbl" data-i18n="ov_conv">Conversie</div>
+              <div class="sh-kpi-num is-orange"><span id="kpi-conv">—</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help banner -->
+    </section>
+
+    <!-- ═══ LEADS ═══ -->
+    <section class="view" id="view-leads">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="leads_eyebrow">CRM</div>
+          <h1 data-i18n-html="leads_h1">Leads <em>pipeline</em></h1>
+          <p data-i18n="leads_p">Volg leads van eerste contact tot getekend. Sleep niet — klik op een kaart om de status te wijzigen en notities toe te voegen.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost"><i class="ti ti-filter"></i><span data-i18n="leads_filter">Filter</span></button>
+          <button class="btn btn-ghost"><i class="ti ti-download"></i><span data-i18n="leads_export">Exporteer CSV</span></button>
+          <button class="btn btn-primary"><i class="ti ti-plus"></i><span data-i18n="leads_new">Nieuwe lead</span></button>
+        </div>
+      </div>
+
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n-html="leads_help">Elke kolom is een fase: <b>Nieuw</b> (nog niet gecontacteerd), <b>Gekwalificeerd</b> (interesse bevestigd), <b>Diagnose</b> (gesprek gepland), <b>Voorstel</b> (offerte verstuurd), <b>Gewonnen</b> (getekend).</p>
+      </div>
+
+      <!-- FIX 6: Zoekfunctie -->
+      <div class="sh-searchrow">
+        <div class="sh-searchbox">
+          <i class="ti ti-search sh-searchbox-ico"></i>
+          <input class="sh-searchbox-in" id="lead-search" type="search" placeholder="Zoek op naam, organisatie, e-mail…" autocomplete="off">
+        </div>
+        <select class="sh-select" id="lead-stage-filter">
+          <option value="">Alle fases</option>
+          <option value="new">Nieuw</option>
+          <option value="qualified">Gekwalificeerd</option>
+          <option value="diagnostic">Diagnose</option>
+          <option value="proposal">Voorstel</option>
+          <option value="won">Gewonnen</option>
+          <option value="cold">Koud</option>
+        </select>
+      </div>
+
+      <div class="pipeline" id="leads-pipeline"></div>
+    </section>
+
+    <!-- ═══ ANALYTICS ═══ -->
+    <section class="view" id="view-analytics">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="an_eyebrow">Verzuim-inzichten</div>
+          <h1 data-i18n-html="an_h1">Wat <em>vertelt</em> de data?</h1>
+          <p data-i18n="an_p">Alle inzendingen van de ROI-calculator en de fit check op één plek. Klik door voor detail per inzending.</p>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-calculator"></i></span><span data-i18n="an_kpi_calc">ROI berekeningen</span></div>
+          <div class="kpi-value"><span id="an-calc-count">0</span></div>
+          <div class="kpi-trend" data-i18n="an_kpi_calc_t">Totaal ingevuld</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-compass"></i></span><span data-i18n="an_kpi_fit">Fit checks</span></div>
+          <div class="kpi-value"><span id="an-fit-count">0</span></div>
+          <div class="kpi-trend" data-i18n="an_kpi_fit_t">Voltooid</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-sparkles"></i></span><span data-i18n="an_kpi_casey">Casey waitlist</span></div>
+          <div class="kpi-value"><span id="an-casey-count">0</span></div>
+          <div class="kpi-trend" data-i18n="an_kpi_casey_t">Inschrijvingen</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label"><span class="ico"><i class="ti ti-coins"></i></span><span data-i18n="an_kpi_avg">Gemiddelde verzuimkost</span></div>
+          <div class="kpi-value"><span id="an-avg-cost">€0K</span></div>
+          <div class="kpi-trend" data-i18n="an_kpi_avg_t">Per organisatie</div>
+        </div>
+      </div>
+
+      <div class="panel u-mb-20">
+        <div class="panel-head">
+          <div><h3 data-i18n-html="an_calc_title">ROI-calculator <em>inzendingen</em></h3><div class="panel-sub" data-i18n="an_calc_sub">Wie heeft de calculator afgewerkt</div></div>
+        </div>
+        <div class="panel-body is-flush">
+          <table class="tbl" id="an-calc-table">
+            <thead><tr><th data-i18n="an_th_email">E-mail</th><th data-i18n="an_th_cost">Verzuimkost</th><th data-i18n="an_th_size">Grootte</th><th data-i18n="an_th_wage">Loonkost</th><th data-i18n="an_th_when">Wanneer</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div><h3 data-i18n-html="an_fit_title">Fit check <em>resultaten</em></h3><div class="panel-sub" data-i18n="an_fit_sub">Welk advies kreeg elke organisatie</div></div>
+        </div>
+        <div class="panel-body is-flush">
+          <table class="tbl" id="an-fit-table">
+            <thead><tr><th data-i18n="an_th_email">E-mail</th><th data-i18n="an_th_advice">Advies route</th><th data-i18n="an_th_maturity">Maturity</th><th data-i18n="an_th_scale">Schaal</th><th data-i18n="an_th_when">Wanneer</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="an-contact-count" style="display:none;"></div>
+
+      <!-- Route breakdown (HOOG #4) -->
+      <div class="panel u-mt-20">
+        <div class="panel-head"><div><h3>Fit check <em>route-verdeling</em></h3><div class="panel-sub">Welke routes het vaakst gekozen worden</div></div><button class="btn btn-ghost sh-btn-mini" onclick="if(window.exportCsv&&window.DATA){window.exportCsv((DATA.submissions||{}).fitcheck||[],'fitcheck-routes.csv');}"><i class="ti ti-download"></i> CSV</button></div>
+        <div class="panel-body"><div class="sh-col8" id="an-route-breakdown"></div></div>
+      </div>
+      <div class="panel u-mt-20" id="an-traffic">
+        <div class="panel-head">
+          <div><h3>Website-<em>verkeer</em></h3><div class="panel-sub">Cookieloze paginabezoeken — geen cookies, geen IP, geen fingerprint</div></div>
+          <select class="sh-preset" id="an-traffic-period">
+            <option value="7">Laatste 7 dagen</option>
+            <option value="30" selected>Laatste 30 dagen</option>
+            <option value="90">Laatste 90 dagen</option>
+          </select>
+        </div>
+        <div class="panel-body"><div id="an-traffic-body"><div class="sh-help-line">Laden…</div></div></div>
+      </div>
+    </section>
+
+    <!-- ═══ ANALYSE (nieuwe module) ═══ -->
+    <section class="view" id="view-analyse"></section>
+
+    <!-- ═══ CONTENT ═══ -->
+    <section class="view" id="view-content">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="content_eyebrow">Content</div>
+          <h1 data-i18n-html="content_h1">Uw <em>pagina's</em></h1>
+          <p data-i18n="content_p">Overzicht van alle live pagina's in NL en EN. Klik op een knop om de pagina in een nieuw tabblad te openen of te bewerken.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost"><i class="ti ti-plus"></i><span data-i18n="content_new">Nieuwe pagina</span></button>
+        </div>
+      </div>
+
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n="content_help">In deze demo opent u pagina's in een nieuw tabblad. In productie kan u titels, meta-teksten en hero-copy direct hier bewerken zonder code aan te raken.</p>
+      </div>
+
+      <div class="grid-3" id="content-grid"></div>
+    </section>
+
+    <!-- ═══ SITE TEAM (About page team) ═══ -->
+    <section class="view" id="view-siteteam">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="siteteam_eyebrow">Team op website</div>
+          <h1 data-i18n-html="siteteam_h1">De mensen op uw <em>About-pagina</em></h1>
+          <p data-i18n="siteteam_p">Hier beheert u de personeelsleden zoals ze verschijnen op uw publieke website. Voeg toe, bewerk foto, naam, functie en bio. Iemand op pauze zetten verbergt ze tijdelijk zonder data te verliezen.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="siteteam-preview"><i class="ti ti-external-link"></i><span data-i18n="siteteam_preview">Bekijk About-pagina</span></button>
+          <button class="btn btn-primary" id="siteteam-add-btn"><i class="ti ti-user-plus"></i><span data-i18n="siteteam_add">Persoon toevoegen</span></button>
+        </div>
+      </div>
+
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n-html="siteteam_help"><b>3 statussen:</b> <em>Actief</em> verschijnt op de website. <em>Op pauze</em> blijft bewaard maar wordt niet getoond (handig bij vakantie of tijdelijk verlof). <em>Verwijderen</em> is permanent.</p>
+      </div>
+
+      <div class="grid-3" id="siteteam-grid"></div>
+    </section>
+
+    <!-- ═══ VERTROUWD DOOR (Home logo strip) ═══ -->
+    <section class="view" id="view-trustedby">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="trustedby_eyebrow">Vertrouwd door</div>
+          <h1 data-i18n-html="trustedby_h1">Logo's op uw <em>homepagina</em></h1>
+          <p data-i18n="trustedby_p">Beheer de bedrijven in de "Vertrouwd door"-strip op de homepage. Voeg toe, upload logo's, herorden en verberg. Gebruik uitsluitend officiële logo's die u mag tonen.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="trustedby-preview"><i class="ti ti-external-link"></i><span data-i18n="trustedby_preview">Bekijk homepage</span></button>
+          <button class="btn btn-ghost" id="trustedby-export"><i class="ti ti-download"></i><span data-i18n="trustedby_export">Exporteer .js</span></button>
+          <button class="btn btn-primary is-cta-orange" id="trustedby-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+          <button class="btn btn-primary" id="trustedby-add-btn"><i class="ti ti-plus"></i><span data-i18n="trustedby_add">Bedrijf toevoegen</span></button>
+        </div>
+      </div>
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n-html="trustedby_help"><b>Preview:</b> wijzigingen worden hier bewaard. Ze verschijnen op de website zodra de publicatie-bridge actief is — tot dan blijft de live strip ongewijzigd.</p>
+      </div>
+      <div class="grid-3" id="trustedby-grid"></div>
+    </section>
+
+    <!-- ═══ KLANTENQUOTES (Home testimonials) ═══ -->
+    <section class="view" id="view-testimonials">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="testi_eyebrow">Klantenquotes</div>
+          <h1 data-i18n-html="testi_h1">Quotes op uw <em>homepagina</em></h1>
+          <p data-i18n="testi_p">Beheer de "Wat onze klanten zeggen"-kaarten op de homepage. Per kaart: functie + bedrijf bovenaan, citaat onderaan. NL én EN.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="testimonials-preview"><i class="ti ti-external-link"></i><span data-i18n="testi_preview">Bekijk homepage</span></button>
+          <button class="btn btn-ghost" id="testimonials-export"><i class="ti ti-download"></i><span data-i18n="testi_export">Exporteer .js</span></button>
+          <button class="btn btn-primary is-cta-orange" id="testimonials-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+          <button class="btn btn-primary" id="testimonials-add-btn"><i class="ti ti-plus"></i><span data-i18n="testi_add">Quote toevoegen</span></button>
+        </div>
+      </div>
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n-html="testi_help"><b>Preview:</b> wijzigingen worden hier bewaard. Ze verschijnen op de homepage zodra de publicatie-bridge actief is — tot dan blijven de live quotes ongewijzigd.</p>
+      </div>
+      <div class="grid-3" id="testimonials-grid"></div>
+    </section>
+
+    <!-- ═══ REFERENTIES (case-detailpagina's) ═══ -->
+    <section class="view" id="view-cases">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard; exporteer <code>cases.js</code> en plaats het in <code>/website/data/</code> om ze live te zetten.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Referenties</div>
+          <h1>Cases op uw <em>referentiepagina</em></h1>
+          <p>Beheer de volledige case-detailpagina per klant — van banner tot quote. Eén keer invoeren; de kaart op /referenties en de subpagina worden ervan opgebouwd. NL én EN.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="cases-preview"><i class="ti ti-external-link"></i>Bekijk referenties</button>
+          <button class="btn btn-ghost" id="cases-export"><i class="ti ti-download"></i>Exporteer .js</button>
+          <button class="btn btn-primary" id="cases-add-btn"><i class="ti ti-plus"></i>Referentie toevoegen</button>
+        </div>
+      </div>
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p><b>Structuur:</b> identiteit &amp; kaart · banner · over het bedrijf · uitdaging · aanpak · resultaten · in één oogopslag · klantquote. De sectie “Klaar om te starten?” en de footer staan vast en worden niet ingevuld.</p>
+      </div>
+      <div class="grid-3" id="cases-grid"></div>
+    </section>
+
+    <!-- ═══ PDF MANAGEMENT (FIX 3) ═══ -->
+    <section class="view" id="view-pdfmanagement">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">PDF Rapporten</div>
+          <h1>Calculator <em>PDF's</em></h1>
+          <p>Download, bekijk status of genereer PDF-rapporten opnieuw per lead. Download-links verlopen na 24 uur.</p>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p><b>Inert tot K1.</b> PDF generatie en downloads werken zodra Supabase geconfigureerd is. De tabel hieronder toont de submissions die via de live bridge zijn opgehaald.</p></div>
+      <div class="panel">
+        <div class="panel-body is-flush">
+          <table class="tbl" id="pdf-table">
+            <thead><tr><th>Naam</th><th>Organisatie</th><th>Verzuimkost</th><th>PDF Status</th><th>Aangevraagd</th><th>Actie</th></tr></thead>
+            <tbody id="pdf-tbody"><tr><td colspan="6" class="a-td-empty">Geen data beschikbaar — verbind Supabase om echte PDF-records te laden.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EMAIL LOG (FIX 4 + 5) ═══ -->
+    <section class="view" id="view-emaillog">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">E-mail log</div>
+          <h1>Bezorging <em>&amp; testmails</em></h1>
+          <p>Bekijk mislukte e-mailleveringen en verstuur testmails om templates te controleren.</p>
+        </div>
+      </div>
+
+      <!-- Testmail section -->
+      <div class="panel u-mb-20">
+        <div class="panel-head"><div><h3>Stuur testmail</h3><div class="panel-sub">Verifieer templates en Resend-integratie</div></div></div>
+        <div class="panel-body">
+          <div class="sh-formrow">
+            <label class="sh-fieldcol">
+              <span class="a-label-b">Type</span>
+              <select class="sh-select2 is-wide" id="tm-type">
+                <option value="calculator_internal">Calculator — intern</option>
+                <option value="contact_confirm">Contact — bevestiging bezoeker</option>
+                <option value="fitcheck_confirm">Fit check — bevestiging bezoeker</option>
+                <option value="booking_confirm">Afspraak — bevestiging bezoeker</option>
+              </select>
+            </label>
+            <label class="sh-fieldcol">
+              <span class="a-label-b">Taal</span>
+              <select class="sh-select2" id="tm-lang">
+                <option value="nl">NL</option>
+                <option value="en">EN</option>
+              </select>
+            </label>
+            <label class="sh-fieldcol is-grow">
+              <span class="a-label-b">Ontvanger</span>
+              <input class="sh-input2" id="tm-to" type="email" placeholder="laurence@montisoro.com">
+            </label>
+            <button id="tm-send" class="btn btn-primary u-noshrink"><i class="ti ti-send"></i> Stuur testmail</button>
+          </div>
+          <div class="sh-result" id="tm-result"></div>
+        </div>
+      </div>
+
+      <!-- Delivery failures log -->
+      <div class="panel">
+        <div class="panel-head"><div><h3>Bezorgingsfouten</h3><div class="panel-sub">Recente mislukte e-mail- of PDF-leveringen uit Supabase</div></div>
+          <button id="ef-refresh" class="btn btn-ghost sh-btn-mini"><i class="ti ti-refresh"></i> Vernieuwen</button>
+        </div>
+        <div class="panel-body is-flush">
+          <table class="tbl"><thead><tr><th>Type</th><th>Ontvanger</th><th>Fout</th><th>Tijdstip</th><th>Actie</th></tr></thead>
+            <tbody id="ef-tbody"><tr><td colspan="5" class="a-td-empty">Geen bezorgingsfouten. Verbind Supabase om live data te laden.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BOOKING SCHEDULE ═══ -->
+    <section class="view" id="view-bookingschedule">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Boekingsschema</div>
+          <h1>Beschikbare <em>tijdslots</em></h1>
+          <p>Stel in op welke dagen en tijdstippen bezoekers een gesprek kunnen plannen. Wijzigingen gaan live na publicatie.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary is-cta-orange" id="bs-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p><b>Inert tot Supabase gekoppeld is.</b> Het schema wordt bewaard in uw browser en bij publicatie naar Supabase geschreven. De boekingsflow leest het schema live op. Zolang Supabase niet geconfigureerd is, gebruikt de site het standaardschema.</p></div>
+      <div id="bs-body"></div>
+    </section>
+
+    <!-- ═══ SEO ═══ -->
+    <section class="view" id="view-microcopy">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Content</div>
+          <h1>Microcopy <em>beheer</em></h1>
+          <p>De vaak-gewijzigde zinnen op de homepage (hero-CTA's + geruststelling), NL + EN. Publiceer om live te zetten.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary is-cta-orange" id="mc-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p>Leeg laten = de standaardtekst op de site blijft. Alleen ingevulde velden overschrijven.</p></div>
+      <div id="mc-body"></div>
+    </section>
+
+    <!-- ═══ VANDAAG ═══ -->
+    <section class="view" id="view-today">
+      <div class="page-head"><div>
+        <div class="eyebrow">Vandaag</div>
+        <h1 data-today-h1></h1>
+        <p data-today-sub></p>
+      </div></div>
+      <div id="today-body"></div>
+    </section>
+
+    <!-- ═══ AGENDA (boekingen) ═══ -->
+    <section class="view" id="view-bookings">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Operationeel</div>
+          <h1>Agenda — <em>afspraken</em></h1>
+          <p>Alle gesprekken die bezoekers via de website boekten, met online of ter-plaatse duidelijk aangegeven.</p>
+        </div>
+      </div>
+      <div id="bookings-body"></div>
+    </section>
+
+    <!-- ═══ SEO ═══ -->
+    <section class="view" id="view-emailtemplates">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Content</div>
+          <h1>E-mail <em>teksten</em></h1>
+          <p>De onderwerpsregels van de bevestigingsmails naar bezoekers (NL + EN). De opmaak en het PDF-rapport blijven in code.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary is-cta-orange" id="et-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p>Leeg laten = de standaard-onderwerpregel blijft. Alleen ingevulde velden overschrijven.</p></div>
+      <div id="et-body"></div>
+    </section>
+
+    <!-- ═══ SEO ═══ -->
+    <section class="view" id="view-seo">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Content</div>
+          <h1>SEO <em>beheer</em></h1>
+          <p>Pagina-titel en meta-omschrijving per pagina (NL + EN). Publiceer om live te zetten. Leeg laten = de standaard blijft.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary is-cta-orange" id="seo-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p>Houd titels ±50–60 tekens en omschrijvingen ±150–160 tekens voor Google. Canonical/hreflang blijven automatisch correct.</p></div>
+      <div id="seo-body"></div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="view" id="view-faq">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Content</div>
+          <h1>FAQ <em>beheer</em></h1>
+          <p>Veelgestelde vragen op de Aanpak-pagina (NL + EN). Wijzig, voeg toe, sleep niet — gebruik de pijlen. Publiceer om live te zetten.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="faq-add"><i class="ti ti-plus"></i> Vraag toevoegen</button>
+          <button class="btn btn-primary is-cta-orange" id="faq-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p>Leeg laten = de standaard FAQ op de site blijft staan. Zodra je publiceert, vervangt jouw lijst de standaard (NL toont NL-velden, EN toont EN-velden).</p></div>
+      <div id="faq-body"></div>
+    </section>
+
+    <!-- ═══ FEATURE FLAGS ═══ -->
+    <section class="view" id="view-featureflags">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow">Feature Flags</div>
+          <h1>Kill-switches voor <em>live flows</em></h1>
+          <p>Schakel booking, fit check of calculator tijdelijk uit zonder code te wijzigen. Actief na publicatie via Supabase.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary is-cta-orange" id="ff-publish"><i class="ti ti-cloud-upload"></i> Publiceer naar site</button><span class="draft-note" data-i18n="draft_note">Nog niet gepubliceerd — wijzigingen staan lokaal tot u publiceert.</span>
+        </div>
+      </div>
+      <div class="help-banner"><i class="ti ti-info-circle"></i><p><b>Inert tot Supabase gekoppeld is.</b> Wijzigingen worden bewaard in uw browser en gepubliceerd naar de website via de read-bridge (<code>/api/site-content</code>). Zodra Supabase geconfigureerd is gaan wijzigingen live binnen 5 minuten.</p></div>
+      <div id="ff-body"></div>
+    </section>
+
+    <!-- ═══ LANGUAGES ═══ -->
+    <section class="view" id="view-languages">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="lang_eyebrow">Taalbeheer</div>
+          <h1 data-i18n-html="lang_h1">NL &amp; EN <em>synchroon</em></h1>
+          <p data-i18n="lang_p">Controleer of elke Nederlandse pagina een Engelse tegenhanger heeft en omgekeerd. Statussen tonen of vertalingen up-to-date zijn.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-body is-flush">
+          <table class="tbl">
+            <thead><tr><th data-i18n="lang_th_page">Pagina</th><th data-i18n="lang_th_nl">NL bestand</th><th data-i18n="lang_th_en">EN bestand</th><th data-i18n="lang_th_status">Status</th><th data-i18n="lang_th_updated">Bijgewerkt</th></tr></thead>
+            <tbody id="lang-grid"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FORMS ═══ -->
+    <section class="view" id="view-forms">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="forms_eyebrow">Inbox</div>
+          <h1 data-i18n-html="forms_h1">Formulier <em>inzendingen</em></h1>
+          <p data-i18n="forms_p">Alles wat via uw 4 formulieren binnenkomt. Klik op een tabblad om die stream te zien.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" onclick="if(window.exportCsv&&window.DATA){var s=DATA.submissions||{};var cur=document.querySelector('.forms-tab.is-active');var stream=cur?cur.dataset.stream:'contact';window.exportCsv(s[stream]||[],'montisoro-'+stream+'-'+new Date().toISOString().slice(0,10)+'.csv');}"><i class="ti ti-download"></i> Exporteer CSV</button>
+          <a href="#analytics" class="btn btn-ghost" onclick="window.Admin&&window.Admin.showView('analytics');return false;"><i class="ti ti-chart-arcs"></i><span data-i18n="forms_analytics_btn">Verzuim-inzichten</span></a>
+        </div>
+      </div>
+
+      <div class="tabs u-mb-24">
+        <button class="tab forms-tab is-active" data-stream="contact"><i class="ti ti-calendar-event u-mr-6"></i><span data-i18n="forms_tab_contact">Contact</span></button>
+        <button class="tab forms-tab" data-stream="casey"><i class="ti ti-sparkles u-mr-6"></i><span data-i18n="forms_tab_casey">Casey waitlist</span></button>
+        <button class="tab forms-tab" data-stream="calculator"><i class="ti ti-report-money u-mr-6"></i><span data-i18n="forms_tab_calc">Verzuim rapport</span></button>
+        <button class="tab forms-tab" data-stream="fitcheck"><i class="ti ti-compass u-mr-6"></i><span data-i18n="forms_tab_fit">Fit check</span></button>
+        <button class="tab forms-tab" data-stream="booking"><i class="ti ti-calendar-check u-mr-6"></i><span data-i18n="forms_tab_booking">Afspraken</span></button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-body is-flush">
+          <div id="forms-list" class="feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CALCULATOR PARAMETERS ═══ -->
+    <section class="view" id="view-calcparams">
+      <div class="sync-banner" role="note"><i class="ti ti-info-circle" aria-hidden="true"></i><p data-i18n-html="sync_preview"><strong>Preview · nog niet live.</strong> Wijzigingen hier worden bewaard, maar verschijnen pas op de website zodra de publicatie-bridge actief is.</p></div>
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="cp_eyebrow">Beheer</div>
+          <h1 data-i18n-html="cp_h1">Calculator <em>parameters</em></h1>
+          <p data-i18n="cp_p">Pas de vaste aannames van de verzuimcalculator aan wanneer de wet of de sectorcijfers wijzigen. Geldt voor calculator, PDF-rapport én e-mails.</p>
+        </div>
+        <div class="page-head-actions"></div>
+      </div>
+      <div id="calcparams-body"></div>
+    </section>
+
+    <!-- ═══ TEAM ═══ -->
+    <section class="view" id="view-team">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="team_eyebrow">Team</div>
+          <h1 data-i18n-html="team_h1">Wie heeft <em>toegang?</em></h1>
+          <p data-i18n="team_p">Beheer wie kan inloggen op deze admin en welke rechten ze hebben.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-primary" id="team-invite-btn"><i class="ti ti-user-plus"></i><span data-i18n="team_invite">Persoon uitnodigen</span></button>
+        </div>
+      </div>
+
+      <div class="help-banner">
+        <i class="ti ti-info-circle"></i>
+        <p data-i18n-html="team_help"><b>3 rollen:</b> <em>Admin</em> kan alles. <em>Editor</em> kan content bewerken maar geen team beheren. <em>Viewer</em> kan alleen kijken.</p>
+      </div>
+
+      <div class="grid-3" id="team-grid"></div>
+    </section>
+
+    <!-- ═══ ACTIVITY LOG ═══ -->
+    <section class="view" id="view-activity">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="al_eyebrow">Audit trail</div>
+          <h1 data-i18n-html="al_h1">Wie deed <em>wat?</em></h1>
+          <p data-i18n="al_p">Volledige geschiedenis van wijzigingen in de admin. GDPR-vereiste en handig voor accountability bij meerdere editors.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-ghost" id="activity-export"><i class="ti ti-download"></i><span data-i18n="al_export">Export CSV</span></button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-body is-flush"><div class="feed" id="activity-feed"></div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SETTINGS ═══ -->
+    <section class="view" id="view-settings">
+      <div class="page-head">
+        <div>
+          <div class="eyebrow" data-i18n="set_eyebrow">Instellingen</div>
+          <h1 data-i18n-html="set_h1">Configuratie & <em>integraties</em></h1>
+          <p data-i18n="set_p">Algemene instellingen voor de site, formulieren en integraties.</p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab set-tab is-active" data-tab="general"><i class="ti ti-adjustments u-mr-8"></i><span data-i18n="set_tab_general">Algemeen</span></button>
+        <button class="tab set-tab" data-tab="formulas"><i class="ti ti-calculator u-mr-8"></i><span data-i18n="set_tab_formulas">Formules &amp; marges</span></button>
+        <button class="tab set-tab" data-tab="forms"><i class="ti ti-mail u-mr-8"></i><span data-i18n="set_tab_forms">Formulieren</span></button>
+        <button class="tab set-tab" data-tab="integrations"><i class="ti ti-plug u-mr-8"></i><span data-i18n="set_tab_integrations">Integraties</span></button>
+        <button class="tab set-tab" data-tab="seo"><i class="ti ti-world-search u-mr-8"></i><span data-i18n="set_tab_seo">SEO</span></button>
+        <button class="tab set-tab" data-tab="legal"><i class="ti ti-license u-mr-8"></i><span data-i18n="set_tab_legal">Wettelijk</span></button>
+      </div>
+
+      <!-- General -->
+      <div class="set-pane" id="set-general">
+        <div class="panel u-mb-20">
+          <div class="panel-head"><h3 data-i18n="set_company">Bedrijfsgegevens</h3></div>
+          <div class="panel-body">
+            <div class="sh-grid2">
+              <div class="field"><label data-i18n="set_f_company">Bedrijfsnaam</label><input value="Montisoro BV"></div>
+              <div class="field"><label data-i18n="set_f_vat">BTW-nummer</label><input value="BE0733840137"></div>
+              <div class="field" style="grid-column:1/-1;"><label data-i18n="set_f_address">Adres</label><input value="Tisseltstraat 25, 1880 Ramsdonk, België"></div>
+              <div class="field"><label data-i18n="set_f_email">Algemeen e-mailadres</label><input value="hello@montisoro.com"></div>
+              <div class="field"><label data-i18n="set_f_phone">Telefoon</label><input value="+32 477 89 91 86"></div>
+            </div>
+            <button class="btn btn-primary u-mt-8" data-save-setting><i class="ti ti-check"></i><span data-i18n="set_save">Opslaan</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forms -->
+      <div class="set-pane" id="set-formulas" style="display:none;">
+        <div id="formulas-pane"></div>
+      </div>
+
+      <!-- Forms -->
+      <div class="set-pane" id="set-forms" style="display:none;">
+
+        <!-- E-mail bestemming -->
+        <div class="panel u-mb-20">
+          <div class="panel-head">
+            <div>
+              <h3 data-i18n-html="set_email_title">Naar welk e-mailadres <em>versturen?</em></h3>
+              <div class="panel-sub" data-i18n="set_email_sub">Hier komen alle formulier-meldingen toe</div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="field"><label data-i18n="set_f_main_email">Hoofd e-mailadres</label><input id="notif-email" type="email" value="hello@montisoro.com"><div class="hint" data-i18n="set_hint_main">Alle aangevinkte notificaties (zie hieronder) komen naar dit adres.</div></div>
+            <div class="field"><label><span data-i18n="set_f_cc">Kopie naar (CC)</span> <span class="sh-legend-note" data-i18n="set_cc_opt">(optioneel)</span></label><input id="notif-cc" type="email" value="" placeholder="jeroen@montisoro.com"><div class="hint" data-i18n="set_hint_cc">Iemand anders ook in CC zetten? Vul hier het adres in. Leeg = geen CC.</div></div>
+            <div class="field"><label data-i18n="set_f_reply">Reply-to adres</label><input id="notif-reply" type="email" value="hello@montisoro.com"><div class="hint" data-i18n="set_hint_reply">Wanneer u op de notificatie antwoordt, gaat het naar dit adres.</div></div>
+            <button class="btn btn-primary" id="notif-save"><i class="ti ti-check"></i><span data-i18n="set_save_email">E-mailadres opslaan</span></button>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="panel u-mb-20">
+          <div class="panel-head">
+            <div>
+              <h3 data-i18n-html="set_notif_title">Welke <em>notificaties?</em></h3>
+              <div class="panel-sub" data-i18n="set_notif_sub">Klik "Bekijk e-mail" om te zien wat verstuurd wordt</div>
+            </div>
+          </div>
+          <div class="panel-body" id="notif-toggles"></div>
+        </div>
+
+      </div>
+
+      <!-- Integrations -->
+      <div class="set-pane" id="set-integrations" style="display:none;">
+        <div id="integrations-grid"></div>
+      </div>
+
+      <!-- SEO -->
+      <div class="set-pane" id="set-seo" style="display:none;">
+        <div class="panel">
+          <div class="panel-head"><h3 data-i18n="set_seo_title">Globale SEO-instellingen</h3></div>
+          <div class="panel-body">
+            <div class="field"><label data-i18n="set_f_metatitle">Standaard meta-titel</label><input value="Montisoro · Care wordt systeem"></div>
+            <div class="field"><label data-i18n="set_f_metadesc">Standaard meta-beschrijving</label><textarea rows="3">Montisoro maakt care werkbaar en capability schaalbaar. Externe regie, Storm operating system en Casey AI voor verzuimbeheer.</textarea></div>
+            <div class="field"><label data-i18n="set_f_ogimg">Sociale media afbeelding (1200×630)</label><input type="text" placeholder="og-image.jpg"><div class="hint" data-i18n="set_hint_ogimg">Upload een afbeelding die getoond wordt wanneer iemand uw site deelt op LinkedIn of e-mail.</div></div>
+            <button class="btn btn-primary" data-save-setting><i class="ti ti-check"></i><span data-i18n="set_save">Opslaan</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal -->
+      <div class="set-pane" id="set-legal" style="display:none;">
+        <div class="panel">
+          <div class="panel-head"><h3 data-i18n="set_legal_title">Wettelijke pagina's</h3><div class="panel-sub" data-i18n="set_legal_sub">Privacy, disclaimer, cookies</div></div>
+          <div class="panel-body">
+            <div class="sh-btnwrap">
+              <a href="#" data-site-link="privacy.html" target="_blank" rel="noopener" class="btn btn-ghost"><i class="ti ti-external-link"></i><span data-i18n="set_legal_privacy_nl">Privacy NL</span></a>
+              <a href="#" data-site-link="privacy-en.html" target="_blank" rel="noopener" class="btn btn-ghost"><i class="ti ti-external-link"></i><span data-i18n="set_legal_privacy_en">Privacy EN</span></a>
+              <a href="#" data-site-link="disclaimer.html" target="_blank" rel="noopener" class="btn btn-ghost"><i class="ti ti-external-link"></i><span data-i18n="set_legal_disclaimer_nl">Disclaimer NL</span></a>
+              <a href="#" data-site-link="disclaimer-en.html" target="_blank" rel="noopener" class="btn btn-ghost"><i class="ti ti-external-link"></i><span data-i18n="set_legal_disclaimer_en">Disclaimer EN</span></a>
+            </div>
+            <div class="hint sh-hint2" data-i18n="set_legal_hint">Wettelijke teksten bewerken doet u via Content → Pagina's. Vergeet bij elke aanpassing de "laatst bijgewerkt" datum aan te passen.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GDPR Data Deletion (nr 5) -->
+      <div class="panel sh-danger">
+        <div class="panel-head"><div><h class="sh-danger-h"3>GDPR — Recht op wissen (Art. 17)</h3><div class="panel-sub">Verwijder alle gegevens van een persoon permanent. Enkel voor Admin-rol.</div></div></div>
+        <div class="panel-body">
+          <div class="sh-danger-row">
+            <label class="sh-fieldcol is-grow-220">
+              <span class="a-label-b">E-mail van betrokkene</span>
+              <input class="sh-input-danger" id="gdpr-email" type="email" placeholder="naam@bedrijf.com">
+            </label>
+            <label class="sh-fieldcol is-grow-180">
+              <span class="a-label-b">Tabel</span>
+              <select class="sh-input-danger" id="gdpr-table">
+                <option value="form_submissions">Formulierinzendingen (contact/fitcheck/casey/booking)</option>
+                <option value="calculator_submissions">Calculator-rapporten</option>
+              </select>
+            </label>
+            <button id="gdpr-delete-btn" class="btn sh-btn-danger"><i class="ti ti-trash"></i> Verwijder gegevens</button>
+          </div>
+          <div class="sh-result" id="gdpr-result"></div>
+          <p class="sh-danger-note">⚠️ Verwijdering is onomkeerbaar. Zorg dat je de juiste persoon verwijdert. Verwijdering wordt gelogd (wie/wanneer/welk record) in de Netlify-functielog voor audit-doeleinden. Bewaar het logboek minimaal 1 jaar per AVG Art. 5(2).</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- Drawer -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<div class="drawer" id="drawer"></div>
+
+<!-- Toast -->
+<div class="toast-stack" id="toast" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<script src="../services/admin-data.js"></script>
+<script src="../services/admin-i18n.js"></script>
+<script src="../scripts/admin-roles.js"></script>
+<script src="../services/verzuim-engine.js"></script>
+<script src="../scripts/admin-calcparams.js"></script>
+<script src="../scripts/admin-siteteam.js"></script>
+<script src="../scripts/admin-trustedby.js"></script>
+<script src="../scripts/admin-testimonials.js"></script>
+<script src="../scripts/admin-cases.js"></script>
+<script src="../scripts/admin-analyse.js"></script>
+<script src="../scripts/admin-pro.js"></script>
+<script src="../scripts/admin.js"></script>
+<script src="../scripts/admin-sync.js"></script>
+<script src="../scripts/admin-today.js"></script>
+<script src="../scripts/admin-tools.js"></script>
+<script src="../scripts/admin-final.js"></script>
+<script src="../scripts/admin-agenda.js"></script>
+<script src="../scripts/admin-enterprise.js"></script>
+<script src="../scripts/admin-bookingschedule.js"></script>
+<script src="../scripts/admin-emaillog.js"></script>
+<script src="../scripts/admin-featureflags.js"></script>
+<script src="../scripts/admin-faq.js"></script>
+<script src="../scripts/admin-seo.js"></script>
+<script src="../scripts/admin-microcopy.js"></script>
+<script src="../scripts/admin-emailtemplates.js"></script>
+<script src="../scripts/admin-bookings.js"></script>
+<script>
+// Sync second pipeline counter from KPI value
+(function(){
+  // Collapsible sidebar sections — Audit P7: progressive disclosure (alles standaard ingeklapt)
+  function initHeader(header){
+    if (header.dataset.collWired) return;
+    header.dataset.collWired = '1';
+    var section = header.dataset.section;
+    var items = function(){ return document.querySelectorAll('.nav-item[data-section="'+section+'"]'); };
+    var key = 'admin.section.collapsed.' + section;
+    var stored = localStorage.getItem(key);
+    var startCollapsed = (stored === null) ? true : (stored !== '0');
+    function apply(collapsed){
+      header.classList.toggle('is-collapsed', collapsed);
+      var mark = header.querySelector('.toggle-mark');
+      if (mark) mark.textContent = collapsed ? '+' : '−';
+      items().forEach(function(it){ it.classList.toggle('is-hidden', collapsed); });
+    }
+    apply(startCollapsed);
+    header.addEventListener('click', function(){
+      var nowCollapsed = !header.classList.contains('is-collapsed');
+      apply(nowCollapsed);
+      localStorage.setItem(key, nowCollapsed ? '1' : '0');
+    });
+  }
+  function scanSections(){ document.querySelectorAll('.sidebar-collapsible').forEach(initHeader); }
+  scanSections();
+  // Later geïnjecteerde secties (Pro tools, Enterprise) verschijnen ná load → observeer de zijbalk
+  var _sb = document.querySelector('.sidebar');
+  if (_sb && window.MutationObserver){ new MutationObserver(scanSections).observe(_sb, { childList:true, subtree:true }); }
+  // Make all 8 KPI cards on Overview clickable
+  document.addEventListener('click', function(e){
+    var card = e.target.closest('.kpi-card[data-jump]');
+    if (!card) return;
+    var view = card.dataset.jump;
+    if (window.Admin && window.Admin.showView) window.Admin.showView(view);
+  });
+  function sync(){
+    var el = document.getElementById('kpi-subs');
+    var el2 = document.getElementById('kpi-subs-2');
+    if (el && el2) el2.textContent = el.textContent;
+  }
+  document.addEventListener('DOMContentLoaded', sync);
+  setTimeout(sync, 100);
+  // Refresh sidebar badges from live data once the runtime has loaded
+  setTimeout(function(){ window.Admin && window.Admin.updateSidebarBadges && window.Admin.updateSidebarBadges(); }, 350);
+
+  // Audit P24 — tijdsbewuste, gelokaliseerde begroeting (i.p.v. altijd “Goedemiddag”)
+  function setGreeting(){
+    var el = document.querySelector('[data-i18n="ov_greeting"]') || document.getElementById('ov-greeting');
+    if(!el) return;
+    el.id = 'ov-greeting'; el.removeAttribute('data-i18n');
+    var h = new Date().getHours();
+    var en = !!(window.MONTISORO_ADMIN_I18N && window.MONTISORO_ADMIN_I18N.getLang && window.MONTISORO_ADMIN_I18N.getLang()==='en');
+    el.textContent = (h<6 ? (en?'Good night, ':'Goedenacht, ') : h<12 ? (en?'Good morning, ':'Goedemorgen, ') : h<18 ? (en?'Good afternoon, ':'Goedemiddag, ') : (en?'Good evening, ':'Goedenavond, '));
+  }
+  setGreeting(); setTimeout(setGreeting, 200);
+  document.addEventListener('admin:langchange', setGreeting);
+
+  // Audit P30 — build-label uit één bron (config.js)
+  var _bl = document.getElementById('admin-build');
+  if (_bl && window.ADMIN_BUILD) _bl.textContent = window.ADMIN_BUILD;
+
+  // Audit P29 — subtiele lege-staat hint onder de KPI's zolang er nog geen data is
+  function kpiEmptyHint(){
+    var ids = ['kpi-pipeline','kpi-leads','kpi-subs'];
+    var allZero = ids.every(function(id){ var e=document.getElementById(id); if(!e) return true; var n=parseFloat((e.textContent||'').replace(/[^0-9.,]/g,'').replace(',','.')); return !n; });
+    var first = document.querySelector('#view-overview .kpi-card');
+    var grid = first ? first.parentElement : null;
+    if(!grid) return;
+    var hint = document.getElementById('kpi-empty-hint');
+    if(allZero){
+      if(!hint){ hint=document.createElement('div'); hint.id='kpi-empty-hint'; hint.className='kpi-empty-hint'; grid.parentNode.insertBefore(hint, grid.nextSibling); }
+      var en = !!(window.MONTISORO_ADMIN_I18N && window.MONTISORO_ADMIN_I18N.getLang && window.MONTISORO_ADMIN_I18N.getLang()==='en');
+      hint.textContent = en ? 'No data yet — figures appear as soon as visitors submit forms and leads come in.' : 'Nog geen data — cijfers verschijnen zodra bezoekers formulieren invullen en er leads binnenkomen.';
+    } else if(hint){ hint.remove(); }
+  }
+  setTimeout(kpiEmptyHint, 400); setTimeout(kpiEmptyHint, 1300);
+})();
+// Panel-link "Alles bekijken" jumps to forms view
+document.querySelectorAll('[data-jump]').forEach(function(el){
+  el.style.cursor='pointer';
+  el.addEventListener('click', function(){ window.Admin && window.Admin.showView(el.dataset.jump); });
+});
+</script>
+
+<script>
+// Resolve data-site-link refs via window.SITE_URL (set in config.js)
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[data-site-link]');
+  if (!a) return;
+  e.preventDefault();
+  var base = (window.SITE_URL || '../../website/pages').replace(/\/$/, '');
+  window.open(base + '/' + a.dataset.siteLink, '_blank', 'noopener');
+});
+</script>
+<script>
+(function(){
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function empty(m){return "<div style=\"font-size:12px;color:var(--a-muted-2);padding:8px 0;\">"+m+"</div>";}
+  function barRows(arr,total){return arr.map(function(it){var pct=Math.round((it.count/(total||1))*100);return "<div style=\"display:flex;align-items:center;gap:12px;margin-bottom:6px;\"><div style=\"flex:0 0 210px;font-size:12px;font-weight:600;color:var(--a-off);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;\" title=\""+esc(it.key)+"\">"+esc(it.key)+"</div><div style=\"flex:1;height:8px;background:rgba(29,29,31,.08);border-radius:4px;overflow:hidden;\"><div style=\"height:100%;width:"+pct+"%;background:var(--a-orange);border-radius:4px;\"></div></div><div style=\"flex:0 0 64px;text-align:right;font-size:12px;color:var(--a-muted-2);\">"+it.count+" ("+pct+"%)</div></div>";}).join("");}
+  function build(d){
+    var maxDay=Math.max.apply(null,d.byDay.map(function(x){return x.count;}).concat([1]));
+    var bars=d.byDay.map(function(x){var ht=Math.max(Math.round((x.count/maxDay)*64),2);return "<div title=\""+x.day+": "+x.count+"\" style=\"flex:1;display:flex;align-items:flex-end;justify-content:center;\"><div style=\"width:100%;max-width:16px;height:"+ht+"px;background:var(--a-orange);border-radius:3px 3px 0 0;opacity:"+(x.count?.9:.2)+";\"></div></div>";}).join("");
+    var html="";
+    html+="<div style=\"display:flex;align-items:baseline;gap:10px;margin-bottom:18px;\"><span style=\"font-family:var(--a-serif,serif);font-size:34px;font-weight:700;color:var(--a-off);\">"+d.total+"</span><span style=\"font-size:12.5px;color:var(--a-muted-2);\">paginabezoeken · laatste "+d.days+" dagen</span></div>";
+    html+="<div style=\"display:flex;align-items:flex-end;gap:3px;height:72px;margin-bottom:24px;padding-bottom:6px;border-bottom:1px solid rgba(29,29,31,.10);\">"+bars+"</div>";
+    html+="<div style=\"font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a-muted-2);margin-bottom:12px;\">Top pagina’s</div>"+barRows(d.topPaths,d.total);
+    html+="<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px;\">";
+    html+="<div><div style=\"font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a-muted-2);margin-bottom:12px;\">Bronnen</div>"+barRows(d.sources,d.total)+"</div>";
+    html+="<div><div style=\"font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a-muted-2);margin-bottom:12px;\">Apparaat</div>"+barRows(d.devices,d.total)+"</div>";
+    html+="</div>";
+    html+="<div style=\"margin-top:20px;\"><button id=\"an-traffic-csv\" class=\"btn btn-ghost\" style=\"font-size:12px;\"><i class=\"ti ti-download\"></i> Exporteer top-pagina’s (CSV)</button></div>";
+    return html;
+  }
+  window.renderTraffic=function(days){
+    var host=document.getElementById("an-traffic-body"); if(!host) return;
+    var sess; try{sess=JSON.parse(sessionStorage.getItem("admin.session")||"{}");}catch(e){sess={};}
+    if(!sess||!sess.token){host.innerHTML=empty("Log in om verkeer te zien.");return;}
+    host.innerHTML=empty("Laden…");
+    fetch("/api/admin-analytics",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:sess.token,days:days||30})})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(d){
+        if(!d||!d.ok){host.innerHTML=empty("Meting nog niet actief of geen toegang.");return;}
+        if(!d.total){host.innerHTML=empty("Nog geen paginabezoeken in deze periode.");return;}
+        host.innerHTML=build(d);
+        var csv=document.getElementById("an-traffic-csv");
+        if(csv&&window.exportCsv) csv.addEventListener("click",function(){window.exportCsv(d.topPaths.map(function(x){return {pagina:x.key,bezoeken:x.count};}),"verkeer-top-paginas.csv");});
+      }).catch(function(){host.innerHTML=empty("Verkeer kon niet geladen worden.");});
+  };
+  function wrap(){
+    var orig=window.init_analytics;
+    window.init_analytics=function(){ if(typeof orig==="function") orig(); var sel=document.getElementById("an-traffic-period"); if(sel&&!sel.__w){sel.__w=1;sel.addEventListener("change",function(){window.renderTraffic(parseInt(sel.value,10)||30);});} window.renderTraffic(sel?(parseInt(sel.value,10)||30):30); };
+    var av=document.querySelector("#view-analytics.is-active"); if(av) window.init_analytics();
+  }
+  function ready(){ if(typeof window.init_analytics!=="function"){return setTimeout(ready,60);} wrap(); }
+  ready();
+})();
+</script>
+</body>
+</html>

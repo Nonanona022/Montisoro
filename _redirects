@@ -1,0 +1,42 @@
+# ═══════════════════════════════════════════════════════════════════
+# Montisoro — _redirects (publish-dir: ALTIJD gelezen door Netlify,
+# ook als netlify.toml buiten de publish-map niet wordt meegenomen).
+# Spiegelt de [[redirects]] uit netlify.toml. First-match-wins, top→onder.
+# ═══════════════════════════════════════════════════════════════════
+
+# ── API → Netlify Functions (zonder deze 404't /api/* → login + health kapot) ──
+/api/calculator-report       /.netlify/functions/calculator-report       200
+/api/track                   /.netlify/functions/track                   200
+/api/event                   /.netlify/functions/event                   200
+/api/admin-metrics           /.netlify/functions/admin-metrics           200
+/api/metrics-rollup          /.netlify/functions/metrics-rollup          200
+/api/admin-gsc               /.netlify/functions/admin-gsc               200
+/api/gsc-callback            /.netlify/functions/gsc-callback            200
+/api/admin-auth              /.netlify/functions/admin-auth              200
+/api/form-submit             /.netlify/functions/form-submit             200
+/api/booking-availability    /.netlify/functions/booking-availability    200
+/api/admin-submissions       /.netlify/functions/admin-submissions       200
+/api/admin-analytics         /.netlify/functions/admin-analytics         200
+/api/site-content            /.netlify/functions/site-content            200
+/api/admin-content           /.netlify/functions/admin-content           200
+/api/admin-form-submissions  /.netlify/functions/admin-form-submissions  200
+/api/admin-mark              /.netlify/functions/admin-mark              200
+/api/admin-pdf               /.netlify/functions/admin-pdf               200
+/api/admin-failures          /.netlify/functions/admin-failures          200
+/api/admin-testmail          /.netlify/functions/admin-testmail          200
+/api/admin-delete            /.netlify/functions/admin-delete            200
+/api/admin-leads             /.netlify/functions/admin-leads             200
+/api/admin-audit             /.netlify/functions/admin-audit             200
+/api/admin-users             /.netlify/functions/admin-users             200
+/api/health                  /.netlify/functions/health                  200
+
+# ── SEO: dubbele URL's consolideren naar de canonieke schone URL (301) ──
+/Home.html         /             301!
+/pages/Home.html   /             301!
+/pages/Home        /             301!
+/pages/:slug.html  /:slug.html   301!
+/pages/:slug       /:slug.html   301!
+
+# ── Schone URL's serveren (200 rewrite, URL blijft schoon) ──
+/                  /pages/Home.html    200!
+/:slug.html        /pages/:slug.html   200

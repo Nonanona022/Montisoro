@@ -1,0 +1,16 @@
+{
+  "name": "montisoro-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Montisoro FASE 2 — calculator report backend (Netlify Functions)",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node test/run-engine-tests.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "resend": "^4.0.0",
+    "puppeteer-core": "^23.0.0",
+    "@sparticuz/chromium": "^131.0.0"
+  }
+}

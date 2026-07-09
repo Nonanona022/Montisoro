@@ -1,0 +1,270 @@
+# ═══════════════════════════════════════════════════════════════════
+# Montisoro — Netlify configuration (FASE 2 backend)
+# ═══════════════════════════════════════════════════════════════════
+
+[build]
+  # Static site — geen build-stap nodig.
+  publish = "website"
+  functions = "netlify/functions"
+
+# Secrets scanning: publieke URL's zijn geen geheimen
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SITE_BASE_URL,ALLOWED_ORIGIN,MAIL_FROM,INTERNAL_NOTIFY_EMAIL"
+
+[functions]
+  # esbuild bundles the JS; bundle the shared engine, PDF template and logo
+  # so the serverless function can read them at runtime.
+  node_bundler = "esbuild"
+  included_files = [
+    "website/services/verzuim-engine.js",
+    "website/services/email-templates.js",
+    "website/config/calculator-params.js",
+    "website/documents/verzuimrapport-test-report.html",
+    "website/documents/verzuimrapport-test-report-en.html",
+    "website/documents/verzuimrapport-test.content.js",
+    "website/documents/verzuimrapport-test-en.content.js",
+    "website/stylesheets/fonts.css",
+    "website/assets/fonts/*.woff2",
+    "website/assets/montisoro-logo.png",
+    "website/assets/montisoro-logo-dark.png",
+    "website/assets/montisoro-wordmark-dark.png"
+  ]
+
+[functions."calculator-report"]
+  # chromium binary is large — give it room and time.
+  included_files = ["node_modules/@sparticuz/chromium/**"]
+
+# Analyse-module: nachtelijke rollup events → daily_metrics (#6 schaal)
+# Draait elke nacht om 03:15 UTC (± 04:15/05:15 Brussel). Herberekent de
+# laatste 3 dagen (vangt nakomende events). Handmatig triggeren kan via
+# /api/metrics-rollup?days=N (idempotent).
+[functions."metrics-rollup"]
+  schedule = "15 3 * * *"
+
+# Friendly endpoint alias
+[[redirects]]
+  from = "/api/track"
+  to = "/.netlify/functions/track"
+  status = 200
+
+# Analyse-module: cookieloze event-ingest
+[[redirects]]
+  from = "/api/event"
+  to = "/.netlify/functions/event"
+  status = 200
+
+# Analyse-module: admin-aggregaties (HMAC-beveiligd)
+[[redirects]]
+  from = "/api/admin-metrics"
+  to = "/.netlify/functions/admin-metrics"
+  status = 200
+
+# Analyse-module: handmatige rollup-trigger (idempotent; scheduled draait sowieso)
+[[redirects]]
+  from = "/api/metrics-rollup"
+  to = "/.netlify/functions/metrics-rollup"
+  status = 200
+
+# Analyse-module: Google Search Console koppeling (HMAC-beveiligd)
+[[redirects]]
+  from = "/api/admin-gsc"
+  to = "/.netlify/functions/admin-gsc"
+  status = 200
+
+# Analyse-module: OAuth-callback voor Search Console (publiek, signed state)
+[[redirects]]
+  from = "/api/gsc-callback"
+  to = "/.netlify/functions/gsc-callback"
+  status = 200
+
+[[redirects]]
+  from = "/api/calculator-report"
+  to = "/.netlify/functions/calculator-report"
+  status = 200
+
+# Admin authentication (K2 — server-side password check + signed token)
+[[redirects]]
+  from = "/api/admin-auth"
+  to = "/.netlify/functions/admin-auth"
+  status = 200
+
+# Site form submissions (contact / fit-check / Casey) — replaces Web3Forms
+[[redirects]]
+  from = "/api/form-submit"
+  to = "/.netlify/functions/form-submit"
+  status = 200
+
+# Boeking: live vrij/bezet uit de Outlook-agenda (Microsoft Graph)
+[[redirects]]
+  from = "/api/booking-availability"
+  to = "/.netlify/functions/booking-availability"
+  status = 200
+
+# Admin → Supabase read bridge (calculator leads in the admin inbox)
+[[redirects]]
+  from = "/api/admin-analytics"
+  to = "/.netlify/functions/admin-analytics"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin-submissions"
+  to = "/.netlify/functions/admin-submissions"
+  status = 200
+
+# Website ↔ dashboard read-bridge (public content: testimonials / trusted-by / calc params)
+[[redirects]]
+  from = "/api/site-content"
+  to = "/.netlify/functions/site-content"
+  status = 200
+
+# Admin write-bridge (HMAC-protected, writes site_content to Supabase)
+[[redirects]]
+  from = "/api/admin-content"
+  to = "/.netlify/functions/admin-content"
+  status = 200
+
+# Admin form submissions read-bridge (contact/fitcheck/casey/booking)
+[[redirects]]
+  from = "/api/admin-form-submissions"
+  to = "/.netlify/functions/admin-form-submissions"
+  status = 200
+
+# Admin mark read/handled (persistent status op inzendingen)
+[[redirects]]
+  from = "/api/admin-mark"
+  to = "/.netlify/functions/admin-mark"
+  status = 200
+
+# FIX 3: PDF signed URL (admin only)
+[[redirects]]
+  from = "/api/admin-pdf"
+  to = "/.netlify/functions/admin-pdf"
+  status = 200
+
+# FIX 4: Delivery failures log (admin only)
+[[redirects]]
+  from = "/api/admin-failures"
+  to = "/.netlify/functions/admin-failures"
+  status = 200
+
+# FIX 5: Testmail sender (admin only)
+[[redirects]]
+  from = "/api/admin-testmail"
+  to = "/.netlify/functions/admin-testmail"
+  status = 200
+
+# Nr 5: GDPR data deletion (admin only, hard delete)
+[[redirects]]
+  from = "/api/admin-delete"
+  to = "/.netlify/functions/admin-delete"
+  status = 200
+
+# Nr 3: CRM leads (admin/consultant/sales read+write, viewer read)
+[[redirects]]
+  from = "/api/admin-leads"
+  to = "/.netlify/functions/admin-leads"
+  status = 200
+
+# 2c: audit-trail (admin-acties, onverliesbaar in Supabase)
+[[redirects]]
+  from = "/api/admin-audit"
+  to = "/.netlify/functions/admin-audit"
+  status = 200
+
+# STAP 4: admin-gebruikersbeheer (RBAC, admin-rol only)
+[[redirects]]
+  from = "/api/admin-users"
+  to = "/.netlify/functions/admin-users"
+  status = 200
+
+# Health check endpoint (public, uptime monitors)
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+# ═══════════════════════════════════════════════════════════════════
+# SEO — DUBBELE URL's CONSOLIDEREN (301 naar de canonieke schone URL)
+# /pages/* en /Home.html mogen niet als aparte indexeerbare kopie blijven
+# bestaan naast de schone URL's. 301 → één canonieke versie per pagina.
+# Volgorde: deze specifieke 301's staan VÓÓR de generieke rewrites hieronder,
+# zodat ze eerst matchen (Netlify = first-match-wins). Geen loop: de rewrite-
+# targets (/pages/*) worden direct geserveerd, niet opnieuw door de regels gehaald.
+# ═══════════════════════════════════════════════════════════════════
+# Home heeft één canonieke URL: "/"
+[[redirects]]
+  from = "/Home.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/Home.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/Home"
+  to = "/"
+  status = 301
+  force = true
+
+# Overige pagina's: /pages/X(.html) → schone /X.html
+[[redirects]]
+  from = "/pages/:slug.html"
+  to = "/:slug.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/:slug"
+  to = "/:slug.html"
+  status = 301
+  force = true
+
+# ═══════════════════════════════════════════════════════════════════
+# SCHONE URL's — serveer /pages/* op de root (montisoro.com/about-en.html)
+# zodat canonical + hreflang + sitemap (allemaal /X.html) kloppen met wat
+# Netlify echt serveert. 200 = rewrite (URL blijft schoon, geen redirect-hop).
+# ═══════════════════════════════════════════════════════════════════
+# Homepage → Home.html (force: overschrijft de noindex index.html splash)
+[[redirects]]
+  from = "/"
+  to = "/pages/Home.html"
+  status = 200
+  force = true
+
+# Elke /X.html op de root → /pages/X.html (vangt about-en.html, calculator.html, …)
+[[redirects]]
+  from = "/:slug.html"
+  to = "/pages/:slug.html"
+  status = 200
+
+# ═══════════════════════════════════════════════════════════════════
+# Deploy contexts — beta-first workflow (Regel 2)
+# ───────────────────────────────────────────────────────────────────
+# Production = the "production" branch → live site (montisoro.com).
+# Staging    = the "staging" branch → beta deploy reviewers approve on
+#              BEFORE merging to production. This is the beta context.
+# Branch/PR deploys = any other branch or pull request → treated as non-prod.
+#
+# DEPLOY_ENV is the only value safe to commit here. ALL real secrets
+# (RESEND_API_KEY, SUPABASE_URL/SERVICE_ROLE_KEY, ALLOWED_ORIGIN, base URLs…)
+# are scoped PER CONTEXT in the Netlify UI — never in this file.
+# ⚠ Staging MUST point at a SEPARATE Supabase project/bucket and a test
+#   Resend setup, so beta tests never touch production leads/PDFs or mail
+#   real customers. See project-docs/staging.md.
+# ═══════════════════════════════════════════════════════════════════
+
+[context.production.environment]
+  DEPLOY_ENV = "production"
+
+[context.staging.environment]
+  DEPLOY_ENV = "staging"
+
+[context.branch-deploy.environment]
+  DEPLOY_ENV = "staging"
+
+[context.deploy-preview.environment]
+  DEPLOY_ENV = "preview"

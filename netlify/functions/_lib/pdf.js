@@ -1,0 +1,88 @@
+/* ═══════════════════════════════════════════════════════════════════
+   _lib/pdf.js — HTML report template → A4 PDF buffer
+   Loads the briefing-structure report (verzuimrapport-test-report{,-en}.html),
+   inlines the engine + variant content + brand fonts so chromium renders
+   self-contained, injects window.__MONTISORO_REPORT, prints to PDF.
+   Language (NL/EN) is chosen from report.lang.
+═══════════════════════════════════════════════════════════════════ */
+'use strict';
+const fs = require('fs');
+const path = require('path');
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
+
+// resolve project-root-relative paths (bundled via included_files)
+const ROOT = path.resolve(__dirname, '..', '..', '..');
+const P = (rel) => path.join(ROOT, rel);
+
+function readText(rel) { return fs.readFileSync(P(rel), 'utf8'); }
+function readDataUri(rel, mime) {
+  const b64 = fs.readFileSync(P(rel)).toString('base64');
+  return `data:${mime};base64,${b64}`;
+}
+
+// inline the brand fonts: rewrite the woff2 url()'s in fonts.css to data URIs
+function inlineFonts() {
+  const css = readText('website/stylesheets/fonts.css');
+  return css.replace(/url\('\.\.\/assets\/fonts\/([^']+\.woff2)'\)/g,
+    function (m, f) { return 'url(' + readDataUri('website/assets/fonts/' + f, 'font/woff2') + ')'; });
+}
+
+function buildHtml(report) {
+  const lang = (report && report.lang === 'en') ? 'en' : 'nl';
+  const tpl = lang === 'en'
+    ? 'website/documents/verzuimrapport-test-report-en.html'
+    : 'website/documents/verzuimrapport-test-report.html';
+  const contentTag = lang === 'en'
+    ? '<script src="verzuimrapport-test-en.content.js"></script>'
+    : '<script src="verzuimrapport-test.content.js"></script>';
+  const contentFile = lang === 'en'
+    ? 'website/documents/verzuimrapport-test-en.content.js'
+    : 'website/documents/verzuimrapport-test.content.js';
+
+  let html = readText(tpl);
+  const engine = readText('website/services/verzuim-engine.js');
+  const content = readText(contentFile);
+  const params = readText('website/config/calculator-params.js');
+
+  // inline external scripts (relative <script src> won't resolve in setContent)
+  html = html.replace('<script src="../config/calculator-params.js"></script>', `<script>${params}</script>`);
+  html = html.replace('<script src="../services/verzuim-engine.js"></script>', `<script>${engine}</script>`);
+  html = html.replace(contentTag, `<script>${content}</script>`);
+
+  // inline brand fonts (woff2 → data URI) so chromium renders self-contained
+  html = html.replace('<link rel="stylesheet" href="../stylesheets/fonts.css">', `<style>${inlineFonts()}</style>`);
+
+  // inject the report data BEFORE the page's own render script runs
+  const inject = `<script>window.__MONTISORO_REPORT = ${JSON.stringify(report)};</script>`;
+  html = html.replace('</head>', `${inject}</head>`);
+
+  return html;
+}
+
+async function renderPdf(report) {
+  const html = buildHtml(report);
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless,
+    defaultViewport: { width: 1240, height: 1754, deviceScaleFactor: 2 }
+  });
+  try {
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: 'networkidle0' });
+    // give fonts + render a beat
+    await page.evaluateHandle('document.fonts.ready');
+    const buffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      preferCSSPageSize: true,
+      margin: { top: '0', right: '0', bottom: '0', left: '0' }
+    });
+    return buffer;
+  } finally {
+    await browser.close();
+  }
+}
+
+module.exports = { renderPdf, buildHtml };

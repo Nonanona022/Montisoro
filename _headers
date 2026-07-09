@@ -1,0 +1,48 @@
+# Security + caching headers for Montisoro public site.
+# Format: Netlify / Cloudflare Pages _headers.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cross-Origin-Opener-Policy: same-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; frame-src 'self'; connect-src 'self' https://cdnjs.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests;
+
+# Stylesheets/scripts/assets — files are NOT fingerprinted (no build step),
+# so cache for 1 day instead of 1 year. Updates propagate within 24h.
+/stylesheets/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/scripts/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/services/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/utils/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Images (rarely change after launch — longer cache OK)
+/assets/*.jpg
+  Cache-Control: public, max-age=2592000
+/assets/*.png
+  Cache-Control: public, max-age=2592000
+/assets/*.svg
+  Cache-Control: public, max-age=604800
+/assets/*
+  Cache-Control: public, max-age=604800
+
+# Short-cache HTML (content updates propagate fast)
+/pages/*
+  Cache-Control: public, max-age=300, must-revalidate
+/
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Never cache config (so key rotations are instant)
+/config/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Admin panel — keep out of search indexes + never cache (served same-origin).
+# Real protection is server-side (admin-auth HMAC); this stops crawling/caching.
+/admin-panel/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache, no-store, must-revalidate
