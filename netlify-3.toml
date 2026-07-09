@@ -22,7 +22,7 @@
   # as a self-contained package. esbuild-bundling it breaks that lib resolution
   # ("error while loading shared libraries"), so keep it EXTERNAL (shipped as a
   # real node_module, not inlined). puppeteer-core too, for safe measure.
-  external_node_modules = ["@sparticuz/chromium", "puppeteer-core"]
+  external_node_modules = ["@sparticuz/chromium-min", "puppeteer-core"]
   included_files = [
     "website/services/verzuim-engine.js",
     "website/services/email-templates.js",
@@ -44,7 +44,6 @@
   # must ALSO list every file _lib/pdf.js reads at runtime (report template +
   # engine + params + fonts) — otherwise renderPdf throws ENOENT (HTTP 500).
   included_files = [
-    "node_modules/@sparticuz/chromium/**",
     "website/services/verzuim-engine.js",
     "website/config/calculator-params.js",
     "website/documents/verzuimrapport-test-report.html",

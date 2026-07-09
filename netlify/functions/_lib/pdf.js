@@ -8,7 +8,12 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const chromium = require('@sparticuz/chromium');
+const chromium = require('@sparticuz/chromium-min');
+// The full @sparticuz/chromium binary (>50MB) exceeds Netlify's function bundle
+// limit, so its shared libs (libnspr4.so, …) get dropped -> "error while loading
+// shared libraries". The -min package instead downloads ONE complete pack (binary
+// + libs together) to /tmp on first use and reuses it on warm starts.
+const CHROMIUM_PACK = 'https://github.com/Sparticuz/chromium/releases/download/v131.0.0/chromium-v131.0.0-pack.tar';
 const puppeteer = require('puppeteer-core');
 
 // Robust root resolution: esbuild bundles _lib/pdf.js INTO the function file,
@@ -103,12 +108,7 @@ async function buildHtml(report) {
 
 async function renderPdf(report) {
   const html = await buildHtml(report);
-  // @sparticuz/chromium is kept EXTERNAL (see netlify.toml) so its no-arg
-  // executablePath() resolves node_modules/@sparticuz/chromium/bin correctly
-  // AND extracts its bundled shared libraries (libnspr4.so, …) to /tmp with
-  // LD_LIBRARY_PATH set. Passing a custom path SKIPS that lib extraction →
-  // "error while loading shared libraries: libnspr4.so". So: no argument.
-  const execPath = await chromium.executablePath();
+  const execPath = await chromium.executablePath(CHROMIUM_PACK);
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: execPath,
