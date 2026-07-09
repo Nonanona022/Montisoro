@@ -11,9 +11,25 @@ const path = require('path');
 const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
 
-// resolve project-root-relative paths (bundled via included_files)
-const ROOT = path.resolve(__dirname, '..', '..', '..');
-const P = (rel) => path.join(ROOT, rel);
+// Robust root resolution: esbuild bundles _lib/pdf.js INTO the function file,
+// so __dirname's depth varies by how Netlify lays the bundle out. Try several
+// candidate roots (+ cwd) and use whichever actually contains the file —
+// included_files land at their repo-relative paths under the task root.
+const CANDIDATE_ROOTS = [
+  path.resolve(__dirname, '..', '..', '..'),
+  process.cwd(),
+  path.resolve(__dirname, '..', '..'),
+  path.resolve(__dirname, '..'),
+  __dirname,
+  path.resolve(process.cwd(), '..')
+];
+function P(rel) {
+  for (let i = 0; i < CANDIDATE_ROOTS.length; i++) {
+    const cand = path.join(CANDIDATE_ROOTS[i], rel);
+    try { if (fs.existsSync(cand)) return cand; } catch (e) {}
+  }
+  return path.join(CANDIDATE_ROOTS[0], rel); // fallback → clear ENOENT path
+}
 
 function readText(rel) { return fs.readFileSync(P(rel), 'utf8'); }
 function readDataUri(rel, mime) {
