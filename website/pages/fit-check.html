@@ -419,6 +419,11 @@ body{padding-top:64px;}
 @media(max-width:880px){.fco-panel{position:static;}}
 .fc-seclabel{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin:32px 0 16px;font-family:var(--sans);}
 .fc-seclabel::before{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+.fco .m-accordion .m-acc-head,.fco-doc .m-accordion .m-acc-head{grid-template-columns:1fr 28px;gap:14px;padding:20px 0;}
+.fco .m-accordion .m-acc-head:hover,.fco-doc .m-accordion .m-acc-head:hover{padding-left:0;}
+.fco .m-accordion .m-acc-title,.fco-doc .m-accordion .m-acc-title{font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);}
+.fco .m-accordion .m-acc-toggle,.fco-doc .m-accordion .m-acc-toggle{width:28px;height:28px;}
+.fco .m-accordion .m-acc-content,.fco-doc .m-accordion .m-acc-content{padding:0 0 4px;}
 .fc-intro{font-size:14px;color:var(--muted-d);line-height:1.6;margin:-6px 0 22px;max-width:600px;}
 .fc-block-p{font-size:14.5px;color:var(--muted-d);line-height:1.75;margin-bottom:26px;max-width:600px;}
 .fc-proof{border:1px solid var(--div-d-2);border-radius:14px;padding:18px 20px;background:rgba(240,237,232,0.02);}
@@ -842,7 +847,7 @@ body{padding-top:64px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#87efe2ebebe8c7eae8e9f3eef4e8f5e8a9e4e8ea" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#aac2cfc6c6c5eac7c5c4dec3d9c5d8c584c9c5c7" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="Home.html">Home</a></li><li><a href="aanpak.html">Aanpak</a></li><li><a href="technologie.html">Technologie</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ.html">FAQ</a></li><li><a href="Referentie.html">Referenties</a></li><li><a href="fit-check.html">Fit check</a></li><li><a href="calculator.html">Verzuimcalculator</a></li></ul></div>
@@ -1549,14 +1554,17 @@ var FitCheck = {
       return '<div><i class="ph-light ph-dot-outline"></i><span>' + escapeHTML(v) + '</span></div>';
     }).join('');
     var bewijsHtml = result.blocks.bewijs
-      ? '<div class="fc-seclabel">Bewijs</div>' +
-        '<div class="fc-proof"><div class="fc-proof-tag">Referentiecase op aanvraag</div><p>' + escapeHTML(result.blocks.bewijs) + '</p></div>'
+      ? '<div class="m-accordion"><button class="m-acc-head" type="button" aria-expanded="false"><span class="m-acc-title">Bewijs</span><span class="m-acc-toggle" aria-hidden="true"></span></button><div class="m-acc-body"><div class="m-acc-inner"><div class="m-acc-content">' +
+        '<div class="fc-proof"><div class="fc-proof-tag">Referentiecase op aanvraag</div><p>' + escapeHTML(result.blocks.bewijs) + '</p></div>' +
+        '</div></div></div></div>'
       : '';
     var gatedInner =
-      '<div class="fc-seclabel">Onze aanpak</div>' +
+      '<div class="m-accordion"><button class="m-acc-head" type="button" aria-expanded="false"><span class="m-acc-title">Onze aanpak</span><span class="m-acc-toggle" aria-hidden="true"></span></button><div class="m-acc-body"><div class="m-acc-inner"><div class="m-acc-content">' +
       '<p class="fc-block-p">' + escapeHTML(result.blocks.oplossing) + '</p>' +
-      '<div class="fc-seclabel">Wat dit traject omvat</div>' +
+      '</div></div></div></div>' +
+      '<div class="m-accordion"><button class="m-acc-head" type="button" aria-expanded="false"><span class="m-acc-title">Wat dit traject omvat</span><span class="m-acc-toggle" aria-hidden="true"></span></button><div class="m-acc-body"><div class="m-acc-inner"><div class="m-acc-content">' +
       '<div class="fc-recommendation">' + vHtml + '</div>' +
+      '</div></div></div></div>' +
       bewijsHtml;
 
     var mainHtml =
@@ -1627,7 +1635,7 @@ var FitCheck = {
         '</div></div>';
     }
     this.stage.scrollTop = 0;
-    (function(st){ var mb=st.querySelector('.fc-more'); if(mb){ var cl=mb.previousElementSibling; mb.addEventListener('click',function(){ var o=cl.classList.toggle('is-open'); mb.classList.toggle('is-open',o); mb.childNodes[0].nodeValue=(o?'Minder ':'Lees meer '); }); } })(this.stage);
+    (function(st){ var mb=st.querySelector('.fc-more'); if(mb){ var cl=mb.previousElementSibling; mb.addEventListener('click',function(){ var o=cl.classList.toggle('is-open'); mb.classList.toggle('is-open',o); mb.childNodes[0].nodeValue=(o?'Minder ':'Lees meer '); }); } st.querySelectorAll('.m-accordion .m-acc-head').forEach(function(head){ head.addEventListener('click',function(){ var it=head.closest('.m-accordion'); var op=it.classList.toggle('is-open'); head.setAttribute('aria-expanded',op?'true':'false'); }); }); })(this.stage);
 
     if (!unlocked){
       var gName = document.getElementById('fcGateName');
