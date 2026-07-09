@@ -1,0 +1,218 @@
+/* ═══════════════════════════════════════════════════════════════════
+   shell.css — gedeelde Montisoro "Sober preset" shell (22 juni 2026)
+   FASE 1: volwaardige footer (.ms-footer). Cover-variant op Home,
+   subtiele zwarte variant op binnenpagina's. Eigen ms-namespace zodat
+   het NIET botst met de bestaande .m-footer / pagina-CSS.
+   Laad als LAATSTE in <head> (na montisoro-v2.css) of vóór </body>.
+═══════════════════════════════════════════════════════════════════ */
+:root{
+  --ms-bg-deep:#0D0905; --ms-orange:#E8592B; --ms-orange-hover:#d04d22;
+  --ms-off:#F0EDE8; --ms-muted:rgba(240,237,232,0.80); --ms-faint:rgba(240,237,232,0.56);
+  --ms-line:rgba(240,237,232,0.12);
+  --ms-serif:'Playfair Display',Georgia,serif;
+  --ms-sans:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+/* WCAG 2.4.1 — skip-link (verborgen tot focus) */
+.ms-skip{position:fixed;top:8px;left:8px;z-index:200000;background:#CC4A1E;color:#fff;font-family:var(--ms-sans);font-size:14px;font-weight:600;line-height:1;padding:12px 18px;border-radius:8px;text-decoration:none;transform:translateY(-150%);transition:transform .2s ease;}
+.ms-skip:focus{transform:translateY(0);outline:2px solid #fff;outline-offset:2px;}
+.ms-footer{position:relative;overflow:hidden;background:var(--ms-bg-deep);}
+.ms-footer .ms-fbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:none;}
+.ms-footer.cover .ms-fbg{display:block;-webkit-mask-image:linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.30) 16%, rgba(0,0,0,0.75) 38%, #000 58%);mask-image:linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.30) 16%, rgba(0,0,0,0.75) 38%, #000 58%);}
+.ms-footer .ms-fveil{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 52% 60% at 88% 0%, rgba(232,89,43,0.07), transparent 70%);}
+.ms-footer.cover .ms-fveil{background:linear-gradient(to bottom,rgba(13,9,5,0.42) 0%,rgba(13,9,5,0.72) 42%,rgba(13,9,5,0.93) 100%);}
+.ms-foot-in{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:clamp(50px,6vw,80px) clamp(22px,5vw,56px) 0;}
+
+/* CTA-band */
+.ms-foot-band{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;flex-wrap:wrap;padding-bottom:clamp(36px,5vw,54px);border-bottom:1px solid var(--ms-line);}
+.ms-foot-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ms-orange);margin-bottom:16px;font-family:var(--ms-sans);}
+.ms-foot-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--ms-orange);}
+.ms-foot-band h2{font-family:var(--ms-serif);font-weight:700;font-size:clamp(26px,3.2vw,42px);line-height:1.1;letter-spacing:-.02em;color:#fff;max-width:560px;}
+.ms-foot-band h2 em{font-style:italic;color:var(--ms-orange);}
+/* CTA-band alleen op de Home-footer (cover-variant); op subpagina's verbergen */
+.ms-footer:not(.cover) .ms-foot-band{display:none;}
+.ms-footer:not(.cover) .ms-foot-grid{padding-top:0;}
+
+/* Lux-knop (vlak, sober) */
+.ms-foot-btn{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;background:var(--ms-orange);color:#fff;font-family:var(--ms-sans);font-size:14px;font-weight:600;letter-spacing:.03em;text-decoration:none;border-radius:100px;padding:15px 30px;transition:background .2s,transform .15s;white-space:nowrap;}
+.ms-foot-btn:hover{background:var(--ms-orange-hover);transform:translateY(-1px);}
+.ms-foot-btn svg{width:16px;height:16px;}
+
+/* kolommen */
+.ms-foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:clamp(36px,4.5vw,56px);padding:clamp(48px,5.5vw,68px) 0;}
+.ms-foot-brand img{height:58px;width:auto;display:block;margin-bottom:18px;}
+.ms-foot-brand p{font-family:var(--ms-sans);font-style:normal;font-weight:400;font-size:15px;line-height:1.5;color:var(--ms-off);max-width:300px;margin:0 0 20px;}
+.ms-foot-brand p em{font-style:normal;}
+.ms-foot-socials{display:flex;gap:10px;flex-wrap:wrap;}
+.ms-foot-social{display:inline-flex;align-items:center;gap:9px;font-family:var(--ms-sans);font-size:13px;font-weight:500;color:var(--ms-off);text-decoration:none;border:1px solid var(--ms-line);border-radius:100px;padding:10px 18px;transition:border-color .2s,background .2s;}
+.ms-foot-social:hover{border-color:var(--ms-orange);background:rgba(232,89,43,0.08);}
+.ms-foot-social svg{width:16px;height:16px;}
+.ms-foot-social.icon-only{padding:10px;width:44px;justify-content:center;}
+.ms-foot-col h3{font-family:var(--ms-sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ms-faint);margin:0 0 16px;}
+.ms-foot-col ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin:0;padding:0;}
+.ms-foot-col a{font-family:var(--ms-sans);font-size:14px;font-weight:400;color:var(--ms-muted);text-decoration:none;background-image:linear-gradient(var(--ms-orange),var(--ms-orange));background-size:0% 1px;background-position:0 100%;background-repeat:no-repeat;transition:color .25s cubic-bezier(.16,1,.3,1),background-size .3s cubic-bezier(.16,1,.3,1);}
+.ms-foot-col a:hover{color:var(--ms-orange);background-size:100% 1px;}
+.ms-foot-contact{display:flex;flex-direction:column;gap:10px;}
+.ms-foot-contact h4{margin-bottom:6px;}
+.ms-foot-contact a{font-family:var(--ms-sans);font-size:14px;color:var(--ms-muted);text-decoration:none;line-height:1.5;transition:color .25s cubic-bezier(.16,1,.3,1);margin:0;}
+.ms-foot-contact a:hover{color:var(--ms-orange);}
+.ms-foot-contact .ms-wordmark{font-family:var(--ms-sans);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:none;color:var(--ms-off);margin:0;}
+.ms-foot-contact .ms-vat{font-family:var(--ms-sans);font-size:12.5px;color:var(--ms-muted);line-height:1.5;margin:0;}
+
+/* onderbalk */
+.ms-foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--ms-line);}
+.ms-foot-bottom .ms-copy{font-family:var(--ms-sans);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ms-faint);}
+.ms-foot-legal{display:flex;flex-wrap:wrap;gap:10px 22px;}
+.ms-foot-legal a{font-family:var(--ms-sans);font-size:12px;color:var(--ms-faint);text-decoration:none;transition:color .2s;}
+.ms-foot-legal a:hover{color:var(--ms-orange);}
+
+/* tablet */
+@media(max-width:880px){
+  .ms-foot-grid{grid-template-columns:1fr 1fr;gap:34px 26px;}
+  .ms-foot-band{gap:24px;}
+}
+/* gsm */
+@media(max-width:560px){
+  .ms-foot-grid{grid-template-columns:1fr;gap:30px;}
+  .ms-foot-band{flex-direction:column;align-items:flex-start;gap:22px;}
+  .ms-foot-btn{width:100%;justify-content:center;}
+  /* gsm: logo + slogan weg; social-iconen rechtsonder op de lijn van de BTW-regel */
+  .ms-foot-grid{position:relative;}
+  .ms-foot-brand{position:absolute;right:0;bottom:0;width:auto;padding:0;margin:0;border:none;}
+  .ms-foot-brand img,.ms-foot-brand p{display:none;}
+  .ms-foot-socials{justify-content:flex-end;gap:10px;margin:0;}
+}
+
+/* ═══ FASE 2 — nav: EXACT de "Sober preset" uit de ontwerptool, op nav-boxed2 ═══
+   Waarden 1-op-1 uit `Banner zwart vs gekleurd.html` (.m-navpill + .nav-soft + .m-en). */
+@media(min-width:1181px){
+  /* balk zelf transparant — logo, pil en EN zweven over de hero (géén zwarte band) */
+  body.nav-boxed2 .m-nav,body.nav-boxed2 .m-nav.scrolled{background:transparent !important;border-bottom:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;box-shadow:none !important;}
+  /* flex-layout zoals de ontwerptool: logo | pil | EN (géén absolute centrering) */
+  body.nav-boxed2 #mNav{display:flex !important;align-items:center !important;justify-content:space-between !important;gap:20px;padding:24px clamp(32px,4vw,48px) 24px !important;position:fixed !important;top:0;left:0;right:0;}
+  body.nav-boxed2 .m-nav-logo img{height:44px !important;}
+  /* witte frosted pil — getemperd 3D, als flex-item (niet meer absoluut gecentreerd) */
+  body.nav-boxed2 .m-nav-links{position:static !important;left:auto !important;top:auto !important;transform:none !important;max-width:none !important;width:auto !important;flex:0 1 auto !important;justify-content:center !important;gap:2px !important;margin:0 !important;background:rgba(255,255,255,0.9) !important;border:1px solid rgba(255,255,255,0.5) !important;-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.92),0 12px 34px -8px rgba(0,0,0,0.45),0 4px 10px rgba(0,0,0,0.18) !important;padding:7px 7px 7px 14px !important;}
+  body.nav-boxed2 .m-nav-links li a:not(.m-cta){color:#33302b !important;font-size:14.5px !important;font-weight:500 !important;letter-spacing:0 !important;border-radius:100px !important;padding:11px 16px !important;transition:background .25s ease,color .25s ease !important;}
+  body.nav-boxed2 .m-nav-links li a:not(.m-cta):hover{background:rgba(232,89,43,.07) !important;color:var(--ms-orange) !important;font-weight:600 !important;transform:none !important;}
+  /* actieve pagina = zachte oranje-tint pil (CTA blijft het enige volle oranje vlak) */
+  body.nav-boxed2 .m-nav-links li a.m-active{background:rgba(232,89,43,.12) !important;color:var(--ms-orange) !important;font-weight:700 !important;border-radius:100px !important;padding:11px 16px !important;transform:none !important;}
+  body.nav-boxed2 .m-nav-links li a.m-active:hover{background:rgba(232,89,43,.18) !important;color:var(--ms-orange) !important;}
+  /* CTA in de pil = vlak oranje (Lux) */
+  body.nav-boxed2 .m-nav-links li a.m-cta{background:var(--ms-orange) !important;border-color:var(--ms-orange) !important;color:#fff !important;font-weight:600 !important;letter-spacing:.02em !important;text-transform:none !important;padding:13px 24px !important;margin-left:8px !important;}
+  body.nav-boxed2 .m-nav-links li a.m-cta:hover{background:var(--ms-orange-hover) !important;border-color:var(--ms-orange-hover) !important;}
+  /* Home zichtbaar op desktop (motion.js maakt 'm mobile-only) — eerste pil-item */
+  body.nav-boxed2 .m-nav-links li.m-home-only{display:list-item !important;}
+  /* EN/NL-taalknop: door shell.js BUITEN de pil geplaatst (direct kind van #mNav) als losse donkere frosted pil */
+  body.nav-boxed2 #mNav > li.m-lang.ms-lang-out{position:static !important;list-style:none !important;flex-shrink:0;display:flex !important;align-items:center !important;margin:0 !important;}
+  body.nav-boxed2 #mNav > li.m-lang.ms-lang-out .m-lang-btn{border:1px solid rgba(240,237,232,.3) !important;background:rgba(240,237,232,0.07) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#F0EDE8 !important;border-radius:100px !important;padding:12px 20px !important;font-size:14px !important;font-weight:500 !important;letter-spacing:.04em !important;box-shadow:inset 0 1px 0 rgba(255,255,255,0.16) !important;transition:background .25s ease,border-color .25s ease !important;}
+  body.nav-boxed2 #mNav > li.m-lang.ms-lang-out .m-lang-btn:hover{border-color:rgba(240,237,232,.65) !important;background:rgba(240,237,232,0.13) !important;color:#fff !important;}
+  body.nav-boxed2 #mNav > li.m-lang.ms-lang-out .m-lang-btn i,body.nav-boxed2 #mNav > li.m-lang.ms-lang-out .m-lang-btn svg{color:#F0EDE8 !important;}
+  /* hero loopt tot bovenaan door (achter de transparante fixed nav) → géén lichte band-seam */
+  body.ms-dark-hero,body.nav-boxed2{padding-top:0 !important;}
+  body.ms-dark-hero header.hero,body.ms-dark-hero section.hero,body.ms-dark-hero section.hero-statement,body.nav-boxed2 .hero-statement{min-height:100vh !important;}
+  /* lichte achtergrond achter de nav → logo + EN zwart (anders wit-op-wit onzichtbaar) */
+  body.ms-nav-light .m-nav-logo img{filter:brightness(0) !important;}
+  body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn{border-color:rgba(26,21,18,.28) !important;background:rgba(26,21,18,.05) !important;color:#1a1512 !important;}
+  body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn i,body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn svg{color:#1a1512 !important;}
+  /* hover op lichte achtergrond → oranje (anders off-white = onzichtbaar op wit) */
+  body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn:hover{border-color:var(--ms-orange,#E8592B) !important;background:rgba(232,89,43,.10) !important;color:var(--ms-orange,#E8592B) !important;}
+  body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn:hover i,body.ms-nav-light #mNav > li.m-lang.ms-lang-out .m-lang-btn:hover svg{color:var(--ms-orange,#E8592B) !important;}
+  /* editorial donkere nav boven lichte achtergrond → links + taalknop zwart (anders wit-op-wit) */
+  body.ms-nav-light .m-nav-links li a:not(.m-cta){color:rgba(26,21,18,.74) !important;}
+  body.ms-nav-light .m-nav-links li a:not(.m-cta):hover,body.ms-nav-light .m-nav-links li a.m-active{color:var(--ms-orange,#E8592B) !important;}
+  body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn{color:#1a1512 !important;border-color:rgba(26,21,18,.28) !important;}
+  body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn i,body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn svg{color:#1a1512 !important;}
+}
+
+/* ── nav tablet (768–1180px): bovenmarge 24px, zijmarge 28px + safe-area ── */
+@media(min-width:768px) and (max-width:1180px){
+  body.nav-boxed2 #mNav,.m-nav{padding:24px calc(28px + env(safe-area-inset-right)) 24px calc(28px + env(safe-area-inset-left)) !important;height:auto !important;}
+  body.nav-boxed2 .m-nav-logo img{height:42px !important;}
+}
+/* ── nav mobiel (≤767px): bovenmarge 10px onder safe-area (strakker), zijmarge 18px ── */
+@media(max-width:767px){
+  body.nav-boxed2 #mNav,.m-nav{padding:calc(10px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) 10px calc(18px + env(safe-area-inset-left)) !important;height:auto !important;}
+  body.nav-boxed2 .m-nav-logo img,.m-nav-logo img{height:38px !important;}
+}
+
+/* ═══ MOBIEL/TABLET NAV (≤1180px) — transparant over hero, frosted glas bij scroll ═══
+   Lost de "lelijke donkere band" op: logo + hamburger zweven over de hero;
+   zodra je voorbij de hero scrollt (.scrolled) verschijnt een subtiele frosted laag. */
+@media(max-width:1180px){
+  /* hero loopt tot bovenaan door achter de transparante nav → géén bruine body-seam */
+  body.ms-dark-hero,body.nav-boxed2{padding-top:0 !important;}
+  body.ms-dark-hero header.hero,body.ms-dark-hero section.hero,body.ms-dark-hero section.hero-statement,body.nav-boxed2 .hero-statement,body.nav-boxed2 header.hero,body.nav-boxed2 section.hero{margin-top:0 !important;}
+  /* balk transparant bovenaan — géén band, géén blur */
+  .m-nav,body.nav-boxed2 .m-nav{background:transparent !important;border-bottom:none !important;box-shadow:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;}
+  /* frosted glas zodra je scrollt (donkere pagina's) */
+  .m-nav.scrolled,body.nav-boxed2 .m-nav.scrolled{background:rgba(13,9,5,.55) !important;-webkit-backdrop-filter:blur(20px) saturate(1.4) !important;backdrop-filter:blur(20px) saturate(1.4) !important;border-bottom:1px solid rgba(240,237,232,.07) !important;}
+  /* hamburger: kaal icoon (géén schijfje/rand — dat oogde als een grijs kader over de cover) */
+  .m-hamburger{width:auto !important;min-width:0 !important;height:auto !important;border-radius:0 !important;color:#F0EDE8 !important;background:none !important;border:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;padding:8px !important;margin-right:-8px !important;font-size:26px !important;transition:color .25s,opacity .2s;}
+  .m-hamburger:hover{background:none !important;opacity:.7;}
+  /* géén oranje focus-kader op de hamburger na tik (Safari toont 'm soms op touch) */
+  .m-hamburger:focus,.m-hamburger:focus-visible{outline:none !important;box-shadow:none !important;}
+  /* lichte achtergrond achter de nav → logo + hamburger zwart (anders onzichtbaar op wit) */
+  body.ms-nav-light .m-nav-logo img,body.theme-light .m-nav-logo img{filter:brightness(0) !important;}
+  body.ms-nav-light .m-hamburger,body.theme-light .m-hamburger{color:#1a1512 !important;background:none !important;border:none !important;}
+  body.ms-nav-light .m-hamburger:hover,body.theme-light .m-hamburger:hover{background:none !important;opacity:.7;}
+  /* frosted laag op lichte pagina's = wit i.p.v. donker */
+  body.ms-nav-light .m-nav.scrolled,body.theme-light .m-nav.scrolled{background:rgba(255,255,255,.70) !important;border-bottom-color:rgba(26,21,18,.08) !important;}
+}
+
+/* ═══ FASE 2b — hybride hero-accent: subtiele golven onderaan de manifest-hero's ═══ */
+/* ═══ UNIFORM HERO SYSTEM — één hero voor ALLE pagina's (.hero-statement) ═══
+   Canonieke bron (Contact/Fit Check). About + Calculator gebruiken nu hetzelfde.
+   Geen uitzonderingen, geen per-pagina offsets. */
+@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.hero-statement{position:relative;min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg,#13100D);padding:96px 24px;}
+/* Tablet/mobiel: laat de hero zich om de content + cover vouwen i.p.v. een hoge flex-void op staande schermen (23 juni 2026) */
+@media(max-width:880px){.hero-statement{min-height:auto;}}
+.hero-statement .hs-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.45;}
+.hero-statement .hs-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;text-align:center;}
+.hero-statement .hs-eyebrow{font-family:var(--ms-sans);font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ms-orange);margin-bottom:28px;display:inline-flex;align-items:center;gap:10px;justify-content:center;opacity:0;animation:fu .5s .26s ease forwards;}
+.hero-statement .hs-eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--ms-orange);}
+.hero-statement .hs-headline{font-family:var(--serif,'Playfair Display',Georgia,serif);font-weight:900;font-size:clamp(40px,5.2vw,72px);line-height:1.02;color:var(--white,#F0EDE8);letter-spacing:-.5px;margin-bottom:32px;opacity:0;animation:fu .7s .34s ease forwards;}
+.hero-statement .hs-headline em{font-style:italic;color:var(--ms-orange);font-weight:900;}
+.hero-statement .hs-body{font-family:var(--ms-sans);font-size:15.5px;font-weight:300;color:var(--muted-d,rgba(240,237,232,.6));line-height:1.85;max-width:600px;margin:0 auto 36px;opacity:0;animation:fu .6s .5s ease forwards;}
+.hero-statement .hs-body strong{color:var(--off,#F0EDE8);font-weight:500;}
+.hero-statement .hs-cta-row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;opacity:0;animation:fu .6s .6s ease forwards;}
+@media(max-width:560px){.hero-statement .hs-cta-row{flex-direction:column;align-items:stretch;}}
+/* A11y: hero fu-animaties starten op opacity:0 → uitschakelen bij reduced-motion zodat content zichtbaar blijft (23 juni 2026) */
+@media(prefers-reduced-motion:reduce){.hero-statement .hs-eyebrow,.hero-statement .hs-headline,.hero-statement .hs-body,.hero-statement .hs-cta-row,.hero-statement .hs-rule,.hero-statement .hs-divider,.hero-statement .hs-tagline,.hero-statement .hs-promise,.hero-statement .hs-statement,.hero-statement .hs-credibility{animation:none!important;opacity:1!important;transform:none!important;}}
+/* gedeelde golf-cover onderaan ELKE hero (manifest + about + calculator) + Home header.hero */
+/* gedeelde lijnen-achtergrond op ELKE hero — full-bleed, vervaagt naar boven én onder, subtiel zodat tekst leesbaar blijft */
+.hero-statement::after,.ms-dark-hero header.hero::after{content:'';display:block;position:absolute;left:0;right:0;top:0;height:100%;z-index:0;pointer-events:none;background:url('../assets/banner-lines.jpg') center/cover no-repeat;opacity:0.5;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);}
+.ms-dark-hero header.hero{position:relative;}
+.ms-dark-hero header.hero > *{position:relative;z-index:2;}
+
+/* ingevoegde desktop-Home: verbergen in het mobiele menu (daar toont de bestaande .m-home-only) */
+@media(max-width:1180px){ .m-nav-links .ms-deskhome{display:none !important;} }
+
+/* taalwisselaar: nav-boxed2 (montisoro-v2.css) styleert de .m-lang-btn al — niet dubbel doen. */
+
+/* ═══ CTA-knoppen — Lux (vlak, sober, pill, géén hoofdletters) site-breed ═══ */
+.btn{border-radius:100px !important;text-transform:none !important;letter-spacing:.02em !important;font-size:13.5px !important;font-weight:600 !important;text-decoration:none !important;}
+.btn-primary:hover{transform:translatey(-1px);}
+/* Twee-CTA-patroon: primary = vol oranje (blijft), ghost = OUTLINE (niet vol oranje).
+   Wint van montisoro-v2.css `.btn.btn-ghost{background:orange}` via load-volgorde + gelijke spec. */
+.btn.btn-ghost{background:transparent !important;border:1.5px solid rgba(240,237,232,0.4) !important;color:var(--ms-off) !important;}
+.btn.btn-ghost:hover{background:rgba(240,237,232,0.06) !important;border-color:var(--ms-off) !important;color:#fff !important;transform:translateY(-1px);}
+.btn.btn-ghost-light{background:transparent !important;border:1.5px solid rgba(19,16,13,0.28) !important;color:rgba(19,16,13,0.7) !important;}
+.btn.btn-ghost-light:hover{background:rgba(19,16,13,0.04) !important;border-color:var(--ms-orange) !important;color:var(--ms-orange) !important;transform:translateY(-1px);}
+
+/* ═══ FEATURE FLAGS — kill-switches (set by site-content.js when flags come from DB) ═══ */
+body.ff-booking-off   #bfFlow,
+body.ff-booking-off   [data-ff="booking"]     { display:none !important; }
+body.ff-fitcheck-off  #fcModal,
+body.ff-fitcheck-off  [data-ff="fitcheck"]    { display:none !important; }
+body.ff-calculator-off #bMain,
+body.ff-calculator-off [data-ff="calculator"] { display:none !important; }
+/* Graceful notice injected by site-content.js in place of a killed flow —
+   so a disabled flow never leaves a silent blank gap on its own page. */
+.ff-notice{max-width:640px;margin:40px auto;padding:26px 30px;border:1px solid rgba(19,16,13,0.12);border-radius:16px;background:#f9f8f6;text-align:center;display:flex;flex-direction:column;gap:8px;}
+.ff-notice strong{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:19px;line-height:1.3;color:#13100d;}
+.ff-notice span{font-size:14px;line-height:1.6;color:#6b7280;}
+
+/* a11y: footer touch-targets */
+.ms-foot-col a,.ms-foot-contact a,.ms-foot-legal a,.ms-foot-social{display:inline-flex;align-items:center;min-height:24px;padding:3px 0;}

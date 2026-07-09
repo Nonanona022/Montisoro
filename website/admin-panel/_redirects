@@ -1,0 +1,21 @@
+# Redirects for Montisoro admin cockpit.
+# Admin is deployed separately (subdomain: admin.montisoro.com).
+# Place this behind Cloudflare Access (or equivalent) — see /admin-panel/README.md.
+
+# Root → login
+/                       /pages/admin-login.html        302
+
+# Pretty URLs
+/login                  /pages/admin-login.html        302
+/dashboard              /pages/admin.html              302
+/admin                  /pages/admin.html              302
+
+# Block direct access to source-only folders
+/components/*           /pages/admin-login.html        404
+/hooks/*                /pages/admin-login.html        404
+/contexts/*             /pages/admin-login.html        404
+/api/*                  /pages/admin-login.html        404
+/documents/*            /pages/admin-login.html        404
+
+# Catch-all → login (admin has no public 404)
+/*                      /pages/admin-login.html        302

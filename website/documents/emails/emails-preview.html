@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — E-mailtemplates (preview)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#d9d4cd;color:#1a1512;padding:24px 16px 60px;}
+.bar{max-width:640px;margin:0 auto 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+.bar h1{font-size:15px;font-weight:700;letter-spacing:-.01em;}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.sel{position:relative;}
+.sel select{appearance:none;font:600 12.5px/1 'DM Sans',sans-serif;color:#1a1512;background:#fff;border:1px solid rgba(0,0,0,0.10);border-radius:9px;padding:10px 32px 10px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.08);}
+.sel::after{content:'';position:absolute;right:13px;top:50%;width:6px;height:6px;border-right:1.5px solid #8a8078;border-bottom:1.5px solid #8a8078;transform:translateY(-70%) rotate(45deg);pointer-events:none;}
+.grp{display:flex;gap:6px;background:#fff;padding:5px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,0.08);}
+.grp button{font:600 12.5px/1 'DM Sans',sans-serif;padding:8px 14px;border:0;border-radius:7px;background:transparent;color:#5c534b;cursor:pointer;}
+.grp button.on{background:#E8592B;color:#fff;}
+.grp button:disabled{opacity:.35;cursor:not-allowed;}
+.meta-line{max-width:640px;margin:0 auto 10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#5c534b;}
+.meta-line b{color:#1a1512;}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#a8431f;background:#FAE8E1;border-radius:5px;padding:3px 8px;}
+.frame-wrap{max-width:640px;margin:0 auto;}
+iframe{width:100%;border:0;border-radius:14px;background:#e9e5df;box-shadow:0 14px 40px -16px rgba(0,0,0,0.4);}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Montisoro · e-mailpreview</h1>
+  <div class="controls">
+    <div class="sel">
+      <select id="kindSel">
+        <optgroup label="Calculator">
+          <option value="customer">Calculator · klant (met rapport)</option>
+          <option value="internal">Calculator · intern</option>
+        </optgroup>
+        <optgroup label="Bevestiging naar bezoeker">
+          <option value="cc:contact">Bevestiging · Contact</option>
+          <option value="cc:fitcheck">Bevestiging · Fit check</option>
+          <option value="cc:casey">Bevestiging · Casey</option>
+        </optgroup>
+        <optgroup label="Afspraak (boeking)">
+          <option value="bk:online">Afspraak · Online via Teams</option>
+          <option value="bk:onsite">Afspraak · Bij u ter plaatse</option>
+        </optgroup>
+        <optgroup label="Interne notificatie">
+          <option value="fi:contact">Intern · Contactformulier</option>
+          <option value="fi:fitcheck">Intern · Fit check</option>
+          <option value="fi:casey">Intern · Casey</option>
+          <option value="fi:booking">Intern · Afspraakaanvraag</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="grp" id="langGrp">
+      <button data-lang="nl" class="on">NL</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</div>
+<div class="meta-line">
+  <div>Onderwerp: <b id="subj">—</b></div>
+  <div id="langNote"></div>
+</div>
+<div class="frame-wrap"><iframe id="mail" title="email preview"></iframe></div>
+
+<script src="../../services/verzuim-engine.js"></script>
+<script src="../../services/email-templates.js"></script>
+<script>
+(function(){
+  var state = { kind:'customer', lang:'nl' };
+  var E = window.MONTISORO_EMAILS;
+
+  function calcDemo(lang){
+    var rep = window.VerzuimEngine.report({}, lang);
+    return {
+      lang: lang, assetBase: '../..',
+      meta: { name: lang==='en' ? 'Sarah Jensen' : 'Laurence Peeters', company: lang==='en' ? 'Sample Ltd.' : 'Voorbeeld NV' },
+      vars: rep.vars,
+      contact: { name: lang==='en'?'Sarah Jensen':'Laurence Peeters', company: lang==='en'?'Sample Ltd.':'Voorbeeld NV',
+                 email:'sarah@voorbeeld.be', phone:'+32 478 12 34 56', consent:true },
+      status: { pdf:'generated', lead: lang==='en'?'new':'nieuw' },
+      dashboardUrl: '#'
+    };
+  }
+
+  function bkDemo(type, lang){
+    var online = (type === 'online');
+    return {
+      lang: lang, assetBase: '../..',
+      meta: { name: lang==='en' ? 'Sarah Jensen' : 'Laurence Peeters' },
+      booking: {
+        type: online ? 'online' : 'onsite',
+        date: lang==='en' ? (online ? 'Wednesday 24 June 2026' : 'Tuesday 23 June 2026')
+                          : (online ? 'wo 24 juni 2026' : 'di 23 juni 2026'),
+        time: online ? '13:00' : '9:30',
+        endTime: online ? '13:30' : '10:00',
+        location: online ? '' : 'Voorbeeldstraat 1, 1880 Ramsdonk'
+      },
+      icsUrl: '#'
+    };
+  }
+
+  var FI = {
+    contact: { title:'Nieuw contactbericht', intro:'Via het contactformulier op de website.',
+      rows:[ {label:'Naam',value:'Laurence Peeters'},{label:'Organisatie',value:'Voorbeeld NV'},
+             {label:'E-mail',value:'l@voorbeeld.be'},{label:'Telefoon',value:'+32 478 12 34 56'},
+             {label:'Bericht',value:'Graag een gesprek over verzuimbegeleiding.'} ] },
+    fitcheck: { title:'Nieuwe fit check-aanvraag', intro:'Een bezoeker rondde de fit check af.',
+      rows:[ {label:'Naam',value:'Laurence Peeters'},{label:'Organisatie',value:'Voorbeeld NV'},
+             {label:'E-mail',value:'l@voorbeeld.be'},{label:'Route',value:'Case Management'},
+             {label:'Maturiteit',value:'Niveau 2 / 4'},{label:'Schaal',value:'100 – 500 medewerkers'} ] },
+    casey: { title:'Nieuwe Casey-aanvraag', intro:'Aanvraag voor een Casey-demo.',
+      rows:[ {label:'Naam',value:'Laurence Peeters'},{label:'Organisatie',value:'Voorbeeld NV'},
+             {label:'E-mail',value:'l@voorbeeld.be'},{label:'Interesse',value:'Casey AI · demo'} ] },
+    booking: { title:'Nieuwe afspraakaanvraag', intro:'Via de boekingsflow op de website.',
+      rows:[ {label:'Type',value:'Online via Teams'},{label:'Datum',value:'wo 24 juni 2026'},{label:'Tijd',value:'13:00 – 13:30 (30 min)'},
+             {label:'Naam',value:'Laurence Peeters'},{label:'Organisatie',value:'Voorbeeld NV'},
+             {label:'E-mail',value:'l@voorbeeld.be'},{label:'Telefoon',value:'+32 478 12 34 56'},
+             {label:'Bericht',value:'Graag een kennismaking over verzuimbegeleiding.'} ] }
+  };
+
+  function render(){
+    var out, isFormInternal = false;
+    var k = state.kind;
+    if (k === 'customer')      out = E.customer(calcDemo(state.lang));
+    else if (k === 'internal') out = E.internal(calcDemo(state.lang));
+    else if (k.indexOf('bk:') === 0){ out = E.bookingConfirm(bkDemo(k.slice(3), state.lang)); }
+    else if (k.indexOf('cc:') === 0){
+      out = E.customerConfirm({ lang:state.lang, assetBase:'../..', type:k.slice(3),
+        meta:{ name: state.lang==='en'?'Sarah Jensen':'Laurence Peeters', email:'sarah@voorbeeld.be' } });
+    } else { // fi:
+      isFormInternal = true;
+      var d = FI[k.slice(3)];
+      out = E.formInternal({ lang:'nl', assetBase:'../..', title:d.title, intro:d.intro, rows:d.rows });
+    }
+    document.getElementById('subj').textContent = out.subject || '— (interne notificatie, geen onderwerp)';
+    document.getElementById('langNote').innerHTML = isFormInternal
+      ? '<span class="tag">altijd NL · intern team</span>' : '';
+    var ifr = document.getElementById('mail');
+    ifr.srcdoc = out.html;
+    ifr.onload = function(){
+      try { ifr.style.height = (ifr.contentDocument.body.scrollHeight + 4) + 'px'; } catch(e){ ifr.style.height = '900px'; }
+    };
+    // disable lang toggle for always-NL internal notifications
+    var enBtn = document.querySelector('#langGrp [data-lang="en"]');
+    enBtn.disabled = isFormInternal;
+  }
+
+  document.getElementById('kindSel').addEventListener('change', function(){
+    state.kind = this.value;
+    render();
+  });
+  document.getElementById('langGrp').addEventListener('click', function(e){
+    var b = e.target.closest('[data-lang]'); if(!b || b.disabled) return;
+    state.lang = b.dataset.lang;
+    this.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

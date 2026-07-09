@@ -1,0 +1,63 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Montisoro — type-scale.css
+   Minpunt 06 (audit): displaytype −20% + strakkere sectie-spacing, site-breed.
+   Verkleint de reuzenletters en witruimte → kortere pagina's, 2–3 gedachten
+   per scherm, zonder inhoud te schrappen. Bodytekst blijft ~ongewijzigd
+   (leesbaarheid). Reversibel: verwijder de <link> naar dit bestand.
+   (Home valt bewust buiten deze schaal — eigen multi-thema.)
+
+   NB: selectors dragen een `html `-prefix (specificiteit 0,0,2,1) zodat de
+   !important-regels winnen van montisoro-v2.css/ds2.css (0,0,2,0), ongeacht
+   de laadvolgorde in <head>. Zonder die prefix won de later geladen
+   montisoro-v2.css (o.a. voor .title.h-section).
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── HERO ── */
+html .hs-headline{font-size:clamp(32px,4.2vw,58px)!important;margin-bottom:26px!important;}
+html .hs-eyebrow{margin-bottom:20px!important;}
+html .hs-statement{font-size:clamp(16px,1.5vw,18px)!important;margin-bottom:26px!important;}
+html .hs-tagline{font-size:clamp(16px,1.6vw,19px)!important;margin-bottom:26px!important;}
+html .hs-promise{margin-bottom:28px!important;}
+html .hs-body{margin-bottom:26px!important;}
+html .hs-rule{margin-bottom:24px!important;}
+html .hs-divider{margin-bottom:22px!important;}
+
+/* ── SECTIE-RITME ── */
+html .chapter.dark{padding:44px 24px!important;}
+html .chapter.light{padding:50px 24px!important;}
+html .title.h-section{font-size:clamp(24px,2.7vw,34px)!important;margin-bottom:14px!important;}
+html .sub{margin-bottom:34px!important;}
+
+/* ── STATEMENTS ── */
+html .manifesto-statement,html .mission-statement{font-size:clamp(24px,2.7vw,34px)!important;}
+
+/* ── GENUMMERDE / KAART-KOPPEN ── */
+html .feature-title,html .s-title,html .p-content h3{font-size:clamp(17px,1.45vw,20px)!important;}
+html .feature .feature-num,html .s-card-content .s-num,html .s-num{font-size:clamp(34px,3.6vw,54px)!important;margin-bottom:clamp(18px,2.2vw,30px)!important;}
+html .p-num{font-size:36px!important;}
+
+/* ── AFSLUITZINNEN ── */
+html .storm-close,html .culture-close{font-size:clamp(17px,1.45vw,20px)!important;}
+html .casey-close{font-size:clamp(16px,1.6vw,19px)!important;}
+
+/* ── ABOUT reuzen-slogan ── */
+html .reintegrate{font-size:clamp(52px,9.5vw,144px)!important;}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOME (eigen vocabulaire + eigen thema's). −20% type + veel strakkere
+   sectie-spacing (was clamp(96,13vw,176) → grootste witruimte-vreter).
+   Mobiel-overrides in Home's inline <style> laden later op gelijke
+   specificiteit en blijven dus leidend op kleine schermen.
+═══════════════════════════════════════════════════════════════════ */
+html .hero-headline{font-size:clamp(32px,4.2vw,58px)!important;}
+html .hero-eyebrow{margin-bottom:18px!important;}
+html .ch.dark{padding:clamp(44px,6vw,80px) 0!important;}
+html .ch.light{padding:clamp(44px,6vw,80px) 0!important;}
+html .ch-head{margin-bottom:clamp(26px,3.6vw,52px)!important;}
+html .ch-no{font-size:clamp(32px,5.5vw,68px)!important;}
+html .ch-title{font-size:clamp(26px,3.6vw,44px)!important;}
+html .row-title{font-size:clamp(20px,2.2vw,28px)!important;}
+html .row-no{font-size:clamp(30px,3vw,42px)!important;}
+html .t-title{font-size:clamp(17px,1.5vw,20px)!important;}
+html .hd-num{font-size:clamp(26px,3vw,42px)!important;}
+

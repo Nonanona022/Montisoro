@@ -1,0 +1,3 @@
+# Admin cockpit — do not index.
+User-agent: *
+Disallow: /

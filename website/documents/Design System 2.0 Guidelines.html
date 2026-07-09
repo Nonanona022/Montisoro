@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro Design System 2.0 — Guidelines</title>
+<style>
+:root{
+  --bg:#13100d; --surface:#1b1714; --line:rgba(240,237,232,.12); --line-2:rgba(240,237,232,.07);
+  --white:#F0EDE8; --off:#D8D3CC; --muted:#9a938b; --muted-2:#736d65; --orange:#E8592B;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px;margin:0 auto;padding:clamp(48px,8vw,110px) clamp(22px,5vw,56px);}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,6vw,68px);line-height:1.02;letter-spacing:-.025em;color:var(--white);margin-bottom:20px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(17px,1.9vw,21px);line-height:1.72;color:var(--off);max-width:60ch;text-wrap:pretty;margin-bottom:14px;}
+.meta{font-size:13px;color:var(--muted-2);letter-spacing:.04em;margin-top:30px;padding-top:22px;border-top:1px solid var(--line);}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.015em;color:var(--white);margin:clamp(56px,8vw,90px) 0 8px;}
+.h2-no{font-family:var(--serif);font-style:italic;color:var(--orange);font-size:.6em;margin-right:10px;}
+h3{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.2vw,24px);color:var(--white);margin:36px 0 10px;letter-spacing:-.01em;}
+p{margin-bottom:14px;max-width:62ch;text-wrap:pretty;}
+strong{color:var(--white);font-weight:500;}
+.ds-num{font-family:var(--serif);font-weight:700;color:var(--orange);font-variant-numeric:tabular-nums;}
+.card{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:clamp(24px,3.4vw,38px);margin:22px 0;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+@media(max-width:680px){.grid2{grid-template-columns:1fr;}}
+.do,.dont{border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.6;}
+.do{background:rgba(31,138,91,.08);border:1px solid rgba(31,138,91,.28);}
+.dont{background:rgba(204,74,30,.07);border:1px solid rgba(232,89,43,.26);}
+.do b,.dont b{display:block;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:11px;margin-bottom:8px;}
+.do b{color:#3bbf84;} .dont b{color:var(--orange);}
+code{font-family:'DM Mono',ui-monospace,monospace;font-size:.86em;background:rgba(240,237,232,.06);border:1px solid var(--line-2);border-radius:6px;padding:2px 7px;color:var(--off);}
+ul{margin:6px 0 16px;padding-left:22px;}li{margin-bottom:7px;max-width:60ch;}
+.tok{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line-2);font-size:14px;}
+.tok:last-child{border-bottom:none;}.tok span:first-child{color:var(--muted);}.tok span:last-child{color:var(--off);font-variant-numeric:tabular-nums;}
+.toc{columns:2;column-gap:34px;margin:26px 0 0;font-size:14px;}
+@media(max-width:680px){.toc{columns:1;}}
+.toc a{color:var(--off);text-decoration:none;display:block;padding:6px 0;border-bottom:1px solid var(--line-2);}
+.toc a:hover{color:var(--orange);}
+.pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:4px 12px;margin-bottom:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Montisoro · Interne standaard</p>
+  <h1>Design System <em>2.0</em><br>Guidelines</h1>
+  <p class="lead">De definitieve basis voor alle huidige én toekomstige pagina's van Montisoro. Een rust- en autoriteit-gericht systeem voor een premium B2B-platform — gericht op CEO's, HR Directors en preventieadviseurs. Geen portfolio, geen mode: tijdloze enterprise-kwaliteit.</p>
+  <div class="meta">Versie 2.0 · Fase 1 · 25 juni 2026 · Geactiveerd via <code>body.ds2</code> + <code>ds2.css</code></div>
+
+  <h2><span class="h2-no">00</span>Principes</h2>
+  <p>Vier vaste uitgangspunten. Elke beslissing wordt eraan getoetst.</p>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">Inhoud blijft heilig</h3><p style="margin-bottom:0">We schrappen nooit tekst om "schoner" te ogen. Onze diepgang is ons bewijs van expertise. Het systeem maakt lange tekst <strong>navigeerbaar</strong>, niet korter.</p></div>
+    <div class="card"><h3 style="margin-top:0">Rust boven spektakel</h3><p style="margin-bottom:0">Een verzuim-partner wint met geloofwaardigheid, niet met effecten. Animatie is ingetogen, kleur is spaarzaam, beweging dient de leesbaarheid.</p></div>
+    <div class="card"><h3 style="margin-top:0">Scanbaar én leesbaar</h3><p style="margin-bottom:0">Een CEO scant, een HR Director leest. Structuur-lagen (lead, cijfers, call-outs) bedienen beide zonder de één voor de ander op te offeren.</p></div>
+    <div class="card"><h3 style="margin-top:0">Eén taal, NL = EN</h3><p style="margin-bottom:0">Elk component is identiek in beide talen en op desktop, tablet en mobiel. Pariteit is geen optie maar een voorwaarde.</p></div>
+  </div>
+
+  <h2><span class="h2-no">01</span>Lead Paragraph</h2>
+  <p><strong>Wat:</strong> de openingsalinea van een sectie, groter en rustiger gezet (<span class="ds-num">17–21px</span>, regelhoogte 1.72, max 60 tekens breed, <code>text-wrap:pretty</code>). Haakt op <code>.hero-body</code>, <code>.ch-intro</code>, <code>.hs-body</code>.</p>
+  <div class="grid2">
+    <div class="do"><b>Wel</b>De eerste alinea die een sectie of hero introduceert. Eén lead per sectie.</div>
+    <div class="dont"><b>Niet</b>Op elke paragraaf (dan verdwijnt de hiërarchie). Niet op opsommingen of fijndruk.</div>
+  </div>
+  <p><strong>Waarom:</strong> geeft het oog een instappunt en maakt diepe tekst minder als "muur". CEO pakt de kern, HR leest door.</p>
+
+  <h2><span class="h2-no">02</span>Meaningful Numbers</h2>
+  <p><strong>Wat:</strong> een kerncijfer in lopende tekst, gezet in Playfair-oranje (<code>.ds-num</code>) — bv. <span class="ds-num">€250 per dag</span> of <span class="ds-num">2.500+</span> dossiers.</p>
+  <div class="grid2">
+    <div class="do"><b>Wel</b>Eén beslissend cijfer per alinea/sectie dat autoriteit draagt (kost, schaal, reductie).</div>
+    <div class="dont"><b>Niet</b>Meerdere cijfers naast elkaar accentueren (data-slop). Niet voor jaartallen of triviale getallen.</div>
+  </div>
+  <p><strong>Waarom:</strong> cijfers zijn hard bewijs. Eén geaccentueerd cijfer trekt het oog naar je sterkste argument zonder de rust te breken.</p>
+
+  <h2><span class="h2-no">03</span>Vertical Rhythm &amp; Spacing Tokens</h2>
+  <p><strong>Wat:</strong> een vaste spatiëringsschaal, geladen via <code>ds2.css</code>. Consistente afstand tussen lead en de actie eronder.</p>
+  <div class="card">
+    <div class="tok"><span>--ds-lead (lead paragraph)</span><span>clamp(17px, 1.8vw, 21px)</span></div>
+    <div class="tok"><span>Lead → CTA (hero-cta margin-top)</span><span>clamp(22px, 2.6vw, 30px)</span></div>
+    <div class="tok"><span>Sectie-ritme (clamp-basis)</span><span>72–110px desktop</span></div>
+    <div class="tok"><span>Leesbreedte (measure)</span><span>60ch lead · 62ch body</span></div>
+  </div>
+  <p><strong>Waarom:</strong> consistente witruimte = "één team bouwde dit". Ritme stuurt het leestempo en voorkomt vermoeidheid.</p>
+
+  <h2><span class="h2-no">04</span>CTA Microcopy</h2>
+  <p><strong>Wat:</strong> één geruststellende regel onder de primaire CTA (<code>.cta-note</code>, met oranje punt-markering). Standaardtekst: <em>"Vrijblijvend gesprek · 30–45 minuten · online of op locatie"</em>.</p>
+  <div class="grid2">
+    <div class="do"><b>Wel</b>Onder de primaire conversie-CTA (Plan een gesprek). Feitelijk, concreet, klopt met de dienst.</div>
+    <div class="dont"><b>Niet</b>Onder elke knop. Geen redundantie ("vrijblijvend" + "geen verplichting"). Geen marketing-superlatieven.</div>
+  </div>
+  <p><strong>Waarom:</strong> verlaagt de drempel precies op het beslismoment — beantwoordt de stille vraag "waar verbind ik me aan?".</p>
+
+  <h2><span class="h2-no">05</span>Micro-interactions</h2>
+  <p><strong>Wat:</strong> uniforme knop-feedback — <code>translateY(-2px)</code> + zachte oranje schaduw op hover, nette focus-ring, <code>:active</code> terug naar nul. Volledig <strong>reduced-motion-safe</strong>.</p>
+  <div class="grid2">
+    <div class="do"><b>Wel</b>Op alle <code>.btn</code>. Subtiel (2px), één consistente easing <code>cubic-bezier(.16,1,.3,1)</code>.</div>
+    <div class="dont"><b>Niet</b>Grote sprongen, scale-effecten, bounce. Geen lift op nav-pillen of fijne controls.</div>
+  </div>
+  <p><strong>Waarom:</strong> premium afwerking voelbaar maken zonder af te leiden. Bevestigt interactie, straalt verzorging uit.</p>
+
+  <h2><span class="h2-no">06</span>Bestaande componenten (ongewijzigd, blijven standaard)</h2>
+  <p>Deze componenten waren al consistent en blijven de norm. Niet dupliceren — hergebruiken.</p>
+  <ul>
+    <li><strong>Buttons:</strong> <code>.btn-primary</code> (vol oranje, WCAG-AA #CC4A1E), <code>.btn-ghost</code> (outline). Regel: max één primary per CTA-groep, de rest ghost. Pill-vorm, geen hoofdletters, geen onderlijn.</li>
+    <li><strong>Hero's:</strong> één uniform systeem (<code>.hero-statement</code> / Home <code>.hero</code>) — zwart met golf-accent, Playfair-headline, gecentreerd. Min-height vouwt ≤880px.</li>
+    <li><strong>Cards:</strong> hairline-rijen (strengths), found-cards, testimonial-kaarten (gsm = gecentreerd kaartje). <em>Call-out / kaart-systeem volgt in Fase 2.</em></li>
+    <li><strong>Forms:</strong> gedeelde <code>forms.css</code> — oranje focus-ring, foutrood #c0392b, pill-knop. Mobiel ≥16px (iOS-zoom-safe). BE-telefoonvalidatie gedeeld.</li>
+    <li><strong>Accordions:</strong> <code>.m-accordion</code> = huisstijl voor uitklapbare legal/FAQ.</li>
+    <li><strong>Icons:</strong> Phosphor (light/regular), spaarzaam, nooit decoratief. Tabler is verwijderd.</li>
+    <li><strong>Overlays/modals:</strong> scroll-lock + Esc + aria-modal + focus-trap (fit-check, boekingsflow, mobiel menu).</li>
+  </ul>
+
+  <h2><span class="h2-no">07</span>Typografie</h2>
+  <ul>
+    <li><strong>Playfair Display</strong> (900/700, soms italic) — headlines, kerncijfers, namen. Draagt autoriteit.</li>
+    <li><strong>DM Sans</strong> (300/400/500/600) — body, labels, UI. 300 voor lange tekst, 500/600 voor nadruk.</li>
+    <li><strong>Hiërarchie:</strong> eyebrow (11px, .2em, oranje) → headline (Playfair) → lead (17–21px) → body (14–16px, lh 1.7+).</li>
+    <li><strong>Kleur-accent:</strong> oranje <code>#E8592B</code> spaarzaam — kerncijfers, <code>em</code>, primaire actie. Nooit hele zinnen.</li>
+  </ul>
+
+  <h2><span class="h2-no">08</span>Responsive &amp; taal</h2>
+  <ul>
+    <li><strong>Breakpoints:</strong> ≤560px (CTA's stacken full-width), ≤780px (testimonial-kaart), ≤820px (forms 16px), ≤880px (hero vouwt), ≤1180px (mobiel menu).</li>
+    <li><strong>NL = EN:</strong> elk component, elke microcopy, elke animatie identiek. Taalknop blijft op dezelfde pagina.</li>
+    <li><strong>Dashboard:</strong> volledig gescheiden (geen <code>ds2</code>). Website-wijzigingen raken het admin-panel niet, en omgekeerd.</li>
+  </ul>
+
+  <h2><span class="h2-no">09</span>Toepassen op een nieuwe pagina</h2>
+  <div class="card">
+    <p style="margin-bottom:10px"><strong>Checklist — een nieuwe pagina krijgt DS 2.0 door:</strong></p>
+    <ul style="margin-bottom:0">
+      <li><code>ds2</code> toevoegen aan <code>&lt;body class="…"&gt;</code></li>
+      <li><code>&lt;link rel="stylesheet" href="../stylesheets/ds2.css"&gt;</code> als laatste in <code>&lt;head&gt;</code></li>
+      <li>Lead paragraph + micro-interactions + rhythm werken dan automatisch</li>
+      <li><code>.ds-num</code> handmatig op het kerncijfer · <code>.cta-note</code> onder de primaire CTA</li>
+      <li>Controleren: NL=EN · desktop/tablet/mobile · reduced-motion · focus-states</li>
+    </ul>
+  </div>
+
+  <h2><span class="h2-no">10</span>Call-out Panel <span style="font-size:.5em;color:var(--orange)">Phase 2.1A · Approved</span></h2>
+  <p><strong>Wat:</strong> een redactioneel <em>editorial ledger</em> (<code>.ds-callout</code>) dat één trust-/methodologie-inzicht uitlicht — hairline boven/onder, twee-koloms label|statement, kernfrase in Playfair-italic-oranje. Géén box, géén vulling, géén icoon.</p>
+  <div class="grid2">
+    <div class="do"><b>Wel</b>Trust/methodologie vóór een data-invoer (calculator). Eén per context. Label + korte feitelijke statement.</div>
+    <div class="dont"><b>Niet</b>Als alert/notice/card/gekleurde container. Niet op pagina's met al-rijke IA (Aanpak, Technologie). Niet decoratief.</div>
+  </div>
+  <p><strong>Waarom:</strong> beantwoordt "waar komen deze cijfers vandaan?" vóór de bezoeker begint → verhoogt vertrouwen + begrip zonder de flow te raken. Volledige ontwerpfilosofie + Design Principles in de Decision Log. Score 9,2/10.</p>
+
+  <div class="meta">Montisoro Design System 2.0 — Fase 1. Dit document is de officiële standaard. Fase 2 (call-out panels, sticky sub-nav, vergelijkingsblok, procesdiagrammen) wordt pas toegevoegd na goedkeuring per beta.</div>
+
+</div>
+</body>
+</html>

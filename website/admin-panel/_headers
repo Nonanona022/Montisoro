@@ -1,0 +1,29 @@
+# Security headers for Montisoro admin cockpit.
+# Stricter than the public site — admin should never be embedded or indexed.
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none';
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+
+# Allow long-cache for static admin assets
+/stylesheets/*
+  Cache-Control: public, max-age=86400
+/scripts/*
+  Cache-Control: public, max-age=86400
+/services/*
+  Cache-Control: public, max-age=86400
+/utils/*
+  Cache-Control: public, max-age=86400
+/assets/*
+  Cache-Control: public, max-age=86400
+
+# Never cache config
+/config/*
+  Cache-Control: no-cache, no-store, must-revalidate

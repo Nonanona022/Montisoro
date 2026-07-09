@@ -1,0 +1,336 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Montisoro — site.css
+   SHARED LAYOUT & SYSTEM LAYER (loaded LAST in <head>, after the page's
+   own inline <style>, so these canonical rules win where they overlap).
+
+   Purpose: end the per-page drift the audit flagged — unify container
+   width, section rhythm, hero scale, and add the shared components
+   (form fields + inline validation, sticky mobile CTA, FAQ wrapper).
+   Branding, colours and existing components are untouched.
+═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* ── Canonical measures ── */
+  --measure:        1040px;   /* content pages */
+  --measure-wide:   1140px;   /* wide layouts  */
+  --measure-read:    880px;   /* legal / reading pages */
+  --measure-text:     64ch;   /* running prose */
+
+  /* ── Section rhythm (one ladder, premium breathing) ── */
+  --ws:               1;      /* whitespace-knop — identiek aan Home (.ch) */
+  --section-y:        calc(clamp(44px,5vw,76px) * var(--ws));   /* alle chapters — exact Home-spacing */
+  --section-y-lg:     calc(clamp(44px,5vw,76px) * var(--ws));   /* zelfde als dark (Home zet geen licht/donker-verschil) */
+  --section-x:        24px;
+
+  /* ── Radius ── */
+  --r-card:           14px;
+  --r-panel:          18px;
+
+  /* ── Spacing scale (4/8 base) ── */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px;
+  --sp-5:24px; --sp-6:32px; --sp-7:48px; --sp-8:64px;
+
+  /* ── Motion: shared card hover lift ── */
+  --lift:            -3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION RHYTHM — uniform across every page
+   (reading & fit-check pages already used these values; this lifts the
+    content pages from 72/80 to the same roomier ladder.)
+═══════════════════════════════════════════════════════════════════ */
+.chapter.dark{  padding-top:var(--section-y);    padding-bottom:var(--section-y);    padding-left:var(--section-x); padding-right:var(--section-x); }
+.chapter.light{ padding-top:var(--section-y-lg); padding-bottom:var(--section-y-lg); padding-left:var(--section-x); padding-right:var(--section-x); }
+
+@media(max-width:680px){
+  /* clamp(44px,5vw,76px) levert op kleine schermen al 64px (= Home); geen aparte override nodig */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   L3 — About hero: justify only on desktop (avoids mobile "rivers")
+═══════════════════════════════════════════════════════════════════ */
+@media(max-width:860px){
+  .hero-body{ text-align:left !important; text-align-last:left !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M2 — SHARED FORM FIELD + INLINE VALIDATION
+   Replaces native alert() validation with on-page, branded feedback.
+   .field            wrapper · .field-label · input/textarea · .field-hint
+   [aria-invalid]    red ring on the offending control
+   .m-field-msg      inline error text under the control
+═══════════════════════════════════════════════════════════════════ */
+.field{ display:flex; flex-direction:column; gap:8px; }
+.field-label{
+  font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(240,237,232,0.55);
+}
+.chapter.light .field-label{ color:#6b7280; }
+.field-hint{ font-size:12px; font-weight:300; color:rgba(240,237,232,0.40); }
+.chapter.light .field-hint{ color:#9aa0a6; }
+
+/* Invalid state — works on any input/select/textarea on the site */
+[aria-invalid="true"]{
+  border-color:#E85C5C !important;
+  box-shadow:0 0 0 3px rgba(232,92,92,0.16) !important;
+}
+.m-field-msg{
+  display:flex; align-items:center; gap:7px;
+  font-size:12.5px; font-weight:500; color:#E85C5C;
+  margin-top:8px; line-height:1.4;
+  animation:mFieldMsg .3s cubic-bezier(.16,1,.3,1);
+}
+.m-field-msg::before{
+  content:'\\ea6c'; /* tabler ti-alert-circle */
+  font-family:'tabler-icons'; font-weight:400; font-size:14px; flex-shrink:0;
+}
+@keyframes mFieldMsg{ from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:none;} }
+
+/* ── Branded inline notice (replaces alert() for form-level messages) ── */
+.m-notify{
+  position:fixed; left:50%; top:84px;
+  transform:translateX(-50%) translateY(-12px);
+  z-index:100000; max-width:min(440px,calc(100vw - 32px));
+  display:flex; align-items:flex-start; gap:12px;
+  background:#1C1814; border:1px solid rgba(232,92,92,0.34);
+  border-left:3px solid #E85C5C; border-radius:12px;
+  padding:15px 18px; color:#F0EDE8;
+  font-family:'DM Sans',sans-serif; font-size:13.5px; font-weight:300; line-height:1.5;
+  box-shadow:0 24px 60px -12px rgba(0,0,0,0.55);
+  opacity:0; pointer-events:none;
+  transition:opacity .35s cubic-bezier(.16,1,.3,1), transform .35s cubic-bezier(.16,1,.3,1);
+}
+.m-notify.is-shown{ opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto; }
+.m-notify.is-ok{ border-color:rgba(90,191,126,0.4); border-left-color:#5ABF7E; }
+.m-notify .m-notify-ic{ color:#E85C5C; font-size:18px; flex-shrink:0; line-height:1.3; }
+.m-notify.is-ok .m-notify-ic{ color:#5ABF7E; }
+.m-notify strong{ color:#fff; font-weight:600; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   M4a — MOBILE CALENDAR: keep the confirm action always reachable
+═══════════════════════════════════════════════════════════════════ */
+@media(max-width:680px){
+  #calConfirm{
+    position:sticky; bottom:0; z-index:5;
+    margin-top:18px;
+    box-shadow:0 -14px 24px -10px rgba(13,9,5,0.55);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M4b — STICKY MOBILE CTA BAR (content pages, injected by motion.js)
+   Always-visible "Plan een gesprek" on phones, where the hero CTA has
+   long scrolled away.
+═══════════════════════════════════════════════════════════════════ */
+.m-sticky-cta{
+  position:fixed; left:0; right:0; bottom:0; z-index:9990;
+  display:none;
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));
+  background:rgba(13,9,5,0.92);
+  backdrop-filter:blur(16px) saturate(1.3);
+  -webkit-backdrop-filter:blur(16px) saturate(1.3);
+  border-top:1px solid rgba(240,237,232,0.10);
+  transform:translateY(110%);
+  transition:transform .4s cubic-bezier(.16,1,.3,1);
+}
+.m-sticky-cta.is-shown{ transform:translateY(0); }
+.m-sticky-cta a{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:15px 20px;
+  background:#E8592B; color:#fff; text-decoration:none;
+  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+  letter-spacing:.04em; border-radius:11px;
+  transition:background .2s ease;
+}
+.m-sticky-cta a:hover{ background:#d04d22; }
+.m-sticky-cta a i{ font-size:17px; }
+@media(max-width:768px){
+  .m-sticky-cta{ display:block; }
+  /* lift the cookie banner so it never sits under the bar */
+  body.has-sticky-cta .m-cookie{ bottom:84px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M3 — FAQ wrapper (uses the existing .m-accordion component)
+═══════════════════════════════════════════════════════════════════ */
+.faq-wrap{ margin-top:8px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEAM PORTRAITS (About) — real photos, initial stays as fallback
+═══════════════════════════════════════════════════════════════════ */
+.tm.has-photo .initial,
+.tm-portrait:has(img.tm-photo) .initial{ display:none; }
+/* Unified tonal grade across the whole set (harmonisation — reversible).
+   Warms + gently mutes mixed backgrounds so 11 different shots read as one
+   editorial series. Tune the single filter line to dial it up/down. */
+.tm-portrait img.tm-photo{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 22%;
+  filter:contrast(1.06) saturate(0.88) brightness(0.96) sepia(0.07);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TEAM GRID — flex so a partial last row CENTRES (Option A).
+   With 11 members the desktop layout is 4 + 4 + 3, last row centred.
+═══════════════════════════════════════════════════════════════════ */
+.team-grid{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
+.team-grid > .tm{ flex:0 0 calc((100% - 50px) / 4); max-width:calc((100% - 50px) / 4); }
+@media(max-width:960px){
+  .team-grid > .tm{ flex-basis:calc((100% - 18px) / 2); max-width:calc((100% - 18px) / 2); }
+}
+@media(max-width:480px){
+  .team-grid > .tm{ flex-basis:100%; max-width:100%; }
+}
+
+/* Glow + gradient accents extended to cards 9–11 (reuse the cycle) */
+.tm:nth-child(9)  .tm-portrait{ background:linear-gradient(135deg,#2E1E12 0%,#1A1208 50%,#0C0905 100%); }
+.tm:nth-child(10) .tm-portrait{ background:linear-gradient(225deg,#2A1A0E 0%,#1A1208 55%,#0D0905 100%); }
+.tm:nth-child(11) .tm-portrait{ background:linear-gradient(45deg,#1A1208 0%,#2A1A0E 60%,#3a2516 100%); }
+.tm:nth-child(9)  .tm-glow{ background:radial-gradient(circle at 80% 15%,rgba(232,89,43,0.18) 0%,transparent 55%); }
+.tm:nth-child(10) .tm-glow{ background:radial-gradient(circle at 15% 20%,rgba(232,89,43,0.16) 0%,transparent 55%); }
+.tm:nth-child(11) .tm-glow{ background:radial-gradient(circle at 80% 80%,rgba(232,89,43,0.16) 0%,transparent 55%); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   L1 — count-up: hide nothing, just a tabular baseline so digits don't
+   jitter while animating
+═══════════════════════════════════════════════════════════════════ */
+/* Trusted-by logos that carry their own box/colours skip the white treatment */
+.logo-item img.is-color{ filter:none !important; opacity:.92 !important; border-radius:4px; }
+.logo-item:hover img.is-color{ opacity:1 !important; }
+
+[data-countup]{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum"; }
+
+@media(prefers-reduced-motion:reduce){
+  .m-sticky-cta{ transition:none; }
+  .m-notify{ transition:none; }
+}
+
+/* ── Mobile calendar: clearer step separation + room for the sticky confirm (step 2 pass) ── */
+@media(max-width:600px){
+  .cal-body{padding:22px 20px 96px;}
+  .cal-step{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid rgba(0,0,0,0.07);}
+  .cal-step:last-child{border-bottom:none;padding-bottom:0;}
+  .cal-step-head{margin-bottom:14px;}
+}
+
+/* ── Mobile calendar wizard: one step per screen (desktop unchanged) ── */
+.cal-back{display:none;}
+@media(max-width:600px){
+  #calMain[data-step] .cal-step{display:none !important;}
+  #calMain[data-step="1"] .cal-body>.cal-step:first-child{display:block !important;}
+  #calMain[data-step="2"] #calTimeStep{display:block !important;}
+  #calMain[data-step="3"] #calFormStep{display:block !important;}
+  .cal-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--orange);font:inherit;font-size:13px;font-weight:600;cursor:pointer;margin:0 0 14px;padding:4px 0;}
+  .cal-back i{font-size:15px;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOEGANKELIJKHEID — zichtbare, gebrande toetsenbord-focus
+   (productie-audit juni 2026, ronde 3)
+   Gebruikt :where() → specificiteit 0, zodat custom focus-stijlen
+   (calculator, form-containers met :focus-within) blijven winnen.
+   Inputs met een eigen container-ring (outline:0 + :focus-within)
+   behouden hun gedrag; dit vult enkel het gat voor links, knoppen,
+   CTA's, kaarten en accordeon-toggles op de content-pagina's.
+═══════════════════════════════════════════════════════════════════ */
+/* Deep-link / #hash-doelen (bv. #channels) klaren de vaste nav-balk zodat
+   ze niet onder de balk verdwijnen bij anker-navigatie. */
+:where([id]){scroll-margin-top:96px;}
+
+:where(a,button,summary,[tabindex]:not([tabindex="-1"]),[role="button"]):focus-visible{
+  outline:2px solid var(--orange,#E8592B);
+  outline-offset:3px;
+  border-radius:4px;
+}
+/* op donkere banden een subtiele halo voor extra zichtbaarheid */
+.chapter.dark :where(a,button,summary,[role="button"]):focus-visible,
+.ch.dark :where(a,button,summary,[role="button"]):focus-visible{
+  outline-color:#F4956E;
+  box-shadow:0 0 0 4px rgba(232,89,43,.22);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CONTRAST — footer-tekst naar WCAG AA (productie-audit ronde 3)
+   De © -regel en legal-links stonden op ~0,28–0,3 opacity (≈2,3:1 op de
+   bijna-zwarte footer). Opgetrokken naar AA-niveau (≈5:1) terwijl ze
+   visueel secundair blijven. site.css laadt ná de inline footer-stijl
+   → wint zonder !important.
+═══════════════════════════════════════════════════════════════════ */
+.m-footer .copy{color:rgba(240,237,232,.55);}
+.m-footer-links a{color:rgba(240,237,232,.52);}
+.m-footer-links a:hover{color:var(--orange,#E8592B);}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LAUNCH-POLISH 9,5+ — Mobile UX (touch) & tap-doelen (7 juli 2026)
+   Alleen op grove pointers/smal scherm; desktop-typografie blijft exact.
+   WCAG 2.5.5 / 2.5.8: interactieve doelen ≥44px op touch.
+═══════════════════════════════════════════════════════════════════ */
+/* Schone tik: geen grijze flits, wél een eigen :active-affordance */
+@media (hover:none){
+  a,button,summary,[role="button"],input,select,textarea,label{-webkit-tap-highlight-color:transparent;}
+  .btn:active,.m-cta:active,.ms-foot-btn:active,.m-form-btn:active{transform:scale(.985);}
+}
+/* Tap-doelen ≥44px op touch — hitbox vergroten zonder de tekst te vergroten */
+@media (pointer:coarse){
+  .ms-foot-col a,.ms-foot-contact a,.m-footer-links a{display:inline-flex;align-items:center;min-height:44px;}
+  .ms-foot-col ul{gap:4px;}
+  .t-arrow{min-width:44px;min-height:44px;}
+  .m-lang-opt{min-height:44px;display:inline-flex;align-items:center;}
+}
+/* Vrijwaar tegen horizontale overflow door lange, niet-breekbare tekst
+   (URL's/e-mail) op smalle schermen — nergens een zijwaartse scrollbalk. */
+@media (max-width:480px){
+  body{overflow-x:hidden;}
+  .ms-foot-contact a,.m-footer a{overflow-wrap:anywhere;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CTA-FILL TOKEN — gevulde oranje knoppen naar WCAG AA (ronde 3)
+   Eén oranje kan wit-op-oranje (vraagt donker) én oranje-tekst-op-donker
+   (vraagt licht) niet beide op AA dienen. Pro-oplossing = token-ramp:
+   • --orange       (#E8592B) blijft het ACCENT (tekst, borders, eyebrows)
+   • --orange-cta   (#CC4A1E) is de FILL voor gevulde knoppen → wit haalt
+     4,6:1 (AA). Verschil is een halve tint; leest als dezelfde merkkleur.
+   site.css laadt ná de inline pagina-stijlen → wint zonder !important.
+   (Calculator-knoppen .b-submit/.b-btn.primary: zie calculator.css.)
+═══════════════════════════════════════════════════════════════════ */
+:root{ --orange-cta:#CC4A1E; --orange-cta-hover:#B8420F; }
+.btn-primary,
+.fc-result-cta,
+.fcg-submit,
+.waitlist-submit,
+.fc-next{
+  background-color:var(--orange-cta);
+}
+.btn-primary{ border-color:var(--orange-cta); }
+.btn-primary:hover,
+.fc-result-cta:hover:not(:disabled),
+.fcg-submit:hover:not(:disabled),
+.waitlist-submit:hover,
+.fc-next:hover:not(:disabled){
+  background-color:var(--orange-cta-hover);
+}
+.btn-primary:hover{ border-color:var(--orange-cta-hover); }
+/* outline-knoppen die bij hover vúllen → zelfde AA-fill */
+.btn-calc:hover, .t-arrow:hover:not(:disabled){
+  background-color:var(--orange-cta);
+  border-color:var(--orange-cta);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SURFACE-ADAPTIEVE ORANJE — AA-tekst op LICHTE vlakken (ronde 3)
+   Bright #E8592B haalt op wit nooit AA (≈3,4:1). Op lichte secties wordt
+   --orange daarom een diepere oranje-inkt (#C2440F ≈ 4,8:1 op #f9f8f6).
+   Op donkere banden blijft #E8592B (haalt daar 4,9–5,3). Gevulde CTA's
+   gebruiken hun eigen --orange-cta-token en blijven dus ongemoeid.
+═══════════════════════════════════════════════════════════════════ */
+.chapter:not(.dark), body.theme-light{ --orange:#C2440F; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MUTED-LABEL CONTRAST — secundaire labels naar WCAG AA (ronde 3)
+   --muted-d-2 stond op ~0,38 opacity (≈3,2:1 op de donkerste band) →
+   te vaag voor 11px labels (bv. office-labels "Adres/Telefoon"). Naar
+   0,5 getild (≈4,8:1). Verhoogt enkel contrast; site.css wint van de
+   inline :root per pagina (laadt later, gelijke specificiteit).
+═══════════════════════════════════════════════════════════════════ */
+:root{ --muted-d-2:rgba(240,237,232,.5); }

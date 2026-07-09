@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro Design System 2.0 — Phase 1 Release Notes</title>
+<style>
+:root{
+  --bg:#13100d; --surface:#1b1714; --line:rgba(240,237,232,.12); --line-2:rgba(240,237,232,.07);
+  --white:#F0EDE8; --off:#D8D3CC; --muted:#9a938b; --muted-2:#736d65; --orange:#E8592B; --green:#3bbf84;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:900px;margin:0 auto;padding:clamp(48px,8vw,110px) clamp(22px,5vw,56px);}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(36px,6vw,62px);line-height:1.04;letter-spacing:-.025em;color:var(--white);margin-bottom:18px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(17px,1.9vw,21px);line-height:1.7;color:var(--off);max-width:60ch;text-wrap:pretty;}
+.badge{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);border:1px solid rgba(59,191,132,.4);background:rgba(59,191,132,.08);border-radius:100px;padding:8px 18px;margin-top:26px;}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.meta{font-size:13px;color:var(--muted-2);letter-spacing:.04em;margin-top:18px;padding-top:22px;border-top:1px solid var(--line);}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3.2vw,32px);letter-spacing:-.015em;color:var(--white);margin:clamp(50px,7vw,80px) 0 16px;}
+.h2-no{font-style:italic;color:var(--orange);font-size:.62em;margin-right:10px;}
+h3{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin:24px 0 10px;}
+ul{list-style:none;padding:0;margin:8px 0 16px;}
+li{padding:6px 0 6px 24px;position:relative;max-width:70ch;font-size:14.5px;}
+li::before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;border-radius:50%;background:var(--orange);}
+li.add::before{background:var(--green);} li.fix::before{background:#4a9fe0;} li.rm::before{background:var(--muted-2);}
+li b{color:var(--white);font-weight:500;}
+code{font-family:'DM Mono',ui-monospace,monospace;font-size:.85em;background:rgba(240,237,232,.06);border:1px solid var(--line-2);border-radius:6px;padding:2px 7px;color:var(--off);}
+.card{background:var(--surface);border:1px solid var(--line-2);border-radius:16px;padding:clamp(22px,3vw,34px);margin:18px 0;}
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;margin:14px 0;}
+@media(max-width:640px){.scores{grid-template-columns:1fr;}}
+.score{display:flex;justify-content:space-between;border-bottom:1px solid var(--line-2);padding:9px 0;font-size:14px;}
+.score span:last-child{font-family:var(--serif);font-weight:700;color:var(--orange);}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:6px;padding:2px 9px;margin-right:8px;}
+.tag.p1{background:rgba(232,89,43,.14);color:var(--orange);} .tag.p2{background:rgba(74,159,224,.14);color:#6cb6ec;} .tag.p3{background:rgba(240,237,232,.08);color:var(--muted);}
+.decision{background:linear-gradient(180deg,rgba(59,191,132,.10),rgba(59,191,132,.03));border:1px solid rgba(59,191,132,.3);border-radius:18px;padding:clamp(26px,4vw,40px);margin:40px 0 0;}
+.decision h2{margin-top:0;color:var(--green);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Montisoro · Release Documentation</p>
+  <h1>Design System 2.0<br><em>Phase 1</em> — Release Notes</h1>
+  <p class="lead">Officiële afsluiting van Fase 1. Dit document legt vast wat is opgeleverd, welke technische schuld bekend is, en wat de freeze-status en Fase 2-backlog zijn. Vanaf goedkeuring is dit de officiële basis van Montisoro.</p>
+  <div class="badge"><span class="dot"></span>Release Candidate · Feature Frozen</div>
+  <div class="meta">Versie: Montisoro Design System 2.0 — Phase 1 · 25 juni 2026 · Activatie via <code>body.ds2</code> + <code>ds2.css</code></div>
+
+  <h2><span class="h2-no">01</span>Release Review — bevestigd klaar</h2>
+  <div class="card">
+    <ul>
+      <li class="add"><b>Design System</b> — 5 systemen live op 18 pagina's via gedeelde <code>ds2.css</code>, scoped <code>body.ds2</code></li>
+      <li class="add"><b>Guidelines</b> — officieel document met principes, per-component richtlijnen, tokens, checklist</li>
+      <li class="add"><b>Decision Log</b> — waarom-documentatie per component (wel/niet/uitzonderingen)</li>
+      <li class="add"><b>Compliance Audit</b> — 10 pagina's × NL/EN volledig groen, 0 divergenties</li>
+      <li class="add"><b>NL/EN parity</b> — elk component identiek in beide talen</li>
+      <li class="add"><b>Desktop / Tablet / Mobile</b> — responsive geverifieerd (hero vouwt ≤880px, CTA's ≤560px, forms ≥16px)</li>
+      <li class="add"><b>Performance</b> — geen extra gewicht van betekenis (één kleine CSS, gehaakt op bestaande klassen)</li>
+      <li class="add"><b>Accessibility</b> — reduced-motion-safe, focus-rings, geen contrast-regressie</li>
+      <li class="add"><b>SEO impact</b> — geen (puur presentatie-laag; metadata ongewijzigd)</li>
+      <li class="add"><b>Dashboard impact</b> — geen (admin-panel heeft 0 ds2-referenties, volledig gescheiden)</li>
+    </ul>
+  </div>
+
+  <h2><span class="h2-no">02</span>Release Notes</h2>
+  <h3>Toegevoegd</h3>
+  <ul>
+    <li class="add"><b>Lead Paragraph System</b> — intro-alinea's (17–21px, lh 1.72, 60ch, <code>text-wrap:pretty</code>) op alle pagina's</li>
+    <li class="add"><b>Meaningful Numbers</b> (<code>.ds-num</code>) — Playfair-oranje kerncijfer in lopende tekst → Home, About (NL+EN)</li>
+    <li class="add"><b>Vertical Rhythm Tokens</b> — gedeelde spatiëringsschaal</li>
+    <li class="add"><b>CTA Microcopy</b> (<code>.cta-note</code>) — geruststelling onder primaire CTA → Home, About, Aanpak, Contact (NL+EN)</li>
+    <li class="add"><b>Micro-interactions</b> — uniforme knop-hover/focus, reduced-motion-safe, op alle <code>.btn</code></li>
+    <li class="add"><b>Documentatie</b> — Guidelines + Decision Log + deze Release Notes</li>
+  </ul>
+  <h3>Verbeterd</h3>
+  <ul>
+    <li class="fix">CTA-microcopy ontdaan van redundantie ("vrijblijvend" + "geen verplichting" → één feitelijke regel)</li>
+    <li class="fix">Scanbaarheid van lange tekst (lead-paragraph-instappunten)</li>
+    <li class="fix">Premium-afwerking via consistente, ingetogen knop-feedback</li>
+  </ul>
+  <h3>Verwijderd / opgeruimd</h3>
+  <ul>
+    <li class="rm">Inline beta-stijl op Home (<code>style#ds2-beta</code>) vervangen door gedeelde <code>ds2.css</code></li>
+  </ul>
+  <h3>Opgeloste bugs / regressies (in deze release-cyclus)</h3>
+  <ul>
+    <li class="fix"><b>404-pagina</b> miste ds2 → toegevoegd (consistency-regressie)</li>
+    <li class="fix"><b>forms.css</b> ontbrak op calculator-en / fit-check-en → toegevoegd (parity)</li>
+    <li class="fix"><b>iOS auto-zoom</b> op formuliervelden → 16px-fix sitebreed</li>
+    <li class="fix"><b>Marquee-logo's</b> laadden niet op mobiel → eager loading</li>
+    <li class="fix"><b>Taalknop</b> sprong naar contact → bidirectionele PAGE_MAP</li>
+  </ul>
+
+  <h2><span class="h2-no">03</span>Technical Debt (gedocumenteerd, niet uitgevoerd)</h2>
+  <div class="card">
+    <ul>
+      <li><b>Fase 1-restant — bewust beperkt:</b> <code>.ds-num</code>/<code>.cta-note</code> staan enkel waar de impactanalyse groen was. Geen schuld, maar een keuze (kwaliteit boven uniformiteit) — gedocumenteerd voor toekomstige ontwikkelaars.</li>
+      <li><b>Dode CSS:</b> <code>.hs-reassure</code> in contact.html is ongebruikt (cta-note vervangt de functie). Opruimen kan, lage prioriteit.</li>
+      <li><b>Rhythm-tokens:</b> nu licht toegepast; een volledige token-schaal (sectie/blok/element) kan in Fase 2 formeler.</li>
+      <li><b>'unsafe-inline' CSP:</b> bewuste tradeoff (geen build-step); injectie-vector al afgedekt via <code>esc()</code>.</li>
+      <li><b>Server-side PDF:</b> Chromium faalt op Netlify-timeout; opgevangen met rijke e-mail + browser-print. Externe PDF-service = mogelijke toekomst.</li>
+    </ul>
+  </div>
+
+  <h2><span class="h2-no">04</span>Freeze-status</h2>
+  <div class="card">
+    <p style="font-size:15px;margin-bottom:12px"><b style="color:var(--white)">Design System 2.0 — Phase 1 is vanaf nu "Feature Frozen".</b></p>
+    <p style="font-size:14px;color:var(--muted);max-width:68ch">Geen wijzigingen meer aan Fase 1, behalve: <b style="color:var(--off)">bugfix</b>, <b style="color:var(--off)">security</b>, of <b style="color:var(--off)">regressie</b>. Elke nieuwe verbetering of nieuw component gaat naar de Phase 2-backlog en volgt de beta → goedkeuring → uitrol → post-audit-flow.</p>
+  </div>
+
+  <h2><span class="h2-no">05</span>Phase 2 — Backlog (gepland, niet gestart)</h2>
+  <ul>
+    <li><span class="tag p1">Hoog</span><b>Call-out panels</b> — kerninzichten uitlichten in lange tekst (hairline-accentblok)</li>
+    <li><span class="tag p1">Hoog</span><b>Procesdiagram "Onze aanpak"</b> — sober stappenschema, tekst behouden</li>
+    <li><span class="tag p1">Hoog</span><b>Vergelijkingsblok</b> — "traditioneel vs. Montisoro" (bestaande tekst, gestructureerd)</li>
+    <li><span class="tag p2">Middel</span><b>Sticky sub-navigatie</b> — op lange pagina's (aanpak/technologie)</li>
+    <li><span class="tag p2">Middel</span><b>Technologie-diagram</b> — Casey/Storm relationeel schema (HTML/CSS, geen stock)</li>
+    <li><span class="tag p2">Middel</span><b>Datavisualisatie calculator-resultaat</b> — sobere balk/verhouding naast cijfers</li>
+    <li><span class="tag p2">Middel</span><b>Tijdlijn/fasering</b> van een verzuimtraject</li>
+    <li><span class="tag p2">Middel</span><b>Definitie/term-blokken</b> voor vakjargon (autoriteit)</li>
+    <li><span class="tag p3">Laag</span><b>Pull-quotes</b> uit de methodologie</li>
+    <li><span class="tag p3">Laag</span><b>Count-up bij scroll</b> breder inzetten</li>
+    <li><span class="tag p3">Laag</span><b>Volledige rhythm-token-schaal</b> formaliseren</li>
+    <li><span class="tag p3">Laag</span><b>Scroll-progress / sectie-marker</b> op lange pagina's</li>
+    <li><span class="tag p3">Laag</span><b>Cursor/scroll-microdetails</b> (desktop, ingetogen)</li>
+  </ul>
+
+  <div class="decision">
+    <h2 style="font-size:clamp(22px,3.4vw,32px)">Definitief oordeel</h2>
+    <ul style="margin-bottom:6px">
+      <li class="add"><b>Phase 1 officieel afgerond?</b> Ja — geïmplementeerd, gedocumenteerd, geauditeerd.</li>
+      <li class="add"><b>Stabiel?</b> Ja — 0 regressies open, compliance groen.</li>
+      <li class="add"><b>Onderhoudbaar?</b> Ja — één gedeelde <code>ds2.css</code>, scoped, gedocumenteerd.</li>
+      <li class="add"><b>Schaalbaar?</b> Ja — nieuwe pagina = class + link; per-pagina hooks waar zinvol.</li>
+      <li class="add"><b>Klaar als basis voor de komende jaren?</b> Ja.</li>
+    </ul>
+    <p style="font-family:var(--serif);font-size:clamp(20px,3vw,28px);color:var(--white);font-weight:700;margin-top:18px">Beslissing: <span style="color:var(--green)">C — Official Release Candidate Approved.</span></p>
+  </div>
+
+  <h2><span class="h2-no">06</span>Phase 2.1A — Call-out Panel <span style="font-size:.5em;color:var(--green)">Approved</span></h2>
+  <div class="card">
+    <ul>
+      <li class="add"><b>Toegevoegd:</b> Call-out Panel (<code>.ds-callout</code>) — editorial ledger voor trust/methodologie. Live op Calculator (#bMain, NL+EN).</li>
+      <li class="fix"><b>Verfijnd:</b> v1 notice-box (7,5/10) → v2 editorial ledger (9,2/10): geen vulling/box, twee-koloms, Playfair-italic kernfrase = Montisoro-DNA.</li>
+      <li class="add"><b>Gedocumenteerd:</b> ontwerpfilosofie + Design Principles ("nooit"-lijst) + Evolutierichtlijnen in de Decision Log.</li>
+      <li class="add"><b>Status:</b> Approved Design System Component — officiële standaard voor alle toekomstige trust-/methodologiecomponenten.</li>
+    </ul>
+  </div>
+
+  <div class="meta">Dit document is de officiële afsluiting van Montisoro Design System 2.0 — Phase 1. Phase 2 start pas na expliciete goedkeuring, per beta.</div>
+
+</div>
+</body>
+</html>

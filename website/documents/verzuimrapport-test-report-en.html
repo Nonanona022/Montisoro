@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Absence report · TEST</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MONTISORO — VERZUIMRAPPORT · TEST  (volgt briefing 14/06/2026)
+   10 logische pagina's. Zelfde render-contract als productie:
+   window.__renderReport({lang, meta, vars, results}).
+   Benchmarks (kort 3,3 / middel 1,9 / lang 1,4) komen uit results.
+   PRODUCTIE ONGEMOEID — dit is een testbestand.
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --page:#FBFAF8; --card:#fff;
+  --ink:#1a1512; --ink-soft:#5c534b; --ink-mute:#8a8078;
+  --off:#F0EDE8; --off-mute:rgba(240,237,232,0.60); --off-mute-2:rgba(240,237,232,0.40);
+  --orange:#E8592B; --orange-soft:#FAE8E1; --orange-deep:#a8431f;
+  --line:rgba(26,21,18,0.10); --line-2:rgba(26,21,18,0.06);
+  --line-d:rgba(240,237,232,0.12);
+  --good:#3F8F6B; --good-soft:rgba(63,143,107,0.12);
+  --warn:#C8824A;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{background:#3a3631;font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;-webkit-font-smoothing:antialiased;}
+.page{position:relative;width:210mm;min-height:297mm;background:var(--page);overflow:hidden;display:flex;flex-direction:column;margin:0 auto;}
+.page--dark{background:var(--bg);color:var(--off);}
+.pad{flex:1;display:flex;flex-direction:column;padding:20mm 19mm 14mm;}
+@media screen{ body{padding:0;} .page{box-shadow:0 18px 50px -18px rgba(0,0,0,.5);} .page + .page{margin-top:0;} }
+@media print{
+  html,body{background:#fff;}
+  .page{box-shadow:none;width:210mm;height:297mm;min-height:0;overflow:hidden;break-inside:avoid;page-break-inside:avoid;}
+  .page:last-child{height:auto;min-height:0;break-inside:auto;page-break-inside:auto;}
+  .page:last-child .pad{display:block;padding-bottom:14mm !important;}
+  .pad{padding:9mm 14mm 6mm !important;}
+  .pad .p{line-height:1.22 !important;margin-bottom:3px !important;font-size:8.8px !important;}
+  .pad .sub-h{margin-top:5px !important;margin-bottom:2px !important;}
+  .pad ul.clean{margin:2px 0 !important;}
+  .pad ul.clean li{margin-bottom:1px !important;line-height:1.22 !important;font-size:8.8px !important;}
+  .pad .t{margin-bottom:3px !important;}
+  .pad .bmline,.pad .statpill{margin:3px 0 !important;}
+  .pad .prionote,.pad [class*=prio]{margin-top:5px !important;padding:7px 10px !important;font-size:8.6px !important;}
+  @page{size:A4;margin:0;}
+}
+
+/* head/foot */
+.ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:22px;}
+.page--dark .ph{border-color:var(--line-d);}
+.ph .logo{font-family:var(--sans);font-weight:600;font-style:normal;text-transform:uppercase;letter-spacing:.22em;font-size:12px;color:var(--ink);}
+.page--dark .ph .logo{color:#fff;}
+.ph .tag{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-family:var(--mono);}
+.page--dark .ph .tag{color:var(--off-mute);}
+.pf{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--line);margin-top:auto;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-family:var(--mono);}
+.page--dark .pf{border-color:var(--line-d);color:var(--off-mute-2);}
+.pf .no{color:var(--orange);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-family:var(--mono);}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--orange);}
+h2.t{font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.12;letter-spacing:-.025em;color:var(--ink);margin:12px 0 8px;}
+.page--dark h2.t{color:#fff;}
+h2.t em{font-style:italic;color:var(--orange);}
+.lead{font-size:12.5px;font-weight:300;line-height:1.7;color:var(--ink-soft);max-width:64ch;}
+.page--dark .lead{color:var(--off-mute);}
+.p{font-size:11.5px;line-height:1.7;color:var(--ink-soft);margin-bottom:10px;}
+.page--dark .p{color:var(--off-mute);}
+.p strong{color:var(--ink);font-weight:600;} .page--dark .p strong{color:#fff;}
+.divlabel{display:flex;align-items:center;gap:12px;margin:18px 0 6px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);font-family:var(--mono);}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:7px;margin:8px 0;}
+ul.clean li{display:flex;gap:10px;font-size:11px;line-height:1.5;color:var(--ink-soft);}
+.page--dark ul.clean li{color:var(--off-mute);}
+ul.clean li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:6px;}
+ol.num{margin:8px 0 8px 4px;padding-left:18px;display:flex;flex-direction:column;gap:6px;}
+ol.num li{font-size:11px;line-height:1.5;color:var(--ink-soft);} ol.num li strong{color:var(--ink);}
+
+/* TITLE */
+.title-wrap{flex:1;display:flex;flex-direction:column;}
+.tt-mid{margin-top:auto;}
+.tt-rule{width:46px;height:2px;background:var(--orange);margin-bottom:24px;}
+.tt-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+.tt-h{font-family:var(--serif);font-weight:700;font-size:54px;line-height:1.02;letter-spacing:-.03em;color:#fff;}
+.tt-sub{font-size:13px;font-weight:300;line-height:1.7;color:var(--off-mute);max-width:52ch;margin-top:20px;}
+.tt-meta{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:18px 34px;border-top:1px solid var(--line-d);padding-top:22px;max-width:480px;}
+.tt-meta .ml{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--off-mute-2);margin-bottom:7px;}
+.tt-meta .mv{font-family:var(--serif);font-weight:700;font-size:16px;color:#fff;}
+.tt-foot{margin-top:auto;display:flex;justify-content:space-between;padding-top:22px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--off-mute-2);}
+.tt-badge{position:absolute;top:20mm;right:19mm;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:6px 13px;z-index:2;}
+
+/* TOC list (exec summary) */
+.toc{list-style:none;counter-reset:t;display:flex;flex-direction:column;margin-top:6px;border-top:1px solid var(--line);}
+.toc li{counter-increment:t;display:grid;grid-template-columns:30px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-2);font-size:11.5px;line-height:1.5;color:var(--ink-soft);}
+.toc li::before{content:counter(t);font-family:var(--serif);font-weight:700;font-style:italic;color:var(--orange);font-size:15px;}
+
+/* KPI cards p4 */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card);}
+.kpi.hero{background:var(--orange-soft);border-color:rgba(232,89,43,.22);grid-column:1/-1;}
+.kpi .kl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;}
+.kpi .kv{font-family:var(--serif);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";}
+.kpi.hero .kv{font-size:40px;color:var(--orange-deep);}
+.kpi .kn{font-size:10px;color:var(--ink-mute);margin-top:8px;line-height:1.4;}
+.subkpi{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;margin-top:10px;}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;font-size:11px;vertical-align:top;}
+.tbl th{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+.page--dark .tbl th{color:var(--off-mute);border-color:var(--off);}
+.tbl td{border-bottom:1px solid var(--line-2);color:var(--ink-soft);}
+.page--dark .tbl td{border-color:var(--line-d);color:var(--off-mute);}
+.tbl td:first-child{color:var(--ink);font-weight:500;} .page--dark .tbl td:first-child{color:#fff;}
+.tbl .num{text-align:right;font-family:var(--mono);font-feature-settings:"tnum";white-space:nowrap;}
+.tbl .e{color:var(--orange-deep);font-weight:500;} .page--dark .tbl .e{color:var(--orange);}
+
+/* input recap */
+.io-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:8px;}
+.io-col .ch{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:4px;}
+.io-row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line-2);font-size:10.5px;}
+.io-row .k{color:var(--ink-soft);} .io-row .v{font-family:var(--mono);color:var(--ink);white-space:nowrap;}
+.io-row.empty .v{color:var(--ink-mute);}
+.io-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px;}
+.io-tbl{margin-top:10px;} .io-tbl td,.io-tbl th{padding:10px 12px;}
+
+/* status pill */
+.statpill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;padding:7px 14px;border-radius:100px;margin:4px 0;}
+.statpill.under{background:var(--good-soft);color:var(--good);}
+.statpill.equal{background:rgba(200,130,74,.14);color:var(--warn);}
+.statpill.above{background:var(--orange-soft);color:var(--orange-deep);}
+.bmline{font-size:11px;color:var(--ink-mute);margin:6px 0 2px;}
+.bmline b{color:var(--ink);font-family:var(--mono);}
+.prionote{margin-top:12px;border-left:2px solid var(--orange);padding:8px 0 8px 16px;font-size:11px;line-height:1.6;color:var(--ink-soft);font-style:italic;}
+.prionote b{font-style:normal;color:var(--orange-deep);}
+.sub-h{font-size:12px;font-weight:600;color:var(--ink);margin:14px 0 4px;}
+
+/* scenario cards p5 */
+.scn{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:12px;background:var(--card);}
+.scn.hl{border-color:rgba(232,89,43,.3);background:var(--orange-soft);}
+.scn .sh{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.scn .sh .stag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--orange);padding:3px 8px;border-radius:5px;}
+.scn .sh h4{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--ink);}
+.scn .sp{font-size:10.5px;line-height:1.55;color:var(--ink-soft);margin:6px 0;}
+.note{font-size:9.5px;line-height:1.55;color:var(--ink-mute);border-top:1px solid var(--line);padding-top:10px;margin-top:14px;font-family:var(--sans);}
+
+/* fte hero p9 */
+.fte-hero{display:flex;align-items:center;gap:24px;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card);margin-top:8px;}
+.fte-num{font-family:var(--serif);font-weight:700;font-size:56px;line-height:.9;color:var(--orange);font-feature-settings:"tnum";}
+.fte-txt{font-size:12px;line-height:1.6;color:var(--ink-soft);} .fte-txt strong{color:var(--ink);}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.ctx{border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+.ctx .cl{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px;}
+.ctx .cv{font-size:12px;line-height:1.55;color:var(--ink-soft);} .ctx .cv b{color:var(--ink);}
+
+/* cta p10 */
+.cta{background:var(--bg);border-radius:16px;padding:30px 30px;color:var(--off);margin-top:14px;}
+.cta h3{font-family:var(--serif);font-weight:700;font-size:21px;color:#fff;margin-bottom:8px;} .cta h3 em{font-style:italic;color:var(--orange);}
+.cta .cl{font-size:12px;color:var(--off-mute);line-height:1.6;}
+.cta-steps{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;margin:16px 0;}
+.cta-steps div{font-size:11px;color:var(--off-mute);display:flex;gap:9px;} .cta-steps div::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:6px;flex-shrink:0;}
+.cta-contact{display:flex;gap:30px;border-top:1px solid var(--line-d);padding-top:16px;margin-top:6px;}
+.cta-contact .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--off-mute-2);margin-bottom:5px;}
+.cta-contact .v{font-size:12px;color:#fff;}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#13100D">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#13100D"/>
+    <circle cx="600" cy="330" r="115" fill="none" stroke="#E8592B" stroke-width="10"/>
+    <text x="600" y="372" font-family="Georgia, serif" font-size="150" font-style="italic" font-weight="700" fill="#F0EDE8" text-anchor="middle">M</text>
+    <rect x="450" y="520" width="300" height="14" rx="7" fill="#E8592B"/>
+    <rect x="380" y="560" width="440" height="10" rx="5" fill="rgba(240,237,232,0.30)"/>
+  </svg>
+</template>
+
+<div id="report"></div>
+
+<script src="../config/calculator-params.js"></script>
+<script>window.MONTISORO_CALC_CONFIG=Object.assign({},window.MONTISORO_CALC_CONFIG,{sector:{K:3.3,M:1.9,L:1.4}});</script>
+<script src="../services/verzuim-engine.js"></script>
+<script src="verzuimrapport-test-en.content.js"></script>
+<script>
+(function(){
+  'use strict';
+  var E=window.VerzuimEngine, CT=window.__TESTREPORT_CONTENT_EN;
+  function eur(n){return '\u20ac '+Math.round(n||0).toLocaleString('en-GB',{maximumFractionDigits:0});}
+  function pct(n,d){d=d==null?1:d;return (n||0).toLocaleString('en-GB',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';}
+  function esc(s){return String(s==null?'':s);}
+
+  function buildDemo(){
+    var st={fte:250,splitA:60,salary:45000,voordelen:50,firmawagen:700,groepsv:600,hospv:400,andereverz:200,
+      grpVoordelen:'beide',grpFirmawagen:'bediende',grpGroepsv:'bediende',grpHospv:'beide',grpAndereverz:'beide',
+      days:220,kA:3.6,mA:2.4,lA:2.1,kB:3.0,mB:1.8,lB:1.4,vervangFactor:30,orgFactor:50};
+    var r=E.report(st,'en');
+    return {lang:'en',meta:{company_name:'Example Ltd',report_date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})},vars:r.vars,results:r.results};
+  }
+
+  function statusOf(mine,avg){
+    var d=mine-avg;
+    if(d < -0.15) return 'under';
+    if(d <= 0.15) return 'equal';
+    return 'above';
+  }
+
+  function render(report){
+    if(!report||!report.results){report=buildDemo();}
+    var R=report.results, I=R.input, V=report.vars, M=report.meta||{};
+    var days=I.days||220;
+    var host=document.getElementById('report');
+    var H='';
+
+    /* ── helper page shell ── */
+    function page(dark,inner,foot,no){
+      return '<section class="page'+(dark?' page--dark':'')+'" data-screen-label="'+no+'"><div class="pad">'+
+        '<div class="ph"><span class="logo">Montisoro</span><span class="tag">Absence report · TEST</span></div>'+
+        inner+'<div class="pf"><span>Montisoro — Absence report</span><span>'+foot+'</span><span class="no">'+no+'</span></div></div></section>';
+    }
+
+    /* ══ P1 — TITELBLAD ══ */
+    H+='<section class="page page--dark" data-screen-label="01"><div class="pad title-wrap">'+
+       '<span class="tt-badge">Confidential · Indicative</span>'+
+       '<img src="../assets/montisoro-logo.png" alt="Montisoro" style="height:42px;width:auto;align-self:flex-start;display:block;">'+
+       '<div class="tt-mid"><div class="tt-rule"></div><div class="tt-kicker">Absence report</div>'+
+       '<h1 class="tt-h">What absence<br><em style="font-style:italic;color:var(--orange);">really</em> costs.</h1>'+
+       '<p class="tt-sub">Indicative business analysis of the annual cost, the risks and the savings potential of absence within your organisation.</p>'+
+       '<div class="tt-meta">'+
+         '<div><div class="ml">Prepared for</div><div class="mv">'+esc(M.company_name||'Voorbeeld NV')+'</div></div>'+
+         '<div><div class="ml">Date</div><div class="mv">'+esc(M.report_date||'')+'</div></div>'+
+         '<div><div class="ml">Language</div><div class="mv">English</div></div>'+
+         '<div><div class="ml">Author</div><div class="mv">Montisoro BV</div></div>'+
+       '</div></div>'+
+       '<div class="tt-foot"><span>Re-integrate What Matters</span><span>montisoro.com</span></div>'+
+       '</div></section>';
+
+    /* ══ P2 — EXECUTIVE SUMMARY ══ */
+    var p2='<span class="eyebrow">Executive summary</span><h2 class="t">Absence as a <em>strategic</em> lever.</h2>'+
+      '<p class="p">This report maps the impact of absence within your organisation based on the data you provided — a substantiated analysis of the current absence situation, the financial consequences and the opportunities to control costs and strengthen sustainable employability.</p>'+
+      '<p class="p">Absence affects not only wage cost, but also productivity, operational continuity, customer satisfaction and workload. By making that impact visible, this report supports strategic decision-making around wellbeing, leadership, HR policy and organisational development.</p>'+
+      '<div class="divlabel">In this report you will find</div>'+
+      '<ol class="toc">'+
+        '<li>An overview of the organisation and absence data entered.</li>'+
+        '<li>A calculation of the direct and total absence cost.</li>'+
+        '<li>An analysis of the cost per calendar day and per working day of absence.</li>'+
+        '<li>A simulation of the financial impact and the savings potential.</li>'+
+        '<li>A detailed analysis of short-, medium- and long-term absence, split by blue-collar and white-collar staff.</li>'+
+        '<li>Strategic insights into the main absence drivers, risk zones and improvement opportunities.</li>'+
+        '<li>Concrete recommendations and an action plan to manage absence sustainably.</li>'+
+      '</ol>'+
+      '<p class="p" style="margin-top:14px;"><strong>What gets measured can be managed.</strong> This report helps you see absence not merely as a cost, but as a strategic lever for sustainable growth and operational excellence.</p>';
+    H+=page(false,p2,'Executive summary','02');
+
+    /* ══ P3 — OVERZICHT INGEVOERDE GEGEVENS ══ */
+    var nArb=Math.round((I.fte||0)*(I.splitA||0)/100), nBed=(I.fte||0)-nArb;
+    function tw(g){return g==='arbeider'?'Blue-collar':g==='bediende'?'White-collar':g==='beide'?'Both':'—';}
+    var costRows=[
+      ['Benefits in kind', I.grpVoordelen, eur(I.voordelen)+' /mo'],
+      ['Company car', I.grpFirmawagen, eur(I.firmawagen)+' /mo'],
+      ['Group insurance', I.grpGroepsv, eur(I.groepsv)+' /yr'],
+      ['Hospitalisation insurance', I.grpHospv, eur(I.hospv)+' /yr'],
+      ['Other insurance', I.grpAndereverz, eur(I.andereverz)+' /yr']
+    ];
+    var costTbl='<table class="tbl io-tbl"><thead><tr><th>Recurring cost item</th><th>Assignment</th><th class="num">Amount</th></tr></thead><tbody>'+
+      costRows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+tw(r[1])+'</td><td class="num">'+r[2]+'</td></tr>';}).join('')+
+      '</tbody></table>';
+    var verzTbl='<table class="tbl io-tbl"><thead><tr><th>Absence type</th><th class="num">Blue-collar</th><th class="num">White-collar</th></tr></thead><tbody>'+
+      '<tr><td>Short ≤ 1 month</td><td class="num">'+pct(I.kA,2)+'</td><td class="num">'+pct(I.kB,2)+'</td></tr>'+
+      '<tr><td>Medium 1–12 months</td><td class="num">'+pct(I.mA,2)+'</td><td class="num">'+pct(I.mB,2)+'</td></tr>'+
+      '<tr><td>Long &gt; 1 year</td><td class="num">'+pct(I.lA,2)+'</td><td class="num">'+pct(I.lB,2)+'</td></tr>'+
+      '</tbody></table>';
+    var p3='<span class="eyebrow">Step 1 — input</span><h2 class="t">Overview of <em>entered</em> data.</h2>'+
+      '<p class="lead">The analysis is based entirely on the data you have entered. The summary is below.</p>'+
+      '<div class="divlabel">Organisation</div>'+
+      '<div class="io-grid2">'+
+        '<div><div class="io-row"><span class="k">Number of employees</span><span class="v">'+(I.fte||0)+'</span></div>'+
+          '<div class="io-row"><span class="k">Blue-collar</span><span class="v">'+nArb+' · '+(I.splitA||0)+'%</span></div>'+
+          '<div class="io-row"><span class="k">White-collar</span><span class="v">'+nBed+' · '+(100-(I.splitA||0))+'%</span></div></div>'+
+        '<div><div class="io-row"><span class="k">Average gross salary</span><span class="v">'+eur(I.salary)+'</span></div>'+
+          '<div class="io-row"><span class="k">Net working days / yr</span><span class="v">'+days+'</span></div>'+
+          '<div class="io-row"><span class="k">Replacement costs</span><span class="v">'+(I.vervangFactor||0)+'%</span></div>'+
+          '<div class="io-row"><span class="k">Organisational impact</span><span class="v">'+(I.orgFactor||0)+'%</span></div></div>'+
+      '</div>'+
+      '<div class="divlabel" style="margin-top:26px;">Recurring costs</div>'+
+      costTbl+
+      '<div class="divlabel" style="margin-top:26px;">Absence figures</div>'+
+      verzTbl;
+    H+=page(false,p3,'Overview of entered data','03');
+
+    /* ══ P4 — DIRECTE & TOTALE KOST ══ */
+    var direct=R.werkgeverslast||R.total||0, totale=R.totaleKost||0;
+    var p4='<span class="eyebrow">Step 2 — the cost</span><h2 class="t">Direct and total <em>absence cost.</em></h2>'+
+      '<p class="lead">These are the figures you need to know. The direct cost is what you bear directly; the total cost also includes lost productivity.</p>'+
+      '<div class="kpi-grid">'+
+        '<div class="kpi hero"><div class="kl">Annual direct absence cost</div><div class="kv">'+eur(direct)+'</div><div class="kn">Wages, benefits, insurance, replacement</div></div>'+
+      '</div>'+
+      '<div class="subkpi">'+
+        '<div class="kpi"><div class="kl">Average cost / calendar day</div><div class="kv">'+eur(direct/365)+'</div><div class="kn">Direct cost ÷ 365 days</div></div>'+
+        '<div class="kpi"><div class="kl">Average cost / working day</div><div class="kv">'+eur(direct/days)+'</div><div class="kn">Direct cost ÷ '+days+' working days</div></div>'+
+      '</div>'+
+      '<div class="kpi-grid" style="margin-top:18px;">'+
+        '<div class="kpi" style="grid-column:1/-1;border-color:rgba(26,21,18,.16);"><div class="kl">Annual total absence cost (incl. indirect)</div><div class="kv">'+eur(totale)+'</div><div class="kn">Direct cost + lost productivity (organisational impact)</div></div>'+
+      '</div>'+
+      '<div class="subkpi">'+
+        '<div class="kpi"><div class="kl">Total / calendar day</div><div class="kv">'+eur(totale/365)+'</div><div class="kn">Total cost ÷ 365 days</div></div>'+
+        '<div class="kpi"><div class="kl">Total / working day</div><div class="kv">'+eur(totale/days)+'</div><div class="kn">Total cost ÷ '+days+' working days</div></div>'+
+      '</div>';
+    H+=page(false,p4,'Direct & total absence cost','04');
+
+    /* ══ P5 — FINANCIËLE IMPACT SIMULATOR ══ */
+    var kk=0,mm=0,ll=0;
+    (R.categories||[]).forEach(function(c){ if(c.key==='K')kk=c.mine; if(c.key==='M')mm=c.mine; if(c.key==='L')ll=c.mine; });
+    var totR=kk+mm+ll; var kShare=totR>0?kk/totR:0, durShare=totR>0?(mm+ll)/totR:0;
+    function durSave(r){ return direct*durShare*r; }
+    function comboSave(p,r){ return direct*(kShare*p+durShare*r); }
+    function comboRate(p,r){ return totR*(1-(kShare*p+durShare*r)); }
+    function scnTable(rows){
+      return '<table class="tbl"><thead><tr><th>Estimate</th><th class="num">Duration reduction</th><th class="num">Annual saving</th></tr></thead><tbody>'+
+        rows.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="num e">'+r[2]+'</td></tr>';}).join('')+'</tbody></table>';
+    }
+    var p5='<span class="eyebrow">Step 3 — simulator</span><h2 class="t">Financial <em>impact</em> simulator.</h2>'+
+      '<p class="lead">Two figures are often confused: the <strong>number</strong> of employees who are ill (inflow), and the <strong>duration</strong> of the illness. Casey AI and early work-capacity assessment work on the duration — not on the inflow.</p>'+
+      '<div class="scn hl"><div class="sh"><span class="stag">Scenario A</span><h4>Early assessment via Casey AI</h4></div>'+
+        '<p class="sp">Casey AI assesses work capacity from the first conversation (week 2–4 instead of week 8) and alerts the case manager directly. Task adjustments start sooner → average illness duration −25–35% within 12 months.</p>'+
+        scnTable([['Cautious','−25%',eur(durSave(0.25))],['Realistic','−30%',eur(durSave(0.30))],['Strong','−35%',eur(durSave(0.35))]])+'</div>'+
+      '<div class="scn"><div class="sh"><span class="stag" style="background:var(--ink);">Scenario B</span><h4>Traditional assessment (week 8)</h4></div>'+
+        '<p class="sp">Standard approach: work-capacity assessment only from week 8 (RD RTW 3.0). Starting six weeks later costs ±10 percentage points of duration reduction — the difference between 15% and 25% effect.</p>'+
+        scnTable([['Cautious','−15%',eur(durSave(0.15))],['Realistic','−20%',eur(durSave(0.20))],['Strong','−25%',eur(durSave(0.25))]])+'</div>'+
+      '<div class="scn"><div class="sh"><span class="stag">Scenario C</span><h4>Combination — Prevention + Early WCA</h4></div>'+
+        '<p class="sp">Prevention (COCC, workload analysis, short-absence approach) reduces inflow by 15–25%; Casey AI + early WCA shortens duration by 30–38%. Both levers together = maximum impact.</p>'+
+        '<table class="tbl"><thead><tr><th>Estimate</th><th class="num">Absence % (was '+pct(totR)+')</th><th class="num">Duration</th><th class="num">Annual saving</th></tr></thead><tbody>'+
+          [['Realistic',0.20,0.30],['Strong',0.22,0.35],['Ambitious',0.25,0.38]].map(function(r){
+            return '<tr><td>'+r[0]+'</td><td class="num">'+pct(comboRate(r[1],r[2]))+'</td><td class="num">−'+Math.round(r[2]*100)+'%</td><td class="num e">'+eur(comboSave(r[1],r[2]))+'</td></tr>';
+          }).join('')+'</tbody></table></div>'+
+      '<p class="note"><strong>Model note (to be validated):</strong> the duration reduction is applied to the duration-driven part of the direct cost (medium + long term = '+pct(durShare*100,0)+' of absence); prevention to the inflow (short term). This is a transparent first model — we align the exact savings formula together.</p>';
+    H+=page(false,p5,'Financial impact simulator','05');
+
+    /* ══ P6-8 — DETAILANALYSE PER VERZUIMTYPE ══ */
+    function detailPage(catKey,catName,no,first){
+      var cat=(R.categories||[]).find(function(c){return c.key===catKey;})||{mine:0,avg:0};
+      var st=statusOf(cat.mine,cat.avg);
+      var block=CT[catKey][st];
+      var stLbl=st==='under'?'✓ better than the benchmark':st==='equal'?'∼ on par with the benchmark':'⚠ above the benchmark';
+      var intro = first ? '<p class="lead" style="margin-top:16px;margin-bottom:14px;">The benchmark is based on figures from SD Worx 2024 (LE_Verzuim_industrie) and the report “Ziekteverzuim in België 2025”. For each absence type, one analysis is shown, based on the figures you entered.</p>' : '';
+      var heading='<h2 class="t">'+catName+' <em>absence.</em></h2>';
+      var bm='<div class="bmline">Your percentage: <b>'+pct(cat.mine)+'</b> &nbsp;·&nbsp; Sector average: <b>'+pct(cat.avg)+'</b></div>'+
+        '<div class="statpill '+st+'">'+stLbl+'</div>';
+      var inner='<span class="eyebrow">Step 5 — Absence analysis</span>'+
+        (first ? intro+heading : heading)+bm+
+        block;
+      return page(false,inner,catName+' absence','0'+no);
+    }
+    H+=detailPage('K','Short-term',6,true);
+    H+=detailPage('M','Medium-term',7,false);
+    H+=detailPage('L','Long-term',8,false);
+
+    /* ══ P9 — STRATEGISCHE INZICHTEN ══ */
+    var diff=R.differenceVsSector||0;
+    var posWord=diff>0.15?'above':diff<-0.15?'below':'on par with';
+    var risk=R.riskKey||'avg';
+    var prio=(R.rankedCategories&&R.rankedCategories[0]&&R.rankedCategories[0].label)||'medium-term'; prio=({kort:'short-term',middellang:'medium-term',langdurig:'long-term'}[prio]||prio);
+    var riskLbl=((window.VerzuimEngine&&VerzuimEngine.RISK_LABELS&&VerzuimEngine.RISK_LABELS.en)||{low:'Low',avg:'Average',elevated:'Elevated',high:'High'})[risk];
+    var CONCL={
+      low:{lead:'Your figures are below the sector average — a strong starting position.',body:'The greatest value now lies in preservation: anchor what works and keep a close eye on <strong>'+prio+'</strong> absence, so that your lead remains sustainable.'},
+      avg:{lead:'Your figures are around the sector average.',body:'Therein lies the opportunity: targeted steps around <strong>'+prio+'</strong> absence move you from “average” to a structural lead, with direct impact on cost.'},
+      elevated:{lead:'Your figures are noticeably above the sector average.',body:'A structural approach pays off quickly here. The greatest lever lies with <strong>'+prio+'</strong> absence — that is where the most can be gained on both cost and continuity.'},
+      high:{lead:'Your figures are far above the sector average.',body:'This calls for an urgent, structured approach. Start with <strong>'+prio+'</strong> absence: today your greatest risk and your greatest savings opportunity.'}
+    };
+    var cc=CONCL[risk]||CONCL.avg;
+    var p9='<span class="eyebrow">Step 6 — insights</span><h2 class="t">Strategic <em>insights.</em></h2>'+
+      '<p class="lead">Overall risk level: <strong style="color:var(--orange-deep)">'+riskLbl+'</strong>. '+cc.lead+'</p>'+
+      '<div class="divlabel">FTE equivalent</div>'+
+      '<div class="fte-hero"><div class="fte-num">'+pct(R.fteEquivalent,1).replace('%','')+'</div>'+
+        '<div class="fte-txt">Your current absence is equivalent to the loss of approximately <strong>'+pct(R.fteEquivalent,1).replace('%','')+' full-time employees</strong> per year — '+ (R.lostDays||0).toLocaleString('en-GB')+' lost working days.</div></div>'+
+      '<div class="ctx-grid">'+
+        '<div class="ctx"><div class="cl">Benchmark context</div><div class="cv">You are <b>'+posWord+'</b> the sector average, by <b>'+(diff>=0?'+':'−')+pct(Math.abs(diff)).replace('%','')+' pp</b> (your '+pct(R.totVerz)+' vs. sector '+pct(R.sectorAverage)+').</div></div>'+
+        '<div class="ctx"><div class="cl">Cascade risk</div><div class="cv">Without targeted action, <b>medium-term</b> problems flow through to <b>long-term</b> absence within 6–12 months — the heaviest cost item.</div></div>'+
+      '</div>'+
+      '<div class="divlabel">Savings scenarios</div>'+
+      '<table class="tbl"><thead><tr><th>Absence reduction</th><th class="num">Annual saving</th></tr></thead><tbody>'+
+        '<tr><td>− 0.5 percentage points</td><td class="num e">'+esc(V.saving_half_percent)+'</td></tr>'+
+        '<tr><td>− 1 percentage point</td><td class="num e">'+esc(V.saving_one_percent)+'</td></tr>'+
+        '<tr><td>− 2 percentage points</td><td class="num e">'+esc(V.saving_two_percent)+'</td></tr>'+
+      '</tbody></table>';
+    H+=page(false,p9,'Strategic insights','09');
+
+    /* ══ P10 — AANBEVELINGEN + PLAN ══ */
+    var p10='<span class="eyebrow">Step 7 — recommendations</span><h2 class="t">Concrete <em>recommendations.</em></h2>'+
+      '<p class="p">Absence costs your organisation approximately <strong>'+esc(V.annual_absence_cost)+'</strong> per year today. '+cc.lead+' The question is not whether this cost can be influenced, but to what extent you are willing to actively steer it.</p>'+
+      '<p class="p">'+cc.body+'</p>'+
+      '<p class="p">Organisations that successfully reduce absence typically excel in three areas:</p>'+
+      '<ul class="clean"><li>Insight into the real causes of absence.</li><li>Structure in support, prevention and reintegration.</li><li>Steering based on real-time data and predictive insights.</li></ul>'+
+      '<div class="cta"><h3>Action plan: <em>next step</em></h3>'+
+        '<p class="cl">This report provides data. The real value lies in a focused conversation. In 30 minutes we determine together where the greatest impact lies, which measures are feasible, and which realistic savings are possible.</p>'+
+        '<div class="cta-steps"><div>Walk through the report step by step</div><div>Dig deeper into relevant figures</div><div>Set out a concrete action plan</div><div>Define 30/60/90 days</div></div>'+
+        '<div class="cta-contact"><div><div class="l">Phone</div><div class="v">+32 477 89 91 86</div></div><div><div class="l">Email</div><div class="v">hello@montisoro.com</div></div><div><div class="l">Web</div><div class="v">montisoro.com</div></div></div>'+
+      '</div>';
+    H+=page(false,p10,'Recommendations & action plan','10');
+
+    host.innerHTML=H;
+  }
+
+  window.__renderReport=render;
+  // initial demo render
+  var __rep = window.__MONTISORO_REPORT || null;
+  try { if(!__rep){ var __s = sessionStorage.getItem('montisoro_report'); if(__s){ __rep = JSON.parse(__s); window.__MONTISORO_FROMCALC = true; } } } catch(e){}
+  render(__rep);
+  if (window.__MONTISORO_FROMCALC || new URLSearchParams(location.search).get('print') === '1') { setTimeout(function(){ try{ window.print(); }catch(e){} }, 700); }
+})();
+</script>
+</body>
+</html>

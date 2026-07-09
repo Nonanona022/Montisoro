@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro Design System — Decision Log</title>
+<style>
+:root{
+  --bg:#13100d; --surface:#1b1714; --line:rgba(240,237,232,.12); --line-2:rgba(240,237,232,.07);
+  --white:#F0EDE8; --off:#D8D3CC; --muted:#9a938b; --muted-2:#736d65; --orange:#E8592B; --green:#3bbf84;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:960px;margin:0 auto;padding:clamp(48px,8vw,110px) clamp(22px,5vw,56px);}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,6vw,66px);line-height:1.02;letter-spacing:-.025em;color:var(--white);margin-bottom:20px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(17px,1.9vw,21px);line-height:1.72;color:var(--off);max-width:62ch;text-wrap:pretty;}
+.meta{font-size:13px;color:var(--muted-2);letter-spacing:.04em;margin-top:30px;padding-top:22px;border-top:1px solid var(--line);}
+.comp{border:1px solid var(--line-2);border-radius:18px;padding:clamp(24px,3.4vw,40px);margin:26px 0;background:var(--surface);}
+.comp h2{font-family:var(--serif);font-weight:700;font-size:clamp(23px,3.2vw,34px);letter-spacing:-.015em;color:var(--white);margin-bottom:4px;}
+.comp .role{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.why{font-size:15px;color:var(--off);margin-bottom:20px;max-width:64ch;text-wrap:pretty;}
+.why b{color:var(--white);font-weight:500;}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
+@media(max-width:640px){.cols{grid-template-columns:1fr;}}
+.use,.avoid{border-radius:12px;padding:16px 18px;font-size:13.5px;line-height:1.65;}
+.use{background:rgba(59,191,132,.07);border:1px solid rgba(59,191,132,.26);}
+.avoid{background:rgba(232,89,43,.06);border:1px solid rgba(232,89,43,.24);}
+.use b,.avoid b{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;}
+.use b{color:var(--green);} .avoid b{color:var(--orange);}
+.use ul,.avoid ul{list-style:none;padding:0;margin:0;}
+.use li,.avoid li{padding:3px 0 3px 20px;position:relative;}
+.use li::before{content:"\2713";position:absolute;left:0;color:var(--green);font-weight:700;}
+.avoid li::before{content:"\2717";position:absolute;left:0;color:var(--orange);font-weight:700;}
+.ex{font-size:13px;color:var(--muted);border-top:1px solid var(--line-2);padding-top:14px;}
+.ex b{color:var(--off);font-weight:500;}
+.ex .y{color:var(--green);} .ex .n{color:var(--orange);}
+code{font-family:'DM Mono',ui-monospace,monospace;font-size:.85em;background:rgba(240,237,232,.06);border:1px solid var(--line-2);border-radius:6px;padding:2px 7px;color:var(--off);}
+.ds-num{font-family:var(--serif);font-weight:700;color:var(--orange);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Montisoro · Officiële documentatie</p>
+  <h1>Design System<br><em>Decision Log</em></h1>
+  <p class="lead">Niet HOE, maar WAAROM. Voor elk component: waarom het bestaat, wanneer we het bewust wél en bewust níét gebruiken, met voorbeelden en uitzonderingen. Zodat elke toekomstige ontwikkelaar de redenering achter het systeem begrijpt — en kwaliteit boven uniformiteit blijft kiezen.</p>
+  <div class="meta">Versie 2.0 · 25 juni 2026 · Aanvulling op de Design System 2.0 Guidelines</div>
+
+  <!-- LEAD PARAGRAPH -->
+  <div class="comp">
+    <h2>Lead Paragraph</h2>
+    <div class="role">Structuur · automatisch</div>
+    <p class="why"><b>Waarom:</b> onze teksten zijn bewust diep. Zonder instappunt leest een sectie als een muur. De lead-alinea geeft het oog een rustpunt en vat de sectie samen — een CEO pakt de kern, een HR Director leest door. Het verkort niets; het maakt diepgang navigeerbaar.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>De openingsalinea van een sectie of hero</li><li>Eén lead per sectie</li><li>Tekst die de rest inleidt</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Op elke paragraaf (hiërarchie verdwijnt)</li><li>Op opsommingen of fijndruk</li><li>Op losse data of labels</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> alle 18 pagina's (haakt op <code>.hero-body</code>/<code>.ch-intro</code>/<code>.hs-body</code>). <b>Uitzondering:</b> geen — werkt universeel omdat het op bestaande intro-klassen haakt.</p>
+  </div>
+
+  <!-- MEANINGFUL NUMBERS -->
+  <div class="comp">
+    <h2>Meaningful Numbers <span class="ds-num">·</span></h2>
+    <div class="role">Autoriteit · handmatig</div>
+    <p class="why"><b>Waarom:</b> cijfers zijn hard bewijs. Eén geaccentueerd cijfer in lopende tekst (Playfair-oranje, <code>.ds-num</code>) trekt het oog naar het sterkste argument — zonder de rust te breken. Meerdere accenten naast elkaar worden data-slop en verzwakken juist.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Een kerncijfer ín een paragraaf</li><li>Cijfers die bewijs leveren (kost, schaal, reductie)</li><li>Eén accent per alinea/sectie</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Cijfers die al in een stat-blok staan</li><li>Decoratieve of triviale cijfers, jaartallen</li><li>In tabellen of opsommingen</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> Home (<span class="ds-num">€250 per dag</span>), <span class="y">✓</span> About (<span class="ds-num">19 jaar</span> in de founder-tekst). <b>Bewust niet:</b> <span class="n">✗</span> Aanpak "2.500+" (zit al in <code>.proof-stat</code>), <span class="n">✗</span> Calculator/Fit Check (cijfers zíjn de tool-output).</p>
+  </div>
+
+  <!-- VERTICAL RHYTHM -->
+  <div class="comp">
+    <h2>Vertical Rhythm &amp; Spacing Tokens</h2>
+    <div class="role">Consistentie · automatisch</div>
+    <p class="why"><b>Waarom:</b> inconsistente witruimte voelt amateuristisch — consistente witruimte zegt "één team bouwde dit". De tokens sturen het leestempo en voorkomen vermoeidheid bij lange content.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Afstand tussen lead en de actie eronder</li><li>Sectie-ritme via de clamp-schaal</li><li>Vaste leesbreedte (60–62ch)</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Willekeurige losse pixel-marges</li><li>Per-element spacing buiten de schaal</li><li>Breedtes voorbij de leesnorm</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> alle pagina's via <code>ds2.css</code>. <b>Uitzondering:</b> geen.</p>
+  </div>
+
+  <!-- CTA NOTE -->
+  <div class="comp">
+    <h2>CTA Microcopy</h2>
+    <div class="role">Conversie · handmatig</div>
+    <p class="why"><b>Waarom:</b> op het beslismoment leeft de stille vraag "waar verbind ik me aan?". Eén feitelijke geruststellingsregel (<code>.cta-note</code>) onder de primaire CTA verlaagt die drempel — zonder marketing-toon. Onder elke knop wordt het ruis.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Onder de primaire conversie-CTA</li><li>"Plan een gesprek" / Contact / Afspraak</li><li>Feitelijk, klopt met de dienst</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Navigatieknoppen</li><li>Tool-knoppen (Calculator submit, Fit Check unlock)</li><li>Secundaire/ghost-CTA's</li><li>Redundante beloftes ("vrijblijvend" + "geen verplichting")</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> Home, <span class="y">✓</span> About, <span class="y">✓</span> Aanpak, <span class="y">✓</span> Contact (hero "Plan een gesprek"). <b>Bewust niet:</b> <span class="n">✗</span> Technologie (hero-CTA = "Ontdek Storm", geen conversie), <span class="n">✗</span> Calculator/Fit Check (tool-knoppen), <span class="n">✗</span> Privacy/Disclaimer/404.</p>
+  </div>
+
+  <!-- MICRO-INTERACTIONS -->
+  <div class="comp">
+    <h2>Micro-interactions</h2>
+    <div class="role">Afwerking · automatisch</div>
+    <p class="why"><b>Waarom:</b> premium voel je in de details. Een subtiele lift (<code>translateY(-2px)</code>) + zachte schaduw bevestigt interactie en straalt verzorging uit. Groot of stuiterend zou afleiden en de rust breken.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Alle <code>.btn</code></li><li>Subtiel (2px), één easing</li><li>Nette focus-ring, reduced-motion-safe</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Scale/bounce/grote sprongen</li><li>Op nav-pillen of fijne controls</li><li>Hover-effecten zonder focus-equivalent</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> alle <code>.btn</code> sitebreed. <b>Bewust niet:</b> <span class="n">✗</span> nav-CTA <code>.m-cta</code> (eigen klasse, geen lift).</p>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="comp">
+    <h2>Buttons</h2>
+    <div class="role">Bestaand · standaard</div>
+    <p class="why"><b>Waarom:</b> één primaire actie per groep stuurt de blik. Twee gelijkwaardige knoppen = keuzestress. Pill-vorm + geen hoofdletters = de Lux/Sober-huisstijl.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li><code>.btn-primary</code> (vol oranje #CC4A1E, AA) — max één per groep</li><li><code>.btn-ghost</code> (outline) voor de secundaire actie</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Twee primary's naast elkaar</li><li>Onderlijn of hoofdletters</li><li>Nieuwe knopvarianten verzinnen</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> hero's, contact, calculator. <b>Uitzondering:</b> calculator-verzendknop houdt bewust AA-oranje #CC4A1E (wit-op-oranje contrast).</p>
+  </div>
+
+  <!-- HEROES -->
+  <div class="comp">
+    <h2>Hero's</h2>
+    <div class="role">Bestaand · standaard</div>
+    <p class="why"><b>Waarom:</b> één uniform hero-systeem geeft elke pagina dezelfde autoriteit en opening. Verschillende hero's per pagina zouden de site fragmenteren.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li><code>.hero-statement</code> (binnenpagina's) / <code>.hero</code> (Home)</li><li>Zwart + golf-accent, Playfair-headline</li><li>Min-height vouwt ≤880px</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Stockfoto-hero's</li><li>Per-pagina afwijkende hero-stijlen</li><li>Hero zonder lead/CTA-structuur</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> alle pagina's. <b>Uitzondering:</b> Home heeft een eigen data-band (stats) onder de hero — bewust, want het is de landingspagina.</p>
+  </div>
+
+  <!-- CARDS / CALL-OUTS -->
+  <div class="comp">
+    <h2>Cards &amp; Call-outs</h2>
+    <div class="role">Bestaand + Fase 2</div>
+    <p class="why"><b>Waarom:</b> kaarten groeperen samenhangende inhoud en geven het oog rustpunten. Een call-out-systeem (Fase 2) licht kerninzichten uit lange tekst zonder iets te schrappen.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Hairline-rijen (strengths), found-cards</li><li>Testimonial-kaart (gsm = gecentreerd)</li><li>Stat-blokken voor harde cijfers</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Rounded box + linker-accentrand (AI-trope)</li><li>Kaarten om kaarten</li><li>Nieuwe kaartvarianten vóór Fase 2-goedkeuring</li></ul></div>
+    </div>
+    <p class="ex"><b>Status:</b> het call-out-panel-systeem komt in <b>Fase 2</b> (na beta-goedkeuring). Tot dan: bestaande kaarten hergebruiken.</p>
+  </div>
+
+  <!-- FORMS -->
+  <div class="comp">
+    <h2>Forms &amp; Inputs</h2>
+    <div class="role">Bestaand · standaard</div>
+    <p class="why"><b>Waarom:</b> het formulier is het conversiemoment — daar mag niets wringen. Eén gedeelde <code>forms.css</code> garandeert dat elk veld hetzelfde gedrag en dezelfde feedback heeft.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li>Oranje focus-ring, foutrood #c0392b, pill-knop</li><li>Mobiel ≥16px (iOS-zoom-safe)</li><li>Gedeelde BE-telefoonvalidatie</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Per-pagina eigen veldstijlen</li><li>Velden &lt;16px op mobiel</li><li>Validatie zonder inline foutmelding</li></ul></div>
+    </div>
+    <p class="ex"><b>Voorbeelden:</b> <span class="y">✓</span> contact, calculator, fit-check (NL+EN). <b>Uitzondering:</b> fit-check is bewust een donkere vragenlijst; calculator houdt AA-oranje verzendknop.</p>
+  </div>
+
+  <!-- ICONS / MOTION / OVERLAYS / TYPE / COLOR -->
+  <div class="comp">
+    <h2>Icons · Motion · Overlays · Typografie · Kleur</h2>
+    <div class="role">Bestaand · standaard</div>
+    <p class="why"><b>Waarom:</b> de fundamenten dragen de rust. Spaarzaam, consistent, voorspelbaar.</p>
+    <div class="cols">
+      <div class="use"><b>Wel gebruiken</b><ul><li><b>Icons:</b> Phosphor, spaarzaam, als navigatie-anker</li><li><b>Motion:</b> één easing <code>cubic-bezier(.16,1,.3,1)</code>, reveal + reduced-motion-safe</li><li><b>Overlays:</b> scroll-lock + Esc + focus-trap + aria-modal</li><li><b>Type:</b> Playfair (autoriteit) + DM Sans (UI)</li><li><b>Kleur:</b> oranje #E8592B spaarzaam als accent</li></ul></div>
+      <div class="avoid"><b>Niet gebruiken</b><ul><li>Decoratieve iconen of icon-slop</li><li>Infinite/bounce-animaties op content</li><li>Overlays zonder focus-management</li><li>Nieuwe lettertypen</li><li>Oranje op hele zinnen of grote vlakken</li></ul></div>
+    </div>
+    <p class="ex"><b>Verwijderd/dood:</b> <span class="n">✗</span> Tabler icon-font (vervangen door Phosphor), <span class="n">✗</span> <code>.b-banner</code>/<code>mfu</code> (oude banner), <span class="n">✗</span> Calendly-widget (eigen boekingsflow).</p>
+  </div>
+
+  <!-- CALL-OUT PANEL (Phase 2.1A — approved) -->
+  <div class="comp" style="border-color:rgba(59,191,132,.3)">
+    <h2>Call-out Panel <span style="font-size:.5em;color:var(--green);font-style:normal">✓ Approved</span></h2>
+    <div class="role">Information Architecture · Phase 2.1A · handmatig</div>
+    <p class="why"><b>Waarom:</b> licht één kerninzicht (trust/methodologie) uit zonder iets te schrappen. Op een data-invoer zoals de calculator beantwoordt het de stille vraag "waar komen deze cijfers vandaan?" — vóór de bezoeker begint. Dat verhoogt vertrouwen en begrip, de twee dingen die een calculator-bezoeker nodig heeft.</p>
+
+    <h3>Ontwerpfilosofie — waarom een editorial ledger, en bewust NIET…</h3>
+    <div class="cols">
+      <div class="avoid"><b>Bewust verworpen</b><ul>
+        <li><b>Alert-box / notice-box</b> — schreeuwt "let op", ondermijnt rust en autoriteit</li>
+        <li><b>Card</b> — containervorm zonder editorial spanning; oogt als generieke SaaS</li>
+        <li><b>Linkse accentlijn</b> — AI-trope, cliché, voegt visuele ruis toe</li>
+        <li><b>Gekleurde container</b> — getinte vulling las als marketingbanner, niet als methodologie</li>
+        <li><b>Iconen</b> — decoratief, breekt de redactionele stilte</li>
+      </ul></div>
+      <div class="use"><b>Waarom de editorial ledger past</b><ul>
+        <li><b>Branding:</b> hairline boven/onder + Playfair-italic kernfrase = exact het Montisoro-idioom (zoals <code>em</code>/quotes)</li>
+        <li><b>Premium enterprise:</b> twee-koloms label|statement = precisie-annotatie (Stripe/Linear/Pentagram-rust)</li>
+        <li><b>Vertrouwen:</b> oogt als een onderbouwde voetnoot, niet als een verkoopclaim</li>
+        <li><b>Autoriteit:</b> stilte + precisie = expertise; geen vulling die om aandacht vraagt</li>
+        <li><b>Rustige IA:</b> de label-kolom leidt het oog zonder de flow te breken</li>
+      </ul></div>
+    </div>
+
+    <h3 style="color:var(--orange)">Design Principles — mag in de toekomst NOOIT</h3>
+    <ul>
+      <li class="rm">❌ Géén achtergrondkleur / getinte vulling toevoegen</li>
+      <li class="rm">❌ Géén rounded card / border-radius maken</li>
+      <li class="rm">❌ Géén iconen toevoegen</li>
+      <li class="rm">❌ Géén linkse accentlijn of gekleurde rand</li>
+      <li class="rm">❌ Géén schreeuwerige accenten of marketingbanner-toon</li>
+      <li class="rm">❌ Géén gebruik buiten trust-/methodologie-/kerninzicht-context</li>
+      <li class="rm">❌ Niet plaatsen op pagina's met al-rijke IA (Aanpak, Technologie) — daar is het redundant</li>
+    </ul>
+
+    <h3>Evolutierichtlijnen</h3>
+    <div class="cols">
+      <div class="use"><b>Mag evolueren</b><ul>
+        <li>De statement-tekst (per context, feitelijk)</li>
+        <li>Label-woord (Methodologie / Aanpak / Kern — mits trust-context)</li>
+        <li>Responsive gedrag fijnslijpen</li>
+        <li>Dark-variant verfijnen</li>
+      </ul></div>
+      <div class="avoid"><b>Onveranderlijk</b><ul>
+        <li>Geen vulling, geen box, geen radius</li>
+        <li>Hairline boven/onder als enige omkadering</li>
+        <li>Playfair-italic-oranje voor de kernfrase</li>
+        <li>Twee-koloms ledger (stackt ≤640px)</li>
+        <li>Uitsluitend trust/methodologie-context</li>
+      </ul></div>
+    </div>
+    <p class="ex"><b>Voorbeeld:</b> <span class="y">✓</span> Calculator (#bMain, methodologie-belofte, NL+EN). <b>Bewust niet:</b> <span class="n">✗</span> Aanpak/Technologie (al-rijke IA), <span class="n">✗</span> legal/contact. <b>Score:</b> 9,2/10 — Approved Design System Component.</p>
+  </div>
+
+  <div class="meta">Montisoro Design System — Decision Log. Officiële documentatie, gelijkwaardig aan de Guidelines. Wordt bijgewerkt wanneer Fase 2-componenten worden goedgekeurd.</div>
+
+</div>
+</body>
+</html>

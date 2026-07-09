@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Fit check — voorbeeldrapporten — Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+@font-face{font-family:'Playfair Display';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/playfair-700.woff2') format('woff2');}
+@font-face{font-family:'Playfair Display';font-weight:900;font-style:normal;font-display:swap;src:url('../assets/fonts/playfair-900.woff2') format('woff2');}
+@font-face{font-family:'Playfair Display';font-weight:400;font-style:italic;font-display:swap;src:url('../assets/fonts/playfair-italic-400.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:300;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-300.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:400;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-400.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:500;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-500.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:600;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-600.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-700.woff2') format('woff2');}
+@font-face{font-family:'DM Mono';font-weight:400;font-style:normal;font-display:swap;src:url('../assets/fonts/dmmono-400.woff2') format('woff2');}
+@font-face{font-family:'DM Mono';font-weight:500;font-style:normal;font-display:swap;src:url('../assets/fonts/dmmono-500.woff2') format('woff2');}
+:root{
+  --bg:#13100D;--bg-2:#1A1410;--off:#F0EDE8;--muted:rgba(240,237,232,.6);--muted-2:rgba(240,237,232,.4);
+  --orange:#E8592B;--orange-hover:#d04d22;--div:rgba(240,237,232,.12);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--off);-webkit-font-smoothing:antialiased;}
+.wrap{max-width:980px;margin:0 auto;padding:clamp(28px,5vw,44px) clamp(20px,5vw,40px) 0;}
+.rule{width:46px;height:2px;background:var(--orange);margin-bottom:24px;}
+.kick{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4.4vw,46px);line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:15px;font-weight:300;line-height:1.7;color:var(--muted);max-width:62ch;margin-bottom:14px;}
+.note{font-size:12.5px;color:var(--muted-2);line-height:1.6;max-width:62ch;margin-bottom:40px;}
+.grid{display:grid;grid-template-columns:1fr;border-top:1px solid var(--div);}
+.group{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);padding:26px 6px 10px;border-bottom:1px solid var(--div);}
+.card{display:grid;grid-template-columns:46px 1fr auto;gap:20px;align-items:center;padding:22px 6px;border-bottom:1px solid var(--div);text-decoration:none;color:inherit;transition:padding-left .25s ease,background .25s ease;}
+.card:hover{padding-left:14px;background:rgba(240,237,232,.02);}
+.card .n{font-family:var(--serif);font-weight:900;font-size:28px;color:var(--orange);line-height:1;}
+.card .b .t{display:block;font-family:var(--serif);font-weight:700;font-size:19px;color:var(--off);margin-bottom:4px;transition:color .2s;}
+.card:hover .b .t{color:var(--orange);}
+.card .b .d{display:block;font-size:13px;color:var(--muted);line-height:1.5;}
+.card .b .d b{color:var(--off);font-weight:600;}
+.card .go{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);white-space:nowrap;}
+.card .go svg{width:15px;height:15px;}
+.foot{margin-top:36px;font-size:12px;color:var(--muted-2);}
+.foot a{color:var(--orange);text-decoration:none;}
+.brandhead{max-width:980px;margin:0 auto;padding:clamp(24px,5vw,44px) clamp(20px,5vw,40px) 0;}
+.brandhead img{display:block;width:100%;height:auto;border-radius:14px;}
+.brandfoot{margin-top:clamp(48px,7vw,88px);background:#0C0905;background-image:url(../assets/email-footer-bg.png);background-position:center;background-size:cover;background-repeat:no-repeat;}
+.brandfoot .inner{max-width:980px;margin:0 auto;padding:30px clamp(20px,5vw,40px);}
+.brandfoot .bm{font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--off);}
+.brandfoot .bt{font-style:italic;font-size:13px;color:rgba(240,237,232,.62);margin-top:4px;}
+.brandfoot .bl{margin-top:14px;font-size:12.5px;color:var(--off);}
+.brandfoot .bl a{color:var(--off);text-decoration:none;}
+@media(max-width:600px){.card{grid-template-columns:34px 1fr;}.card .go{grid-column:2;justify-self:start;margin-top:4px;}}
+</style>
+</head>
+<body>
+<header class="brandhead"><img src="../assets/email-banner-fit.jpg" alt="Montisoro — ReIntegrate What Matters · Where Care and Capability Create Impact"></header>
+<div class="wrap">
+  <div class="rule"></div>
+  <div class="kick">Fit check · voorbeeldrapporten</div>
+  <h1>De vijf routes, als <em>PDF</em>.</h1>
+  <p class="lead">Elke route levert een eigen rapport op: andere kop, andere herkenning, andere aanpak en CTA — gepersonaliseerd op verzuimtype, maturiteit en schaal. Hieronder opent u elke variant.</p>
+  <p class="note">Klik een variant om het volledige rapport te openen. Daar kunt u het bewaren als PDF (Afdrukken → Opslaan als PDF). De bedragen/cases zijn nog interim ("Referentiecase op aanvraag").</p>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="foot">Terug naar de <a href="../pages/fit-check.html">fit check</a>. De echte route wordt automatisch gekozen op basis van de antwoorden van de bezoeker.</p>
+</div>
+<footer class="brandfoot"><div class="inner">
+  <div class="bm">MONTISORO</div>
+  <div class="bt">Care wordt systeem.</div>
+  <div class="bl"><a href="mailto:hello@montisoro.com">hello@montisoro.com</a> &nbsp;·&nbsp; <a href="https://montisoro.com">montisoro.com</a></div>
+</div></footer>
+
+<script>
+var VARIANTS = [
+  { g:'De vijf routes', key:'route1', t:'Case Management', d:'Behoefte <b>A</b> — "iemand die dit voor ons opneemt". CTA: strategisch gesprek.' },
+  { g:'De vijf routes', key:'route2', t:'Opleiding & Tools', d:'Behoefte <b>B</b> — "dat we dit zelf beter leren doen". CTA: Deep Dive.' },
+  { g:'De vijf routes', key:'route3', t:'Operationele Structuur', d:'Behoefte <b>C</b> — "onze aanpak structureren". CTA: volgt maturiteit.' },
+  { g:'De vijf routes', key:'route4', t:'Beleid & Strategie', d:'Behoefte <b>D</b> — "een duidelijk beleid uitwerken". CTA: strategisch gesprek.' },
+  { g:'De vijf routes', key:'route5', t:'Cultuur (COCC)', d:'Behoefte <b>E</b> — "werken aan onze cultuur". CTA: Deep Dive.' }
+];
+var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+var html = '', lastG = '', n = 0;
+VARIANTS.forEach(function(v){
+  if (v.g !== lastG){ html += '<div class="group">' + v.g + '</div>'; lastG = v.g; }
+  n++;
+  html += '<a class="card" href="fitcheck-rapport.html?demo=' + v.key + '">' +
+    '<span class="n">' + String(n).padStart(2,'0') + '</span>' +
+    '<span class="b"><span class="t">' + v.t + '</span><span class="d">' + v.d + '</span></span>' +
+    '<span class="go">Open rapport ' + arrow + '</span>' +
+  '</a>';
+});
+document.getElementById('grid').innerHTML = html;
+</script>
+</body>
+</html>

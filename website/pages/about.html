@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<title>Over ons — Montisoro | Verzuim & re-integratie</title>
+<meta name="description" content="Montisoro ontstond uit een persoonlijke uitval en één overtuiging: mensen vallen zelden uit door ziekte alleen. Lees het verhaal van Laurence Van den Bergh.">
+<meta property="og:title" content="Over ons — Montisoro | Verzuim & re-integratie">
+<meta property="og:description" content="Care is not a feeling. It is a Capability. Het verhaal achter Montisoro.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://montisoro.com/about.html">
+<meta property="og:url" content="https://montisoro.com/about.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0D0905">
+<link rel="alternate" hreflang="nl" href="https://montisoro.com/about.html">
+<link rel="alternate" hreflang="en" href="https://montisoro.com/about-en.html">
+<link rel="alternate" hreflang="x-default" href="https://montisoro.com/about.html">
+<link rel="icon" type="image/png" sizes="128x128" href="../assets/favicon.png?v=2">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+<link rel="apple-touch-icon" href="../assets/favicon.png?v=2">
+<meta property="og:image" content="https://montisoro.com/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Over ons — Montisoro | Verzuim & re-integratie">
+<meta name="twitter:description" content="Care is not a feeling. It is a Capability. Het verhaal achter Montisoro.">
+<meta name="twitter:image" content="https://montisoro.com/assets/og-image.jpg">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-regular.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-light.css">
+<link rel="stylesheet" href="../stylesheets/motion.css">
+<link rel="stylesheet" href="../stylesheets/type-scale.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:#13100D; --bg-r:#1A1410; --bg-mid:#1C1814; --bg-deep:#0D0905;
+  --bg-page:#f9f8f6; --bg-card:#ffffff;
+  --orange:#E8592B; --orange-hover:#d04d22; --orange-tint:#FAE8E1;
+  --white:#FFFFFF; --off:#F0EDE8;
+  --muted-d:rgba(240,237,232,0.55); --muted-d-2:rgba(240,237,232,0.52); --muted-d-3:rgba(240,237,232,0.5);
+  --div-d:rgba(240,237,232,0.09);
+  --text-primary:#1a1a1a; --text-muted:#6b7280; --border-l:rgba(0,0,0,0.08);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+html,body{font-family:var(--sans);background:var(--bg);color:var(--off);}
+body{padding-top:64px;}
+
+/* ── NAV (identical to home) ── */
+.m-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(19,16,13,.94);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(240,237,232,.08);height:64px;display:flex;align-items:center;padding:0 48px;justify-content:space-between;transition:background .3s ease;}
+.m-nav.scrolled{background:rgba(13,9,5,.97)}
+.m-nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;font-family:var(--serif);font-weight:900;font-size:22px;color:var(--off);letter-spacing:-.02em;}
+.m-nav-logo em{font-style:italic;color:var(--orange);font-weight:900;}
+.m-nav-logo img{height:44px;width:auto;display:block;}
+.m-nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+.m-nav-links li{position:relative}
+.m-nav-links li a{font-family:var(--sans);font-size:13px;font-weight:400;letter-spacing:.03em;color:rgba(240,237,232,.6);text-decoration:none;padding:8px 14px;border-radius:6px;display:block;transition:color .2s,background .2s;white-space:nowrap;}
+.m-nav-links li a:hover,.m-nav-links li a.m-active{color:var(--off);background:rgba(240,237,232,.07)}
+.m-nav-links li a.m-cta{background:var(--orange);color:#fff;font-weight:600;padding:8px 20px;margin-left:6px;border-radius:8px;}
+.m-nav-links li a.m-cta:hover{background:var(--orange-hover)}
+.m-hamburger{display:none;background:none;border:none;cursor:pointer;padding:10px;margin-right:-10px;color:var(--off);font-size:24px;line-height:1;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+@media(max-width:1180px){.m-nav{padding:0 20px}.m-nav-links{display:none}.m-hamburger{display:flex}}
+
+/* ── SHARED CHAPTER ── */
+.chapter{position:relative;overflow:hidden;}
+.chapter.dark{background:var(--bg);padding:56px 24px;}
+.chapter.light{background:var(--bg-page);padding:64px 24px;}
+.chapter-inner{max-width:1040px;margin:0 auto;position:relative;z-index:1;}
+.chapter-inner.wide{max-width:1140px;}
+.chapter-inner.narrow{max-width:680px;text-align:center;margin:0 auto;}
+
+/* Section label (eyebrow with rule) */
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;margin-bottom:16px;font-family:var(--sans);}
+.eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+.eyebrow.on-dark{color:var(--orange);}
+.eyebrow.on-light{color:var(--bg);}
+
+.title{font-family:var(--serif);font-weight:700;letter-spacing:-.02em;line-height:1.15;}
+.title em{font-style:italic;color:var(--orange);}
+.title.on-dark{color:var(--off);}
+.title.on-light{color:var(--text-primary);}
+.title.h-section{font-size:clamp(28px,3.4vw,42px);margin-bottom:18px;}
+.title.h-display{font-size:clamp(36px,4.6vw,64px);font-weight:900;line-height:1.04;letter-spacing:-.5px;}
+.sub{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.78;max-width:620px;margin-bottom:44px;}
+.sub.on-dark{color:var(--muted-d);}
+.sub.on-light{color:var(--text-muted);}
+
+/* ─────────────────────────────────────
+   CHAPTER 1 — HERO (photo bleed split)
+───────────────────────────────────── */
+/* (hero foto-split CSS verwijderd — uniform .hero-statement via shell.css) */
+/* ─────────────────────────────────────
+   CHAPTER 2 — ORIGIN (4 cinematic cards)
+───────────────────────────────────── */
+.origin{background:var(--bg-r);}
+.origin-lead{font-family:var(--sans);font-weight:700;font-style:normal;font-size:clamp(20px,1.9vw,26px);line-height:1.52;color:var(--off);max-width:780px;margin-bottom:clamp(40px,5vw,56px);}
+.origin-lead .mark{font-family:var(--serif);font-size:32px;color:var(--orange);opacity:.6;line-height:0;display:inline-block;vertical-align:-12px;margin-right:6px;}
+.origin-lead .mark.close{margin-right:0;margin-left:6px;}
+
+.origin-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--div-d);margin-top:8px;}
+
+.s-card{background:none;border:none;border-left:1px solid var(--div-d);border-radius:0;overflow:visible;position:relative;padding:clamp(34px,3.4vw,52px) clamp(26px,2.8vw,46px);display:flex;flex-direction:column;gap:0;box-shadow:none;}
+.s-card:nth-child(2n+1){border-left:none;padding-left:clamp(26px,2.8vw,46px);}
+.s-card:nth-child(n+3){border-top:1px solid var(--div-d);}
+.s-card:hover{transform:none;box-shadow:none;}
+.s-card-bg{display:none;}
+.s-card-content{position:relative;z-index:1;display:flex;flex-direction:column;gap:0;flex:1;}
+.s-card-content .s-num{font-family:var(--serif)!important;font-size:clamp(42px,4.6vw,70px);font-weight:700;color:var(--orange);line-height:.82;letter-spacing:-.02em;margin-bottom:clamp(24px,3vw,42px);}
+.s-title{font-family:var(--sans);font-size:clamp(19px,1.9vw,26px);font-weight:700;color:var(--off);line-height:1.16;letter-spacing:-.01em;margin-bottom:clamp(12px,1.4vw,18px);white-space:nowrap;transition:color .25s cubic-bezier(.16,1,.3,1);}
+.s-card:hover .s-title{color:var(--orange);}
+.s-body{font-size:clamp(13px,1.3vw,15px);font-weight:300;color:var(--muted-d);line-height:1.72;}
+@media(max-width:700px){
+  .origin-grid{grid-template-columns:1fr;border-top:none;}
+  .s-card{border-left:none!important;border-top:1px solid var(--div-d);padding:30px 0!important;}
+  .s-card:first-child{border-top:none;padding-top:0!important;}
+  .s-title{font-size:clamp(16px,4.6vw,24px);}
+}
+/* Hairline-kaart reveal motion (scroll-getriggerd, stagger via --d) */
+/* .rv + .rv.in → gecentraliseerd in motion.css (23 juni 2026) */
+@media(prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important;}}
+
+/* ─────────────────────────────────────
+   CHAPTER 3 — MISSION (light, 2-stage)
+───────────────────────────────────── */
+.mission-statement{font-family:var(--serif);font-weight:700;font-size:clamp(34px,4.6vw,64px);line-height:1.08;letter-spacing:-.02em;color:var(--text-primary);margin-bottom:40px;max-width:880px;}
+.mission-statement em{font-style:italic;color:var(--orange);}
+.mission-body{font-size:16px;font-weight:300;line-height:1.85;color:var(--text-muted);max-width:680px;margin-bottom:24px;}
+.mission-body strong{color:var(--text-primary);font-weight:500;}
+.mission-divider{margin:72px auto;display:flex;align-items:center;gap:18px;max-width:120px;}
+.mission-divider::before,.mission-divider::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.10);}
+.mission-divider span{display:block;width:6px;height:6px;border-radius:50%;background:var(--orange);}
+
+.reintegrate-wrap{text-align:center;}
+.reintegrate-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--bg);margin-bottom:32px;}
+.reintegrate-eyebrow::before,.reintegrate-eyebrow::after{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+.reintegrate{font-family:var(--serif);font-weight:900;font-size:clamp(64px,12vw,180px);line-height:.92;letter-spacing:-.04em;color:var(--text-primary);margin-bottom:36px;}
+.reintegrate em{font-style:italic;color:var(--orange);font-weight:900;}
+.reintegrate-body{font-size:16px;font-weight:300;line-height:1.85;color:var(--text-muted);max-width:560px;margin:0 auto;}
+.reintegrate-body strong{color:var(--text-primary);font-weight:500;display:block;font-family:var(--sans);font-style:normal;font-size:18px;margin-bottom:10px;}
+
+/* ─────────────────────────────────────
+   CHAPTER 4 — PRINCIPLES (light, numbered rows)
+───────────────────────────────────── */
+.principles-list{display:flex;flex-direction:column;border-top:1px solid rgba(0,0,0,0.10);}
+.principle{display:grid;grid-template-columns:120px 1fr;gap:32px;padding:32px 0;border-bottom:1px solid rgba(0,0,0,0.10);align-items:start;transition:padding-left .25s ease;}
+.principle:hover{padding-left:8px;}
+.principle:hover .p-num{color:var(--orange-hover);}
+.p-num{font-family:var(--serif);font-weight:900;font-size:48px;line-height:1;color:var(--orange);letter-spacing:-.04em;transition:color .25s ease;}
+.p-content h3{font-family:var(--sans);font-weight:700;font-size:22px;color:var(--text-primary);line-height:1.25;margin-bottom:10px;letter-spacing:-.01em;}
+.p-content p{font-size:15px;font-weight:300;line-height:1.78;color:var(--text-muted);max-width:560px;}
+@media(max-width:680px){
+  .principle{grid-template-columns:1fr;gap:12px;padding:24px 0;}
+  .p-num{font-size:36px;}
+}
+
+/* ─────────────────────────────────────
+   CHAPTER 5 — TEAM (dark, 4×2 grid + hover)
+───────────────────────────────────── */
+.team-intro{margin-bottom:48px;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:960px){.team-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.team-grid{grid-template-columns:1fr;}}
+
+.tm{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;cursor:pointer;background:var(--bg-mid);}
+.tm-portrait{position:absolute;inset:0;}
+.tm-portrait .grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");pointer-events:none;}
+.tm-portrait .initial{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:900;font-size:120px;color:rgba(240,237,232,0.10);letter-spacing:-.04em;line-height:1;user-select:none;}
+.tm-portrait::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(19,16,13,0) 50%,rgba(19,16,13,0.85) 100%);pointer-events:none;}
+
+/* 8 cinematic gradient variations */
+.tm:nth-child(1) .tm-portrait{background:linear-gradient(135deg,#2E1E12 0%,#1A1208 50%,#0C0905 100%);}
+.tm:nth-child(2) .tm-portrait{background:linear-gradient(225deg,#2A1A0E 0%,#1A1208 55%,#0D0905 100%);}
+.tm:nth-child(3) .tm-portrait{background:linear-gradient(45deg,#1A1208 0%,#2A1A0E 60%,#3a2516 100%);}
+.tm:nth-child(4) .tm-portrait{background:linear-gradient(315deg,#2E1E12 0%,#1A1208 60%,#0C0905 100%);}
+.tm:nth-child(5) .tm-portrait{background:linear-gradient(165deg,#26190E 0%,#1A1208 60%,#0D0905 100%);}
+.tm:nth-child(6) .tm-portrait{background:linear-gradient(195deg,#2E1E12 0%,#1A1208 55%,#0C0905 100%);}
+.tm:nth-child(7) .tm-portrait{background:linear-gradient(105deg,#2A1A0E 0%,#1A1208 50%,#0D0905 100%);}
+.tm:nth-child(8) .tm-portrait{background:linear-gradient(255deg,#2E1E12 0%,#1A1208 55%,#0C0905 100%);}
+
+/* Per-card orange glow accent */
+.tm-glow{position:absolute;inset:0;pointer-events:none;}
+.tm:nth-child(1) .tm-glow{background:radial-gradient(circle at 80% 15%,rgba(232,89,43,0.18) 0%,transparent 55%);}
+.tm:nth-child(2) .tm-glow{background:radial-gradient(circle at 15% 20%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(3) .tm-glow{background:radial-gradient(circle at 80% 80%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(4) .tm-glow{background:radial-gradient(circle at 20% 80%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(5) .tm-glow{background:radial-gradient(circle at 50% 10%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(6) .tm-glow{background:radial-gradient(circle at 90% 50%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(7) .tm-glow{background:radial-gradient(circle at 10% 50%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+.tm:nth-child(8) .tm-glow{background:radial-gradient(circle at 50% 85%,rgba(232,89,43,0.16) 0%,transparent 55%);}
+
+.tm-meta{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 22px;z-index:2;transition:transform .35s ease,opacity .25s ease;}
+.tm-name{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--white);letter-spacing:-.01em;margin-bottom:4px;line-height:1.1;}
+.tm-role{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);}
+
+.tm-bio{position:absolute;inset:0;padding:28px 24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to bottom,rgba(232,89,43,0.92) 0%,rgba(180,55,25,0.96) 100%);opacity:0;transition:opacity .35s ease;z-index:3;}
+.tm-bio .bio-name{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--white);line-height:1.1;margin-bottom:4px;}
+.tm-bio .bio-role{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.78);margin-bottom:18px;}
+.tm-bio .bio-text{font-size:13px;font-weight:300;line-height:1.7;color:rgba(255,255,255,0.92);}
+.tm-bio::before{content:'';position:absolute;top:22px;right:22px;width:20px;height:1.5px;background:rgba(255,255,255,0.6);}
+
+.tm:hover .tm-bio,
+.tm.is-flipped .tm-bio{opacity:1;}
+.tm:hover .tm-meta,
+.tm.is-flipped .tm-meta{opacity:0;transform:translateY(8px);}
+
+/* Touch indicator hint — small "i" pill bottom-right on mobile */
+@media(pointer:coarse), (max-width:960px){
+  .tm{cursor:pointer;}
+  .tm-meta::after{
+    content:'';
+    position:absolute;
+    bottom:22px;
+    right:22px;
+    width:24px;height:24px;
+    border-radius:50%;
+    background:rgba(232,89,43,0.18);
+    border:1px solid rgba(232,89,43,0.45);
+    background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23E8592B' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:14px 14px;
+    transition:transform .3s cubic-bezier(.22,.65,.20,1);
+  }
+  .tm.is-flipped .tm-meta::after{transform:rotate(45deg);}
+  /* Disable hover-flip on touch — only tap toggles */
+  .tm:hover .tm-bio{opacity:0;}
+  .tm:hover .tm-meta{opacity:1;transform:none;}
+  .tm.is-flipped .tm-bio{opacity:1;}
+  .tm.is-flipped .tm-meta{opacity:0;transform:translateY(8px);}
+}
+
+/* ─────────────────────────────────────
+   CHAPTER 6 — CONTACT
+───────────────────────────────────── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:500px;margin:0 auto;}
+@media(max-width:480px){.contact-grid{grid-template-columns:1fr;}}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .2s ease;border-radius:10px;font-family:var(--sans);}
+.btn-primary{background:var(--orange);border:1.5px solid var(--orange);color:#fff;}
+.btn-primary:hover{background:var(--orange-hover);border-color:var(--orange-hover);}
+.btn-ghost{background:transparent;border:1.5px solid rgba(240,237,232,0.25);color:rgba(240,237,232,0.6);}
+.btn-ghost:hover{border-color:var(--off);color:var(--off);}
+
+/* ── FOOTER (identical to home) ── */
+.m-footer{background:var(--bg-deep);padding:28px clamp(20px,5vw,48px);display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(240,237,232,.05);flex-wrap:wrap;gap:16px;}
+.m-footer .copy{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,232,.3);}
+.m-footer-links{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:flex-end;}
+.m-footer-links a{font-size:12px;color:rgba(240,237,232,.28);text-decoration:none;transition:color .2s;padding:5px 0;}
+.m-footer-links a:hover{color:var(--orange);}
+
+/* placeholder note */
+.ph-note{position:absolute;top:14px;left:14px;z-index:3;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,232,0.30);background:rgba(0,0,0,0.30);padding:5px 10px;border-radius:4px;backdrop-filter:blur(4px);}
+</style>
+<link rel="stylesheet" href="../stylesheets/site.css">
+<link rel="stylesheet" href="../stylesheets/montisoro-v2.css">
+<noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
+<link rel="stylesheet" href="../stylesheets/ds2.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Montisoro","url":"https://montisoro.com/","logo":"https://montisoro.com/assets/montisoro-logo.png","email":"hello@montisoro.com","telephone":"+32-477-89-91-86","address":{"@type":"PostalAddress","streetAddress":"Tisseltstraat 25","postalCode":"1880","addressLocality":"Ramsdonk","addressCountry":"BE"},"vatID":"BE0733840137","sameAs":["https://www.linkedin.com/in/laurence-van-den-bergh/"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Montisoro","url":"https://montisoro.com/","inLanguage":"nl-BE"}</script>
+</head>
+<body class="ms-dark-hero ds2">
+
+<!-- ── NAV ── -->
+<nav class="m-nav" id="mNav">
+  <a href="Home.html" class="m-nav-logo" aria-label="Montisoro home"><img decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"></a>
+  <ul class="m-nav-links">
+    <li><a href="aanpak.html">Aanpak</a></li>
+    <li><a href="technologie.html">Technologie</a></li>
+    <li><a href="fit-check.html">Fit check</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="about.html" class="m-active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html#channels" class="m-cta">Plan een gesprek →</a></li>
+  </ul>
+  <button class="m-hamburger" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+<script>
+(function(){var n=document.getElementById('mNav');window.addEventListener('scroll',function(){n.classList.toggle('scrolled',window.scrollY>40);});})();
+</script>
+
+<!-- ══════════════════════════════════════
+     CH 01 — HERO (photo bleed split)
+══════════════════════════════════════ -->
+<section class="hero-statement" data-screen-label="01 Hero">
+  <svg class="hs-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hbg" x1="0.3" x2="0.7" y1="0" y2="1"><stop offset="0%" stop-color="#13100D"/><stop offset="50%" stop-color="#13100D"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+      <linearGradient id="hls1" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.18"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <linearGradient id="hls2" x1="0" x2="0.85" y1="0" y2="1"><stop offset="0%" stop-color="#D4935A" stop-opacity="0.12"/><stop offset="100%" stop-color="#D4935A" stop-opacity="0"/></linearGradient>
+      <radialGradient cx="92%" cy="6%" id="hgtr" r="45%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.20"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="8%" cy="92%" id="hgbl" r="40%"><stop offset="0%" stop-color="#C87B3A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C87B3A" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="50%" cy="50%" id="hvig" r="65%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.55"/></radialGradient>
+      <filter id="hgrain"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#hbg)" width="1600" height="900"/>
+    <rect fill="url(#hgtr)" width="1600" height="900"/>
+    <rect fill="url(#hgbl)" width="1600" height="900"/>
+    <polygon fill="url(#hls1)" opacity="0.6" points="1600,0 1600,420 320,900 -80,900"/>
+    <polygon fill="url(#hls2)" opacity="0.5" points="0,0 0,360 1280,900 1500,900"/>
+    <polygon fill="url(#hls1)" opacity="0.30" points="1240,0 1300,0 580,900 480,900"/>
+    <path d="M 1600 600 C 1240 580, 760 770, 0 880" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1.5"/>
+    <path d="M 1600 680 C 1340 660, 880 800, 200 880" fill="none" stroke="#E8592B" stroke-opacity="0.22" stroke-width="1"/>
+    <rect fill="url(#hvig)" width="1600" height="900"/>
+    <rect filter="url(#hgrain)" width="1600" height="900" opacity="0.05"/>
+  </svg>
+  <div class="hs-inner">
+    <p class="hs-eyebrow">About Montisoro</p>
+    <h1 class="hs-headline">Sommige bedrijven ontstaan vanuit een opportuniteit. <em>Montisoro</em> vanuit een <em>overtuiging.</em></h1>
+    <p class="hs-body">Achter Montisoro zit één overtuiging: werkbaar werk ontstaat waar zorg en capaciteit samenkomen, in <strong>mensen</strong>, <strong>structuur</strong> én <strong>technologie</strong>.</p>
+    <div class="hs-cta-row">
+      <a class="btn btn-primary" href="contact.html#channels">Plan een gesprek →</a>
+    </div>
+    <p class="cta-note">30–45 minuten · online of op locatie</p>
+  </div>
+</section>
+
+
+
+<!-- ══════════════════════════════════════
+     CH 03 — MISSION (light, 2-stage)
+══════════════════════════════════════ -->
+<section class="chapter light" data-screen-label="03 Mission">
+  <div class="chapter-inner">
+
+    <span class="eyebrow on-light">Onze missie</span>
+    <h2 class="mission-statement"><em>Care</em> is not a feeling.<br>It is a <em>Capability.</em></h2>
+    <p class="mission-body">
+      Met de juiste kennis, structuur en technologie ziet u vroeger wat vastloopt, handelt u beter wanneer het complex wordt en verankert u kennis duurzamer. <strong>Zodat zorg en performantie één systeem worden.</strong>
+    </p>
+
+    <div class="mission-divider"><span></span></div>
+
+    <div class="reintegrate-wrap">
+      <span class="reintegrate-eyebrow">De zin die alles betekent</span>
+      <h2 class="reintegrate">
+        <em>Re</em>integrate<br>
+        <em>What</em><br>
+        Matters.
+      </h2>
+      <p class="reintegrate-body">
+        <strong>Twee betekenissen. Eén zin.</strong>
+        Breng mensen terug. Herstel wat organisaties verloren: verbinding, veiligheid, perspectief.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 04 — PRINCIPLES (light, 5 rows)
+══════════════════════════════════════ -->
+<section class="chapter light" style="padding-top:24px;" data-screen-label="04 Principles">
+  <div class="chapter-inner">
+
+    <span class="eyebrow on-light">Onze principes</span>
+    <h2 class="title h-section on-light">Voor <em>mens</em>, <em>organisatie</em> en <em>technologie.</em></h2>
+    <p class="sub on-light">
+      Montisoro is gebouwd vanuit één overtuiging: duurzaam werk vraagt meer dan beleid. Het vraagt principes die je toepast wanneer het complex wordt, in mensen, processen én technologie.
+    </p>
+
+    <div class="principles-list">
+
+      <div class="principle">
+        <div class="p-num">01</div>
+        <div class="p-content">
+          <h3>Zichtbaarheid</h3>
+          <p>We maken zichtbaar wat anderen missen. Ook wanneer dat ongemakkelijk is. Juist dan.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">02</div>
+        <div class="p-content">
+          <h3>Eigenaarschap</h3>
+          <p>Ons succes meten we niet aan uw afhankelijkheid, maar aan uw zelfstandigheid.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">03</div>
+        <div class="p-content">
+          <h3>Verbinding</h3>
+          <p>Technologie structureert. Mensen verbinden. Nooit andersom.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">04</div>
+        <div class="p-content">
+          <h3>Eerlijkheid</h3>
+          <p>AI ondersteunt. Onze experten blijven verantwoordelijk. Altijd kritisch. Altijd uitlegbaar.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">05</div>
+        <div class="p-content">
+          <h3>Vertrouwen</h3>
+          <p>Verdiend door resultaat. Behouden door transparantie.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 05 — TEAM (dark, 4×2 grid + hover)
+══════════════════════════════════════ -->
+<section class="chapter dark" data-screen-label="05 Team">
+  <div class="chapter-inner wide">
+
+    <div class="team-intro">
+      <span class="eyebrow on-dark">Het team</span>
+      <h2 class="title h-section on-dark">De <em>mensen</em> achter de <em>capability.</em></h2>
+      <p class="sub on-dark">
+        Werkbaar werk integreert zich niet vanzelf. Je hebt mensen nodig die durven kijken, scherp analyseren, juist handelen en technologie slim inzetten.
+      </p>
+    </div>
+
+    <div class="team-grid">
+
+      <div class="tm has-photo">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/laurence.jpg" alt="Laurence Van den Bergh, Founder &amp; CEO">
+          <span class="initial">L</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Laurence Van den Bergh</div>
+          <div class="tm-role">Founder, CEO</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Laurence Van den Bergh</div>
+          <div class="bio-role">Founder, CEO</div>
+          <p class="bio-text">Beleidssterk, analytisch en tech-savvy met pit. Laurence brengt strategisch inzicht, juridische scherpte en ervaringsdeskundigheid samen om verzuimbeleid menselijker én effectiever te maken.</p>
+        </div>
+      </div>
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/jeroen.jpg" alt="Jeroen, CPO">
+          <span class="initial">J</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Jeroen</div>
+          <div class="tm-role">CPO</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Jeroen</div>
+          <div class="bio-role">CPO</div>
+          <p class="bio-text">Bouwt de technologische ruggengraat van Montisoro. Hij vertaalt methodologie naar werkende systemen, van architectuur tot Casey AI. Waar complexiteit dreigt vast te lopen, zorgt Jeroen dat het beweegt.</p>
+        </div>
+      </div>
+      
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/reza.jpg" alt="Reza, Marketing &amp; Branding">
+          <span class="initial">R</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Reza</div>
+          <div class="tm-role">Marketing &amp; Branding</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Reza</div>
+          <div class="bio-role">Marketing &amp; Branding</div>
+          <p class="bio-text">Vertaalt de identiteit van Montisoro naar alles wat je ziet, leest en voelt, van digitale vormgeving tot klantmateriaal, van campagne tot strategie.</p>
+        </div>
+      </div>
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/els.jpg" alt="Els, Non-clinical Casemanager">
+          <span class="initial">E</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Els</div>
+          <div class="tm-role">Non-clinical Casemanager</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Els</div>
+          <div class="bio-role">Non-clinical Casemanager</div>
+          <p class="bio-text">Brengt structuur, rust en menselijkheid in verzuimtrajecten. Els begeleidt medewerkers en organisaties van eerste opvolging tot duurzame werkhervatting.</p>
+        </div>
+      </div>
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/edith.jpg" alt="Edith, Non-clinical Casemanager">
+          <span class="initial">E</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Edith</div>
+          <div class="tm-role">Non-clinical Casemanager</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Edith</div>
+          <div class="bio-role">Non-clinical Casemanager</div>
+          <p class="bio-text">Combineert ervaring als stress- en burn-outcoach, loopbaanbegeleider en outplacementbegeleider met een warme, gestructureerde aanpak in re-integratietrajecten.</p>
+        </div>
+      </div>
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/rico.jpg" alt="Rico, Non-clinical Casemanager">
+          <span class="initial">R</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Rico</div>
+          <div class="tm-role">Non-clinical Casemanager</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Rico</div>
+          <div class="bio-role">Non-clinical Casemanager</div>
+          <p class="bio-text">Verpleegkundige met warmte, klinische scherpte en pit. Rico werkt nauw samen met arbeidsgeneeskunde en brengt een blik mee die het verschil maakt op de werkvloer.</p>
+        </div>
+      </div>
+
+      <div class="tm">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/astrid.jpg" alt="Astrid, Non-clinical Casemanager">
+          <span class="initial">A</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Astrid</div>
+          <div class="tm-role">Non-clinical Casemanager</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Astrid</div>
+          <div class="bio-role">Non-clinical Casemanager</div>
+          <p class="bio-text">Arbeidspsycholoog met stevige terreinervaring, dicht bij medewerker én organisatie. Astrid komt in beeld wanneer het telt, en weet precies wat er dan nodig is.</p>
+        </div>
+      </div>
+      <div class="tm has-photo">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/stefi.jpg" alt="Stefi, Non-clinical Casemanager">
+          <span class="initial">S</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Stefi</div>
+          <div class="tm-role">Non-clinical Casemanager</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Stefi</div>
+          <div class="bio-role">Non-clinical Casemanager</div>
+          <p class="bio-text">Ervaren ergotherapeut en trainer die organisaties ondersteunt bij het implementeren van Culture of Care, met een sterke focus op praktische toepasbaarheid en duurzame gedragsverandering.</p>
+        </div>
+      </div>
+      <div class="tm has-photo">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/amr.jpg" alt="Amr, Lead AI Architect">
+          <span class="initial">A</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Amr</div>
+          <div class="tm-role">Lead AI Architect</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Amr</div>
+          <div class="bio-role">Lead AI Architect</div>
+          <p class="bio-text">Ontwerpt en ontwikkelt de intelligentie achter Casey AI. Hij vertaalt de visie, expertise en praktijkkennis van de CEO naar geavanceerde Agentic AI-frameworks en zorgt voor de technische architectuur die Casey laat leren, redeneren en handelen.</p>
+        </div>
+      </div>
+      <div class="tm has-photo">
+        <div class="tm-portrait">
+          <img class="tm-photo" loading="lazy" decoding="async" src="../assets/team/ahmed.jpg" alt="Ahmed, Senior Platform Engineer">
+          <span class="initial">A</span>
+          <div class="grain"></div>
+        </div>
+        <div class="tm-glow"></div>
+        <div class="tm-meta">
+          <div class="tm-name">Ahmed</div>
+          <div class="tm-role">Senior Platform Engineer</div>
+        </div>
+        <div class="tm-bio">
+          <div class="bio-name">Ahmed</div>
+          <div class="bio-role">Senior Platform Engineer</div>
+          <p class="bio-text">Verantwoordelijk voor de opbouw, beveiliging, monitoring en schaalbaarheid van de AWS-cloudinfrastructuur van Storm en Casey AI.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 05b — ORIGIN (verplaatst: verhaal na het team)
+══════════════════════════════════════ -->
+<section class="chapter dark origin" id="origin" data-screen-label="02 Origin">
+  <div class="chapter-inner wide">
+    <span class="eyebrow on-dark">Het verhaal</span>
+    <h2 class="title h-section on-dark">19 jaar <em>engagement.</em> Vijf maanden <em>stilte.</em></h2>
+    <div class="origin-lead">
+      <span class="mark">“</span>Wat begon als persoonlijke uitval, werd het ontwerpprincipe van een organisatie. Vier momenten, vier stappen die Montisoro hebben gevormd.<span class="mark close">”</span>
+    </div>
+
+    <div class="origin-grid">
+
+      <!-- 01 — Stilte -->
+      <div class="s-card rv">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="o1-bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+            <linearGradient id="o1-sh" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.28"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="10%" cy="10%" id="o1-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+            <filter id="o1-g"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+          </defs>
+          <rect fill="url(#o1-bg)" height="320" rx="16" width="360"/>
+          <rect fill="url(#o1-gl)" height="320" width="360"/>
+          <polygon fill="url(#o1-sh)" opacity="0.5" points="0,0 200,0 0,260"/>
+          <polygon fill="url(#o1-sh)" opacity="0.3" points="0,0 120,0 0,180"/>
+          <path d="M 360 220 C 260 205, 140 280, 0 320" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1"/>
+          <rect filter="url(#o1-g)" height="320" opacity="0.05" width="360"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">01</p>
+          <h3 class="s-title">Stilte</h3>
+          <p class="s-body">Vijf maanden stilte. Geen begeleiding. Geen echte landing na <span class="ds-num">19 jaar</span> engagement.</p>
+        </div>
+      </div>
+
+      <!-- 02 — Onmacht -->
+      <div class="s-card rv" style="--d:100ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="o2-bg" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+            <linearGradient id="o2-sh" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.26"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="90%" cy="8%" id="o2-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+            <filter id="o2-g"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+          </defs>
+          <rect fill="url(#o2-bg)" height="320" rx="16" width="360"/>
+          <rect fill="url(#o2-gl)" height="320" width="360"/>
+          <polygon fill="url(#o2-sh)" opacity="0.5" points="360,0 160,0 360,260"/>
+          <polygon fill="url(#o2-sh)" opacity="0.3" points="360,0 240,0 360,180"/>
+          <path d="M 0 230 C 100 215, 220 280, 360 315" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1"/>
+          <rect filter="url(#o2-g)" height="320" opacity="0.05" width="360"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">02</p>
+          <h3 class="s-title">Onmacht</h3>
+          <p class="s-body">Haar leidinggevende wilde meer doen. Hij wist niet hoe. Niet uit onwil, maar omdat de rol ontbrak.</p>
+        </div>
+      </div>
+
+      <!-- 03 — Inzicht -->
+      <div class="s-card rv" style="--d:200ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="o3-bg" x1="0.5" x2="0.5" y1="0" y2="1"><stop offset="0%" stop-color="#1A1208"/><stop offset="100%" stop-color="#2A1A0E"/></linearGradient>
+            <linearGradient id="o3-sh" x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.28"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="12%" cy="88%" id="o3-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.20"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+            <filter id="o3-g"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+          </defs>
+          <rect fill="url(#o3-bg)" height="320" rx="16" width="360"/>
+          <rect fill="url(#o3-gl)" height="320" width="360"/>
+          <polygon fill="url(#o3-sh)" opacity="0.45" points="0,320 200,320 0,60"/>
+          <path d="M 0 80 C 100 95, 240 50, 360 38" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1"/>
+          <rect filter="url(#o3-g)" height="320" opacity="0.05" width="360"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">03</p>
+          <h3 class="s-title">Inzicht</h3>
+          <p class="s-body">"Mensen vallen zelden uit door ziekte alleen. Ze vallen ook uit op verbinding, veiligheid en perspectief."</p>
+        </div>
+      </div>
+
+      <!-- 04 — Montisoro -->
+      <div class="s-card rv" style="--d:300ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 320" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="o4-bg" x1="0.5" x2="0.5" y1="0" y2="1"><stop offset="0%" stop-color="#2E1E12"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+            <linearGradient id="o4-sh" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.30"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="92%" cy="92%" id="o4-gl" r="62%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.26"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+            <filter id="o4-g"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+          </defs>
+          <rect fill="url(#o4-bg)" height="320" rx="16" width="360"/>
+          <rect fill="url(#o4-gl)" height="320" width="360"/>
+          <polygon fill="url(#o4-sh)" opacity="0.5" points="360,0 180,0 360,280"/>
+          <path d="M 0 230 C 110 218, 230 270, 360 280" fill="none" stroke="#E8592B" stroke-opacity="0.30" stroke-width="1.4"/>
+          <path d="M 0 260 C 130 250, 250 295, 360 305" fill="none" stroke="#E8592B" stroke-opacity="0.22" stroke-width="0.9"/>
+          <rect filter="url(#o4-g)" height="320" opacity="0.05" width="360"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">04</p>
+          <h3 class="s-title">Montisoro</h3>
+          <p class="s-body">Die rol ontbrak. In te veel organisaties. Dus besliste Laurence ze zelf te bouwen.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 06 — CONTACT (dark, centered)
+══════════════════════════════════════ -->
+<section id="contact" class="chapter dark" style="padding:80px 24px 60px;" data-screen-label="06 Contact">
+  <div class="chapter-inner narrow">
+    <span class="eyebrow on-dark" style="justify-content:center;display:inline-flex;">Contact</span>
+    <h2 class="title h-section on-dark">Klaar om te <em>starten?</em></h2>
+    <p class="sub on-dark" style="margin:0 auto 44px;max-width:520px;">
+      Ontdek hoe Montisoro uw aanpak versterkt, van eerste verzuimdag tot duurzame werkhervatting.
+    </p>
+    <div class="contact-grid">
+      <a href="contact.html#channels" class="btn btn-primary">Plan een gesprek →</a>
+      <a href="aanpak.html" class="btn btn-ghost">Bekijk eerst de aanpak →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="ms-footer">
+  <img loading="lazy" decoding="async" class="ms-fbg" src="../assets/banner-cover.jpg" alt="" role="presentation">
+  <div class="ms-fveil"></div>
+  <div class="ms-foot-in">
+    <div class="ms-foot-band">
+      <div><span class="ms-foot-eyebrow">Klaar om te starten?</span><h2>Verzuim niet langer <em>ondergaan,</em> maar begrijpen.</h2></div>
+      <a href="contact.html#channels" class="ms-foot-btn">Plan een gesprek <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="ms-foot-grid">
+      <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="mailto:hello@montisoro.com" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+      </div>
+      <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="Home.html">Home</a></li><li><a href="aanpak.html">Aanpak</a></li><li><a href="technologie.html">Technologie</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ.html">FAQ</a></li><li><a href="Referentie.html">Referenties</a></li><li><a href="fit-check.html">Fit check</a></li><li><a href="calculator.html">Verzuimcalculator</a></li></ul></div>
+      <div class="ms-foot-col ms-foot-contact"><h3>Contact</h3><div class="ms-wordmark">Montisoro</div><a href="tel:+32477899186">+32 477 89 91 86</a><span class="ms-vat">BTW BE0733.840.137</span></div>
+    </div>
+    <div class="ms-foot-bottom"><span class="ms-copy">© 2026 Montisoro</span><div class="ms-foot-legal"><a href="privacy.html">Privacy</a><a href="privacy.html#cookies">Cookies</a><a href="disclaimer.html">Algemene voorwaarden</a></div></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var cards = document.querySelectorAll('.tm');
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){
+      var open = card.classList.contains('is-flipped');
+      cards.forEach(function(c){ c.classList.remove('is-flipped'); });
+      if (!open) card.classList.add('is-flipped');
+    });
+  });
+  document.addEventListener('click', function(e){
+    if (!e.target.closest('.tm')){
+      cards.forEach(function(c){ c.classList.remove('is-flipped'); });
+    }
+  });
+})();
+
+// ── Hairline-kaart reveal: fade-up on scroll, staggered via --d ──
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in');}); return; }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.16,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){ io.observe(e); });
+  setTimeout(function(){ els.forEach(function(e){ e.classList.add('in'); }); }, 3000);
+})();
+</script>
+
+<script src="../scripts/motion.js" defer></script>
+
+<script src="../scripts/montisoro-v2.js"></script>
+<link rel="stylesheet" href="../stylesheets/shell.css">
+<script src="../scripts/shell.js" defer></script>
+<script src="../scripts/site-content.js" defer></script>
+<script src="../scripts/analytics.js" defer></script>
+<script src="../scripts/events.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<title>Technologie — Montisoro | Casey & verzuimdata</title>
+<meta name="description" content="Storm SaaS platform en Casey AI — operationele intelligentie voor verzuim, werkbaarheid en re-integratie. Human in the Loop, GDPR-conform, enterprise-ready.">
+<meta property="og:title" content="Technologie — Montisoro | Casey & verzuimdata">
+<meta property="og:description" content="Human systems. Operational intelligence.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://montisoro.com/technologie.html">
+<meta property="og:url" content="https://montisoro.com/technologie.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0D0905">
+<link rel="alternate" hreflang="nl" href="https://montisoro.com/technologie.html">
+<link rel="alternate" hreflang="en" href="https://montisoro.com/technologie-en.html">
+<link rel="alternate" hreflang="x-default" href="https://montisoro.com/technologie.html">
+<link rel="icon" type="image/png" sizes="128x128" href="../assets/favicon.png?v=2">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+<link rel="apple-touch-icon" href="../assets/favicon.png?v=2">
+<meta property="og:image" content="https://montisoro.com/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Technologie — Montisoro | Casey & verzuimdata">
+<meta name="twitter:description" content="Human systems. Operational intelligence.">
+<meta name="twitter:image" content="https://montisoro.com/assets/og-image.jpg">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-regular.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-light.css">
+<link rel="stylesheet" href="../stylesheets/motion.css">
+<link rel="stylesheet" href="../stylesheets/type-scale.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:#13100D; --bg-r:#1A1410; --bg-mid:#1C1814; --bg-deep:#0D0905;
+  --bg-page:#f9f8f6; --bg-card:#ffffff;
+  --orange:#E8592B; --orange-hover:#d04d22; --orange-tint:#FAE8E1; --orange-dim:rgba(232,89,43,0.10);
+  --white:#FFFFFF; --off:#F0EDE8;
+  --muted-d:rgba(240,237,232,0.55); --muted-d-2:rgba(240,237,232,0.52); --muted-d-3:rgba(240,237,232,0.5);
+  --div-d:rgba(240,237,232,0.09); --div-d-2:rgba(240,237,232,0.13);
+  --text-primary:#1a1a1a; --text-muted:#6b7280; --border-l:rgba(0,0,0,0.08);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+}
+
+html,body{font-family:var(--sans);background:var(--bg);color:var(--off);}
+body{padding-top:64px;}
+
+/* ── NAV ── */
+.m-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(19,16,13,.94);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(240,237,232,.08);height:64px;display:flex;align-items:center;padding:0 48px;justify-content:space-between;transition:background .3s ease;}
+.m-nav.scrolled{background:rgba(13,9,5,.97)}
+.m-nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;font-family:var(--serif);font-weight:900;font-size:22px;color:var(--off);letter-spacing:-.02em;}
+.m-nav-logo em{font-style:italic;color:var(--orange);font-weight:900;}
+.m-nav-logo img{height:44px;width:auto;display:block;}
+.m-nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+.m-nav-links li{position:relative}
+.m-nav-links li a{font-family:var(--sans);font-size:13px;font-weight:400;letter-spacing:.03em;color:rgba(240,237,232,.6);text-decoration:none;padding:8px 14px;border-radius:6px;display:block;transition:color .2s,background .2s;white-space:nowrap;}
+.m-nav-links li a:hover,.m-nav-links li a.m-active{color:var(--off);background:rgba(240,237,232,.07)}
+.m-nav-links li a.m-cta{background:var(--orange);color:#fff;font-weight:600;padding:8px 20px;margin-left:6px;border-radius:8px;}
+.m-nav-links li a.m-cta:hover{background:var(--orange-hover)}
+.m-hamburger{display:none;background:none;border:none;cursor:pointer;padding:10px;margin-right:-10px;color:var(--off);font-size:24px;line-height:1;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+@media(max-width:1180px){.m-nav{padding:0 20px}.m-nav-links{display:none}.m-hamburger{display:flex}}
+
+/* ── CHAPTER SHARED ── */
+.chapter{position:relative;overflow:hidden;}
+.chapter.dark{background:var(--bg);padding:56px 24px;}
+.chapter.light{background:var(--bg-page);padding:64px 24px;}
+.chapter-inner{max-width:1040px;margin:0 auto;position:relative;z-index:1;}
+.chapter-inner.wide{max-width:1140px;}
+.chapter-inner.narrow{max-width:720px;text-align:center;margin:0 auto;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;margin-bottom:16px;font-family:var(--sans);}
+.eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+.eyebrow.on-dark{color:var(--orange);}
+.eyebrow.on-light{color:var(--bg);}
+.eyebrow.centered{justify-content:center;}
+
+.title{font-family:var(--serif);font-weight:700;letter-spacing:-.02em;line-height:1.15;}
+.title em{font-style:italic;color:var(--orange);}
+.title.on-dark{color:var(--off);}
+.title.on-light{color:var(--text-primary);}
+.title.h-section{font-size:clamp(28px,3.4vw,42px);margin-bottom:18px;}
+
+.sub{font-family:var(--sans);font-weight:300;font-size:15px;line-height:1.78;max-width:680px;margin-bottom:44px;}
+.sub.on-dark{color:var(--muted-d);}
+.sub.on-light{color:var(--text-muted);}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .2s ease;border-radius:10px;font-family:var(--sans);white-space:nowrap;}
+.btn-primary{background:var(--orange);border:1.5px solid var(--orange);color:#fff;}
+.btn-primary:hover{background:var(--orange-hover);border-color:var(--orange-hover);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border:1.5px solid rgba(240,237,232,0.25);color:rgba(240,237,232,0.6);}
+.btn-ghost:hover{border-color:var(--off);color:var(--off);}
+.btn-ghost-light{background:transparent;border:1.5px solid rgba(19,16,13,0.25);color:rgba(19,16,13,0.65);}
+.btn-ghost-light:hover{border-color:var(--orange);color:var(--orange);}
+
+@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+
+/* ═══════════════════════════════════════
+   CH 01 — HERO (centered manifesto)
+═══════════════════════════════════════ */
+.hero-statement{position:relative;min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);padding:96px 24px;}
+.hs-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+.hs-inner{position:relative;z-index:1;max-width:880px;text-align:center;}
+
+.hs-rule{display:block;width:44px;height:2px;background:var(--orange);margin:0 auto 32px;opacity:0;animation:fu .5s .18s ease forwards;}
+.hs-eyebrow{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:28px;opacity:0;animation:fu .5s .26s ease forwards;}
+.hs-headline{font-family:var(--serif);font-weight:900;font-size:clamp(40px,5.2vw,72px);line-height:1.02;color:var(--white);letter-spacing:-.5px;margin-bottom:36px;opacity:0;animation:fu .7s .34s ease forwards;}
+.hs-headline em{font-style:italic;color:var(--orange);font-weight:900;}
+.hs-body{font-size:15px;font-weight:300;color:var(--muted-d);line-height:1.82;max-width:680px;margin:0 auto 32px;opacity:0;animation:fu .6s .5s ease forwards;}
+.hs-body strong{color:var(--off);font-weight:500;}
+.hs-divider{display:block;width:32px;height:1.5px;background:var(--orange);margin:0 auto 30px;opacity:0;animation:fu .5s .6s ease forwards;}
+.hs-tagline{font-family:var(--sans);font-weight:400;font-style:normal;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--off);max-width:620px;margin:0 auto 36px;opacity:0;animation:fu .6s .68s ease forwards;}
+.hs-tagline em{font-style:normal;color:var(--orange);font-weight:600;}
+.hs-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fu .6s .78s ease forwards;}
+@media(max-width:560px){.hs-cta{flex-direction:column;align-items:stretch;}}
+
+/* ═══════════════════════════════════════
+   CH 02 — STORM (light, features grid)
+═══════════════════════════════════════ */
+.storm-intro{display:flex;flex-direction:column;gap:24px;margin-bottom:40px;}
+.storm-intro-body{font-size:16px;font-weight:300;line-height:1.85;color:var(--text-muted);max-width:720px;}
+.storm-intro-body strong{color:var(--text-primary);font-weight:500;}
+
+.storm-pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px;}
+.storm-pill{display:inline-flex;align-items:center;font-size:12px;font-weight:500;color:var(--text-primary);background:#fff;border:1px solid var(--border-l);border-radius:100px;padding:6px 14px;letter-spacing:-.005em;}
+
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border-l);margin-top:8px;}
+
+.feature{background:none;border:none;border-left:1px solid var(--border-l);border-radius:0;padding:clamp(32px,3.2vw,48px) clamp(24px,2.4vw,40px);display:flex;flex-direction:column;gap:0;box-shadow:none;transition:none;}
+.feature:nth-child(3n+1){border-left:none;}
+.feature:nth-child(n+4){border-top:1px solid var(--border-l);}
+.feature:hover{transform:none;box-shadow:none;}
+.feature .feature-num{font-family:var(--serif)!important;font-size:clamp(42px,4.6vw,70px);font-weight:700;color:var(--orange);line-height:.82;letter-spacing:-.02em;margin-bottom:clamp(24px,3vw,42px);}
+.feature-title{font-family:var(--sans);font-size:clamp(18px,1.7vw,23px);font-weight:700;color:var(--text-primary);line-height:1.16;letter-spacing:-.01em;margin-bottom:clamp(11px,1.3vw,16px);white-space:nowrap;transition:color .25s cubic-bezier(.16,1,.3,1);}
+.feature:hover .feature-title{color:var(--orange);}
+.feature-body{font-size:clamp(13px,1.3vw,15px);font-weight:300;color:var(--text-muted);line-height:1.7;}
+@media(max-width:900px){
+  .feature-grid{grid-template-columns:repeat(2,1fr);}
+  .feature{border-left:1px solid var(--border-l);border-top:none;}
+  .feature:nth-child(2n+1){border-left:none;}
+  .feature:nth-child(n+3){border-top:1px solid var(--border-l);}
+}
+@media(max-width:560px){
+  .feature-grid{grid-template-columns:1fr;border-top:none;}
+  .feature{border-left:none!important;border-top:1px solid var(--border-l);padding:30px 0!important;}
+  .feature:first-child{border-top:none;padding-top:0!important;}
+  .feature-title{font-size:clamp(16px,4.6vw,24px);}
+}
+/* Hairline-kaart reveal motion (scroll-getriggerd, stagger via --d) */
+/* .rv + .rv.in → gecentraliseerd in motion.css (23 juni 2026) */
+@media(prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important;}}
+
+.storm-close{margin-top:40px;padding-top:32px;border-top:1px solid rgba(0,0,0,0.08);font-family:var(--sans);font-weight:700;font-style:normal;font-size:clamp(18px,1.7vw,23px);color:var(--text-primary);line-height:1.45;letter-spacing:-.01em;max-width:720px;}
+.storm-close em{font-style:normal;color:var(--orange);}
+
+/* — Frameloos videovlak (Storm & Casey demo) — geen kader, 16:9, native controls — */
+.tech-video{position:relative;width:100%;aspect-ratio:16/9;margin:8px 0 44px;border-radius:12px;overflow:hidden;background:#0c0905;cursor:pointer;}
+.tech-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#0c0905;}
+.tech-video:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+/* minimale, frameloze bediening: klik = afspelen/pauze + één volledig-scherm-knop; geen volume/skip/download */
+/* eigen minimale videobalk: play/pauze + tijdlijn + volledig scherm; geen volume/skip/download */
+.tv-bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(to top,rgba(12,9,5,.8),rgba(12,9,5,.3) 55%,rgba(12,9,5,0));opacity:0;transform:translateY(4px);transition:opacity .28s ease,transform .28s ease;}
+.tech-video:hover .tv-bar,.tech-video:focus-within .tv-bar,.tech-video:not(.is-playing) .tv-bar{opacity:1;transform:none;}
+.tv-btn{flex:none;width:34px;height:34px;padding:0;border:none;border-radius:8px;background:rgba(255,255,255,.14) no-repeat center;background-size:16px;cursor:pointer;transition:background-color .2s ease;}
+.tv-btn:hover{background-color:rgba(255,255,255,.26);}
+.tv-btn:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
+.tv-play{background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='%23ffffff'%3E%3Cpath%20d='M8%205v14l11-7z'/%3E%3C/svg%3E");}
+.tech-video.is-playing .tv-play{background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='%23ffffff'%3E%3Crect%20x='6'%20y='5'%20width='4'%20height='14'%20rx='1'/%3E%3Crect%20x='14'%20y='5'%20width='4'%20height='14'%20rx='1'/%3E%3C/svg%3E");}
+.tv-fs{background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='%23ffffff'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M8%203H5a2%202%200%200%200-2%202v3'/%3E%3Cpath%20d='M16%203h3a2%202%200%200%201%202%202v3'/%3E%3Cpath%20d='M3%2016v3a2%202%200%200%200%202%202h3'/%3E%3Cpath%20d='M21%2016v3a2%202%200%200%201-2%202h-3'/%3E%3C/svg%3E");background-size:17px;}
+.tv-track{flex:1;height:5px;border-radius:100px;background:rgba(255,255,255,.26);cursor:pointer;position:relative;touch-action:none;}
+.tv-progress{position:absolute;left:0;top:0;height:100%;width:0;border-radius:100px;background:var(--orange);}
+.tv-progress::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;border-radius:50%;background:#fff;transform:translateY(-50%) scale(0);transition:transform .15s ease;box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.tv-track:hover .tv-progress::after,.tech-video:focus-within .tv-progress::after{transform:translateY(-50%) scale(1);}
+.tv-time{flex:none;font-family:var(--sans);font-size:12px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums;min-width:34px;text-align:right;}
+@media(max-width:640px){.tech-video{margin:4px 0 32px;}.tv-bar{opacity:1;transform:none;}}
+
+/* ═══════════════════════════════════════
+   CH 03 — HUMAN IN THE LOOP (dark manifesto card)
+═══════════════════════════════════════ */
+.manifesto-card{position:relative;border:none;border-radius:0;overflow:visible;background:none;padding:0;max-width:100%;margin:0;text-align:left;}
+.manifesto-bg{display:none;}
+.manifesto-inner{position:relative;z-index:1;}
+.manifesto-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.manifesto-eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+.manifesto-statement{font-family:var(--serif);font-weight:700;font-style:normal;font-size:clamp(28px,3.4vw,42px);line-height:1.15;color:var(--off);letter-spacing:-.02em;margin-bottom:18px;}
+.manifesto-statement em{font-style:italic;color:var(--orange);font-weight:700;}
+.manifesto-body{font-size:15px;font-weight:300;color:var(--muted-d);line-height:1.82;max-width:620px;margin:0;}
+.manifesto-body strong{color:var(--off);font-weight:500;font-family:var(--serif);font-style:italic;}
+.manifesto-body em{font-style:italic;color:var(--off);font-weight:500;}
+@media(max-width:680px){.manifesto-card{padding:0;}}
+
+/* ═══════════════════════════════════════
+   CH 04 — CULTURE OF CARE & CAPABILITY (light, numbered list)
+═══════════════════════════════════════ */
+.principles-list{display:flex;flex-direction:column;border-top:1px solid rgba(0,0,0,0.10);}
+.principle{display:grid;grid-template-columns:120px 1fr;gap:32px;padding:28px 0;border-bottom:1px solid rgba(0,0,0,0.10);align-items:start;transition:padding-left .25s ease;}
+.principle:hover{padding-left:8px;}
+.principle:hover .p-num{color:var(--orange-hover);}
+.p-num{font-family:var(--serif);font-weight:900;font-size:44px;line-height:1;color:var(--orange);letter-spacing:-.04em;transition:color .25s ease;}
+.p-content h3{font-family:var(--sans);font-weight:700;font-size:clamp(18px,1.7vw,23px);color:var(--text-primary);line-height:1.16;margin-bottom:10px;letter-spacing:-.01em;}
+.amp{font-family:var(--sans);font-weight:500;font-style:normal;}
+.p-content p{font-size:clamp(13px,1.3vw,15px);font-weight:300;line-height:1.7;color:var(--text-muted);max-width:560px;}
+@media(max-width:680px){
+  .principle{grid-template-columns:1fr;gap:10px;padding:22px 0;}
+  .p-num{font-size:32px;}
+}
+
+.culture-close{margin-top:48px;text-align:left;font-family:var(--sans);font-weight:700;font-style:normal;font-size:clamp(18px,1.7vw,23px);color:var(--text-primary);line-height:1.45;letter-spacing:-.01em;}
+.culture-close em{font-style:normal;color:var(--orange);}
+
+/* ═══════════════════════════════════════
+   CH 05 — CASEY AI (dark, role cards)
+═══════════════════════════════════════ */
+.casey-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px;align-items:end;}
+@media(max-width:880px){.casey-intro-grid{grid-template-columns:1fr;gap:24px;}}
+.casey-intro-l{}
+.casey-intro-r{font-size:16px;font-weight:300;line-height:1.85;color:var(--muted-d);padding-top:8px;}
+.casey-intro-r strong{color:var(--off);font-weight:500;}
+.casey-intro-r em{font-style:italic;color:var(--orange);font-weight:500;}
+
+.role-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--div-d);margin-top:8px;}
+@media(max-width:960px){.role-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.role-grid{grid-template-columns:1fr;border-top:none;}}
+
+.s-card{background:none;border:none;border-left:1px solid var(--div-d);border-radius:0;overflow:visible;position:relative;padding:clamp(32px,3.2vw,48px) clamp(24px,2.4vw,40px);display:flex;flex-direction:column;gap:0;box-shadow:none;min-height:0;}
+.s-card:nth-child(3n+1){border-left:none;}
+.s-card:nth-child(n+4){border-top:1px solid var(--div-d);}
+.s-card:hover{transform:none;box-shadow:none;}
+.s-card-bg{display:none;}
+.s-card-content{position:relative;z-index:1;display:flex;flex-direction:column;gap:0;flex:1;}
+.s-card-content .s-num{font-family:var(--serif)!important;font-size:clamp(42px,4.6vw,68px);font-weight:700;color:var(--orange);line-height:.82;letter-spacing:-.02em;margin-bottom:clamp(24px,3vw,40px);}
+.s-title{font-family:var(--sans);font-size:clamp(18px,1.8vw,23px);font-weight:700;color:var(--off);line-height:1.18;letter-spacing:-.01em;margin-bottom:clamp(10px,1.2vw,15px);white-space:nowrap;transition:color .25s cubic-bezier(.16,1,.3,1);}
+.s-card:hover .s-title{color:var(--orange);}
+.s-body{font-size:clamp(13px,1.3vw,15px);font-weight:300;color:var(--muted-d);line-height:1.7;}
+@media(max-width:960px){
+  .s-card{border-left:1px solid var(--div-d);border-top:none;}
+  .s-card:nth-child(3n+1){border-left:1px solid var(--div-d);}
+  .s-card:nth-child(2n+1){border-left:none;}
+  .s-card:nth-child(n+3){border-top:1px solid var(--div-d);}
+}
+@media(max-width:560px){
+  .s-card{border-left:none!important;border-top:1px solid var(--div-d);padding:30px 0!important;}
+  .s-card:first-child{border-top:none;padding-top:0!important;}
+  .s-title{white-space:normal;font-size:clamp(16px,4.6vw,24px);}
+}
+
+.casey-close{margin-top:40px;text-align:center;font-family:var(--sans);font-weight:500;font-style:normal;font-size:clamp(18px,2vw,22px);color:var(--off);line-height:1.6;}
+.casey-close em{font-style:italic;color:var(--orange);}
+
+/* ═══════════════════════════════════════
+   CH 06 — CASEY WAITLIST (light)
+═══════════════════════════════════════ */
+.waitlist-card{background:none;border:none;border-radius:0;padding:clamp(36px,4vw,52px) 0 0;box-shadow:none;display:grid;grid-template-columns:1.25fr 1px 0.92fr;gap:clamp(36px,5vw,64px);align-items:start;border-top:1px solid var(--border-l);}
+.waitlist-divider{align-self:stretch;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0.10) 20%,rgba(0,0,0,0.10) 80%,rgba(0,0,0,0) 100%);}
+@media(max-width:840px){.waitlist-card{grid-template-columns:1fr;gap:32px;padding-top:32px;}.waitlist-divider{display:none;}}
+
+.waitlist-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.waitlist-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;}
+.waitlist-title{font-family:var(--serif);font-weight:700;font-size:clamp(24px,2.8vw,34px);line-height:1.2;letter-spacing:-.02em;color:var(--text-primary);margin-bottom:18px;}
+.waitlist-title em{font-style:italic;color:var(--orange);}
+.waitlist-body{font-size:15px;font-weight:300;line-height:1.78;color:var(--text-muted);max-width:520px;margin-bottom:28px;}
+
+.access-bullets{list-style:none;padding:0;margin:0 0 28px;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:520px){.access-bullets{grid-template-columns:1fr;}}
+.access-bullets li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text-primary);font-weight:500;line-height:1.55;}
+.access-bullets li i{display:block;flex-shrink:0;margin-top:1px;color:var(--orange);font-size:16px;}
+
+.waitlist-cta{display:flex;flex-direction:column;gap:16px;}
+.waitlist-field{display:flex;align-items:center;gap:11px;padding:0 0 13px;background:none;border:none;border-bottom:1.5px solid var(--border-l);border-radius:0;transition:border-color .2s ease;}
+.waitlist-field:focus-within{border-color:var(--orange);box-shadow:none;}
+.waitlist-field input{flex:1;border:0;outline:0;font:inherit;padding:9px 0;font-size:16px;color:var(--text-primary);min-width:120px;background:transparent;}
+.waitlist-field input::placeholder{color:rgba(0,0,0,0.32);}
+.waitlist-field i{color:var(--text-muted);font-size:18px;}
+.waitlist-submit{width:100%;padding:15px 24px;background:var(--orange);border:none;color:#fff;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border-radius:100px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:background .25s ease,gap .25s ease;font-family:var(--sans);}
+.waitlist-submit:hover{background:var(--orange-hover);gap:13px;}
+.waitlist-explore{font-size:12px;font-weight:500;color:var(--orange);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:gap .2s ease;letter-spacing:.04em;text-transform:uppercase;margin-top:4px;}
+.waitlist-explore:hover{gap:10px;}
+.waitlist-fineprint{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);margin-top:4px;}
+.waitlist-fineprint i{font-size:12px;color:rgba(0,0,0,0.3);}
+
+/* ═══════════════════════════════════════
+   CH 07 — ACTION (dark, centered close)
+═══════════════════════════════════════ */
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:500px;margin:0 auto;}
+@media(max-width:480px){.action-grid{grid-template-columns:1fr;}}
+
+/* ── FOOTER ── */
+.m-footer{background:var(--bg-deep);padding:28px clamp(20px,5vw,48px);display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(240,237,232,.05);flex-wrap:wrap;gap:16px;}
+.m-footer .copy{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,232,.3);}
+.m-footer-links{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:flex-end;}
+.m-footer-links a{font-size:12px;color:rgba(240,237,232,.28);text-decoration:none;transition:color .2s;padding:5px 0;}
+.m-footer-links a:hover{color:var(--orange);}
+</style>
+<link rel="stylesheet" href="../stylesheets/site.css">
+<link rel="stylesheet" href="../stylesheets/montisoro-v2.css">
+<noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
+<link rel="stylesheet" href="../stylesheets/ds2.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Montisoro","url":"https://montisoro.com/","logo":"https://montisoro.com/assets/montisoro-logo.png","email":"hello@montisoro.com","telephone":"+32-477-89-91-86","address":{"@type":"PostalAddress","streetAddress":"Tisseltstraat 25","postalCode":"1880","addressLocality":"Ramsdonk","addressCountry":"BE"},"vatID":"BE0733840137","sameAs":["https://www.linkedin.com/in/laurence-van-den-bergh/"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Montisoro","url":"https://montisoro.com/","inLanguage":"nl-BE"}</script>
+</head>
+<body class="ms-dark-hero ds2">
+
+<!-- ── NAV ── -->
+<nav class="m-nav" id="mNav">
+  <a href="Home.html" class="m-nav-logo" aria-label="Montisoro home"><img decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"></a>
+  <ul class="m-nav-links">
+    <li><a href="aanpak.html">Aanpak</a></li>
+    <li><a href="technologie.html" class="m-active">Technologie</a></li>
+    <li><a href="fit-check.html">Fit check</a></li>
+    <li><a href="calculator.html">Calculator</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html#channels" class="m-cta">Plan een gesprek →</a></li>
+  </ul>
+  <button class="m-hamburger" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+<script>(function(){var n=document.getElementById('mNav');window.addEventListener('scroll',function(){n.classList.toggle('scrolled',window.scrollY>40);});})();</script>
+
+<!-- ══════════════════════════════════════
+     CH 01 — HERO (centered manifesto)
+══════════════════════════════════════ -->
+<section class="hero-statement" data-screen-label="01 Hero">
+  <svg class="hs-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hbg" x1="0.3" x2="0.7" y1="0" y2="1">
+        <stop offset="0%" stop-color="#13100D"/>
+        <stop offset="50%" stop-color="#13100D"/>
+        <stop offset="100%" stop-color="#0D0905"/>
+      </linearGradient>
+      <linearGradient id="hls1" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.18"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <linearGradient id="hls2" x1="0" x2="0.85" y1="0" y2="1"><stop offset="0%" stop-color="#D4935A" stop-opacity="0.12"/><stop offset="100%" stop-color="#D4935A" stop-opacity="0"/></linearGradient>
+      <radialGradient cx="92%" cy="6%" id="hgtr" r="45%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="8%" cy="92%" id="hgbl" r="40%"><stop offset="0%" stop-color="#C87B3A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C87B3A" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="50%" cy="50%" id="hvig" r="65%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.55"/></radialGradient>
+      <filter id="hgrain"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#hbg)" width="1600" height="900"/>
+    <rect fill="url(#hgtr)" width="1600" height="900"/>
+    <rect fill="url(#hgbl)" width="1600" height="900"/>
+    <polygon fill="url(#hls1)" opacity="0.6" points="1600,0 1600,420 320,900 -80,900"/>
+    <polygon fill="url(#hls2)" opacity="0.5" points="0,0 0,360 1280,900 1500,900"/>
+    <polygon fill="url(#hls1)" opacity="0.30" points="1240,0 1300,0 580,900 480,900"/>
+    <path d="M 1600 600 C 1240 580, 760 770, 0 880" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1.5"/>
+    <path d="M 1600 680 C 1340 660, 880 800, 200 880" fill="none" stroke="#E8592B" stroke-opacity="0.22" stroke-width="1"/>
+    <path d="M 0 320 C 360 300, 840 480, 1600 560" fill="none" stroke="#E8592B" stroke-opacity="0.10" stroke-width="0.8"/>
+    <rect fill="url(#hvig)" width="1600" height="900"/>
+    <rect filter="url(#hgrain)" width="1600" height="900" opacity="0.05"/>
+  </svg>
+
+  <div class="hs-inner">
+    <p class="hs-eyebrow">Technologie</p>
+    <h1 class="hs-headline">Human systems. <br><em>Operational intelligence.</em></h1>
+    <p class="hs-body">
+      Montisoro bouwt technologie voor organisaties waar verzuim, inzetbaarheid en menselijke complexiteit dagelijkse realiteit zijn.
+    </p>
+    <span class="hs-divider"></span>
+    <p class="hs-body">
+      <strong>Geen generieke HR-tech of<br>losse AI-laag bovenop bestaande chaos.</strong>
+    </p>
+    <div class="hs-cta-row">
+      <a class="btn btn-primary" href="#storm">Ontdek Storm →</a>
+      <a class="btn btn-ghost" href="#casey">Ontdek Casey AI →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 02 — STORM (light, features)
+══════════════════════════════════════ -->
+<section class="chapter light" id="storm" data-screen-label="02 Storm">
+  <div class="chapter-inner">
+    <span class="eyebrow on-light">Storm</span>
+    <h2 class="title h-section on-light">Operationele intelligentie voor <em>duurzame inzetbaarheid.</em></h2>
+
+    <div class="storm-intro">
+      <p class="storm-intro-body">
+        Eén gedeelde omgeving waarin informatie, rollen, communicatie en opvolging samenkomen tot operationele intelligentie.<br>
+        Storm is het SaaS-platform waarop corporate organisaties <strong>sinds 2023</strong> bouwen.
+      </p>
+
+      <div class="storm-pillrow">
+        <span class="storm-pill">Dossiers</span>
+        <span class="storm-pill">Rollen</span>
+        <span class="storm-pill">Communicatie</span>
+        <span class="storm-pill">Opvolging</span>
+        <span class="storm-pill">Documentatie</span>
+        <span class="storm-pill">Governance</span>
+      </div>
+
+      <p class="storm-intro-body">
+        Gebouwd om <strong>operationele intelligentie</strong> zichtbaar en toepasbaar te maken.
+      </p>
+    </div>
+
+    <div class="tech-video rv" aria-label="Storm productdemo">
+      <video playsinline preload="none" poster="../assets/storm-demo-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <source src="../assets/storm-demo.mp4" type="video/mp4">
+      </video>
+      <div class="tv-bar">
+        <button type="button" class="tv-btn tv-play" aria-label="Afspelen"></button>
+        <div class="tv-track"><div class="tv-progress"></div></div>
+        <span class="tv-time">0:00</span>
+        <button type="button" class="tv-btn tv-fs" aria-label="Volledig scherm"></button>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature rv">
+        <p class="feature-num">01</p>
+        <h3 class="feature-title">GDPR compliant</h3>
+        <p class="feature-body">Privacy by design.</p>
+      </div>
+      <div class="feature rv" style="--d:100ms">
+        <p class="feature-num">02</p>
+        <h3 class="feature-title">Access controlled</h3>
+        <p class="feature-body">Juiste informatie voor de juiste persoon.</p>
+      </div>
+      <div class="feature rv" style="--d:200ms">
+        <p class="feature-num">03</p>
+        <h3 class="feature-title">2FA secured</h3>
+        <p class="feature-body">Toegang is geen gemak, het is een beslissing.</p>
+      </div>
+      <div class="feature rv">
+        <p class="feature-num">04</p>
+        <h3 class="feature-title">Enterprise ready</h3>
+        <p class="feature-body">Gebouwd voor schaal.</p>
+      </div>
+      <div class="feature rv" style="--d:100ms">
+        <p class="feature-num">05</p>
+        <h3 class="feature-title">Adopted by corporates</h3>
+        <p class="feature-body">In gebruik binnen corporate organisaties.</p>
+      </div>
+      <div class="feature rv" style="--d:200ms">
+        <p class="feature-num">06</p>
+        <h3 class="feature-title">EU cloud hosted</h3>
+        <p class="feature-body">Data blijft binnen Europa.</p>
+      </div>
+    </div>
+
+    <p class="storm-close">Storm maakt verzuim niet alleen <em>zichtbaar.</em><br>Het maakt organisaties <em>consistenter</em> in hoe ze handelen.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 03 — HUMAN IN THE LOOP (dark manifesto card)
+══════════════════════════════════════ -->
+<section class="chapter dark" data-screen-label="03 HITL">
+  <div class="chapter-inner">
+
+    <div class="manifesto-card">
+      <svg class="manifesto-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="m-bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+          <linearGradient id="m-sh" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.20"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+          <radialGradient cx="50%" cy="0%" id="m-gtr" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.16"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          <filter id="m-g"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+        </defs>
+        <rect fill="url(#m-bg)" width="880" height="380"/>
+        <rect fill="url(#m-gtr)" width="880" height="380"/>
+        <polygon fill="url(#m-sh)" opacity="0.5" points="880,0 880,220 200,380 -80,380"/>
+        <path d="M 880 260 C 660 240, 360 320, 0 360" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1.2"/>
+        <rect filter="url(#m-g)" width="880" height="380" opacity="0.05"/>
+      </svg>
+
+      <div class="manifesto-inner">
+        <span class="manifesto-eyebrow">Human in the Loop</span>
+        <h2 class="manifesto-statement">AI zonder context creëert <em>ruis.</em></h2>
+        <p class="manifesto-body">
+          Daarom blijft menselijke expertise essentieel.<br>
+          Casey ondersteunt de besluitvorming. Mensen behouden de eindverantwoordelijkheid.<br>
+          <em>Human in the loop is geen feature.</em> Het is een <em>fundamenteel ontwerpprincipe.</em>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 04 — CULTURE OF CARE & CAPABILITY (light, principles)
+══════════════════════════════════════ -->
+<section class="chapter light" data-screen-label="04 Capability">
+  <div class="chapter-inner">
+    <span class="eyebrow on-light">Culture of Care &amp; Capability</span>
+    <h2 class="title h-section on-light"><em>Technologie rendeert</em> pas wanneer <em>gedrag</em> mee <em>evolueert.</em></h2>
+    <p class="sub on-light">Software alleen verandert geen organisatie. Daarom combineren we technologie met capability-versterking: de kennis, vaardigheden en organisatiegewoontes die duurzame verandering mogelijk maken.</p>
+
+    <div class="principles-list">
+
+      <div class="principle">
+        <div class="p-num">01</div>
+        <div class="p-content">
+          <h3>Capability versterking</h3>
+          <p>Zodat kennis, opvolging en expertise in de organisatie blijven, niet bij de consultant vertrekken.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">02</div>
+        <div class="p-content">
+          <h3>Leiderschap</h3>
+          <p>Zodat leidinggevenden sterker worden in gesprekken, opvolging en ondersteuning. Niet harder. Beter.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">03</div>
+        <div class="p-content">
+          <h3>Psychologische veiligheid</h3>
+          <p>Zodat signalen sneller besproken en problemen vroeger zichtbaar worden. Geen taboe rond werkbaarheid.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">04</div>
+        <div class="p-content">
+          <h3>Governance <span class="amp">&amp;</span> rolzuiverheid</h3>
+          <p>Zodat verantwoordelijkheden, beslissingen en communicatie helder blijven, ook in complexe dossiers.</p>
+        </div>
+      </div>
+
+      <div class="principle">
+        <div class="p-num">05</div>
+        <div class="p-content">
+          <h3>Procesdiscipline</h3>
+          <p>Zodat opvolging niet afhankelijk wordt van goodwill of toeval. Het hangt aan structuur, niet aan personen.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="culture-close">Technologie zonder capability creëert afhankelijkheid.<br>Capability mét technologie creëert <em>schaalbare organisatiekracht.</em></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 05 — CASEY AI (dark, role cards)
+══════════════════════════════════════ -->
+<section class="chapter dark" id="casey" data-screen-label="05 Casey">
+  <div class="chapter-inner wide">
+
+    <div class="casey-intro-grid">
+      <div class="casey-intro-l">
+        <span class="eyebrow on-dark">Casey AI</span>
+        <h2 class="title h-section on-dark">Geen chatbot.<br>De <em>contextual intelligence layer.</em></h2>
+      </div>
+      <div class="casey-intro-r">
+        <p>Casey ondersteunt organisaties bij snellere en consistentere beslissingen rond verzuim en re-integratie.</p>
+        <p>Het combineert jaren praktijkervaring, een eigen methodologie en een <strong>Agentic AI Framework</strong> in één intelligent systeem dat uw context begrijpt, meeleert met uw organisatie en ondersteunt waar het telt.</p>
+        <p><em>Altijd met de mens aan het stuur.</em></p>
+      </div>
+    </div>
+
+    <div class="tech-video rv" aria-label="Casey AI preview">
+      <video playsinline preload="none" poster="../assets/casey-preview-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <source src="../assets/casey-preview.mp4" type="video/mp4">
+      </video>
+      <div class="tv-bar">
+        <button type="button" class="tv-btn tv-play" aria-label="Afspelen"></button>
+        <div class="tv-track"><div class="tv-progress"></div></div>
+        <span class="tv-time">0:00</span>
+        <button type="button" class="tv-btn tv-fs" aria-label="Volledig scherm"></button>
+      </div>
+    </div>
+
+    <div class="role-grid">
+
+      <div class="s-card rv">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="c1-bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+            <linearGradient id="c1-sh" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.25"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="10%" cy="10%" id="c1-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect fill="url(#c1-bg)" width="360" height="260" rx="14"/>
+          <rect fill="url(#c1-gl)" width="360" height="260"/>
+          <polygon fill="url(#c1-sh)" opacity="0.5" points="0,0 200,0 0,200"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">01</p>
+          <h3 class="s-title">Case managers</h3>
+          <p class="s-body">Scherpere voorbereiding en consistenter dossierbeheer.</p>
+        </div>
+      </div>
+
+      <div class="s-card rv" style="--d:100ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="c2-bg" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+            <linearGradient id="c2-sh" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.25"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="90%" cy="8%" id="c2-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect fill="url(#c2-bg)" width="360" height="260" rx="14"/>
+          <rect fill="url(#c2-gl)" width="360" height="260"/>
+          <polygon fill="url(#c2-sh)" opacity="0.5" points="360,0 160,0 360,200"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">02</p>
+          <h3 class="s-title">HR</h3>
+          <p class="s-body">Meer overzicht, sterkere documentatie en minder kennisverlies.</p>
+        </div>
+      </div>
+
+      <div class="s-card rv" style="--d:200ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="c3-bg" x1="0.5" x2="0.5" y1="0" y2="1"><stop offset="0%" stop-color="#1A1208"/><stop offset="100%" stop-color="#2A1A0E"/></linearGradient>
+            <linearGradient id="c3-sh" x1="1" x2="0" y1="1" y2="0"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.26"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="88%" cy="92%" id="c3-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.20"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect fill="url(#c3-bg)" width="360" height="260" rx="14"/>
+          <rect fill="url(#c3-gl)" width="360" height="260"/>
+          <polygon fill="url(#c3-sh)" opacity="0.45" points="360,260 160,260 360,0"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">03</p>
+          <h3 class="s-title">Leidinggevenden</h3>
+          <p class="s-body">Meer vertrouwen in gesprekken en opvolging op de werkvloer.</p>
+        </div>
+      </div>
+
+      <div class="s-card rv">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="c4-bg" x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stop-color="#2A1A0E"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+            <linearGradient id="c4-sh" x1="0" x2="1" y1="1" y2="0"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.25"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="12%" cy="88%" id="c4-gl" r="55%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.20"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect fill="url(#c4-bg)" width="360" height="260" rx="14"/>
+          <rect fill="url(#c4-gl)" width="360" height="260"/>
+          <polygon fill="url(#c4-sh)" opacity="0.45" points="0,260 200,260 0,60"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">04</p>
+          <h3 class="s-title">Preventie</h3>
+          <p class="s-body">Patronen, signalen en werkbaarheid sneller zichtbaar.</p>
+        </div>
+      </div>
+
+      <div class="s-card rv" style="--d:100ms">
+        <svg class="s-card-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="c5-bg" x1="0.5" x2="0.5" y1="0" y2="1"><stop offset="0%" stop-color="#2E1E12"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+            <linearGradient id="c5-sh" x1="1" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.28"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+            <radialGradient cx="50%" cy="100%" id="c5-gl" r="60%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.22"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect fill="url(#c5-bg)" width="360" height="260" rx="14"/>
+          <rect fill="url(#c5-gl)" width="360" height="260"/>
+          <polygon fill="url(#c5-sh)" opacity="0.5" points="360,0 200,0 360,220"/>
+          <path d="M 0 200 C 100 190, 240 230, 360 240" fill="none" stroke="#E8592B" stroke-opacity="0.22" stroke-width="1.2"/>
+        </svg>
+        <div class="s-card-content">
+          <p class="s-num">05</p>
+          <h3 class="s-title">Organisatie</h3>
+          <p class="s-body">Meer grip op risico's, capaciteit en duurzame inzetbaarheid.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="casey-close">Casey denkt niet in <em>tickets.</em><br>Wel in <em>context</em>, <em>gedrag</em> en <em>continuïteit.</em></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 06 — CASEY WAITLIST (light)
+══════════════════════════════════════ -->
+<section class="chapter light" data-screen-label="06 Waitlist">
+  <div class="chapter-inner">
+    <div class="waitlist-card">
+
+      <div class="waitlist-l">
+        <span class="waitlist-tag">Casey AI Pilootprogramma · september 2026</span>
+        <h2 class="waitlist-title">Bouw mee aan de <em>nieuwe standaard.</em></h2>
+        <p class="waitlist-body">
+          Vanaf september selecteren we een beperkt aantal organisaties die geloven dat verzuim anders kan. Uw praktijkervaring verfijnt niet alleen Casey. U helpt mee de nieuwe standaard vorm te geven voor organisaties en sectoren die werk willen maken van duurzame inzetbaarheid.
+        </p>
+
+        <ul class="access-bullets">
+          <li><i class="ph ph-check"></i>Geef richting aan de roadmap van Casey</li>
+          <li><i class="ph ph-check"></i>Werk rechtstreeks samen met ons AI- en expertteam</li>
+          <li><i class="ph ph-check"></i>Krijg als eerste toegang tot nieuwe ontwikkelingen</li>
+          <li><i class="ph ph-check"></i>Draag bij aan de toekomst van duurzame werkhervatting</li>
+        </ul>
+      </div>
+
+      <div class="waitlist-divider" aria-hidden="true"></div>
+
+      <div class="waitlist-r">
+        <div class="waitlist-cta">
+          <label class="waitlist-field">
+            <i class="ph-light ph-envelope-simple"></i>
+            <input type="email" id="caseyWaitEmail" placeholder="naam@bedrijf.be">
+          </label>
+          <button type="button" id="caseyWaitBtn" class="waitlist-submit">Pilootprogramma bespreken →</button>
+          <div class="waitlist-fineprint"><i class="ph-light ph-lock-simple"></i>GDPR-conform · geen spam · alleen relevante updates</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CH 07 — ACTION (dark, centered close)
+══════════════════════════════════════ -->
+<section id="contact" class="chapter dark" style="padding:80px 24px 60px;" data-screen-label="07 Action">
+  <div class="chapter-inner narrow">
+    <span class="eyebrow on-dark centered">Klaar om te starten?</span>
+    <h2 class="title h-section on-dark">Klaar voor een <em>intelligent systeem?</em></h2>
+    <p class="sub on-dark" style="margin:0 auto 44px;max-width:560px;">
+      Plan een diagnosegesprek. We laten u zien hoe Storm vandaag werkt, en wat Casey AI voor uw organisatie kan betekenen.
+    </p>
+    <div class="action-grid">
+      <a href="contact.html#channels" class="btn btn-primary">Plan een gesprek →</a>
+      <a href="aanpak.html" class="btn btn-ghost">Zo pakken we het aan →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="ms-footer">
+  <img loading="lazy" decoding="async" class="ms-fbg" src="../assets/banner-cover.jpg" alt="" role="presentation">
+  <div class="ms-fveil"></div>
+  <div class="ms-foot-in">
+    <div class="ms-foot-band">
+      <div><span class="ms-foot-eyebrow">Klaar om te starten?</span><h2>Verzuim niet langer <em>ondergaan,</em> maar begrijpen.</h2></div>
+      <a href="contact.html#channels" class="ms-foot-btn">Plan een gesprek <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="ms-foot-grid">
+      <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="mailto:hello@montisoro.com" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+      </div>
+      <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="Home.html">Home</a></li><li><a href="aanpak.html">Aanpak</a></li><li><a href="technologie.html">Technologie</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ.html">FAQ</a></li><li><a href="Referentie.html">Referenties</a></li><li><a href="fit-check.html">Fit check</a></li><li><a href="calculator.html">Verzuimcalculator</a></li></ul></div>
+      <div class="ms-foot-col ms-foot-contact"><h3>Contact</h3><div class="ms-wordmark">Montisoro</div><a href="tel:+32477899186">+32 477 89 91 86</a><span class="ms-vat">BTW BE0733.840.137</span></div>
+    </div>
+    <div class="ms-foot-bottom"><span class="ms-copy">© 2026 Montisoro</span><div class="ms-foot-legal"><a href="privacy.html">Privacy</a><a href="privacy.html#cookies">Cookies</a><a href="disclaimer.html">Algemene voorwaarden</a></div></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('caseyWaitBtn');
+  var inp = document.getElementById('caseyWaitEmail');
+  if (!btn || !inp) return;
+  btn.addEventListener('click', function(){
+    var email = inp.value.trim();
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)){ (window.MForm?MForm.notify:window.alert)('Vul een geldig e-mailadres in.'); return; }
+    btn.disabled = true; btn.textContent = 'Versturen…';
+    fetch('/api/form-submit', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        type:'casey', lang:'nl',
+        fields:{ email:email, source:'technologie.html' }, botcheck:''
+      })
+    }).then(function(r){return r.json();}).then(function(d){
+      if (d && d.ok){ btn.textContent = 'Aangemeld ✓'; inp.value = ''; setTimeout(function(){btn.disabled=false;btn.textContent='Pilootprogramma bespreken →';},2500); }
+      else { btn.disabled = false; btn.textContent = 'Pilootprogramma bespreken →'; (window.MForm?MForm.notify:window.alert)('Versturen mislukt. Mail rechtstreeks: hello@montisoro.com'); }
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Pilootprogramma bespreken →';
+      window.location.href = 'mailto:hello@montisoro.com?subject=' + encodeURIComponent('Casey AI pilootprogramma') + '&body=' + encodeURIComponent('Mijn e-mail: ' + email);
+    });
+  });
+})();
+
+// ── Hairline-kaart reveal: fade-up on scroll, staggered via --d ──
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if(!els.length) return;
+  if(!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in');}); return; }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.16,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(e){ io.observe(e); });
+  setTimeout(function(){ els.forEach(function(e){ e.classList.add('in'); }); }, 3000);
+})();
+</script>
+<script src="../config/config.js"></script>
+<script src="../scripts/motion.js" defer></script>
+
+<script src="../scripts/montisoro-v2.js"></script>
+<link rel="stylesheet" href="../stylesheets/shell.css">
+<script src="../scripts/shell.js" defer></script>
+<script src="../scripts/site-content.js" defer></script>
+<script src="../scripts/analytics.js" defer></script>
+<script src="../scripts/events.js" defer></script>
+<script>
+/* Frameloze videobediening: klik = afspelen/pauze; knop = volledig scherm. Geen volume/skip/download. */
+(function(){
+  function fmt(t){ if(!isFinite(t)||t<0){t=0;} var m=Math.floor(t/60),s=Math.floor(t%60); return m+':'+(s<10?'0':'')+s; }
+  document.querySelectorAll('.tech-video').forEach(function(box){
+    var v=box.querySelector('video'); if(!v) return;
+    var play=box.querySelector('.tv-play'), track=box.querySelector('.tv-track'),
+        prog=box.querySelector('.tv-progress'), time=box.querySelector('.tv-time'),
+        fs=box.querySelector('.tv-fs');
+    function toggle(){ if(v.paused){ v.play(); } else { v.pause(); } }
+    box.setAttribute('tabindex','0'); box.setAttribute('role','button');
+    box.addEventListener('click',function(e){ if(e.target.closest('.tv-bar')) return; toggle(); });
+    box.addEventListener('keydown',function(e){ if((e.key===' '||e.key==='Enter')&&e.target===box){ e.preventDefault(); toggle(); } });
+    if(play){ play.addEventListener('click',function(e){ e.stopPropagation(); toggle(); }); }
+    v.addEventListener('play',function(){ box.classList.add('is-playing'); });
+    v.addEventListener('pause',function(){ box.classList.remove('is-playing'); });
+    v.addEventListener('ended',function(){ box.classList.remove('is-playing'); });
+    v.addEventListener('timeupdate',function(){ if(prog&&v.duration){ prog.style.width=(v.currentTime/v.duration*100)+'%'; } if(time){ time.textContent=fmt(v.currentTime); } });
+    v.addEventListener('loadedmetadata',function(){ if(time){ time.textContent=fmt(v.currentTime); } });
+    function seek(x){ if(!track||!v.duration) return; var r=track.getBoundingClientRect(); var p=Math.min(1,Math.max(0,(x-r.left)/r.width)); v.currentTime=p*v.duration; if(prog){ prog.style.width=(p*100)+'%'; } }
+    if(track){
+      var drag=false;
+      track.addEventListener('pointerdown',function(e){ e.stopPropagation(); drag=true; try{track.setPointerCapture(e.pointerId);}catch(_){} seek(e.clientX); });
+      track.addEventListener('pointermove',function(e){ if(drag){ seek(e.clientX); } });
+      track.addEventListener('pointerup',function(){ drag=false; });
+      track.addEventListener('pointercancel',function(){ drag=false; });
+    }
+    if(fs){ fs.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(document.fullscreenElement){ document.exitFullscreen(); }
+      else if(box.requestFullscreen){ box.requestFullscreen(); }
+      else if(v.webkitEnterFullscreen){ v.webkitEnterFullscreen(); }
+    }); }
+  });
+})();
+</script>
+</body>
+</html>

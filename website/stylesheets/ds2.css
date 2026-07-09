@@ -1,0 +1,71 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ds2.css — Montisoro Design System 2.0 (site-brede standaard)
+   ───────────────────────────────────────────────────────────────────
+   Geactiveerd per pagina via  <body class="… ds2">  + deze stylesheet
+   als LAATSTE link (wint van pagina-stijlen; body.ds2 verhoogt specificity).
+   Behoudt alle inhoud, kleuren, typografie — voegt enkel structuur-laag toe.
+   Reduced-motion-safe. Fase 1: lead paragraph · meaningful numbers ·
+   vertical rhythm · CTA microcopy · micro-interactions.
+═══════════════════════════════════════════════════════════════════ */
+body.ds2{--ds-lead:clamp(17px,1.8vw,21px);--ds-ease:cubic-bezier(.16,1,.3,1);}
+
+/* 1 · LEAD PARAGRAPH — de opening van een sectie leest als intro */
+body.ds2 .hero-body,
+body.ds2 .ch-intro,
+body.ds2 .hs-body{font-size:var(--ds-lead);line-height:1.72;letter-spacing:-.005em;text-wrap:pretty;}
+body.ds2 .hero-body,
+body.ds2 .ch-intro{max-width:60ch;}
+
+/* 2 · MEANINGFUL NUMBERS — kerncijfers krijgen autoriteit in lopende tekst */
+body.ds2 .ds-num{font-family:var(--serif,'Playfair Display',serif);font-weight:700;color:var(--orange,#E8592B);font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap;}
+
+/* 3 · VERTICAL RHYTHM — consistente afstand tussen lead en de actie eronder */
+body.ds2 .hero-cta{margin-top:clamp(22px,2.6vw,30px);}
+
+/* 4 · CTA MICROCOPY — ingetogen geruststelling onder de primaire actie */
+body.ds2 .cta-note{font-size:12px;font-weight:500;letter-spacing:.02em;color:#A8A29A;margin-top:13px;display:flex;align-items:center;gap:8px;}
+body.ds2 .ch.light .cta-note{color:var(--text-muted,#6b6660);}
+body.ds2 .cta-note::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange,#E8592B);flex-shrink:0;}
+body.ds2 .contact .cta-note,
+body.ds2 .hero-statement .cta-note{justify-content:center;}
+
+/* 5 · MICRO-INTERACTION REFINEMENT — uniforme, ingetogen premium-feedback */
+body.ds2 .btn{transition:transform .28s var(--ds-ease),box-shadow .28s var(--ds-ease),background-color .2s var(--ds-ease),border-color .2s var(--ds-ease),color .2s var(--ds-ease);}
+@media(hover:hover){
+  body.ds2 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px -10px rgba(232,89,43,.6);}
+  body.ds2 .btn-ghost:hover,body.ds2 .btn-ghost-light:hover{transform:translateY(-2px);}
+}
+body.ds2 .btn:active{transform:translateY(0);}
+body.ds2 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(232,89,43,.4);}
+@media(prefers-reduced-motion:reduce){
+  body.ds2 .btn{transition:background-color .2s,border-color .2s,color .2s;}
+  body.ds2 .btn:hover{transform:none;}
+}
+
+/* ═══ PHASE 2.1A — CALL-OUT PANEL (editorial ledger, v2) ═══════════
+   Geen notice-box, maar een redactioneel kader: hairline boven/onder,
+   twee-koloms (label | statement), kernfrase in Playfair-italic-oranje
+   = Montisoro-DNA. Stil, precies, premium. Werkt op licht en donker. */
+body.ds2 .ds-callout{display:grid;grid-template-columns:minmax(116px,150px) 1fr;gap:clamp(18px,3vw,46px);align-items:start;border:none;border-top:1px solid rgba(19,16,13,.16);border-bottom:1px solid rgba(19,16,13,.16);background:none;border-radius:0;padding:clamp(20px,2.8vw,28px) 0;margin:0 0 clamp(26px,3.4vw,38px);}
+body.ds2 .ch.dark .ds-callout,body.ds2 .ds-dark .ds-callout{border-color:rgba(240,237,232,.18);}
+body.ds2 .ds-callout-label{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange,#E8592B);margin:0;padding-top:4px;}
+body.ds2 .ds-callout-label::before{content:"";width:16px;height:1.5px;background:var(--orange,#E8592B);flex-shrink:0;}
+body.ds2 .ds-callout p{margin:0;font-size:clamp(15px,1.6vw,18px);line-height:1.58;color:var(--text-primary,#1a1512);max-width:60ch;text-wrap:pretty;font-weight:300;}
+body.ds2 .ch.dark .ds-callout p,body.ds2 .ds-dark .ds-callout p{color:var(--off,#D8D3CC);}
+body.ds2 .ds-callout strong{font-family:var(--sans,'DM Sans',sans-serif);font-style:normal;font-weight:600;color:var(--orange,#E8592B);}
+@media(max-width:640px){body.ds2 .ds-callout{grid-template-columns:1fr;gap:11px;}body.ds2 .ds-callout-label{padding-top:0;}}
+
+/* ═══ PHASE 2.1B — DEFINITION BLOCK (term-ledger, beta) ════════════
+   Glossary-kader voor abstract vakjargon: term (Playfair) | definitie
+   (light), hairline-rijen. Zelfde editorial-taal als de call-out, maar
+   als begrippen-ledger. Geen box, geen tint, geen icoon. */
+body.ds2 .ds-define{border-top:1px solid rgba(19,16,13,.16);margin:clamp(14px,2vw,22px) 0 0;}
+body.ds2 .ds-define-row{display:grid;grid-template-columns:minmax(130px,210px) 1fr;gap:clamp(16px,3vw,44px);align-items:baseline;padding:clamp(16px,2.2vw,22px) 0;border-bottom:1px solid rgba(19,16,13,.10);}
+body.ds2 .ch.dark .ds-define,body.ds2 .ch.dark .ds-define-row{border-color:rgba(240,237,232,.16);}
+body.ds2 .ds-define-term{margin:0;font-family:var(--serif,'Playfair Display',serif);font-weight:700;font-size:clamp(18px,1.9vw,22px);letter-spacing:-.01em;color:var(--text-primary,#1a1512);}
+body.ds2 .ch.dark .ds-define-term{color:var(--off,#D8D3CC);}
+body.ds2 .ds-define-term em{font-style:italic;color:var(--orange,#E8592B);}
+body.ds2 .ds-define-def{margin:0;font-weight:300;font-size:clamp(14px,1.5vw,16px);line-height:1.6;color:var(--text-muted,#6b6660);max-width:62ch;text-wrap:pretty;}
+body.ds2 .ch.dark .ds-define-def{color:var(--muted-d,#9a938b);}
+body.ds2 .ds-define-def strong{color:var(--orange,#E8592B);font-weight:500;}
+@media(max-width:640px){body.ds2 .ds-define-row{grid-template-columns:1fr;gap:6px;padding:16px 0;}}

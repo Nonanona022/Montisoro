@@ -1,0 +1,70 @@
+/* ═══════════════════════════════════════════════════════════════════
+   Montisoro — self-hosted fonts (WOFF2, latin subset, GDPR-conform)
+   Vervangt de Google Fonts CDN (die EU-IP's logt). Bronnen = Fontsource
+   (dezelfde Google-fontdata, SIL Open Font License) → identieke glyphs,
+   géén visueel verschil t.o.v. de vorige CDN-latin-subset.
+   Gewichten = exact wat de live CDN-links serveerden (geen weight-synthese).
+   font-display:swap voorkomt onzichtbare tekst tijdens laden (FOIT→FOUT).
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── Playfair Display (display serif: titels, KPI's, em-cursief) ── */
+@font-face{
+  font-family:'Playfair Display'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('../assets/fonts/playfair-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('../assets/fonts/playfair-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:normal; font-weight:700; font-display:swap;
+  src:url('../assets/fonts/playfair-700.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:normal; font-weight:900; font-display:swap;
+  src:url('../assets/fonts/playfair-900.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:italic; font-weight:400; font-display:swap;
+  src:url('../assets/fonts/playfair-italic-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:italic; font-weight:500; font-display:swap;
+  src:url('../assets/fonts/playfair-italic-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Playfair Display'; font-style:italic; font-weight:700; font-display:swap;
+  src:url('../assets/fonts/playfair-italic-700.woff2') format('woff2');
+}
+
+/* ── DM Sans (UI sans: body, knoppen, labels) ── */
+@font-face{
+  font-family:'DM Sans'; font-style:normal; font-weight:300; font-display:swap;
+  src:url('../assets/fonts/dmsans-300.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Sans'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('../assets/fonts/dmsans-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Sans'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('../assets/fonts/dmsans-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Sans'; font-style:normal; font-weight:600; font-display:swap;
+  src:url('../assets/fonts/dmsans-600.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Sans'; font-style:normal; font-weight:700; font-display:swap;
+  src:url('../assets/fonts/dmsans-700.woff2') format('woff2');
+}
+
+/* ── DM Mono (eyebrows, KPI-numerals, fineprint via --mono) ── */
+@font-face{
+  font-family:'DM Mono'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('../assets/fonts/dmmono-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'DM Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('../assets/fonts/dmmono-500.woff2') format('woff2');
+}

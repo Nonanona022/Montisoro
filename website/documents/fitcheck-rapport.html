@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Fit check — Strategisch inzicht — Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+@font-face{font-family:'Playfair Display';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/playfair-700.woff2') format('woff2');}
+@font-face{font-family:'Playfair Display';font-weight:900;font-style:normal;font-display:swap;src:url('../assets/fonts/playfair-900.woff2') format('woff2');}
+@font-face{font-family:'Playfair Display';font-weight:400;font-style:italic;font-display:swap;src:url('../assets/fonts/playfair-italic-400.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:300;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-300.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:400;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-400.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:500;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-500.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:600;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-600.woff2') format('woff2');}
+@font-face{font-family:'DM Sans';font-weight:700;font-style:normal;font-display:swap;src:url('../assets/fonts/dmsans-700.woff2') format('woff2');}
+@font-face{font-family:'DM Mono';font-weight:400;font-style:normal;font-display:swap;src:url('../assets/fonts/dmmono-400.woff2') format('woff2');}
+@font-face{font-family:'DM Mono';font-weight:500;font-style:normal;font-display:swap;src:url('../assets/fonts/dmmono-500.woff2') format('woff2');}
+:root{
+  --bg:#13100D;--page:#FBFAF8;--ink:#1a1512;--ink-soft:#5c534b;--ink-mute:#8a8078;
+  --off:#F0EDE8;--off-mute:rgba(240,237,232,.6);--off-dim:rgba(240,237,232,.4);
+  --orange:#E8592B;--orange-soft:#FAE8E1;--orange-deep:#a8431f;
+  --line:rgba(26,21,18,.10);--line-2:rgba(26,21,18,.06);--line-d:rgba(240,237,232,.12);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{background:#3a3631;font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;-webkit-font-smoothing:antialiased;}
+.sheet{position:relative;width:210mm;background:var(--page);margin:0 auto;overflow:hidden;}
+.content{padding:13mm 19mm 13mm;display:flex;flex-direction:column;}
+@media screen{body{padding:30px 0;}.sheet{box-shadow:0 18px 50px -18px rgba(0,0,0,.5);margin-bottom:8mm;}}
+@media print{
+  html,body{background:#fff;}
+  @page{size:A4;margin:0;}
+  .sheet{box-shadow:none;overflow:visible;}
+  .content{padding:13mm 19mm 4mm;}
+  .note{margin-top:12px;}
+  .sheet:last-child{page-break-after:avoid;}
+  .noprint{display:none !important;}
+  .next .cta{display:none !important;}
+  .herken,.proof,.next,.meta,.recs,.recs .r{break-inside:avoid;}
+  .divlabel{break-after:avoid;}
+  #lblaanpak{break-before:page;page-break-before:always;}
+  /* 2-PAGINA COMPACTIE */
+  .content{padding:9mm 17mm 3mm !important;display:block !important;}
+  .blockp{font-size:11px !important;line-height:1.5 !important;margin:0 0 9px !important;}
+  .divlabel{font-size:9px !important;margin:13px 0 5px !important;}
+  .herken,.proof,.next,.recs,.meta{margin:9px 0 !important;padding:11px 13px !important;}
+  .pbanner{max-height:none !important;height:auto !important;object-fit:fill !important;width:calc(100% - 12mm) !important;margin:6mm auto 0 !important;display:block !important;}
+  h1,.froute{margin:6px 0 8px !important;}
+  .recs .r{padding:7px 0 !important;}
+}
+
+.ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:20px;}
+.ph .logo{font-family:var(--serif);font-weight:700;font-style:italic;font-size:18px;color:var(--ink);}
+.ph .tag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
+.pf{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--line);margin-top:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);}
+.pf .no{color:var(--orange);}
+.pbanner{display:block;width:100%;height:auto;}
+.pfoot{height:27mm;display:flex;flex-direction:column;justify-content:center;background:#0C0905;background-image:url(../assets/email-footer-bg.png);background-position:center;background-size:cover;background-repeat:no-repeat;color:var(--off);padding:0 19mm;width:100%;}
+.pfoot .bm{font-family:var(--sans);font-weight:500;font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--off);}
+.pfoot .bt{font-style:italic;font-size:11px;color:var(--off-mute);margin-top:3px;}
+.pfoot .row{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-top:7px;}
+.pfoot .bl{font-family:var(--mono);font-size:8.5px;letter-spacing:.05em;color:var(--off-mute);}
+.pfoot .bl a{color:var(--off-mute);text-decoration:none;}
+.pfoot .pno{font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--orange);}
+.eyebrow{margin-bottom:18px;}
+.route{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 18px;}
+.route b{color:var(--orange);}
+h1.head{font-family:var(--serif);font-weight:700;font-size:31px;line-height:1.18;letter-spacing:-.02em;color:var(--ink);max-width:22ch;}
+.intro{font-size:13px;line-height:1.75;color:var(--ink-soft);margin-top:18px;max-width:62ch;}
+.forwho{font-size:10px;color:var(--ink-mute);margin-top:13px;font-family:var(--mono);letter-spacing:.04em;}
+
+.divlabel{display:flex;align-items:center;gap:12px;margin:30px 0 15px;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);break-after:avoid;}
+
+.herken{background:var(--bg);border-radius:12px;padding:24px 30px;color:var(--off);}
+.herken .l{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.herken p{font-family:var(--serif);font-weight:700;font-style:normal;font-size:17.5px;line-height:1.72;color:#fff;}
+
+.blockp{font-size:13px;line-height:1.92;color:var(--ink-soft);max-width:68ch;}
+
+.recs{display:flex;flex-direction:column;gap:11px;}
+.recs .r{display:flex;align-items:flex-start;gap:11px;font-size:13px;line-height:1.68;color:var(--ink-soft);}
+.recs .r::before{content:'';flex:0 0 11px;height:1.5px;margin-top:.62em;background:var(--orange);}
+
+.proof{border:1px solid var(--line);border-radius:11px;padding:18px 22px;}
+.proof .pt{display:inline-block;font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-deep);background:var(--orange-soft);border-radius:4px;padding:3px 8px;margin-bottom:11px;}
+.proof p{font-size:12px;line-height:1.65;color:var(--ink-soft);}
+
+.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:8px;border-top:1px solid var(--line);}
+.meta .m{border-left:1px solid var(--line);padding:16px 20px;}
+.meta .m:first-child{border-left:none;padding-left:0;}
+.meta .m .k{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:7px;}
+.meta .m .v{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--ink);line-height:1.25;}
+.mat-blocks{display:flex;gap:5px;margin-top:2px;}
+.mat-blocks span{flex:1;height:14px;border-radius:3px;background:rgba(26,21,18,.10);border:1px solid var(--line);}
+.mat-blocks span.on{background:#2e8b57;border-color:#2e8b57;}
+
+.next{margin-top:26px;background:var(--bg);border-radius:14px;padding:26px 32px;color:var(--off);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.next .nl .h{font-family:var(--serif);font-weight:700;font-size:18.5px;color:#fff;margin-bottom:8px;}
+.next .nl .h em{font-style:italic;color:var(--orange);}
+.next .nl p{font-size:10.5px;color:var(--off-mute);line-height:1.65;max-width:50ch;margin-bottom:6px;}
+.next .cta{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;font-size:11px;letter-spacing:.04em;padding:13px 22px;border-radius:100px;white-space:nowrap;}
+.next .contact{font-family:var(--mono);font-size:9px;letter-spacing:.06em;color:var(--off-dim);margin-top:10px;}
+.next .contact a{color:var(--off-mute);text-decoration:none;}
+
+.note{font-size:8px;line-height:1.5;color:var(--ink-mute);border-top:1px solid var(--line);padding-top:11px;margin-top:18px;font-family:var(--sans);}
+
+.printbar{position:fixed;top:18px;right:18px;z-index:50;display:flex;gap:10px;}
+.printbar button{font-family:var(--sans);font-size:12px;font-weight:600;border:none;border-radius:100px;padding:11px 20px;cursor:pointer;background:var(--orange);color:#fff;box-shadow:0 8px 20px -8px rgba(0,0,0,.5);}
+.printbar button.ghost{background:rgba(255,255,255,.12);color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="printbar noprint">
+  <button id="pbPrint" onclick="window.print()">Opslaan als PDF / afdrukken</button>
+</div>
+
+<section class="sheet">
+  <img class="pbanner" src="../assets/email-banner-fit.jpg" alt="Montisoro — ReIntegrate What Matters · Where Care and Capability Create Impact">
+  <div class="content">
+    <span class="eyebrow" id="feyebrow">Uw fit check</span>
+    <div class="route" id="froute"></div>
+    <h1 class="head" id="fhead"></h1>
+    <p class="intro" id="fintro"></p>
+    <div class="forwho" id="fforwho"></div>
+
+    <div class="divlabel" id="lblprofiel">Uw profiel</div>
+    <div class="meta" id="fmeta"></div>
+
+    <div class="divlabel" id="lblherken">Herkenning</div>
+    <div class="herken"><p id="fherken"></p></div>
+
+    <div class="divlabel" id="lblaanpak">Onze aanpak</div>
+    <p class="blockp" id="faanpak"></p>
+
+    <div class="divlabel" id="lbltraject">Wat dit traject omvat</div>
+    <div class="recs" id="frecs"></div>
+
+    <div class="divlabel" id="fresultlbl">Resultaat</div>
+    <div class="recs" id="fresult"></div>
+
+    <div class="divlabel" id="fbewijslbl">Bewijs</div>
+    <div class="proof" id="fbewijswrap"><span class="pt" id="fbewijstag">Referentiecase op aanvraag</span><p id="fbewijs"></p></div>
+
+    <div class="next">
+      <div class="nl">
+        <div class="h" id="fctah"></div>
+        <p id="fctasub"></p>
+        <div class="contact">Montisoro · <a href="tel:+32477899186">+32 477 89 91 86</a> · montisoro.com</div>
+      </div>
+      <a class="cta" href="https://montisoro.com/contact.html#channels" id="fctabtn">Plan uw gesprek →</a>
+    </div>
+
+    <p class="note" id="fnote">Indicatieve, geautomatiseerde analyse op basis van uw antwoorden in de Montisoro fit check. Geen bindend advies. De routes maken deel uit van het Montisoro-framework.</p>
+  </div>
+</section>
+
+<script src="../scripts/fitcheck-content.js"></script>
+<script>
+(function(){
+  'use strict';
+  var store = {};
+  try {
+    var raw = localStorage.getItem('montisoro.fitcheck.pdf.v1') || sessionStorage.getItem('montisoro.fitcheck.pdf.v1');
+    if (raw) store = JSON.parse(raw);
+  } catch(e){}
+
+  var DEMOS = {
+    route1:{q1:'long', q2:['A'],     q3:'A', q4:'100-500'},
+    route2:{q1:'short',q2:['B'],     q3:'C', q4:'lt100'},
+    route3:{q1:'both', q2:['C'],     q3:'B', q4:'500-1000'},
+    route4:{q1:'long', q2:['D'],     q3:'D', q4:'gt1000'},
+    route5:{q1:'short',q2:['E'],     q3:'C', q4:'gt1000'},
+    ab:{q1:'long', q2:['A','B'], q3:'B', q4:'100-500'},
+    ac:{q1:'long', q2:['A','C'], q3:'A', q4:'100-500'},
+    bc:{q1:'both', q2:['B','C'], q3:'C', q4:'500-1000'},
+    cd:{q1:'both', q2:['C','D'], q3:'C', q4:'500-1000'},
+    de:{q1:'long', q2:['D','E'], q3:'D', q4:'gt1000'},
+    ad:{q1:'long', q2:['A','D'], q3:'B', q4:'500-1000'},
+    ae:{q1:'short',q2:['A','E'], q3:'B', q4:'500-1000'},
+    bd:{q1:'both', q2:['B','D'], q3:'C', q4:'gt1000'},
+    be:{q1:'short',q2:['B','E'], q3:'C', q4:'500-1000'},
+    ce:{q1:'both', q2:['C','E'], q3:'B', q4:'500-1000'},
+    diagnose:{q1:'both',q2:['F'],    q3:'A', q4:'lt100'}
+  };
+  var qs = new URLSearchParams(location.search);
+  var demoKey = qs.get('demo');
+  var lang = (qs.get('lang') === 'en' || (store && store.lang === 'en')) ? 'en' : 'nl';
+  var answers = (demoKey && DEMOS[demoKey]) || (store && store.answers) || { q1:'both', q2:['F'], q3:'B', q4:'100-500' };
+  var result = window.MontisoroFitCheck.build(answers, lang);
+
+  /* UI-strings per taal */
+  var T = (lang === 'en') ? {
+    eyebrow:'Your fit check', recommended:'Recommended direction', forwho:'Prepared for',
+    profiel:'Your profile', herken:'Recognition', aanpak:'Our approach', traject:'What this programme includes',
+    resultaat:'Result', bewijs:'Evidence', bewijstag:'Reference case on request',
+    type:'Absence type', maturity:'Maturity · level', scale:'Scale',
+    nextDeep:'Next step — a <em>Deep Dive</em>', nextTalk:'Next step — a <em>strategic conversation</em>',
+    cases:'See client stories and references →', casesUrl:'https://montisoro.com/about-en.html#cases',
+    examples:'← Examples', printbtn:'Save as PDF / print',
+    note:'Indicative, automated analysis based on your answers in the Montisoro fit check. Not binding advice. The routes are part of the Montisoro framework.'
+  } : {
+    eyebrow:'Uw fit check', recommended:'Aanbevolen richting', forwho:'Opgesteld voor',
+    profiel:'Uw profiel', herken:'Herkenning', aanpak:'Onze aanpak', traject:'Wat dit traject omvat',
+    resultaat:'Resultaat', bewijs:'Bewijs', bewijstag:'Referentiecase op aanvraag',
+    type:'Verzuimtype', maturity:'Maturiteit · niveau', scale:'Schaal',
+    nextDeep:'Volgende stap — een <em>Deep Dive</em>', nextTalk:'Volgende stap — een <em>strategisch gesprek</em>',
+    cases:'Bekijk klantverhalen en referenties →', casesUrl:'https://montisoro.com/about.html#cases',
+    examples:'← Voorbeelden', printbtn:'Opslaan als PDF / afdrukken',
+    note:'Indicatieve, geautomatiseerde analyse op basis van uw antwoorden in de Montisoro fit check. Geen bindend advies. De routes maken deel uit van het Montisoro-framework.'
+  };
+
+  function esc(s){ return s==null ? '' : String(s).replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];}); }
+  function set(id,html){ var el=document.getElementById(id); if(el) el.innerHTML=html; }
+  function txt(id,s){ var el=document.getElementById(id); if(el) el.textContent=s; }
+  function hide(id){ var el=document.getElementById(id); if(el) el.style.display='none'; }
+
+  document.documentElement.lang = lang;
+  txt('feyebrow', T.eyebrow); txt('lblprofiel', T.profiel); txt('lblherken', T.herken);
+  txt('lblaanpak', T.aanpak); txt('lbltraject', T.traject); txt('fresultlbl', T.resultaat);
+  txt('fbewijslbl', T.bewijs); txt('fbewijstag', T.bewijstag); txt('fnote', T.note);
+  txt('pbPrint', T.printbtn);
+
+  set('froute', T.recommended + ' · <b>' + esc(result.routeName) + (result.comboLabel ? ' · ' + esc(result.comboLabel) : '') + '</b>');
+  set('fhead', esc(result.headline));
+  set('fintro', esc(result.intro));
+  set('fherken', esc(result.blocks.herkenning).replace(/\n\n/g,'<br><br>'));
+  set('faanpak', esc(result.blocks.oplossing).replace(/\n\n/g,'<br><br>'));
+  set('fforwho', store.name ? (T.forwho + ' ' + esc(store.name)) : '');
+  set('fdate', store.date ? esc(store.date) : '');
+
+  set('frecs', result.blocks.verdieping.map(function(v){
+    return '<div class="r">' + esc(v) + '</div>';
+  }).join(''));
+
+  if (result.blocks.resultaat && result.blocks.resultaat.length){
+    set('fresult', result.blocks.resultaat.map(function(v){
+      return '<div class="r">' + esc(v) + '</div>';
+    }).join(''));
+  } else {
+    hide('fresultlbl'); hide('fresult');
+  }
+
+  if (result.blocks.bewijs){
+    set('fbewijs', esc(result.blocks.bewijs) + ' <a href="' + T.casesUrl + '" style="color:var(--orange);text-decoration:none;font-weight:600;">' + T.cases + '</a>');
+  } else {
+    hide('fbewijslbl'); hide('fbewijswrap');
+  }
+
+  var matLvl = parseInt(result.maturity,10) || 0;
+  var matBlocks = '<div class="mat-blocks">' +
+    [1,2,3,4].map(function(i){ return '<span class="'+(i<=matLvl?'on':'')+'"></span>'; }).join('') +
+    '</div>';
+  set('fmeta',
+    '<div class="m"><div class="k">' + T.type + '</div><div class="v">' + esc(result.absenceLabel) + '</div></div>' +
+    '<div class="m"><div class="k">' + T.maturity + ' ' + esc(result.maturity) + ' / 4</div>' + matBlocks + '</div>' +
+    '<div class="m"><div class="k">' + T.scale + '</div><div class="v">' + esc(result.scaleLabel) + '</div></div>'
+  );
+
+  set('fctah', (result.cta.type === 'deepdive') ? T.nextDeep : T.nextTalk);
+  set('fctasub', esc(result.cta.sub));
+  var btn = document.getElementById('fctabtn');
+  if (btn){ btn.style.display = 'none'; }
+  if (new URLSearchParams(location.search).get('print') === '1'){ setTimeout(function(){ try{ window.print(); }catch(e){} }, 700); }
+})();
+</script>
+</body>
+</html>

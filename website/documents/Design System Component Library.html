@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro Design System — Component Library</title>
+<style>
+:root{--bg:#13100d;--surface:#1b1714;--line:rgba(240,237,232,.12);--line-2:rgba(240,237,232,.07);--white:#F0EDE8;--off:#D8D3CC;--muted:#9a938b;--muted-2:#736d65;--orange:#E8592B;--green:#3bbf84;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',-apple-system,system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px;margin:0 auto;padding:clamp(48px,8vw,110px) clamp(22px,5vw,56px);}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(36px,6vw,62px);line-height:1.04;letter-spacing:-.025em;color:var(--white);margin-bottom:18px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(17px,1.9vw,21px);line-height:1.7;color:var(--off);max-width:60ch;text-wrap:pretty;}
+.meta{font-size:13px;color:var(--muted-2);letter-spacing:.04em;margin-top:28px;padding-top:22px;border-top:1px solid var(--line);}
+h2{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.8vw,28px);color:var(--white);margin:clamp(44px,6vw,68px) 0 14px;letter-spacing:-.015em;}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px;}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);padding:10px 12px 10px 0;border-bottom:1px solid var(--line);}
+td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line-2);color:var(--off);vertical-align:top;}
+td:first-child{color:var(--white);font-weight:500;white-space:nowrap;}
+code{font-family:'DM Mono',ui-monospace,monospace;font-size:.82em;background:rgba(240,237,232,.06);border:1px solid var(--line-2);border-radius:5px;padding:1px 6px;color:var(--off);}
+.st{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 9px;border-radius:100px;white-space:nowrap;}
+.st.app{background:rgba(59,191,132,.12);color:var(--green);}
+.st.auto{background:rgba(74,159,224,.12);color:#6cb6ec;}
+.st.std{background:rgba(240,237,232,.08);color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Montisoro · Officiële documentatie</p>
+  <h1>Design System<br><em>Component Library</em></h1>
+  <p class="lead">Het levende overzicht van alle goedgekeurde Design System 2.0-componenten, hun activatie en status. Eén bron van waarheid; uitgebreid per goedgekeurde fase.</p>
+  <div class="meta">Activatie sitebreed via <code>body.ds2</code> + <code>ds2.css</code> · 25 juni 2026</div>
+
+  <h2>Phase 1 — Fundament <span style="font-size:.5em;color:var(--green)">Frozen</span></h2>
+  <table>
+    <thead><tr><th>Component</th><th>Hook</th><th>Toepassing</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Lead Paragraph</td><td><code>.hero-body</code> / <code>.ch-intro</code> / <code>.hs-body</code></td><td>Sectie-intro, alle pagina's</td><td><span class="st auto">Automatisch</span></td></tr>
+      <tr><td>Meaningful Numbers</td><td><code>.ds-num</code></td><td>Kerncijfer in lopende tekst — Home, About</td><td><span class="st app">Approved</span></td></tr>
+      <tr><td>Vertical Rhythm</td><td>tokens</td><td>Spatiëring, alle pagina's</td><td><span class="st auto">Automatisch</span></td></tr>
+      <tr><td>CTA Microcopy</td><td><code>.cta-note</code></td><td>Onder primaire CTA — Home, About, Aanpak, Contact</td><td><span class="st app">Approved</span></td></tr>
+      <tr><td>Micro-interactions</td><td><code>.btn</code></td><td>Alle knoppen</td><td><span class="st auto">Automatisch</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Phase 2.1 — Information Architecture</h2>
+  <table>
+    <thead><tr><th>Component</th><th>Hook</th><th>Toepassing</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Call-out Panel</td><td><code>.ds-callout</code></td><td>Trust/methodologie — Calculator (#bMain)</td><td><span class="st app">Approved 9,2</span></td></tr>
+      <tr><td>Definition Block</td><td>—</td><td>Vakjargon — gepland (2.1B)</td><td><span class="st std">Backlog</span></td></tr>
+      <tr><td>Comparison Block</td><td>—</td><td>Differentiatie — gepland (2.1C)</td><td><span class="st std">Backlog</span></td></tr>
+      <tr><td>Pull Quote</td><td>—</td><td>Kernovertuiging — gepland (2.1D)</td><td><span class="st std">Backlog</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Bestaande standaard-componenten</h2>
+  <table>
+    <thead><tr><th>Component</th><th>Toepassing</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Buttons</td><td><code>.btn-primary</code> / <code>.btn-ghost</code> — max 1 primary per groep</td><td><span class="st std">Standaard</span></td></tr>
+      <tr><td>Hero's</td><td><code>.hero-statement</code> / <code>.hero</code></td><td><span class="st std">Standaard</span></td></tr>
+      <tr><td>Forms</td><td>gedeelde <code>forms.css</code> (≥16px mobiel, BE-validatie)</td><td><span class="st std">Standaard</span></td></tr>
+      <tr><td>Accordions</td><td><code>.m-accordion</code> — legal/FAQ</td><td><span class="st std">Standaard</span></td></tr>
+      <tr><td>Overlays</td><td>scroll-lock + Esc + focus-trap</td><td><span class="st std">Standaard</span></td></tr>
+      <tr><td>Icons</td><td>Phosphor, spaarzaam</td><td><span class="st std">Standaard</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="meta">Een component wordt pas opgenomen wanneer het objectief de gebruikservaring verbetert én ≥9/10 enterprise-kwaliteit haalt. Niet omdat het op de roadmap stond. Detail per component: Guidelines + Decision Log.</div>
+</div>
+</body>
+</html>

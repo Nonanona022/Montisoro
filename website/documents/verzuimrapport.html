@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Verzuimrapport</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MONTISORO — VERZUIMRAPPORT / ABSENCE REPORT  (print-ready A4)
+   Data-driven NL + EN. Filled from window.__MONTISORO_REPORT
+   (or embedded demo when opened standalone). ?lang=nl|en to preview.
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --bg:#13100D; --bg-deep:#0C0905;
+  --ink:#1a1512; --ink-soft:#5c534b; --ink-mute:#8a8078;
+  --page:#FBFAF8; --card:#ffffff;
+  --orange:#E8592B; --orange-soft:#FAE8E1;
+  --gold:#C8824A;
+  --off:#F0EDE8; --off-mute:rgba(240,237,232,0.58);
+  --line:rgba(26,21,18,0.10); --line-2:rgba(26,21,18,0.06);
+  --good:#3F8F6B; --good-soft:rgba(63,143,107,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+}
+
+html,body{background:#54504a;font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+/* ── A4 page model ── */
+.page{
+  position:relative;width:210mm;min-height:297mm;
+  background:var(--page);overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.page--dark{background:var(--bg);color:var(--off);}
+.page-pad{flex:1;display:flex;flex-direction:column;padding:24mm 22mm 18mm;}
+
+/* screen preview: stack pages with gaps + shadow */
+@media screen{
+  body{padding:28px 12px;}
+  .report{max-width:210mm;margin:0 auto;display:flex;flex-direction:column;gap:22px;}
+  .page{box-shadow:0 18px 50px -18px rgba(0,0,0,0.55);border-radius:2px;}
+  .lang-toggle{position:fixed;top:14px;right:16px;z-index:99;display:flex;gap:6px;background:#fff;padding:6px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.25);}
+  .lang-toggle a{font:600 12px/1 var(--sans);padding:7px 12px;border-radius:7px;text-decoration:none;color:var(--ink-soft);}
+  .lang-toggle a.on{background:var(--orange);color:#fff;}
+  .dl-pdf{position:fixed;top:58px;right:16px;z-index:99;display:inline-flex;align-items:center;gap:7px;background:var(--orange);color:#fff;font:700 12px/1 var(--sans);padding:12px 16px;border:0;border-radius:9px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.28);}
+  .dl-pdf:hover{background:#cc4a1e;}
+  .dl-pdf svg{width:15px;height:15px;flex-shrink:0;}
+}
+@media print{
+  body{background:#fff;padding:0;}
+  .report{display:block;}
+  /* each .page is exactly one A4 tall with overflow:hidden, so natural pagination
+     yields one printed page each. A forced page-break-after here would append a
+     blank page after every page — so we deliberately do NOT force breaks. */
+  .page{margin:0;box-shadow:none;border-radius:0;width:210mm;height:297mm;min-height:0;overflow:hidden;page-break-after:auto;break-after:auto;}
+  .lang-toggle{display:none;}
+  .dl-pdf{display:none;}
+  @page{size:A4;margin:0;}
+}
+
+/* ── shared type ── */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);white-space:nowrap;}
+.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--orange);display:block;}
+.eyebrow.on-dark{color:var(--orange);}
+h2.sec-title{font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin:14px 0 6px;}
+h2.sec-title em{font-style:italic;color:var(--orange);}
+.sec-lead{font-size:12.5px;font-weight:300;line-height:1.7;color:var(--ink-soft);max-width:62ch;}
+.sec-num{font-family:var(--serif);font-style:italic;font-weight:700;font-size:13px;color:var(--orange);}
+
+/* ── page header / footer (interior) ── */
+.p-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:26px;}
+.p-head .brand{font-family:var(--serif);font-weight:900;font-size:15px;letter-spacing:-.01em;color:var(--ink);}
+.p-logo{height:15px;width:auto;display:block;}
+.p-head .brand em{font-style:italic;color:var(--orange);}
+.p-head .tag{font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
+.p-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--line);margin-top:auto;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);}
+
+/* ═══ COVER ═══ */
+.cover-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.cover-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding:28mm 24mm;}
+.cover-logo{height:128px;width:auto;display:block;margin-left:-4px;align-self:flex-start;}
+.cover-logo-txt{font-family:var(--serif);font-weight:900;font-size:24px;color:var(--off);letter-spacing:-.02em;}
+.cover-logo-txt em{font-style:italic;color:var(--orange);}
+.cover-mid{margin-top:auto;}
+.cover-rule{width:48px;height:2px;background:var(--orange);margin-bottom:26px;}
+.cover-kicker{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+.cover-title{font-family:var(--serif);font-weight:700;font-size:58px;line-height:1.02;letter-spacing:-.03em;color:#fff;}
+.cover-title em{font-style:italic;color:var(--orange);}
+.cover-sub{font-size:14px;font-weight:300;line-height:1.7;color:var(--off-mute);max-width:46ch;margin-top:22px;}
+.cover-meta{margin-top:54px;display:flex;gap:38px;border-top:1px solid rgba(240,237,232,0.14);padding-top:24px;}
+.cover-meta .m-lbl{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--off-mute);margin-bottom:7px;}
+.cover-meta .m-val{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;letter-spacing:-.01em;}
+.cover-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:26px;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--off-mute);}
+
+/* ═══ EXEC SUMMARY KPI grid ═══ */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:22px 22px 20px;background:var(--card);}
+.kpi.feature{grid-column:1/-1;background:var(--bg);border-color:var(--bg);color:var(--off);display:flex;align-items:flex-end;justify-content:space-between;gap:18px;}
+.kpi.feature > div:first-child{flex:1;min-width:0;}
+.kpi .k-lbl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;}
+.kpi.feature .k-lbl{color:var(--orange);}
+.kpi .k-val{font-family:var(--serif);font-weight:700;font-size:30px;line-height:1;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";white-space:nowrap;}
+.kpi.feature .k-val{font-size:46px;color:#fff;}
+.kpi .k-sub{font-size:10.5px;color:var(--ink-mute);margin-top:9px;line-height:1.5;}
+.kpi.feature .k-sub{color:var(--off-mute);max-width:30ch;}
+
+/* generic content blocks */
+.block{margin-top:26px;}
+.body-p{font-size:12.5px;line-height:1.78;color:var(--ink-soft);margin-bottom:13px;max-width:64ch;}
+.body-p strong{color:var(--ink);font-weight:600;}
+.lead-fig{font-family:var(--serif);font-weight:700;font-style:italic;color:var(--orange);}
+
+.list-clean{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px;}
+.list-clean li{display:flex;align-items:flex-start;gap:11px;font-size:12px;line-height:1.5;color:var(--ink-soft);}
+.list-clean li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:6px;}
+
+/* impact split */
+.impact-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+.impact-card{border:1px solid var(--line);border-radius:14px;padding:22px;}
+.impact-card.direct{background:var(--orange-soft);border-color:rgba(232,89,43,0.20);}
+.impact-card .ic-lbl{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;}
+.impact-card .ic-val{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";}
+.impact-card .ic-note{font-size:10.5px;color:var(--ink-mute);margin-top:8px;}
+
+/* benchmark bars */
+.bench{margin-top:14px;display:flex;flex-direction:column;gap:18px;}
+.bench-row .br-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.bench-row .br-name{font-size:11.5px;font-weight:600;color:var(--ink);}
+.bench-row .br-val{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);font-feature-settings:"tnum";}
+.bench-row .br-track{height:12px;border-radius:100px;background:rgba(26,21,18,0.06);position:relative;overflow:hidden;}
+.bench-row .br-fill{position:absolute;left:0;top:0;bottom:0;border-radius:100px;}
+.bench-row.you .br-fill{background:var(--orange);}
+.bench-row.sector .br-fill{background:var(--ink);}
+.bench-row.sector .br-val{color:var(--ink-soft);}
+.bench-delta{margin-top:6px;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;padding:7px 14px;border-radius:100px;background:var(--orange-soft);color:#a8431f;white-space:nowrap;}
+.bench-delta.below{background:var(--good-soft);color:var(--good);}
+
+/* risk band */
+.risk-band{display:flex;gap:6px;margin-top:8px;}
+.risk-seg{flex:1;text-align:center;padding:12px 6px;border-radius:9px;background:rgba(26,21,18,0.05);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);}
+.risk-seg.active{background:var(--orange);color:#fff;box-shadow:0 6px 16px -6px rgba(232,89,43,0.5);}
+.risk-seg.active.lvl-low{background:var(--good);box-shadow:0 6px 16px -6px rgba(63,143,107,0.5);}
+.risk-explain{font-size:13px;line-height:1.75;color:var(--ink-soft);margin-top:18px;border-left:2px solid var(--orange);padding-left:18px;}
+
+/* fte impact hero */
+.fte-hero{margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:30px 28px;background:var(--card);display:flex;align-items:center;gap:28px;}
+.fte-num{font-family:var(--serif);font-weight:700;font-size:64px;line-height:.9;color:var(--orange);letter-spacing:-.03em;font-feature-settings:"tnum";}
+.fte-txt{font-size:13px;line-height:1.7;color:var(--ink-soft);}
+.fte-txt strong{color:var(--ink);font-weight:600;}
+
+/* savings */
+.save-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;}
+.save-card{border:1px solid var(--line);border-radius:14px;padding:20px 18px;background:var(--card);text-align:left;}
+.save-card .s-step{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.04em;color:var(--orange);background:var(--orange-soft);padding:4px 10px;border-radius:100px;margin-bottom:14px;}
+.save-card .s-val{font-family:var(--serif);font-weight:700;font-size:24px;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";}
+.save-card .s-note{font-size:10px;color:var(--ink-mute);margin-top:7px;}
+
+/* priorities */
+.prio{margin-top:14px;display:flex;flex-direction:column;gap:0;}
+.prio-row{display:grid;grid-template-columns:auto 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line-2);align-items:start;}
+.prio-row:last-child{border-bottom:none;}
+.prio-n{font-family:var(--serif);font-weight:700;font-style:italic;font-size:30px;color:var(--orange);line-height:1;}
+.prio-t{font-size:13px;line-height:1.65;color:var(--ink-soft);padding-top:3px;}
+
+/* next step / cta */
+.cta-card{margin-top:14px;background:var(--bg);border-radius:16px;padding:36px 32px;color:var(--off);position:relative;overflow:hidden;}
+.cta-card h3{font-family:var(--serif);font-weight:700;font-size:24px;color:#fff;margin-bottom:12px;letter-spacing:-.01em;}
+.cta-card h3 em{font-style:italic;color:var(--orange);}
+.cta-card .cta-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin:18px 0 22px;}
+.cta-card .cta-list li{display:flex;align-items:flex-start;gap:11px;font-size:12.5px;color:var(--off-mute);line-height:1.5;}
+.cta-card .cta-list li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:6px;}
+.cta-contact{display:flex;gap:30px;border-top:1px solid rgba(240,237,232,0.14);padding-top:20px;}
+.cta-contact .c-lbl{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--off-mute);margin-bottom:6px;}
+.cta-contact .c-val{font-size:13px;font-weight:500;color:#fff;}
+.cta-personal{font-size:12.5px;line-height:1.6;color:var(--off-mute);margin:-2px 0 2px;}
+.cta-personal strong{color:#fff;font-weight:600;}
+.cta-btn{display:inline-flex;align-items:center;gap:9px;margin:6px 0 24px;background:var(--orange);color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:15px 26px;border-radius:100px;white-space:nowrap;}
+a.c-val{text-decoration:none;color:#fff;white-space:nowrap;}
+
+/* disclaimer */
+.disc{margin-top:14px;border:1px solid var(--line);border-radius:14px;padding:24px;background:var(--card);}
+.disc p{font-size:11px;line-height:1.75;color:var(--ink-mute);}
+.method-grid{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.method-grid .m-h{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.method-grid p{font-size:10.5px;line-height:1.65;color:var(--ink-soft);}
+/* A-upgrades: totale kost · kostsamenstelling · per-categorie benchmark · prioriteit-horizon */
+.kpi.total-band{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;background:var(--orange-soft);border-color:rgba(232,89,43,.22);}
+.kpi.total-band .tb-lbl{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a8431f;}
+.kpi.total-band .tb-val{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--ink);font-feature-settings:"tnum";white-space:nowrap;}
+.comp-h{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:12px;}
+.comp-bar{display:flex;height:26px;border-radius:8px;overflow:hidden;background:rgba(26,21,18,0.06);}
+.comp-seg{height:100%;}
+.comp-seg.loon{background:var(--orange);}
+.comp-seg.door{background:var(--gold);}
+.comp-seg.verv{background:#7A5740;}
+.comp-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:13px;font-size:11px;color:var(--ink-soft);}
+.comp-legend>span{white-space:nowrap;}
+.comp-legend i.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:-1px;}
+.comp-legend i.loon{background:var(--orange);}.comp-legend i.door{background:var(--gold);}.comp-legend i.verv{background:#7A5740;}
+.comp-legend b{font-family:var(--serif);font-weight:700;color:var(--ink);}
+.catbench-h{display:flex;justify-content:space-between;align-items:center;gap:14px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;}
+.catbench-legend{display:flex;gap:16px;font-size:10px;letter-spacing:.02em;text-transform:none;color:var(--ink-mute);font-weight:500;}
+.catbench-legend>span{white-space:nowrap;}
+.catbench-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--orange);margin-right:6px;vertical-align:-1px;}
+.catbench-legend i.tick{width:2px;height:11px;border-radius:0;background:var(--ink);}
+.cb-row{display:grid;grid-template-columns:118px 1fr auto;gap:16px;align-items:center;padding:10px 0;border-top:1px solid var(--line-2);}
+.cb-row:first-child{border-top:none;}
+.cb-name{font-size:12px;font-weight:600;color:var(--ink);}
+.cb-track{position:relative;height:12px;border-radius:100px;background:rgba(26,21,18,0.06);}
+.cb-fill{position:absolute;left:0;top:0;bottom:0;border-radius:100px;background:var(--orange);}
+.cb-tick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);}
+.cb-vals{font-size:11px;white-space:nowrap;font-feature-settings:"tnum";}
+.cb-vals .cb-you{font-family:var(--serif);font-weight:700;color:var(--orange);}
+.cb-vals .cb-sec{color:var(--ink-mute);margin-left:4px;}
+.prio-c{display:flex;flex-direction:column;gap:9px;padding-top:2px;}
+.prio-c .prio-t{padding-top:0;}
+.prio-h{align-self:flex-start;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--orange);background:var(--orange-soft);padding:5px 11px;border-radius:100px;white-space:nowrap;}
+.list-clean.hidden-cols{display:grid;grid-template-columns:1fr 1fr;gap:9px 28px;}
+.prio.prio-tight .prio-row{padding:13px 0;}
+.prio.prio-tight .prio-n{font-size:26px;}
+.cta-card.cta-tight{padding:24px 28px;}
+.cta-card.cta-tight h3{font-size:21px;margin-bottom:8px;}
+.cta-card.cta-tight .cta-personal{margin-bottom:2px;}
+.cta-card.cta-tight .cta-list{margin:13px 0 16px;gap:7px;}
+.cta-card.cta-tight .cta-btn{margin:2px 0 16px;}
+.disc-strip{border-top:1px solid var(--line);padding-top:13px;margin-top:18px;}
+.disc-strip .ds-eyebrow{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);display:block;margin-bottom:7px;}
+.disc-strip .ds-main{font-size:9.5px;line-height:1.55;color:var(--ink-mute);margin-bottom:9px;max-width:none;}
+.disc-strip .ds-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;}
+.disc-strip .ds-meta b{display:block;font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:3px;}
+.disc-strip .ds-meta .txt{font-size:9px;line-height:1.5;color:var(--ink-soft);}
+
+/* ═══ V2 — nieuwe pagina-componenten ═══ */
+.cover-author{font-size:10px;letter-spacing:.06em;color:var(--off-mute);margin-top:8px;}
+/* exec narratief */
+.exec-body{font-size:12.5px;line-height:1.8;color:var(--ink-soft);margin-bottom:13px;max-width:64ch;}
+.exec-body strong{color:var(--ink);font-weight:600;}
+.exec-list-h{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin:18px 0 10px;}
+.exec-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;border-top:1px solid var(--line);padding-top:18px;}
+.exec-strip .es{}
+.exec-strip .es-v{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";}
+.exec-strip .es-l{font-size:9.5px;color:var(--ink-mute);margin-top:5px;letter-spacing:.04em;line-height:1.4;}
+/* input overzicht */
+.io-group{margin-top:18px;}
+.io-gh{display:flex;align-items:center;gap:10px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.io-gh::after{content:'';flex:1;height:1px;background:var(--line);}
+.io-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--line-2);font-size:11.5px;}
+.io-row:last-child{border-bottom:none;}
+.io-k{color:var(--ink-soft);}
+.io-v{font-weight:600;color:var(--ink);font-feature-settings:"tnum";white-space:nowrap;}
+.io-grp{display:inline-block;font-size:8.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);background:rgba(200,130,74,.12);padding:2px 7px;border-radius:100px;margin-left:8px;vertical-align:1px;}
+.io-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;}
+/* kostberekening */
+.cost-grid{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.cost-card{border:1px solid var(--line);border-radius:14px;padding:22px 24px;background:var(--card);}
+.cost-card.feat{background:var(--bg);border-color:var(--bg);color:var(--off);}
+.cost-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;}
+.cost-lbl{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);}
+.cost-card.feat .cost-lbl{color:var(--orange);}
+.cost-val{font-family:var(--serif);font-weight:700;font-size:32px;line-height:1;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";white-space:nowrap;}
+.cost-card.feat .cost-val{color:#fff;font-size:38px;}
+.cost-sub{font-size:10px;color:var(--ink-mute);margin-top:7px;}
+.cost-card.feat .cost-sub{color:var(--off-mute);}
+.cost-split{display:flex;gap:30px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);}
+.cost-card.feat .cost-split{border-top-color:rgba(240,237,232,.16);}
+.cost-split .cs-l{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:5px;}
+.cost-card.feat .cost-split .cs-l{color:var(--off-mute);}
+.cost-split .cs-v{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--ink);font-feature-settings:"tnum";}
+.cost-card.feat .cost-split .cs-v{color:#fff;}
+/* simulator */
+.sim-lead{font-size:12px;line-height:1.7;color:var(--ink-soft);margin-top:8px;max-width:64ch;}
+.sim-two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+.sim-two-card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+.sim-two-card .stc-h{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.sim-two-card .stc-b{font-size:10.5px;line-height:1.5;color:var(--ink-soft);}
+.sim-note{font-size:10.5px;line-height:1.6;color:var(--ink-soft);border-left:2px solid var(--orange);padding-left:14px;margin-bottom:16px;}
+.scen{margin-top:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.scen.feat{border-color:rgba(232,89,43,.3);box-shadow:0 8px 24px -16px rgba(232,89,43,.5);}
+.scen-head{padding:13px 18px;background:rgba(26,21,18,.03);border-bottom:1px solid var(--line);}
+.scen.feat .scen-head{background:var(--orange-soft);}
+.scen-name{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--ink);letter-spacing:-.01em;}
+.scen-name .tagm{font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--orange);padding:2px 8px;border-radius:100px;margin-left:8px;vertical-align:2px;}
+.scen-sub{font-size:10px;line-height:1.5;color:var(--ink-mute);margin-top:5px;}
+.scen-tbl{width:100%;border-collapse:collapse;}
+.scen-tbl th,.scen-tbl td{text-align:right;padding:8px 18px;font-size:11px;font-feature-settings:"tnum";}
+.scen-tbl th{font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);border-bottom:1px solid var(--line-2);}
+.scen-tbl td:first-child,.scen-tbl th:first-child{text-align:left;color:var(--ink-soft);}
+.scen-tbl tr+tr td{border-top:1px solid var(--line-2);}
+.scen-tbl td .sv{font-family:var(--serif);font-weight:700;color:var(--orange);font-size:13px;}
+.scen-foot{font-size:9.5px;line-height:1.5;color:var(--ink-mute);padding:11px 18px;background:rgba(26,21,18,.02);border-top:1px solid var(--line-2);}
+/* categorie-pagina */
+.cat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-top:10px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+.cat-name{font-family:var(--serif);font-weight:700;font-size:23px;letter-spacing:-.02em;color:var(--ink);}
+.cat-name span{font-style:italic;color:var(--ink-mute);font-size:14px;font-weight:400;}
+.cat-figs{display:flex;gap:24px;text-align:right;}
+.cat-fig .cf-l{font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:4px;}
+.cat-fig .cf-v{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--ink);font-feature-settings:"tnum";}
+.cat-fig.you .cf-v{color:var(--orange);}
+.cat-status{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.04em;padding:6px 13px;border-radius:100px;margin-top:14px;}
+.cat-status.good{background:var(--good-soft);color:var(--good);}
+.cat-status.equal{background:rgba(200,130,74,.14);color:#9a6428;}
+.cat-status.warn{background:var(--orange-soft);color:#a8431f;}
+.cat-block{margin-top:16px;}
+.cat-bh{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px;}
+.cat-p{font-size:11.5px;line-height:1.65;color:var(--ink-soft);max-width:66ch;}
+.cat-aandacht{font-size:11px;line-height:1.6;color:var(--ink-soft);border-left:2px solid var(--orange);padding-left:14px;}
+.cat-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:16px;}
+.cat-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.cat-list li{display:flex;align-items:flex-start;gap:9px;font-size:11px;line-height:1.45;color:var(--ink-soft);}
+.cat-list li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:6px;}
+.cat-doel{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.cat-doel .cd-t{font-size:11.5px;line-height:1.5;color:var(--ink);}
+.cat-doel .cd-t b{color:var(--orange);}
+.cat-doel .cd-prio{flex-shrink:0;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);white-space:nowrap;}
+/* strategische inzichten */
+.si-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.si-card{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--card);}
+.si-card.span{grid-column:1/-1;}
+.si-h{font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;}
+.si-fte{display:flex;align-items:center;gap:18px;}
+.si-fte .sf-n{font-family:var(--serif);font-weight:700;font-size:46px;line-height:.9;color:var(--orange);letter-spacing:-.03em;font-feature-settings:"tnum";}
+.si-fte .sf-t{font-size:11px;line-height:1.55;color:var(--ink-soft);}
+.si-ctx{font-size:11.5px;line-height:1.6;color:var(--ink-soft);}
+.si-ctx b{font-family:var(--serif);font-weight:700;color:var(--ink);}
+.si-cascade{font-size:11px;line-height:1.6;color:var(--ink-soft);}
+.si-save{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.si-save .ss{border:1px solid var(--line);border-radius:11px;padding:14px 14px;}
+.si-save .ss-s{font-size:9.5px;font-weight:600;color:var(--orange);background:var(--orange-soft);display:inline-block;padding:3px 9px;border-radius:100px;margin-bottom:9px;}
+.si-save .ss-v{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink);font-feature-settings:"tnum";}
+/* conclusie */
+.concl-body{font-size:12px;line-height:1.75;color:var(--ink-soft);margin-bottom:12px;max-width:66ch;}
+.concl-body strong{color:var(--ink);font-weight:600;}
+.plan-card{margin-top:16px;background:var(--bg);border-radius:16px;padding:26px 28px;color:var(--off);}
+.plan-card h3{font-family:var(--serif);font-weight:700;font-size:19px;color:#fff;margin-bottom:8px;letter-spacing:-.01em;}
+.plan-card h3 em{font-style:italic;color:var(--orange);}
+.plan-card .pc-sub{font-size:11.5px;line-height:1.6;color:var(--off-mute);margin-bottom:14px;}
+.plan-card .pc-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.plan-card .pc-list li{display:flex;gap:11px;font-size:11.5px;color:var(--off-mute);line-height:1.5;}
+.plan-card .pc-list li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--orange);margin-top:6px;}
+.plan-contact{display:flex;gap:26px;border-top:1px solid rgba(240,237,232,.16);padding-top:16px;}
+.plan-contact .c-lbl{font-size:8.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--off-mute);margin-bottom:5px;}
+.plan-contact a.c-val,.plan-contact .c-val{font-size:12px;font-weight:500;color:#fff;text-decoration:none;white-space:nowrap;}
+.plan-btn{display:inline-flex;align-items:center;gap:9px;margin:2px 0 18px;background:var(--orange);color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:13px 24px;border-radius:100px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   HAIRLINE-PASS — editorial restyle (borderless · haarlijn · grote serif-cijfers)
+   Zet alle kaartcomponenten om naar de Montisoro Hairline-signatuur.
+   Donkere cover + plan-CTA blijven als bewuste nadruk.
+═══════════════════════════════════════════════════════════════ */
+/* pagina 4 — kost: borderless, haarlijn-rij, grote serif */
+.cost-grid{gap:0;}
+.cost-card{border:none;border-top:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);padding:24px 0;}
+.cost-card.feat{border-top:2px solid var(--orange);background:transparent;color:var(--ink);}
+.cost-card.feat .cost-lbl{color:var(--orange);}
+.cost-card .cost-val{color:var(--ink);font-size:40px;}
+.cost-card.feat .cost-val{color:var(--ink);font-size:52px;}
+.cost-card .cost-sub{color:var(--ink-mute);}
+.cost-card .cost-split{border-top:1px solid var(--line);}
+.cost-card .cost-split .cs-l{color:var(--ink-mute);}
+.cost-card .cost-split .cs-v{color:var(--ink);font-size:18px;}
+
+/* pagina 5 — scenario's: borderless haarlijn-tabel, oranje top-rule voor het aanbevolen scenario */
+#sim_scenarios{margin-top:6px;}
+.scen{border:none;border-top:1px solid var(--line);border-radius:0;box-shadow:none;margin-top:0;}
+.scen.feat{border-top:2px solid var(--orange);box-shadow:none;}
+.scen-head{background:transparent;border-bottom:1px solid var(--line-2);padding:15px 0 12px;}
+.scen.feat .scen-head{background:transparent;}
+.scen-tbl th,.scen-tbl td{padding-left:0;padding-right:0;}
+.scen-tbl td .sv{font-size:14px;}
+.scen-foot{background:transparent;border-top:1px solid var(--line-2);padding:11px 0;}
+.sim-two{margin:16px 0;}
+.sim-two-card{border:none;border-radius:0;border-left:1px solid var(--line);padding:2px 0 2px 18px;}
+.sim-two-card:first-child{border-left:none;padding-left:0;}
+
+/* pagina 9 — strategische inzichten: haarlijn-rijen i.p.v. kaders */
+.si-grid{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line);}
+.si-card{border:none;border-radius:0;background:transparent;border-bottom:1px solid var(--line);padding:18px 0;}
+.si-card .si-h{margin-bottom:12px;}
+.si-fte .sf-n{font-size:56px;}
+
+/* pagina 6–8 — categorie: doelstelling als haarlijn-rij */
+.cat-doel{border:none;border-radius:0;background:transparent;border-top:1px solid var(--line);padding:16px 0 0;}
+
+/* exec-strip cijfers iets groter voor leesbaarheid */
+.exec-strip .es-v{font-size:23px;}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#13100D">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#13100D"/>
+    <rect x="58" y="44" width="84" height="112" rx="4" fill="none" stroke="#E8592B" stroke-width="2" opacity="0.5"/>
+    <text x="100" y="118" font-family="Georgia, serif" font-size="48" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">M</text>
+  </svg>
+</template>
+
+<div class="lang-toggle">
+  <a href="?lang=nl" data-lang-btn="nl">NL</a>
+  <a href="?lang=en" data-lang-btn="en">EN</a>
+</div>
+
+<button class="dl-pdf" id="dlPdf" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span id="dlPdfTxt">Download als PDF</span></button>
+
+<div class="report" id="report">
+
+  <!-- ═══ 1 · COVER ═══ -->
+  <section class="page page--dark" style="background:#000;">
+    <div class="cover-inner">
+      <img class="cover-logo" src="../assets/montisoro-logo.png" alt="Montisoro">
+      <div class="cover-mid">
+        <div class="cover-rule"></div>
+        <div class="cover-kicker" data-t="cover_kicker">Vertrouwelijke analyse</div>
+        <h1 class="cover-title" data-t="cover_title">Verzuim<em>rapport</em></h1>
+        <p class="cover-sub" data-t="cover_sub">Een indicatieve businessanalyse van de jaarlijkse kost, risico's en besparingspotentieel van verzuim binnen uw organisatie.</p>
+        <div class="cover-author" data-t="cover_author">Auteur: Montisoro BV</div>
+        <div class="cover-meta">
+          <div>
+            <div class="m-lbl" data-t="cover_for">Opgesteld voor</div>
+            <div class="m-val" data-v="company_name">Voorbeeld NV</div>
+          </div>
+          <div>
+            <div class="m-lbl" data-t="cover_date">Datum</div>
+            <div class="m-val" data-v="report_date">29 mei 2026</div>
+          </div>
+          <div>
+            <div class="m-lbl" data-t="cover_lang">Taal</div>
+            <div class="m-val" data-v="lang_label">Nederlands</div>
+          </div>
+        </div>
+      </div>
+      <div class="cover-foot">
+        <span>montisoro.com</span>
+        <span data-t="cover_confidential">Vertrouwelijk · indicatief</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2 · EXECUTIVE SUMMARY (narratief) ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">01</span> <span data-t="s_exec_eyebrow">Samenvatting</span></span>
+      <h2 class="sec-title" data-t="exec2_title">Verzuim als <em>strategische hefboom.</em></h2>
+      <div class="block">
+        <p class="exec-body" id="exec_intro"></p>
+        <p class="exec-body" id="exec_intro2"></p>
+        <div class="exec-list-h" id="exec_list_h"></div>
+        <ul class="list-clean" id="exec_list"></ul>
+        <p class="exec-body" id="exec_close" style="margin-top:14px;"></p>
+      </div>
+      <div class="exec-strip">
+        <div class="es"><div class="es-v" data-v="annual_absence_cost">€ 0</div><div class="es-l" data-t="k_annual">Geschatte jaarlijkse verzuimkost</div></div>
+        <div class="es"><div class="es-v"><span data-v="lost_workdays_num">0</span></div><div class="es-l" data-t="k_lost">Verloren werkdagen</div></div>
+        <div class="es"><div class="es-v" data-v="cost_per_employee">€ 0</div><div class="es-l" data-t="k_peremp">Kost per medewerker</div></div>
+        <div class="es"><div class="es-v" data-v="absence_rate">0%</div><div class="es-l" data-t="k_rate">Verzuimpercentage</div></div>
+      </div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>01</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 3 · OVERZICHT INGEVOERDE GEGEVENS ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">02</span> <span data-t="s_input_eyebrow">Ingevoerde gegevens</span></span>
+      <h2 class="sec-title" data-t="s_input_title">Wat u heeft <em>ingegeven.</em></h2>
+      <p class="sec-lead" data-t="s_input_lead">Een overzicht van de parameters waarop deze analyse is gebaseerd.</p>
+      <div class="block" id="io_body"></div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>02</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 4 · DIRECTE + TOTALE KOST ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">03</span> <span data-t="s_cost_eyebrow">Kostberekening</span></span>
+      <h2 class="sec-title" data-t="s_cost_title">Directe en totale <em>verzuimkost.</em></h2>
+      <p class="sec-lead" data-t="s_cost_lead">De cijfers die u moet kennen — per jaar, per kalenderdag en per werkdag.</p>
+
+      <div class="cost-grid block">
+        <div class="cost-card feat">
+          <div class="cost-top">
+            <div><div class="cost-lbl" data-t="cc_direct">Jaarlijkse directe verzuimkost</div><div class="cost-sub" data-t="cc_direct_sub">loon, voordelen, verzekeringen, vervanging</div></div>
+            <div class="cost-val" data-v="annual_absence_cost">€ 0</div>
+          </div>
+          <div class="cost-split">
+            <div><div class="cs-l" data-t="cc_calday">per kalenderdag</div><div class="cs-v" id="cost_dir_cal">€ 0</div></div>
+            <div><div class="cs-l" data-t="cc_workday">per werkdag</div><div class="cs-v" id="cost_dir_work">€ 0</div></div>
+          </div>
+        </div>
+        <div class="cost-card">
+          <div class="cost-top">
+            <div><div class="cost-lbl" data-t="cc_total">Jaarlijkse totale verzuimkost</div><div class="cost-sub" data-t="cc_total_sub">directe kost + geschatte indirecte impact</div></div>
+            <div class="cost-val" data-v="totale_kost">€ 0</div>
+          </div>
+          <div class="cost-split">
+            <div><div class="cs-l" data-t="cc_calday">per kalenderdag</div><div class="cs-v" id="cost_tot_cal">€ 0</div></div>
+            <div><div class="cs-l" data-t="cc_workday">per werkdag</div><div class="cs-v" id="cost_tot_work">€ 0</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp" style="margin-top:24px;">
+        <div class="comp-h" data-t="comp_title">Samenstelling van de directe kost</div>
+        <div class="comp-bar">
+          <div class="comp-seg loon" id="comp_loon" style="width:71%"></div>
+          <div class="comp-seg door" id="comp_door" style="width:7%"></div>
+          <div class="comp-seg verv" id="comp_verv" style="width:22%"></div>
+        </div>
+        <div class="comp-legend">
+          <span><i class="dot loon"></i><span data-t="comp_loon">Loonkost</span> · <b data-v="loon_cost">€ 0</b></span>
+          <span><i class="dot door"></i><span data-t="comp_door">Voordelen &amp; verzekeringen</span> · <b data-v="doorlopend_cost">€ 0</b></span>
+          <span><i class="dot verv"></i><span data-t="comp_verv">Vervanging</span> · <b data-v="vervanging_cost">€ 0</b></span>
+        </div>
+      </div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>03</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 5 · FINANCIËLE IMPACT-SIMULATOR ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">04</span> <span data-t="s_sim_eyebrow">Financiële impact-simulator</span></span>
+      <h2 class="sec-title" data-t="s_sim_title">De hefboom van <em>vroege inschatting.</em></h2>
+      <p class="sim-lead" id="sim_intro"></p>
+      <div class="sim-two">
+        <div class="sim-two-card"><div class="stc-h" id="sim_two_a_h"></div><div class="stc-b" id="sim_two_a"></div></div>
+        <div class="sim-two-card"><div class="stc-h" id="sim_two_b_h"></div><div class="stc-b" id="sim_two_b"></div></div>
+      </div>
+      <p class="sim-note" id="sim_two_note"></p>
+      <div id="sim_scenarios"></div>
+      <p id="sim_method" style="font-size:9px;line-height:1.5;color:var(--ink-mute);margin-top:14px;"></p>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>04</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 6 · KORT VERZUIM (conditioneel) ═══ -->
+  <section class="page" id="cat_page_K">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">05</span> <span data-t="s_cat_eyebrow">Verzuimanalyse</span></span>
+      <div class="cat-host" data-cat="K"></div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>05</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 7 · MIDDELLANG VERZUIM (conditioneel) ═══ -->
+  <section class="page" id="cat_page_M">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">06</span> <span data-t="s_cat_eyebrow">Verzuimanalyse</span></span>
+      <div class="cat-host" data-cat="M"></div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>06</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 8 · LANGDURIG VERZUIM (conditioneel) ═══ -->
+  <section class="page" id="cat_page_L">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">07</span> <span data-t="s_cat_eyebrow">Verzuimanalyse</span></span>
+      <div class="cat-host" data-cat="L"></div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>07</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 9 · STRATEGISCHE INZICHTEN ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">08</span> <span data-t="s_si_eyebrow">Strategische inzichten</span></span>
+      <h2 class="sec-title" data-t="s_si_title">Drivers, risico's en <em>verbeterkansen.</em></h2>
+
+      <div class="si-grid block">
+        <div class="si-card span">
+          <div class="si-h" data-t="s_fte_eyebrow">FTE-impact</div>
+          <div class="si-fte">
+            <div class="sf-n" data-v="fte_equivalent">0,0</div>
+            <div class="sf-t" id="fte_txt"></div>
+          </div>
+        </div>
+        <div class="si-card">
+          <div class="si-h" data-t="si_bench_h">Benchmark-context</div>
+          <div class="bench">
+            <div class="bench-row you">
+              <div class="br-top"><span class="br-name" data-t="br_you">Uw verzuim</span><span class="br-val" data-v="absence_rate">0%</span></div>
+              <div class="br-track"><div class="br-fill" id="bar_you" style="width:0%"></div></div>
+            </div>
+            <div class="bench-row sector">
+              <div class="br-top"><span class="br-name" data-t="br_sector">Sectorgemiddelde (SD Worx 2025)</span><span class="br-val" data-v="sector_average">10,1%</span></div>
+              <div class="br-track"><div class="br-fill" id="bar_sector" style="width:0%"></div></div>
+            </div>
+            <div><span class="bench-delta" id="bench_delta"><span data-t="br_delta_pre">Verschil</span>&nbsp;<span data-v="difference_vs_sector">—</span></span></div>
+          </div>
+        </div>
+        <div class="si-card">
+          <div class="si-h" data-t="s_risk_eyebrow">Risiconiveau</div>
+          <div class="risk-band" style="margin-top:4px;">
+            <div class="risk-seg lvl-low" data-risk="low" data-t="risk_low">Laag</div>
+            <div class="risk-seg lvl-avg" data-risk="avg" data-t="risk_avg">Gemiddeld</div>
+            <div class="risk-seg lvl-elev" data-risk="elevated" data-t="risk_elevated">Verhoogd</div>
+            <div class="risk-seg lvl-high" data-risk="high" data-t="risk_high">Hoog</div>
+          </div>
+          <p class="si-cascade" style="margin-top:12px;"><b data-t="si_cascade_h" style="color:var(--orange);font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px;">Cascade-risico</b><span id="si_cascade"></span></p>
+        </div>
+        <div class="si-card span">
+          <div class="si-h" data-t="si_save_h">Besparingsscenario's</div>
+          <div class="si-save">
+            <div class="ss"><span class="ss-s" data-t="save_half">−0,5% verzuim</span><div class="ss-v" data-v="saving_half_percent">€ 0</div></div>
+            <div class="ss"><span class="ss-s" data-t="save_one">−1% verzuim</span><div class="ss-v" data-v="saving_one_percent">€ 0</div></div>
+            <div class="ss"><span class="ss-s" data-t="save_two">−2% verzuim</span><div class="ss-v" data-v="saving_two_percent">€ 0</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>08</span></div>
+    </div>
+  </section>
+
+  <!-- ═══ 10 · CONCLUSIE + PLAN VAN AANPAK ═══ -->
+  <section class="page">
+    <div class="page-pad">
+      <div class="p-head"><img class="p-logo" src="../assets/montisoro-wordmark-dark.png" alt="Montisoro"><span class="tag" data-t="tag_report">Verzuimrapport</span></div>
+      <span class="eyebrow"><span class="sec-num">09</span> <span data-t="s_concl_eyebrow">Conclusie & aanpak</span></span>
+      <h2 class="sec-title" data-t="s_concl_title">Van inzicht naar <em>actie.</em></h2>
+      <div class="block">
+        <p class="concl-body" id="concl_lead"></p>
+        <p class="concl-body" id="concl_body"></p>
+        <p class="concl-body" id="concl_close"></p>
+      </div>
+
+      <div class="plan-card">
+        <h3 data-t="cta_h">In 30 minuten <em>scherp</em> krijgen wat telt.</h3>
+        <p class="pc-sub" id="plan_sub"></p>
+        <ul class="pc-list" id="plan_steps"></ul>
+        <a class="plan-btn" href="https://montisoro.com/contact.html#channels" data-t="cta_book">Plan uw diagnosegesprek →</a>
+        <div class="plan-contact">
+          <div><div class="c-lbl" data-t="cta_phone">Telefoon</div><a class="c-val" href="tel:+32477899186">+32 477 89 91 86</a></div>
+          <div><div class="c-lbl" data-t="cta_mail">E-mail</div><a class="c-val" href="mailto:hello@montisoro.com?subject=Diagnosegesprek%20verzuimrapport">hello@montisoro.com</a></div>
+          <div><div class="c-lbl" data-t="cta_web">Web</div><a class="c-val" href="https://montisoro.com">montisoro.com</a></div>
+        </div>
+      </div>
+
+      <div class="disc-strip" style="margin-top:20px;">
+        <span class="ds-eyebrow" data-t="s_disc_eyebrow">Disclaimer</span>
+        <p class="ds-main" data-t="disc_text">Dit rapport is een indicatieve businessanalyse op basis van de door u ingevoerde gegevens. Het vormt geen juridisch, medisch of financieel bindend advies.</p>
+        <div class="ds-meta">
+          <span><b data-t="disc_method_h">Methodologie</b><span class="txt" data-t="disc_method">Loonkost = verloren werkdagen × (jaarloon / werkdagen) × 1,30 (sociale lasten). Voordelen en verzekeringen worden pro-rata toegewezen. Vervanging als indicatief percentage van de directe loonkost.</span></span>
+          <span><b data-t="disc_source_h">Bron</b><span class="txt" data-t="disc_source">SD Worx Verzuimbarometer 2025 · Belgisch sectorgemiddelde. Indirecte kosten en besparingsscenario's zijn indicatieve schattingen.</span></span>
+        </div>
+      </div>
+      <div class="p-foot"><span>montisoro.com</span><span data-v="company_name">Voorbeeld NV</span><span>09</span></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="../config/calculator-params.js"></script>
+<script src="../services/verzuim-engine.js"></script>
+<script src="verzuimrapport.i18n.js"></script>
+<script src="verzuimrapport.content.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  function getLang(){
+    var p = new URLSearchParams(location.search).get('lang');
+    if (p === 'nl' || p === 'en') return p;
+    if (window.__MONTISORO_REPORT && window.__MONTISORO_REPORT.lang) return window.__MONTISORO_REPORT.lang;
+    return 'nl';
+  }
+
+  // Build a standalone demo report when not injected by the backend
+  function buildDemo(lang){
+    var rep = (window.VerzuimEngine)
+      ? window.VerzuimEngine.report({}, lang)
+      : { vars:{} };
+    var dateStr = new Date().toLocaleDateString(lang === 'en' ? 'en-GB' : 'nl-BE',
+      { day:'numeric', month:'long', year:'numeric' });
+    return {
+      lang: lang,
+      meta: {
+        company_name: lang === 'en' ? 'Sample Ltd.' : 'Voorbeeld NV',
+        report_date: dateStr,
+        lang_label: lang === 'en' ? 'English' : 'Nederlands'
+      },
+      vars: rep.vars,
+      results: rep.results
+    };
+  }
+
+  function render(report){
+    var lang = report.lang || 'nl';
+    var L = (window.MONTISORO_REPORT_I18N && window.MONTISORO_REPORT_I18N[lang]) || {};
+    var vars = report.vars || {};
+    var meta = report.meta || {};
+    document.documentElement.lang = lang;
+
+    // static labels
+    document.querySelectorAll('[data-t]').forEach(function(el){
+      var v = L[el.dataset.t];
+      if (typeof v === 'string'){
+        if (v.indexOf('<') !== -1) el.innerHTML = v; else el.textContent = v;
+      }
+    });
+
+    // dynamic values (vars first, then meta)
+    document.querySelectorAll('[data-v]').forEach(function(el){
+      var k = el.dataset.v;
+      var v = (vars[k] != null) ? vars[k] : meta[k];
+      if (v != null) el.textContent = v;
+    });
+
+    // narrative paragraphs (compose with values)
+    var p1 = document.getElementById('analyse_p1');
+    if (p1 && L.fn_analyse_p1) p1.innerHTML = L.fn_analyse_p1(vars);
+    var fte = document.getElementById('fte_txt');
+    if (fte && L.fn_fte_txt) fte.innerHTML = L.fn_fte_txt(vars);
+
+    // risk band active segment
+    var rk = report.results && report.results.riskKey;
+    if (rk){
+      document.querySelectorAll('.risk-seg').forEach(function(s){
+        s.classList.toggle('active', s.dataset.risk === rk);
+      });
+    }
+
+    // benchmark bars (scale to max 12%) + delta tone
+    if (report.results){
+      var you = report.results.totVerz, sec = report.results.sectorAverage;
+      var max = Math.max(12, you, sec);
+      var byou = document.getElementById('bar_you'), bsec = document.getElementById('bar_sector');
+      if (byou) byou.style.width = Math.min(100, (you/max)*100) + '%';
+      if (bsec) bsec.style.width = Math.min(100, (sec/max)*100) + '%';
+      var d = document.getElementById('bench_delta');
+      if (d) d.classList.toggle('below', report.results.differenceVsSector < 0);
+    }
+
+    // cost composition (direct-cost makeup) — reuses results.breakdown, no new math
+    if (report.results && report.results.breakdown){
+      var _bd = report.results.breakdown;
+      [['comp_loon',_bd.loonPct],['comp_door',_bd.doorlopendPct],['comp_verv',_bd.vervangPct]].forEach(function(p){
+        var e=document.getElementById(p[0]);
+        if(e && isFinite(p[1])) e.style.width=Math.max(0,Math.min(100,p[1])).toFixed(1)+'%';
+      });
+    }
+
+    // per-category benchmark — reuses results.categories, no new math
+    var _cb = document.getElementById('catbench_rows');
+    if (_cb && report.results && report.results.categories){
+      var _cl={K:L.cat_K||'Kort',M:L.cat_M||'Middellang',L:L.cat_L||'Langdurig'};
+      var _f=function(n){return n.toLocaleString(lang==='en'?'en-IE':'nl-BE',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';};
+      _cb.innerHTML = report.results.categories.map(function(c){
+        var mx=Math.max(c.mine,c.avg,1)*1.18;
+        var yw=(c.mine/mx)*100, sw=(c.avg/mx)*100;
+        var over=c.mine>c.avg+0.001;
+        return '<div class="cb-row"><div class="cb-name">'+_cl[c.key]+'</div>'+
+          '<div class="cb-track"><div class="cb-fill'+(over?' over':'')+'" style="width:'+yw.toFixed(1)+'%"></div>'+
+          '<div class="cb-tick" style="left:'+sw.toFixed(1)+'%"></div></div>'+
+          '<div class="cb-vals"><b class="cb-you">'+_f(c.mine)+'</b><span class="cb-sec">'+_f(c.avg)+'</span></div></div>';
+      }).join('');
+    }
+
+    // lang toggle active state
+    document.querySelectorAll('[data-lang-btn]').forEach(function(a){
+      a.classList.toggle('on', a.dataset.langBtn === lang);
+    });
+
+    // download button label per language
+    var _dlt = document.getElementById('dlPdfTxt');
+    if (_dlt) _dlt.textContent = (lang === 'en' ? 'Download PDF' : 'Download als PDF');
+
+    try { renderV2(report, L, vars, lang); } catch (e) { if (window.console) console.error('renderV2', e); }
+  }
+
+  function _eur(n, lang){ return '\u20ac ' + Math.round(n||0).toLocaleString(lang==='en'?'en-IE':'nl-BE',{maximumFractionDigits:0}); }
+  function _pct(n, lang){ return (n||0).toLocaleString(lang==='en'?'en-IE':'nl-BE',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
+  function _li(arr){ return (arr||[]).map(function(x){return '<li>'+x+'</li>';}).join(''); }
+
+  function renderV2(report, L, vars, lang){
+    var BANK = window.MONTISORO_REPORT_CONTENT || {};
+    var C = BANK[lang] || BANK.nl || {};
+    var S = window.MONTISORO_REPORT_SCENARIOS || {};
+    var band = window.MONTISORO_REPORT_EQUALBAND || 0.3;
+    var R = report.results || {};
+    var input = R.input || {};
+    function set(id, html){ var e=document.getElementById(id); if(e) e.innerHTML = html; }
+    function setT(id, v){ var e=document.getElementById(id); if(e) e.textContent = v; }
+
+    /* pagina 2 — exec narratief */
+    set('exec_intro', C.exec_intro||''); set('exec_intro2', C.exec_intro2||'');
+    set('exec_list_h', C.exec_list_h||''); set('exec_list', _li(C.exec_list));
+    set('exec_close', C.exec_close||'');
+
+    /* pagina 3 — overzicht ingevoerde gegevens */
+    var io = document.getElementById('io_body');
+    if (io){
+      var gl = {arbeider:L.io_grp_arbeider||'arbeiders', bediende:L.io_grp_bediende||'bedienden', beide:L.io_grp_beide||'beiden'};
+      function chip(g){ return g?(' <span class="io-grp">'+(gl[g]||g)+'</span>'):''; }
+      function row(k,v){ return '<div class="io-row"><span class="io-k">'+k+'</span><span class="io-v">'+v+'</span></div>'; }
+      function sub(t){ return '<div class="io-row"><span class="io-k" style="font-weight:600;color:var(--ink);">'+t+'</span><span></span></div>'; }
+      var nArb=Math.round((input.fte||0)*(input.splitA||0)/100), nBed=(input.fte||0)-nArb;
+      var h='';
+      h+='<div class="io-group"><div class="io-gh">'+(L.io_org||'Organisatie')+'</div>';
+      h+=row(L.io_employees||'Aantal medewerkers', (input.fte||0));
+      h+=row(L.io_arb||'Arbeiders', nArb+' \u00b7 '+(input.splitA||0)+'%');
+      h+=row(L.io_bed||'Bedienden', nBed+' \u00b7 '+(100-(input.splitA||0))+'%');
+      h+=row(L.io_salary||'Brutoloon', _eur(input.salary,lang));
+      h+='</div>';
+      h+='<div class="io-group"><div class="io-gh">'+(L.io_doorlopend||'Doorlopende kosten')+'</div><div class="io-cols">';
+      h+=row((L.io_voordelen||'Voordelen')+chip(input.grpVoordelen), _eur(input.voordelen,lang)+(L.io_permonth||'/mnd'));
+      h+=row((L.io_firmawagen||'Firmawagen')+chip(input.grpFirmawagen), _eur(input.firmawagen,lang)+(L.io_permonth||'/mnd'));
+      h+=row((L.io_groepsv||'Groepsverzekering')+chip(input.grpGroepsv), _eur(input.groepsv,lang)+(L.io_peryear||'/jaar'));
+      h+=row((L.io_hospv||'Hospitalisatie')+chip(input.grpHospv), _eur(input.hospv,lang)+(L.io_peryear||'/jaar'));
+      h+=row((L.io_andereverz||'Andere verz.')+chip(input.grpAndereverz), _eur(input.andereverz,lang)+(L.io_peryear||'/jaar'));
+      h+='</div></div>';
+      h+='<div class="io-group"><div class="io-gh">'+(L.io_factoren||'Factoren')+'</div><div class="io-cols">';
+      h+=row(L.io_vervang||'Vervangingskosten', (input.vervangFactor||0)+'%');
+      h+=row(L.io_org_impact||'Organisatorische impact', (input.orgFactor||0)+'%');
+      h+='</div></div>';
+      h+='<div class="io-group"><div class="io-gh">'+(L.io_verzuim||'Verzuimcijfers')+'</div><div class="io-cols">';
+      h+='<div>'+sub(L.io_arb||'Arbeiders')+row(L.io_kort||'Kort',_pct(input.kA,lang))+row(L.io_middel||'Middel',_pct(input.mA,lang))+row(L.io_lang||'Lang',_pct(input.lA,lang))+'</div>';
+      h+='<div>'+sub(L.io_bed||'Bedienden')+row(L.io_kort||'Kort',_pct(input.kB,lang))+row(L.io_middel||'Middel',_pct(input.mB,lang))+row(L.io_lang||'Lang',_pct(input.lB,lang))+'</div>';
+      h+='</div></div>';
+      io.innerHTML=h;
+    }
+
+    /* pagina 4 — kost per kalenderdag / werkdag */
+    var days=input.days||220, direct=R.total||0, totale=R.totaleKost||0;
+    setT('cost_dir_cal', _eur(direct/365,lang)); setT('cost_dir_work', _eur(direct/days,lang));
+    setT('cost_tot_cal', _eur(totale/365,lang)); setT('cost_tot_work', _eur(totale/days,lang));
+
+    /* pagina 5 — Casey AI-simulator */
+    set('sim_intro', C.sim_intro||'');
+    function splitHead(s){ s=s||''; var i=s.indexOf('\u2014'); return i>0?[s.slice(0,i).trim(), s.slice(i+1).trim()]:['',s]; }
+    var sa=splitHead(C.sim_two_a), sb=splitHead(C.sim_two_b);
+    set('sim_two_a_h', sa[0]); set('sim_two_a', sa[1]);
+    set('sim_two_b_h', sb[0]); set('sim_two_b', sb[1]);
+    set('sim_two_note', C.sim_two_note||''); set('sim_method', C.sim_method||'');
+    var sc=document.getElementById('sim_scenarios');
+    if (sc && S.A){
+      var lv3=C.scen_levels3||['Voorzichtig','Realistisch','Goed'], lvC=C.scen_levelsC||['Realistisch','Goed','Ambitieus'];
+      function tbl(name, sub2, rows, feat, foot, withRate){
+        var th='<tr><th>'+(C.scen_col_est||'Inschatting')+'</th><th>'+(C.scen_col_redu||'Reductie')+'</th>'+(withRate?'<th>'+(C.scen_col_rate||'Verzuim naar')+'</th>':'')+'<th>'+(C.scen_col_save||'Besparing')+'</th></tr>';
+        return '<div class="scen'+(feat?' feat':'')+'"><div class="scen-head"><div class="scen-name">'+name+(feat?' <span class="tagm">'+(lang==='en'?'Recommended':'Aanbevolen')+'</span>':'')+'</div><div class="scen-sub">'+sub2+'</div></div><table class="scen-tbl"><thead>'+th+'</thead><tbody>'+rows+'</tbody></table>'+(foot?'<div class="scen-foot">'+foot+'</div>':'')+'</div>';
+      }
+      var rowsA=S.A.redu.map(function(r,i){return '<tr><td>'+lv3[i]+'</td><td>\u2212'+Math.round(r*100)+'%</td><td><span class="sv">'+_eur(direct*r,lang)+'</span></td></tr>';}).join('');
+      var rowsB=S.B.redu.map(function(r,i){return '<tr><td>'+lv3[i]+'</td><td>\u2212'+Math.round(r*100)+'%</td><td><span class="sv">'+_eur(direct*r,lang)+'</span></td></tr>';}).join('');
+      var rowsC=S.C.dur.map(function(d,i){var p=S.C.prev[i];var comb=1-(1-p)*(1-d);var nr=(R.totVerz||0)*(1-comb);return '<tr><td>'+lvC[i]+'</td><td>\u2212'+Math.round(d*100)+'%</td><td>'+_pct(nr,lang)+'</td><td><span class="sv">'+_eur(direct*comb,lang)+'</span></td></tr>';}).join('');
+      sc.innerHTML = tbl(C.scen_A_name||'A', C.scen_A_sub||'', rowsA, true, C.scen_AB_note||'', false)
+        + tbl(C.scen_B_name||'B', C.scen_B_sub||'', rowsB, false, '', false)
+        + tbl(C.scen_C_name||'C', C.scen_C_sub||'', rowsC, false, C.scen_C_note||'', true);
+    }
+
+    /* pagina 6–8 — conditionele categorie-analyse */
+    var cats={}; (R.categories||[]).forEach(function(c){ cats[c.key]=c; });
+    ['K','M','L'].forEach(function(key){
+      var host=document.querySelector('.cat-host[data-cat="'+key+'"]'); if(!host) return;
+      var c=cats[key]; if(!c) return;
+      var diff=c.mine-c.avg, variant=(Math.abs(diff)<=band)?'equal':(diff<0?'better':'above');
+      var d=C.cat&&C.cat[key]&&C.cat[key][variant]; if(!d) return;
+      var nm=(C.catname&&C.catname[key])||key, df=(C.catdef&&C.catdef[key])||'';
+      var h='';
+      h+='<div class="cat-head"><div><div class="cat-name">'+nm+' <span>'+df+'</span></div><div class="cat-status '+d.tone+'">'+d.status+'</div></div>';
+      h+='<div class="cat-figs"><div class="cat-fig you"><div class="cf-l">'+(C.cat_you||'Uw %')+'</div><div class="cf-v">'+_pct(c.mine,lang)+'</div></div><div class="cat-fig"><div class="cf-l">'+(C.cat_sector||'Sector')+'</div><div class="cf-v">'+_pct(c.avg,lang)+'</div></div></div></div>';
+      h+='<div class="cat-block"><div class="cat-bh">'+(C.cat_analyse_h||'Analyse')+'</div><p class="cat-p">'+d.analyse+'</p></div>';
+      h+='<div class="cat-cols"><div><div class="cat-bh">'+(C.cat_kenmerk_h||'Kenmerken')+'</div><ul class="cat-list">'+_li(d.kenmerk)+'</ul></div>';
+      h+='<div><div class="cat-bh">'+(C.cat_acties_h||'Acties')+'</div><ul class="cat-list">'+_li(d.acties)+'</ul></div></div>';
+      h+='<div class="cat-block"><div class="cat-bh">'+(C.cat_aandacht_h||'Aandachtspunt')+'</div><p class="cat-aandacht">'+d.aandacht+'</p></div>';
+      h+='<div class="cat-doel"><div class="cd-t"><b>'+(C.cat_doel_h||'Doel')+':</b> '+d.doel+'</div><div class="cd-prio">'+d.prio+'</div></div>';
+      host.innerHTML=h;
+    });
+
+    /* pagina 9 + 10 — cascade, conclusie, plan */
+    set('si_cascade', C.si_cascade_txt||'');
+    set('concl_lead', (lang==='en'?'Absence costs your organisation about ':'Verzuim kost uw organisatie vandaag ongeveer ')+'<strong>'+(vars.annual_absence_cost||'')+'</strong>'+(lang==='en'?' per year.':' per jaar.'));
+    set('concl_body', C.concl_body||''); set('concl_close', C.concl_close||'');
+    set('plan_sub', C.plan_sub||''); set('plan_steps', _li(C.plan_steps));
+  }
+
+  var report = window.__MONTISORO_REPORT || buildDemo(getLang());
+  render(report);
+  window.__renderReport = render; // allow backend to re-render after injection
+
+  // one-click "Download als PDF" → browser save-as-PDF (print-ready A4 CSS already applied)
+  var _dl = document.getElementById('dlPdf');
+  if (_dl){
+    _dl.addEventListener('click', function(){ window.focus(); window.print(); });
+  }
+})();
+</script>
+</body>
+</html>

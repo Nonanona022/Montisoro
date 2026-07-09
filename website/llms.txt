@@ -1,0 +1,29 @@
+# Montisoro
+
+> Montisoro bouwt de kennis, structuur en technologie waarmee organisaties verzuim vroeger zien, beter aanpakken wanneer het complex wordt en duurzamer verankeren — zodat zorg en performantie één systeem worden. Tweetalig (NL/EN). België-gebaseerd (Ramsdonk). Kerndiensten: case management via het Storm SaaS-platform, Casey AI (agentic AI voor verzuim & re-integratie), en capability building.
+
+## Kernpagina's (NL)
+- [Home](https://montisoro.com/Home.html): Re-integrate What Matters — overzicht van aanpak, Storm, Casey AI en proof.
+- [Onze aanpak](https://montisoro.com/aanpak.html): methodologie en systeem voor verzuim, werkbaarheid en duurzame re-integratie.
+- [Technologie](https://montisoro.com/technologie.html): Storm (GDPR-proof SaaS case management) en Casey AI.
+- [Calculator](https://montisoro.com/calculator.html): bereken wat verzuim uw organisatie werkelijk kost.
+- [Fit check](https://montisoro.com/fit-check.html): vier vragen, één strategische route — capability check.
+- [Over ons](https://montisoro.com/about.html): team, missie en het verhaal achter Montisoro.
+- [Contact](https://montisoro.com/contact.html): plan een gesprek, mail of bel.
+
+## Key pages (EN)
+- [Home](https://montisoro.com/Home-en.html)
+- [Our approach](https://montisoro.com/aanpak-en.html)
+- [Technology](https://montisoro.com/technologie-en.html)
+- [Calculator](https://montisoro.com/calculator-en.html)
+- [Fit check](https://montisoro.com/fit-check-en.html)
+- [About](https://montisoro.com/about-en.html)
+- [Contact](https://montisoro.com/contact-en.html)
+
+## Legal
+- [Privacy Statement](https://montisoro.com/privacy.html)
+- [Terms & Disclaimer](https://montisoro.com/disclaimer.html)
+
+## Contact
+- Email: hello@montisoro.com
+- Montisoro BV · Tisseltstraat 25, 1880 Ramsdonk, België · BE0733840137

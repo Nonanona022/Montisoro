@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Inloggen — Montisoro Admin</title>
+<meta name="description" content="Inloggen op het Montisoro intelligence platform.">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../assets/icons/tabler-icons.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:#0E0B08;color:#F0EDE8;overflow:hidden;}
+.shell{display:grid;grid-template-columns:1.1fr 1fr;min-height:100vh;}
+@media(max-width:880px){.shell{grid-template-columns:1fr;}.shell-l{display:none;}}
+
+/* LEFT — Editorial atmosphere */
+.shell-l{position:relative;overflow:hidden;background:linear-gradient(160deg, #1A1410 0%, #0E0B08 100%);display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px;}
+.shell-l-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55;}
+.shell-l-content{position:relative;z-index:1;}
+.brand{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:26px;color:#F0EDE8;letter-spacing:-.02em;display:flex;align-items:center;}
+.brand em{font-style:italic;color:#E8592B;}
+.brand img{height:56px;width:auto;display:block;}
+.brand .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#E8592B;margin-left:8px;vertical-align:middle;}
+.shell-l-quote{position:relative;z-index:1;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-style:italic;font-size:clamp(28px,3vw,40px);line-height:1.25;color:#F0EDE8;letter-spacing:-.015em;max-width:520px;}
+.shell-l-quote em{color:#E8592B;font-style:italic;}
+.shell-l-quote::before{content:'';display:block;width:36px;height:1.5px;background:#E8592B;margin-bottom:24px;}
+.shell-l-foot{position:relative;z-index:1;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(240,237,232,0.38);display:flex;justify-content:space-between;align-items:center;}
+.shell-l-foot a{color:rgba(240,237,232,0.38);text-decoration:none;transition:color .2s;}
+.shell-l-foot a:hover{color:#F0EDE8;}
+
+/* RIGHT — Form */
+.shell-r{display:flex;align-items:center;justify-content:center;padding:48px 56px;background:#0E0B08;}
+.form-wrap{width:100%;max-width:420px;}
+.form-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#E8592B;margin-bottom:14px;}
+.form-eyebrow::before{content:'';display:block;width:20px;height:1.5px;background:#E8592B;}
+.form-title{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#F0EDE8;margin-bottom:10px;}
+.form-title em{font-style:italic;color:#E8592B;}
+.form-sub{font-size:13.5px;color:rgba(240,237,232,0.55);line-height:1.6;margin-bottom:36px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:11px;font-weight:600;letter-spacing:.10em;text-transform:uppercase;color:rgba(240,237,232,0.55);margin-bottom:8px;}
+.form-input{width:100%;padding:13px 16px;background:rgba(240,237,232,0.04);border:1px solid rgba(240,237,232,0.10);border-radius:10px;color:#F0EDE8;font:inherit;font-size:14px;outline:none;transition:all .2s;}
+.form-input:focus{border-color:#E8592B;background:rgba(240,237,232,0.06);box-shadow:0 0 0 4px rgba(232,89,43,0.10);}
+.form-input::placeholder{color:rgba(240,237,232,0.30);}
+.form-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;font-size:12.5px;}
+.form-meta label{display:inline-flex;align-items:center;gap:8px;color:rgba(240,237,232,0.55);cursor:pointer;}
+.form-meta label input{accent-color:#E8592B;}
+.form-meta a{color:#E8592B;text-decoration:none;}
+.form-meta a:hover{text-decoration:underline;}
+.form-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 24px;background:#E8592B;border:none;color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-family:inherit;border-radius:10px;cursor:pointer;transition:all .2s;}
+.form-btn:hover{background:#d04d22;transform:translateY(-1px);}
+.form-btn:disabled{opacity:.6;cursor:not-allowed;}
+.form-err{margin-top:14px;padding:10px 14px;background:rgba(232,92,92,0.08);border:1px solid rgba(232,92,92,0.30);border-radius:8px;font-size:12.5px;color:#E85C5C;display:none;}
+.form-err.is-shown{display:block;}
+.form-hint{margin-top:28px;padding-top:24px;border-top:1px solid rgba(240,237,232,0.08);font-size:11.5px;color:rgba(240,237,232,0.45);line-height:1.65;}
+.form-hint b{color:rgba(240,237,232,0.70);font-weight:500;}
+.form-back{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12px;color:rgba(240,237,232,0.45);text-decoration:none;letter-spacing:.04em;transition:color .2s;}
+.form-back:hover{color:#F0EDE8;}
+</style>
+<script src="../config/config.js"></script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- LEFT: editorial atmosphere -->
+  <div class="shell-l">
+    <svg class="shell-l-svg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient cx="70%" cy="20%" id="lg1" r="60%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+        <radialGradient cx="20%" cy="90%" id="lg2" r="50%"><stop offset="0%" stop-color="#C87B3A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C87B3A" stop-opacity="0"/></radialGradient>
+        <linearGradient id="lg3" x1="1" x2="0.3" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      </defs>
+      <rect fill="url(#lg1)" width="800" height="1000"/>
+      <rect fill="url(#lg2)" width="800" height="1000"/>
+      <polygon fill="url(#lg3)" opacity="0.55" points="800,0 800,520 320,1000 -80,1000"/>
+      <path d="M 800 660 C 540 640, 220 820, -40 980" fill="none" stroke="#E8592B" stroke-opacity="0.16" stroke-width="1.2"/>
+      <path d="M 800 740 C 590 720, 280 870, 40 980" fill="none" stroke="#E8592B" stroke-opacity="0.20" stroke-width="0.9"/>
+    </svg>
+    <div class="shell-l-content">
+      <div class="brand"><img src="../assets/montisoro-logo.png" alt="Montisoro"></div>
+    </div>
+    <p class="shell-l-quote">
+      Care wordt systeem. Systeem wordt <em>capability.</em>
+    </p>
+    <div class="shell-l-foot">
+      <span>Admin · Intelligence platform</span>
+      <a href="#" data-site-link="Home.html" rel="noopener">← Naar website</a>
+    </div>
+  </div>
+
+  <!-- RIGHT: form -->
+  <div class="shell-r">
+    <div class="form-wrap">
+      <div class="form-eyebrow">Welkom terug</div>
+      <h1 class="form-title">Inloggen op uw <em>cockpit</em></h1>
+      <p class="form-sub">Toegang tot leads, formulieren, verzuim-inzichten en content. Veilig, persoonlijk, GDPR-conform.</p>
+
+      <form id="loginForm" autocomplete="on">
+        <div class="form-group">
+          <label for="email">E-mailadres</label>
+          <input id="email" class="form-input" type="email" placeholder="hello@montisoro.com" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label for="pw">Wachtwoord</label>
+          <input id="pw" class="form-input" type="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <div class="form-meta">
+          <label><input type="checkbox" id="remember" checked>Onthoud mij</label>
+          <a href="mailto:hello@montisoro.com?subject=Wachtwoord%20vergeten">Wachtwoord vergeten?</a>
+        </div>
+        <button type="submit" class="form-btn">
+          <span>Veilig inloggen</span>
+          <i class="ti ti-arrow-right"></i>
+        </button>
+        <div id="err" class="form-err"></div>
+      </form>
+
+      <div class="form-hint">
+        <b>Beveiligde toegang.</b> Authenticatie verloopt server-side; het admin-panel hoort bovendien áchter een externe toegangspoort (Cloudflare Access) te staan. Geen toegang? Neem contact op met de beheerder.
+      </div>
+
+      <a href="#" data-site-link="Home.html" class="form-back" rel="noopener"><i class="ti ti-arrow-left"></i>Terug naar de site</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('loginForm');
+  var err = document.getElementById('err');
+
+  // ── Security: het login-scherm bereiken = geen geldige sessie → wis alle
+  //    gecachte CRM-data (leads/inzendingen) die in localStorage achterbleef.
+  //    Dekt logout, sessie-verloop én directe navigatie in één veilige plek.
+  //    De opt-in "remember me" e-mail (admin.email/admin.remember) blijft.
+  try {
+    Object.keys(localStorage).forEach(function(k){
+      if (k.indexOf('montisoro.admin.data.') === 0) localStorage.removeItem(k);
+    });
+  } catch(e){}
+
+  // Pre-fill from local storage
+  if (localStorage.getItem('admin.remember') === '1'){
+    document.getElementById('email').value = localStorage.getItem('admin.email') || '';
+  }
+
+  // Context bij terugkeer vanaf de auth-gate (verlopen sessie / server-auth vereist).
+  try {
+    var _gp = new URLSearchParams(location.search);
+    if (_gp.get('expired')) { err.textContent = 'Uw sessie is verlopen. Log opnieuw in.'; err.classList.add('is-shown'); }
+    else if (_gp.get('auth')) { err.textContent = 'Meld u aan via de beveiligde server-authenticatie om verder te gaan.'; err.classList.add('is-shown'); }
+  } catch(e){}
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.remove('is-shown');
+    var email = document.getElementById('email').value.trim().toLowerCase();
+    var pw = document.getElementById('pw').value.trim();
+    var remember = document.getElementById('remember').checked;
+
+    // Rol = bron van waarheid komt server-side; deze map is enkel een dev-fallback.
+    var ROLE_BY_EMAIL = {
+      'laurence@montisoro.com':'admin',
+      'jeroen@montisoro.com':'consultant',
+      'glenn@montisoro.com':'sales',
+      'reza@montisoro.com':'viewer'
+    };
+    // Demo/dev-fallback is UITSLUITEND toegestaan op een lokale loopback-host
+    // (window.ADMIN_DEV_LOGIN, gezet in config.js). Loopback is niet publiek
+    // bereikbaar → onbereikbaar voor aanvallers. Op elke publieke host
+    // (preview/staging/productie) is dit false en telt enkel /api/admin-auth.
+    // De loopback-check hier is defensief: ontbreekt/laadt config.js niet, dan
+    // is het resultaat overal fail-closed behalve op een echte loopback-machine.
+    var _host = location.hostname;
+    var _loopback = (_host === 'localhost' || _host === '127.0.0.1' || _host === '[::1]' || _host === '::1' || _host === '');
+    var DEV_LOGIN = (window.ADMIN_DEV_LOGIN === true) || (window.ADMIN_DEV_LOGIN !== false && _loopback);
+
+    function fail(msg){ err.textContent = msg || 'Onjuiste e-mail of wachtwoord. Probeer opnieuw.'; err.classList.add('is-shown'); }
+    function finish(session){
+      sessionStorage.setItem('admin.session', JSON.stringify(session));
+      if (remember){ localStorage.setItem('admin.remember','1'); localStorage.setItem('admin.email', email); }
+      else { localStorage.removeItem('admin.remember'); localStorage.removeItem('admin.email'); }
+      location.href = 'admin.html';
+    }
+    function demoFallback(){
+      // ALLEEN op een lokale loopback-machine: client-side demo-check (prototype).
+      // Op elke publiek bereikbare host faalt dit dicht (fail-closed).
+      if (!DEV_LOGIN) { fail('Authenticatie is niet beschikbaar op deze omgeving. Neem contact op met de beheerder.'); return; }
+      if (ROLE_BY_EMAIL[email] && pw === 'montisoro'){
+        finish({ email:email, role:ROLE_BY_EMAIL[email], ts:Date.now(), mode:'demo' });
+      } else { fail('Onjuiste e-mail of wachtwoord. Probeer opnieuw.'); }
+    }
+
+    // 1) Productie-pad: server-side wachtwoordcontrole (ondertekend token).
+    fetch('/api/admin-auth', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email:email, password:pw }) })
+      .then(function(r){ return r.json().then(function(d){ return { status:r.status, d:d }; }); })
+      .then(function(x){
+        if (x.d && x.d.ok){
+          finish({ email:x.d.email, role:x.d.role, token:x.d.token, exp:x.d.exp, ts:Date.now(), mode:'server' });
+        } else if (x.status === 503){
+          // Backend nog niet geconfigureerd (B3 inert) → demo enkel op lokale loopback (anders fail-closed).
+          demoFallback();
+        } else if (x.status === 429){
+          fail('Te veel inlogpogingen. Wacht enkele minuten en probeer opnieuw.');
+        } else {
+          fail('Onjuiste e-mail of wachtwoord. Probeer opnieuw.');
+        }
+      })
+      .catch(function(){
+        // Functie onbereikbaar (lokaal zonder Netlify-dev) → demo enkel op lokale loopback (anders fail-closed).
+        demoFallback();
+      });
+  });
+})();
+</script>
+
+<script>
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[data-site-link]');
+  if (!a) return;
+  e.preventDefault();
+  var base = (window.SITE_URL || '../../website/pages').replace(/\/$/, '');
+  window.open(base + '/' + a.dataset.siteLink, '_blank', 'noopener');
+});
+</script>
+</body>
+</html>
