@@ -15,6 +15,11 @@
   # esbuild bundles the JS; bundle the shared engine, PDF template and logo
   # so the serverless function can read them at runtime.
   node_bundler = "esbuild"
+  # @sparticuz/chromium ships its browser + shared libraries (libnspr4.so, …)
+  # as a self-contained package. esbuild-bundling it breaks that lib resolution
+  # ("error while loading shared libraries"), so keep it EXTERNAL (shipped as a
+  # real node_module, not inlined). puppeteer-core too, for safe measure.
+  external_node_modules = ["@sparticuz/chromium", "puppeteer-core"]
   included_files = [
     "website/services/verzuim-engine.js",
     "website/services/email-templates.js",
