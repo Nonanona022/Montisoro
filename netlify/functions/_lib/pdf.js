@@ -103,16 +103,12 @@ async function buildHtml(report) {
 
 async function renderPdf(report) {
   const html = await buildHtml(report);
-  // @sparticuz/chromium: when the function is esbuild-bundled, its default
-  // executablePath() resolves the binary against the WRONG dir (e.g.
-  // /var/task/netlify/bin → ENOENT). Point it explicitly at where
-  // included_files placed the pack (node_modules/@sparticuz/chromium/bin).
-  let execPath;
-  try {
-    execPath = await chromium.executablePath(path.join(process.cwd(), 'node_modules', '@sparticuz', 'chromium', 'bin'));
-  } catch (e) {
-    execPath = await chromium.executablePath();
-  }
+  // @sparticuz/chromium is kept EXTERNAL (see netlify.toml) so its no-arg
+  // executablePath() resolves node_modules/@sparticuz/chromium/bin correctly
+  // AND extracts its bundled shared libraries (libnspr4.so, …) to /tmp with
+  // LD_LIBRARY_PATH set. Passing a custom path SKIPS that lib extraction →
+  // "error while loading shared libraries: libnspr4.so". So: no argument.
+  const execPath = await chromium.executablePath();
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath: execPath,
