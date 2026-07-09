@@ -667,11 +667,7 @@
     function showDownload(){
       try{ localStorage.removeItem(SKEY); }catch(e){}
       try{ if(window.mtrack){ window.mtrack('report_generated',{}); } }catch(e){}
-      var b=$('bDownloadPdf'); if(!b) return;
-      b.style.display='flex';
-      var y=b.getBoundingClientRect().top+window.scrollY-130;
-      try{ window.scrollTo({top:y,behavior:'smooth'}); }catch(e){ window.scrollTo(0,y); }
-      setTimeout(function(){ try{ b.focus({preventScroll:true}); }catch(e){} },420);
+      /* fit-check-flow: PDF downloadt automatisch; geen zichtbare tweede knop meer */
       try{ if(typeof openFullReport==='function'){ setTimeout(openFullReport, 500); } }catch(e){}
     }
     ['cName','cCompany','cMail'].forEach(function(id){var inp=$(id);if(!inp)return;inp.addEventListener('input',function(){var fi=inp.closest('.f-input');if(fi)fi.classList.remove('is-error');inp.setAttribute('aria-invalid','false');var e=$('bFormErr');if(e)e.classList.remove('show');});});
