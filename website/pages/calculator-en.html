@@ -226,16 +226,16 @@ body.cf-open .b-grp{border-radius:12px;}
 body.cf-open .b-grp button{border-radius:8px;transition:background .16s ease,color .16s ease,box-shadow .16s ease;}
 
 /* — Navigatie = .fc-nav: gevulde oranje UPPERCASE 'volgende' + ghost 'terug'.
-   GEEN oranje drop-glow: die is voor de DONKERE Fit Check-balk; hier zit de
-   knop op een lichte kaart → schone gevulde pill zonder glow (=zelfde look). — */
+   Zelfde vorm (pill 100px) + oranje drop-glow als de Fit Check-stapknop (.fc-modal .fc-next). — */
 body.cf-open .b-btn.primary{
   background:#CC4A1E;border-color:#CC4A1E;
   text-transform:uppercase;letter-spacing:.06em;font-size:13px;font-weight:600;
   padding:15px 32px;
-  box-shadow:none;
-  transition:background .16s ease;
+  border-radius:100px;
+  box-shadow:0 6px 18px -10px rgba(232,89,43,.7);
+  transition:background .16s ease,box-shadow .16s ease;
 }
-body.cf-open .b-btn.primary:hover:not(:disabled){background:#B8420F;border-color:#B8420F;box-shadow:none;}
+body.cf-open .b-btn.primary:hover:not(:disabled){background:#B8420F;border-color:#B8420F;box-shadow:0 8px 22px -10px rgba(232,89,43,.85);}
 body.cf-open .b-btn:focus-visible,
 body.cf-open .b-grp button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(232,89,43,.32);}
 /* geen aparte ring op de input in een .b-numfield: het kader toont focus al via :focus-within (anders 2 geneste kaders) */
@@ -829,7 +829,7 @@ body.cf-open .b-skiphint,body.cf-open .b-basis{border-radius:10px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#bfd7dad3d3d0ffd2d0d1cbd6ccd0cdd091dcd0d2" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#0d65686161624d60626379647e627f62236e6260" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigation</h3><ul><li><a href="Home-en.html">Home</a></li><li><a href="aanpak-en.html">Approach</a></li><li><a href="technologie-en.html">Technology</a></li><li><a href="about-en.html">About</a></li><li><a href="contact-en.html">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ-en.html">FAQ</a></li><li><a href="Referentie-en.html">References</a></li><li><a href="fit-check-en.html">Fit check</a></li><li><a href="calculator-en.html">Calculator</a></li></ul></div>
@@ -889,6 +889,13 @@ body.cf-open .b-skiphint,body.cf-open .b-basis{border-radius:10px;}
   function sync(){
     var open=!gate.hasAttribute('hidden');
     body.classList.toggle('calc-revealed', open);
+    /* reveal: laatste stap 'afgerond' + het ✓ Resultaat-bolletje wordt actief (zoals de Fit Check) */
+    try{
+      var rn=document.querySelector('.b-stepper .b-step-result');
+      var s6=document.querySelector('.b-stepper .b-step[data-step="6"]');
+      if(rn) rn.classList.toggle('is-active', open);
+      if(s6 && open){ s6.classList.remove('is-active'); s6.classList.add('is-done'); }
+    }catch(e){}
     if(open && main){
       var out=main.querySelector('.b-output');
       if(out) setTimeout(function(){ try{ var y=out.getBoundingClientRect().top+window.scrollY-90; window.scrollTo({top:y<0?0:y,behavior:'smooth'}); }catch(e){} },70);
