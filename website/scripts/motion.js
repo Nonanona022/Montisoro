@@ -197,7 +197,7 @@
   // vóór langSwitcher (die de knop pas erna injecteert) en is idempotent.
   function localizeNavLinks(){
     var path = location.pathname.split('/').pop() || '';
-    if (!/-en\.html$/i.test(path)) return;                 // alleen EN-pagina's
+    if (!/-en(?:\.html)?$/i.test(path)) return;                 // alleen EN-pagina's
     var EN_BASES = ['Home','about','aanpak','technologie','calculator','fit-check','contact','privacy','disclaimer'];
     document.querySelectorAll('.m-nav-links a, a.m-nav-logo, .m-footer a, .ms-footer a').forEach(function(a){
       if (a.classList.contains('m-lang-btn') || a.classList.contains('m-lang-opt') || (a.closest && a.closest('.m-lang'))) return;
@@ -288,7 +288,7 @@
     if (EXCLUDE.indexOf(path) >= 0) return;
     if (document.querySelector('.m-sticky-cta')) return;
 
-    var isEN = /-en\.html$/i.test(path);
+    var isEN = /-en(?:\.html)?$/i.test(path);
     var target = isEN ? 'contact-en.html#channels' : 'contact.html#channels';
     var label = isEN ? 'Book a conversation' : 'Plan een gesprek';
 
@@ -395,7 +395,7 @@
 
     var path = location.pathname.split('/').pop() || '';
     if (!path || path === '/') path = 'Home.html';
-    var isEN = /-en\.html$/i.test(path);
+    var isEN = /-en(?:\.html)?$/i.test(path);
 
     var labelShort = isEN ? 'NL' : 'EN';
     var labelLong  = isEN ? 'Nederlands' : 'English';
@@ -424,9 +424,9 @@
     // doel = equivalente pagina in de ANDERE taal
     var target;
     if (isEN){
-      target = (baseKey === 'Home') ? 'Home.html' : baseKey + '.html';
+      target = (baseKey === 'Home') ? '/' : '/' + baseKey.toLowerCase();
     } else {
-      target = (baseKey === 'Home') ? 'Home-en.html' : baseKey + '-en.html';
+      target = (baseKey === 'Home') ? '/home-en' : '/' + baseKey.toLowerCase() + '-en';
     }
 
     // 1) Home — first item (mobile overlay only; hidden on desktop via CSS).
@@ -435,7 +435,7 @@
       var homeLi = document.createElement('li');
       homeLi.className = 'm-home-only';
       var homeA = document.createElement('a');
-      homeA.href = isEN ? 'Home-en.html' : 'Home.html';
+      homeA.href = isEN ? '/home-en' : '/';
       homeA.textContent = 'Home';
       homeLi.appendChild(homeA);
       nav.insertBefore(homeLi, nav.firstChild);
