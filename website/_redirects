@@ -30,13 +30,24 @@
 /api/admin-users             /.netlify/functions/admin-users             200
 /api/health                  /.netlify/functions/health                  200
 
-# ── SEO: dubbele URL's consolideren naar de canonieke schone URL (301) ──
-/Home.html         /             301!
-/pages/Home.html   /             301!
-/pages/Home        /             301!
-/pages/:slug.html  /:slug.html   301!
-/pages/:slug       /:slug.html   301!
+# ── SEO: canonicaliseer legacy/mixed-case → schone kleine-letter URL (301) ──
+/Home.html            /               301!
+/Home-en.html         /home-en        301!
+/FAQ.html             /faq            301!
+/FAQ-en.html          /faq-en         301!
+/Referentie.html      /referentie     301!
+/Referentie-en.html   /referentie-en  301!
+/pages/Home.html      /               301!
+/pages/Home           /               301!
+/pages/:slug.html     /:slug          301!
+/pages/:slug          /:slug          301!
 
 # ── Schone URL's serveren (200 rewrite, URL blijft schoon) ──
-/                  /pages/Home.html    200!
-/:slug.html        /pages/:slug.html   200
+/                     /pages/Home.html             200!
+/home-en              /pages/Home-en.html          200!
+/faq                  /pages/FAQ.html              200!
+/faq-en               /pages/FAQ-en.html           200!
+/referentie           /pages/Referentie.html       200!
+/referentie-en        /pages/Referentie-en.html    200!
+/:slug.html           /pages/:slug.html            200
+/:slug                /pages/:slug.html            200
