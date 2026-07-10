@@ -202,6 +202,7 @@ body{padding-top:64px;}
 .check-dot::before{content:counter(check-counter, decimal-leading-zero);}
 .check-dot::after{content:'';display:inline-block;width:16px;height:1.5px;background:currentColor;border-radius:1px;}
 .check-item:hover .check-dot{color:var(--orange);background:transparent;box-shadow:none;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
 .check-callout{margin-top:0;padding:clamp(28px,3vw,40px) 0 0;background:none;border:none;border-top:1px solid var(--border-l);border-radius:0;text-align:center;}
 .check-callout-lead{font-family:var(--serif);font-weight:700;font-style:normal;font-size:clamp(23px,2.8vw,32px);color:var(--text-primary);margin-bottom:10px;letter-spacing:-.01em;}
@@ -533,8 +534,8 @@ body{padding-top:64px;}
 ══════════════════════════════════════ -->
 <section class="chapter light" data-screen-label="05 Statement">
   <div class="chapter-inner">
-    <span class="eyebrow on-light">Wat we doen</span>
-    <h2 class="manifesto-title">Montisoro maakt <em>care</em> werkbaar en <em>capability</em> schaalbaar.</h2>
+    <span class="eyebrow on-light">Wat u krijgt</span>
+    <h2 class="manifesto-title">U maakt <em>care</em> werkbaar en <em>capability</em> schaalbaar.</h2>
 
     <p class="manifesto-body">
       We brengen kennis, structuur en technologie samen om uitval te voorkomen, arbeidspotentieel zichtbaar te maken en duurzame inzetbaarheid te versterken.<br><br>
@@ -669,7 +670,7 @@ body{padding-top:64px;}
     <span class="eyebrow on-dark centered">Klaar om te starten?</span>
     <h2 class="title h-section on-dark">Klaar om verzuim niet langer te <em>ondergaan?</em></h2>
     <p class="sub on-dark" style="margin:0 auto 44px;max-width:560px;">
-      Plan een diagnosegesprek. We kijken waar uw organisatie vandaag grip verliest, wat dat kost en welke capability nodig is om verzuim structureel anders aan te pakken.
+      Plan een diagnosegesprek. U ontdekt waar uw organisatie vandaag grip verliest, wat dat kost en welke capability u nodig hebt om verzuim structureel anders aan te pakken.
     </p>
     <div class="action-grid">
       <a href="contact.html#channels" class="btn btn-primary">Plan een gesprek →</a>
@@ -689,7 +690,7 @@ body{padding-top:64px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#036b666f6f6c436e6c6d776a706c716c2d606c6e" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#e48c8188888ba4898b8a908d978b968bca878b89" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="Home.html">Home</a></li><li><a href="aanpak.html">Aanpak</a></li><li><a href="technologie.html">Technologie</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ.html">FAQ</a></li><li><a href="Referentie.html">Referenties</a></li><li><a href="fit-check.html">Fit check</a></li><li><a href="calculator.html">Verzuimcalculator</a></li></ul></div>
@@ -700,6 +701,27 @@ body{padding-top:64px;}
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── A11y (A-2): decoratief CSS-counter-nummer ook als echte tekst voor screenreaders,
+//    en de opsomming als lijst aankondigen. Visueel ongewijzigd; werkt ook zonder JS (CSS-counter blijft). ──
+(function(){
+  document.querySelectorAll('.check-list').forEach(function(list){
+    list.setAttribute('role','list');
+    var items = list.querySelectorAll('.check-item');
+    items.forEach(function(item, i){
+      item.setAttribute('role','listitem');
+      var dot = item.querySelector('.check-dot');
+      if(dot) dot.setAttribute('aria-hidden','true');
+      var n = String(i+1).padStart(2,'0');
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = n + '. ';
+      item.insertBefore(sr, item.firstChild);
+    });
+  });
+})();
+</script>
+
+<script>
 // ── Cinematic stat counters: number ticks up from 0 → target ──
 (function(){
   if(!('IntersectionObserver' in window)) return;
