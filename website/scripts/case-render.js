@@ -14,7 +14,7 @@
   var c = cases.filter(function(x){ return x.slug === slug; })[0];
   if (!c){
     if (root.hasAttribute('data-generic')){
-      root.innerHTML = '<section class="chapter dark" style="padding-top:clamp(120px,16vh,180px);min-height:60vh;"><div class="chapter-inner"><a class="case-back" href="' + (lang==='en'?'Referentie-en.html':'Referentie.html') + '"><span aria-hidden="true">\u2190</span> ' + (lang==='en'?'All references':'Alle referenties') + '</a><h1 class="title h-large on-dark">' + (lang==='en'?'Reference not found':'Referentie niet gevonden') + '</h1><p class="cs2-hero-sum">' + (lang==='en'?'This case is unavailable. Return to the references overview.':'Deze case is niet beschikbaar. Ga terug naar het referentie-overzicht.') + '</p></div></section>';
+      root.innerHTML = '<section class="chapter dark" style="padding-top:clamp(128px,17vh,188px) !important;min-height:60vh;"><div class="chapter-inner"><a class="case-back" href="' + (lang==='en'?'Referentie-en.html':'Referentie.html') + '"><span aria-hidden="true">\u2190</span> ' + (lang==='en'?'All references':'Alle referenties') + '</a><h1 class="title h-large on-dark">' + (lang==='en'?'Reference not found':'Referentie niet gevonden') + '</h1><p class="cs2-hero-sum">' + (lang==='en'?'This case is unavailable. Return to the references overview.':'Deze case is niet beschikbaar. Ga terug naar het referentie-overzicht.') + '</p></div></section>';
     }
     return;
   }
@@ -83,7 +83,7 @@
   var html = '';
 
   /* 01 HERO */
-  html += '<section class="chapter dark" data-screen-label="01 Hero" style="padding-top:clamp(104px,13vh,150px);">' +
+  html += '<section class="chapter dark" data-screen-label="01 Hero" style="padding-top:clamp(128px,17vh,188px) !important;">' +
     '<div class="chapter-inner">' +
       '<a class="case-back" href="' + backHref() + '"><span aria-hidden="true">\u2190</span> ' + L('Alle referenties','All references') + '</a>' +
       (c.logo ? '<img class="cs2-hero-logo" src="' + esc(c.logo) + '" alt="' + esc(c.company) + '">' : '') +
