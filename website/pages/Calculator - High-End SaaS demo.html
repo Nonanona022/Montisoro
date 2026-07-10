@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Verzuimcalculator — Montisoro</title>
+<meta name="description" content="Bereken wat verzuim uw organisatie écht kost. In zes korte stappen, op basis van de SD Worx Verzuimbarometer 2025 — één eerlijk cijfer en een volledig rapport.">
+<meta property="og:title" content="Verzuimcalculator — Montisoro">
+<meta property="og:description" content="Meer dan de meeste organisaties inschatten. Zes korte stappen, één eerlijk cijfer.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://montisoro.com/calculator.html">
+<meta property="og:url" content="https://montisoro.com/calculator.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0D0905">
+<link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator.html">
+<link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-en.html">
+<link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator.html">
+<link rel="icon" type="image/png" sizes="128x128" href="../assets/favicon.png?v=2">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+<link rel="apple-touch-icon" href="../assets/favicon.png?v=2">
+<meta property="og:image" content="https://montisoro.com/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verzuimcalculator — Montisoro">
+<meta name="twitter:description" content="Meer dan de meeste organisaties inschatten. Zes korte stappen, één eerlijk cijfer.">
+<meta name="twitter:image" content="https://montisoro.com/assets/og-image.jpg">
+<link rel="preload" href="../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-regular.css">
+<link rel="stylesheet" href="../assets/icons/phosphor-light.css">
+<link rel="stylesheet" href="../stylesheets/motion.css">
+<link rel="stylesheet" href="../stylesheets/site.css">
+<style>
+/* ── Production shell (site nav + footer) for the promoted calculator ── */
+:root{--bg:#13100D;--bg-deep:#0D0905;--orange:#E8592B;--orange-hover:#d04d22;--off:#F0EDE8;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',sans-serif;}
+.m-nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(19,16,13,.94);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid rgba(240,237,232,.08);height:64px;display:flex;align-items:center;padding:0 48px;justify-content:space-between;transition:background .3s ease;}
+.m-nav.scrolled{background:rgba(13,9,5,.97)}
+.m-nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;font-family:var(--serif);font-weight:900;font-size:22px;color:var(--off);letter-spacing:-.02em;}
+.m-nav-logo em{font-style:italic;color:var(--orange);font-weight:900;}
+.m-nav-logo img{height:44px;width:auto;display:block;}
+.m-nav-links{display:flex;align-items:center;gap:2px;list-style:none;margin:0;padding:0}
+.m-nav-links li{position:relative}
+.m-nav-links li a{font-family:var(--sans);font-size:13px;font-weight:400;letter-spacing:.03em;color:rgba(240,237,232,.6);text-decoration:none;padding:8px 14px;border-radius:6px;display:block;transition:color .2s,background .2s;white-space:nowrap;}
+.m-nav-links li a:hover,.m-nav-links li a.m-active{color:var(--off);background:rgba(240,237,232,.07)}
+.m-nav-links li a.m-cta{background:var(--orange);color:#fff;font-weight:600;padding:8px 20px;margin-left:6px;border-radius:8px;}
+.m-nav-links li a.m-cta:hover{background:var(--orange-hover)}
+.m-hamburger{display:none;background:none;border:none;cursor:pointer;padding:10px;margin-right:-10px;color:var(--off);font-size:24px;line-height:1;align-items:center;justify-content:center;min-width:44px;min-height:44px}
+@media(max-width:1180px){.m-nav{padding:0 20px}.m-nav-links{display:none}.m-hamburger{display:flex}}
+.m-footer{background:var(--bg-deep);padding:28px clamp(20px,5vw,48px);display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(240,237,232,.05);flex-wrap:wrap;gap:16px;}
+.m-footer .copy{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,232,.3);}
+.m-footer-links{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:flex-end;}
+.m-footer-links a{font-size:12px;color:rgba(240,237,232,.28);text-decoration:none;transition:color .2s;padding:5px 0;}
+.m-footer-links a:hover{color:var(--orange);}
+</style>
+<link rel="stylesheet" href="../stylesheets/calculator.css">
+<style>
+/* shell override after wizard CSS: clear the 64px fixed nav on every breakpoint */
+body{padding-top:64px;}
+</style>
+<link rel="stylesheet" href="../stylesheets/montisoro-v2.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Verzuimcalculator","url":"https://montisoro.com/calculator.html","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"nl-BE","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"provider":{"@type":"Organization","name":"Montisoro"}}</script>
+<link rel="stylesheet" href="../stylesheets/ds2.css">
+<style id="calc-flow-d-style">
+/* ═══ Variant D — rustige stappen → resultaat + rapport op het einde ═══
+   Additief & omkeerbaar: verbergt de live-preview tijdens het invullen en toont
+   het resultaatkader samen met het bestaande PDF-rapport pas op het einde.
+   Aangedreven door body.calc-flow-d (altijd) + body.calc-revealed (gate zichtbaar),
+   getoggled door een kleine observer op #bGate[hidden]. De reken-engine blijft onaangeroerd. */
+body.calc-flow-d #bMain .b-output{display:none;}
+body.calc-flow-d #bMain .b-grid{display:block;}
+body.calc-flow-d #bMain .b-stepper{margin-bottom:var(--space-5,20px);}
+body.calc-flow-d.calc-revealed #bMain .b-wizard{display:none;}
+body.calc-flow-d.calc-revealed #bMain .b-output{display:block;}
+/* het volledige rapport (#bGate) verhuist bij reveal in de workspace-grid als rechterkolom, naast de preview */
+body.calc-flow-d.calc-revealed #bMain #bGate{background:#241C15;border:1px solid var(--div-d);border-radius:var(--radius-xl);padding:22px 20px;overflow:hidden;}
+body.calc-flow-d.calc-revealed #bMain #bGate .b-gate-inner{max-width:none;gap:22px;}
+@media(min-width:920px){
+  body.calc-flow-d.calc-revealed #bMain .b-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"stepper stepper" "output gate";align-items:stretch;gap:var(--space-6);}
+  body.calc-flow-d.calc-revealed #bMain #bGate{grid-area:gate;}
+  body.calc-flow-d.calc-revealed #bMain .b-output{grid-area:output;}
+}
+@media(max-width:919px){
+  /* mobiel: forceer de volgorde stepper → totaal → rapport (broncode heeft .b-output vóór de stepper) */
+  body.calc-flow-d.calc-revealed #bMain .b-grid{display:grid;grid-template-columns:1fr;grid-template-areas:"stepper" "output" "gate";gap:var(--space-5);}
+  body.calc-flow-d.calc-revealed #bMain .b-stepper{grid-area:stepper;}
+  body.calc-flow-d.calc-revealed #bMain .b-output{grid-area:output;}
+  body.calc-flow-d.calc-revealed #bMain #bGate{grid-area:gate;}
+}
+
+/* — Stap 6: handmatige invoer met de veld-affordance (potlood + kader-focus) van de andere stappen,
+   MÁÁR mét behoud van de sector-kleur (groen/oranje/rood) die met de cijfers meebeweegt. — additief —
+   Gekoppeld aan :has(.c-pill-in): de engine herschrijft de pill-className (ok/warn/bad) bij elke herberekening,
+   dus die classes leveren de achtergrond/rand/tekst; wij voegen enkel de veld-affordance toe. */
+.b-cat2 .c-pill:has(.c-pill-in){display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-md);padding:6px 10px;min-width:96px;cursor:text;transition:border-color .15s,box-shadow .15s,background-color .15s;}
+.b-cat2 .c-pill .c-pill-in{border:0;outline:0;background:transparent;font:inherit;font-weight:700;color:inherit;text-align:right;font-feature-settings:"tnum";width:46px;min-width:46px;padding:0;-moz-appearance:textfield;}
+.b-cat2 .c-pill .c-pill-in::-webkit-outer-spin-button,.b-cat2 .c-pill .c-pill-in::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+/* GEEN losse focus-ring rond de cijfers zelf — de ring komt enkel rond het kader */
+.b-cat2 .c-pill .c-pill-in:focus-visible{box-shadow:none;}
+.b-cat2 .c-pill .c-pill-suf{color:inherit;opacity:.8;font-size:var(--text-sm);font-weight:600;}
+.b-cat2 .c-pill .pencil{width:14px;height:14px;color:currentColor;opacity:.6;flex-shrink:0;}
+.b-cat2 .c-pill:has(.c-pill-in):hover .pencil{opacity:.9;}
+.b-cat2 .c-pill:has(.c-pill-in):focus-within{box-shadow:var(--focus);}
+.b-cat2 .c-pill:has(.c-pill-in):focus-within .pencil{opacity:1;}
+</style>
+</head>
+<body class="nav-boxed2 ds2">
+<template id="__bundler_thumbnail" data-bg-color="#13100D">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#13100D"/>
+    <circle cx="100" cy="100" r="58" fill="none" stroke="#E8592B" stroke-width="2" opacity="0.4"/>
+    <text x="100" y="120" font-family="Georgia, serif" font-size="70" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">β</text>
+  </svg>
+</template>
+
+<style id="calc-focus-style">
+/* ══ CALCULATOR FOCUS-OVERLAY — klik CTA → wizard als full-screen focus-laag (Fit Check-stijl balk). Engine ONaangeroerd. ══ */
+body:not(.cf-open) #bMain{display:none !important;}
+body.cf-open{overflow:hidden;}
+body.cf-open .m-nav{visibility:hidden;}
+body.cf-open #bMain{
+  display:block;position:fixed;inset:0;z-index:100000;margin:0;max-width:none;width:100%;height:100%;
+  background:radial-gradient(120% 90% at 82% -10%,rgba(232,89,43,.10),transparent 55%),var(--bg,#13100D);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:clamp(88px,13vh,124px) clamp(20px,4vw,40px) clamp(36px,7vh,72px);
+  animation:cfIn .5s cubic-bezier(.16,1,.3,1);
+}
+@keyframes cfIn{from{opacity:0;transform:scale(.992);}to{opacity:1;transform:none;}}
+body.cf-open #bMain .b-grid{max-width:840px;margin:0 auto;display:block !important;}
+body.cf-open #bMain .b-wizard{max-width:840px;margin:0 auto;}
+body.cf-open #bMain .ds-callout{display:none;}
+body.cf-open #bMain .b-stepper{display:none;} /* de in-content stepper-kaart is verhuisd naar de balk */
+
+/* ── Fit Check-stijl balk: logo | stepper (cirkels) | ronde sluitknop ── */
+.cf-bar{display:none;}
+body.cf-open .cf-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  position:fixed;top:0;left:0;right:0;z-index:100001;
+  padding:13px clamp(18px,4vw,40px);
+  background:var(--bg,#13100D);border-bottom:1px solid var(--div-d,rgba(240,237,232,.1));
+}
+.cf-logo{display:flex;align-items:center;flex:0 0 auto;}
+.cf-logo img{height:34px;width:auto;display:block;}
+.cf-stepslot{flex:1 1 auto;min-width:0;display:flex;justify-content:center;}
+.cf-stepslot .b-stepper{display:block !important;background:transparent !important;border:0 !important;padding:0 !important;margin:0 !important;width:100%;max-width:720px;}
+.cf-stepslot .b-stepper ol{display:flex;gap:0;align-items:flex-start;justify-content:center;}
+/* stap-naam ENKEL bij de actieve stap (onder het cijfer), gestyled voor de donkere balk */
+.cf-stepslot .b-step .name{display:none !important;}
+.cf-stepslot .b-step.is-active .name{display:block !important;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;font-size:11px;font-weight:600;letter-spacing:.02em;line-height:1.2;color:var(--off,#F0EDE8);max-width:130px;white-space:nowrap;text-align:center;}
+/* verbindingslijn: onvoltooid = subtiel licht op donker (de oranje .is-done-lijn blijft) */
+.cf-stepslot .b-step:not(.is-done):not(:last-child)::after{background:rgba(240,237,232,.16);}
+/* verbindingslijn netjes op de 26px-vierkante cirkels: verticaal gecentreerd op het cirkelmidden (top 14) + Fit Check-inset (14/28) */
+@media(min-width:920px){
+  .cf-stepslot .b-step:not(:last-child)::after{top:14px;left:calc(50% + 14px);width:calc(100% - 28px);}
+}
+.cf-stepslot .b-progress{display:none !important;}
+.cf-close{flex:0 0 auto;background:transparent;border:1px solid rgba(240,237,232,.14);border-radius:50%;color:var(--off,#F0EDE8);width:42px;height:42px;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s,transform .3s;}
+.cf-close:hover{color:var(--orange,#E8592B);border-color:var(--orange,#E8592B);transform:rotate(90deg);}
+.cf-close svg{width:16px;height:16px;}
+/* persistente reset in de bovenbalk (i.p.v. een eigen rij onderaan de kaart) — quiet, links van de sluitknop */
+.cf-reset{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;background:transparent;border:0;color:var(--muted-d,rgba(240,237,232,.6));font-family:var(--sans);font-size:13px;font-weight:500;cursor:pointer;padding:6px 4px;transition:color .2s;}
+.cf-reset svg{width:15px;height:15px;}
+.cf-reset:hover{color:var(--orange,#E8592B);}
+/* onderste reset-rij vervalt in overlay-modus — was verloren ruimte + verlengde de kaart */
+body.cf-open .b-nav-extra{display:none;}
+/* geen twee resets tegelijk: verberg de balk-reset zolang de contextuele resume-balk toont */
+body.cf-open:has(#bResumeBar:not([hidden])) .cf-reset{display:none;}
+@media(max-width:680px){
+  .cf-logo img{height:28px;}
+  body.cf-open .cf-bar{gap:10px;padding:11px 15px;}
+  .cf-reset span{display:none;}
+  .cf-stepslot .b-stepper{max-width:none;}
+  /* mobiel: namen passen niet 6-breed → verberg ze, toon de actieve-stap-progresslabel (= Fit Check mobiel) */
+  .cf-stepslot .b-step .name{display:none !important;}
+  .cf-stepslot .b-progress{display:block !important;text-align:center;margin-top:6px;}
+  .cf-stepslot .b-progress .nm{color:var(--off,#F0EDE8);font-size:12px;font-weight:600;}
+}
+@media(prefers-reduced-motion:reduce){body.cf-open #bMain{animation:none;}.cf-close{transition:none;}}
+/* download-knop duidelijk aankondigen bij verschijnen */
+@keyframes cfPulse{0%{box-shadow:0 0 0 0 rgba(232,89,43,.45);}70%{box-shadow:0 0 0 12px rgba(232,89,43,0);}100%{box-shadow:0 0 0 0 rgba(232,89,43,0);}}
+#bDownloadPdf.cf-pulse{animation:cfPulse 1.4s ease-out 1;}
+@media(prefers-reduced-motion:reduce){#bDownloadPdf.cf-pulse{animation:none;}}
+</style>
+
+<style id="saas-skin">
+/* ══════════════════════════════════════════════════════════════
+   CALCULATOR ↔ FIT CHECK · design-language alignment.
+   Doel: de wizard voelt exact als de Fit Check (zelfde designteam).
+   Waarden 1:1 overgenomen uit de Fit Check (.fc-content / .fc-question
+   / .fc-hint / .fcg-input / .fc-nav). Enkel VISUEEL — engine, flow,
+   stappen, teksten, berekeningen ONaangeroerd. Gescoped body.cf-open.
+   ══════════════════════════════════════════════════════════════ */
+
+/* — Stepper: 7px afgerond vierkant + sans + tabulair (identiek aan Fit Check-modal .fc-circle) — */
+body.cf-open .cf-stepslot .b-step .circle{border-radius:7px;font-family:var(--sans);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";}
+
+/* — Wizard-kaart = .fc-content: witte kaart op donker, radius 20px,
+     dezelfde diepe schaduw + fijne rand — */
+body.cf-open .b-wizard{
+  border-radius:20px;
+  border:1px solid rgba(26,21,18,0.12);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.7),0 2px 8px rgba(0,0,0,.28);
+}
+
+/* — Staptitel + Verplicht/Optioneel-badge: GEWONE (sans) font i.p.v. serif — */
+body.cf-open .b-panel-head{align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+body.cf-open .b-panel-head h2{
+  font-family:var(--sans);font-weight:700;
+  font-size:clamp(24px,3vw,34px);line-height:1.2;
+  letter-spacing:-.01em;color:#1A1512;
+}
+body.cf-open .b-panel-head h2 em{font-style:italic;color:var(--orange);}
+body.cf-open .b-panel-head h2 .b-steptag{font-family:var(--sans);}
+
+/* — Lead = .fc-hint: rustige subtekst, ruimte eronder — */
+body.cf-open .b-panel-lead{font-size:14px;color:#6E6359;line-height:1.6;margin-bottom:30px;}
+
+/* — Velden = .fcg-input: crisp, oranje focus-glow — */
+body.cf-open .b-numfield{border-radius:10px;transition:border-color .16s ease,box-shadow .16s ease;}
+body.cf-open .b-numfield:focus-within{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,89,43,.18);}
+
+/* — Toggle-groep: strakke radius, oranje pressed-state (=.fc-opt-signatuur) — */
+body.cf-open .b-grp{border-radius:12px;}
+body.cf-open .b-grp button{border-radius:8px;transition:background .16s ease,color .16s ease,box-shadow .16s ease;}
+
+/* — Navigatie = .fc-nav: gevulde oranje UPPERCASE 'volgende' + ghost 'terug'.
+     GEEN oranje drop-glow: die is voor de DONKERE Fit Check-balk; hier zit de
+     knop op een lichte kaart → schone gevulde pill zonder glow (=zelfde look). — */
+body.cf-open .b-btn.primary{
+  background:#CC4A1E;border-color:#CC4A1E;
+  text-transform:uppercase;letter-spacing:.06em;font-size:13px;font-weight:600;
+  padding:15px 32px;
+  box-shadow:none;
+  transition:background .16s ease;
+}
+body.cf-open .b-btn.primary:hover:not(:disabled){background:#B8420F;border-color:#B8420F;box-shadow:none;}
+body.cf-open .b-btn:focus-visible,
+body.cf-open .b-grp button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(232,89,43,.32);}
+/* geen aparte ring op de input in een .b-numfield: het kader toont focus al via :focus-within (anders 2 geneste kaders) */
+body.cf-open .b-numfield input:focus-visible{outline:none;box-shadow:none;}
+
+/* — Skip-hint / basis-strip: strakkere radius — */
+body.cf-open .b-skiphint,body.cf-open .b-basis{border-radius:10px;}
+
+/* — Laatste stap (reveal) = EXACT de vorige versie: geen skin op de
+   uitkomst-kaart/rapport. Enkel de twee kaders weer NAAST elkaar zetten
+   (de 840px-overlaykolom liet ze stapelen; regel .b-grid display:block). — */
+@media(min-width:920px){
+  body.cf-open.calc-revealed #bMain .b-grid{max-width:min(1160px,96vw);display:grid !important;}
+}
+</style>
+
+<a href="#bMain" class="skip">Naar de calculator</a>
+
+<!-- NAV -->
+<nav class="m-nav" id="mNav">
+  <a href="Home.html" class="m-nav-logo" aria-label="Montisoro home"><img decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"></a>
+  <ul class="m-nav-links">
+    <li><a href="aanpak.html">Aanpak</a></li>
+    <li><a href="technologie.html">Technologie</a></li>
+    <li><a href="fit-check.html">Fit check</a></li>
+    <li><a href="calculator.html" class="m-active">Calculator</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html#channels" class="m-cta">Plan een gesprek →</a></li>
+  </ul>
+  <button class="m-hamburger" aria-label="Menu"><i class="ph ph-list"></i></button>
+</nav>
+<script>(function(){var n=document.getElementById('mNav');window.addEventListener('scroll',function(){n.classList.toggle('scrolled',window.scrollY>40);});})();</script>
+
+<!-- BANNER -->
+<section class="hero-statement" data-screen-label="01 Hero">
+  <svg class="hs-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hbg" x1="0.3" x2="0.7" y1="0" y2="1"><stop offset="0%" stop-color="#13100D"/><stop offset="50%" stop-color="#13100D"/><stop offset="100%" stop-color="#0D0905"/></linearGradient>
+      <linearGradient id="hls1" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.18"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <linearGradient id="hls2" x1="0" x2="0.85" y1="0" y2="1"><stop offset="0%" stop-color="#D4935A" stop-opacity="0.12"/><stop offset="100%" stop-color="#D4935A" stop-opacity="0"/></linearGradient>
+      <radialGradient cx="92%" cy="6%" id="hgtr" r="45%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.20"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="8%" cy="92%" id="hgbl" r="40%"><stop offset="0%" stop-color="#C87B3A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C87B3A" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="50%" cy="50%" id="hvig" r="65%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.55"/></radialGradient>
+      <filter id="hgrain"><feTurbulence baseFrequency="0.85" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#hbg)" width="1600" height="900"/>
+    <rect fill="url(#hgtr)" width="1600" height="900"/>
+    <rect fill="url(#hgbl)" width="1600" height="900"/>
+    <polygon fill="url(#hls1)" opacity="0.6" points="1600,0 1600,420 320,900 -80,900"/>
+    <polygon fill="url(#hls2)" opacity="0.5" points="0,0 0,360 1280,900 1500,900"/>
+    <polygon fill="url(#hls1)" opacity="0.30" points="1240,0 1300,0 580,900 480,900"/>
+    <path d="M 1600 600 C 1240 580, 760 770, 0 880" fill="none" stroke="#E8592B" stroke-opacity="0.18" stroke-width="1.5"/>
+    <path d="M 1600 680 C 1340 660, 880 800, 200 880" fill="none" stroke="#E8592B" stroke-opacity="0.22" stroke-width="1"/>
+    <rect fill="url(#hvig)" width="1600" height="900"/>
+    <rect filter="url(#hgrain)" width="1600" height="900" opacity="0.05"/>
+  </svg>
+  <div class="hs-inner">
+    <p class="hs-eyebrow"><svg class="hs-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.5"/></svg>6 stappen · ± 2 minuten</p>
+    <h1 class="hs-headline">Wat kost verzuim <em>écht</em>?</h1>
+    <p class="hs-body">In zes korte stappen, op basis van uw organisatie, brutoloon, vaste kosten en de Belgische verzuimbarometer. Op het einde krijgt u één onderbouwd cijfer én uw volledige rapport.</p>
+    <div class="hs-cta-row"><a class="btn btn-primary" href="#bMain">Bereken uw verzuimkost →</a></div>
+    <p class="hs-proof">Gebaseerd op <b>2.500+&nbsp;dossiers</b> · <b>8&nbsp;jaar</b>&nbsp;praktijkervaring</p>
+  </div>
+</section>
+
+<!-- WORKSPACE -->
+<main id="bMain" class="b-workspace">
+  <aside class="ds-callout" aria-label="Methodologie">
+    <div class="ds-callout-label">Methodologie</div>
+    <p>Elke uitkomst is gebaseerd op <strong>uw cijfers</strong> en de Belgische verzuimbarometer, een onderbouwde indicatie, geen schatting.</p>
+  </aside>
+  <div class="b-grid">
+
+    <!-- OUTPUT -->
+    <aside class="b-output" aria-label="Resultaat">
+      <p id="bSrStatus" class="b-sr-only" role="status" aria-live="polite"></p>
+      <div class="b-output-in">
+        <div class="b-out-head">
+          <span class="b-out-eyebrow">Totale jaarlijkse verzuimkost</span>
+          <span class="b-chip">Jaarlijks · indicatief</span>
+        </div>
+
+        <div class="b-result"><span class="cur">€</span><span id="bResultNum">0</span><span class="unit"></span></div>
+
+        <div class="b-verzpct">
+          <span class="vp-val"><span id="bVerzPct">0,0</span><span class="pct">%</span></span>
+          <span class="vp-lbl">Verzuimpercentage</span>
+        </div>
+
+        <div class="b-sub">
+          <span><b id="bDays">0</b> verloren werkdagen / jaar</span>
+          <span class="b-delta" id="bDelta">—</span>
+        </div>
+
+        <p class="b-empty-hint" id="bEmptyHint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span>Vul de cijfers in om het resultaat weer te geven.</span>
+        </p>
+
+        <!-- CFO-eerlijke breakdown -->
+        <div class="b-cfo" aria-label="Kostenopbouw">
+          <div class="b-cfo-row is-core">
+            <span class="lbl">Directe werkgeverskosten</span>
+            <span class="val" id="cfoLoon">€ 0</span>
+          </div>
+          <div class="b-cfo-row">
+            <span class="lbl">+ Doorlopende werkgeverskosten</span>
+            <span class="val" id="cfoVoord">€ 0</span>
+          </div>
+          <div class="b-cfo-row">
+            <span class="lbl">+ Vervangingskosten</span>
+            <span class="val" id="cfoVervang">€ 0</span>
+          </div>
+          <div class="b-cfo-row is-total">
+            <span class="lbl">= Totale werkgeverslast</span>
+            <span class="val" id="cfoTotal">€ 0</span>
+          </div>
+          <div class="b-bar b-bar-in" aria-hidden="true">
+            <span class="b-seg-loon" id="segLoon" style="width:0%"></span>
+            <span class="b-seg-voord" id="segVoord" style="width:0%"></span>
+            <span class="b-seg-verz" id="segVerz" style="width:0%"></span>
+          </div>
+        </div>
+
+        <div class="b-divider"></div>
+
+        <div class="b-kpis">
+          <div class="b-kpi">
+            <div class="k-lbl">Directe loonkost/medewerker</div>
+            <div class="k-val"><span class="cur">€</span><span id="kpiPerEmp">0,0</span><small>K / jr</small></div>
+            <div class="k-sub" id="kpiPerEmpSub">≈ 0 dagen × €0</div>
+          </div>
+          <div class="b-kpi">
+            <div class="k-lbl">Werkelijke verzuimkost/medewerker</div>
+            <div class="k-val"><span class="cur">€</span><span id="kpiPerDay">0,0</span><small>K / jr</small></div>
+            <div class="k-sub">zonder organisatorische impact</div>
+          </div>
+          <div class="b-kpi">
+            <div class="k-lbl">Organisatorische impact/medewerker</div>
+            <div class="k-val"><span class="cur">€</span><span id="kpiLostDays">0,0</span><small>K / jr</small></div>
+            <div class="k-sub">indirecte kost</div>
+          </div>
+          <div class="b-kpi">
+            <div class="k-lbl">Totale kost/medewerker</div>
+            <div class="k-val"><span class="cur">€</span><span id="kpiAddons">0,0</span><small>K / jr</small></div>
+            <div class="k-sub">directe + indirecte kost</div>
+          </div>
+        </div>
+
+        <div class="b-risk-teaser">
+          <span class="b-risk-dot" id="riskDot"></span>
+          <div>
+            <div class="rt-lbl">Risiconiveau t.o.v. sector</div>
+            <div class="rt-val" id="riskVal">—</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- WIZARD -->
+    <nav class="b-stepper" aria-label="Stappen">
+        <ol>
+          <li class="b-step is-active" data-step="1"><button class="step-btn" type="button"><span class="circle">1</span><span class="name">Organisatie</span></button></li>
+          <li class="b-step" data-step="2"><button class="step-btn" type="button"><span class="circle">2</span><span class="name">Brutoloon</span></button></li>
+          <li class="b-step" data-step="3"><button class="step-btn" type="button"><span class="circle">3</span><span class="name">Doorlopende kosten</span></button></li>
+          <li class="b-step" data-step="4"><button class="step-btn" type="button"><span class="circle">4</span><span class="name">Vervangingskosten</span></button></li>
+          <li class="b-step" data-step="5"><button class="step-btn" type="button"><span class="circle">5</span><span class="name">Organisatorische impact</span></button></li>
+          <li class="b-step" data-step="6"><button class="step-btn" type="button"><span class="circle">6</span><span class="name">Verzuimprofiel</span></button></li>
+        </ol>
+        <div class="b-progress" aria-hidden="true">
+          <div class="b-progress-bar"><i id="bProgBar" style="width:16.6%"></i></div>
+          <div class="b-progress-txt"><span class="nm" id="bProgName">Organisatie</span></div>
+        </div>
+    </nav>
+
+    <section class="b-wizard" aria-label="Invoer">
+      <div class="b-resume" id="bResumeBar" role="status" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.36 2.64L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>We hebben uw vorige invoer hersteld.</span>
+        <button type="button" class="b-resume-x js-calc-reset">Opnieuw beginnen</button>
+      </div>
+      <div class="b-steps">
+
+        <!-- STAP 1 -->
+        <div class="b-panel is-active" data-step="1">
+          <div class="b-panel-head">
+            
+            <h2>Organisatie</h2>
+          </div>
+          <p class="b-panel-lead">Hoe groot is uw organisatie en hoe is ze samengesteld?</p>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="fteNum">Aantal medewerkers (FTE)
+                <span class="b-info" tabindex="0" data-tip="Voltijdse equivalenten. Deeltijders tellen pro rata mee.">i</span>
+              </label>
+              <span class="b-numfield">
+                <input id="fteNum" type="text" inputmode="numeric" value="0" aria-label="Aantal medewerkers, handmatig invoeren">
+                <span class="suf">FTE</span>
+                <svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </span>
+            </div>
+            <input class="b-slider" id="fte" type="range" min="1" max="2000" step="1" value="1" aria-label="Aantal medewerkers">
+            <div class="b-slider-meta"><span>1</span><span>2.000+</span></div>
+          </div>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="splitRange">Verdeling arbeider / bediende
+                <span class="b-info" tabindex="0" data-tip="Het aandeel arbeiders. De rest zijn bedienden. Versleep, typ of gebruik de pijltjestoetsen.">i</span>
+              </label>
+              <span class="b-numfield" style="min-width:96px">
+                <input id="splitNum" type="text" inputmode="numeric" value="0" aria-label="Percentage arbeiders">
+                <span class="suf">% arb.</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </span>
+            </div>
+            <div class="b-split-readouts">
+              <div class="ro arb"><div class="ro-lbl">Arbeiders</div><div class="ro-val"><span id="arbCount">0</span></div></div>
+              <div class="ro bed"><div class="ro-lbl">Bedienden</div><div class="ro-val"><span id="bedCount">0</span></div></div>
+            </div>
+            <input class="b-slider" id="splitRange" type="range" min="0" max="100" step="1" value="0" aria-label="Percentage arbeiders versus bedienden">
+            <div class="b-split-pct"><span class="a"><span id="splitPctA">0</span>% arbeiders</span><span class="b"><span id="splitPctB">100</span>% bedienden</span></div>
+          </div>
+
+          <div class="b-nudge" id="bNudge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <span>Vul minstens uw aantal medewerkers en brutoloon in voor een cijfer op maat.</span>
+          </div>
+        </div>
+
+        <!-- STAP 2 -->
+        <div class="b-panel" data-step="2">
+          <div class="b-panel-head">
+            
+            <h2>Gemiddeld brutoloon</h2>
+          </div>
+          <p class="b-panel-lead">Wat kost uw medewerker gemiddeld per jaar.</p>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="salaryNum">Brutoloon / jaar
+                <span class="b-info" tabindex="0" data-tip="Incl. vakantiegeld, eindejaarspremie en gemiddelde bonus, excl. patronale RSZ (die rekent de engine apart via ×1,30).">i</span>
+              </label>
+              <span class="b-numfield">
+                <span class="pre">€</span>
+                <input id="salaryNum" type="text" inputmode="numeric" value="0" aria-label="Brutoloon per jaar, handmatig invoeren">
+                <svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+              </span>
+            </div>
+            <input class="b-slider" id="salary" type="range" min="20000" max="120000" step="500" value="20000" aria-label="Brutoloon per jaar">
+            <div class="b-slider-meta"><span>€ 20.000</span><span>€ 120.000+</span></div>
+            <p class="b-help">U kunt slepen of het exacte bedrag typen in het veld hierboven.</p>
+          </div>
+
+          <div class="b-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-4"/><path d="M12 8h.01"/><circle cx="12" cy="12" r="10"/></svg>
+            <span><span class="nt-title">Solidariteitsbijdrage (RIT 3.0)</span><b>2026:</b> 30% van het bedrag van de ziekte-uitkering in maand 2 en 3 van de arbeidsongeschiktheid. <b>2027:</b> uitgebreid met maand 4 en 5.</span>
+          </div>
+        </div>
+
+        <!-- STAP 3 — DOORLOPENDE KOSTEN (voordelen + verzekeringen) -->
+        <div class="b-panel" data-step="3">
+          <div class="b-panel-head">
+            
+            <h2>Doorlopende kosten</h2>
+          </div>
+          <p class="b-panel-lead">Alle vaste doorlopende kosten, naast het gewaarborgd loon.</p>
+          <div class="b-skiphint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg><span><b>Niet van toepassing?</b> Laat de velden op €0, dan tellen ze niet mee. U kunt gewoon verder.</span></div>
+
+          <p class="b-grp-hint">Duid per kost aan of die geldt voor arbeider / bediende / beide.</p>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="voordelen">Voordelen alle aard
+                <span class="b-info" tabindex="0" data-tip="Gsm, laptop e.d., gemiddeld per medewerker per maand.">i</span>
+              </label>
+              <div class="b-fieldrow">
+                <span class="b-numfield"><span class="pre">€</span><input id="voordelen" type="text" inputmode="numeric" value="0" aria-label="Voordelen alle aard per maand"><span class="suf">/ mnd</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+                <div class="b-grp" data-grp="grpVoordelen" role="group" aria-label="Voordelen alle aard van toepassing op">
+                  <button type="button" data-val="arbeider">Arbeider</button>
+                  <button type="button" data-val="bediende">Bediende</button>
+                  <button type="button" class="on" data-val="beide">Beide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-field">
+            <div class="b-flabel"><label class="lab" for="groepsv">Groepsverzekering</label>
+              <div class="b-fieldrow">
+                <span class="b-numfield"><span class="pre">€</span><input id="groepsv" type="text" inputmode="numeric" value="0" aria-label="Groepsverzekering per jaar"><span class="suf">/ jr</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+                <div class="b-grp" data-grp="grpGroepsv" role="group" aria-label="Groepsverzekering van toepassing op">
+                  <button type="button" data-val="arbeider">Arbeider</button>
+                  <button type="button" class="on" data-val="bediende">Bediende</button>
+                  <button type="button" data-val="beide">Beide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="b-field">
+            <div class="b-flabel"><label class="lab" for="hospv">Hospitalisatieverzekering</label>
+              <div class="b-fieldrow">
+                <span class="b-numfield"><span class="pre">€</span><input id="hospv" type="text" inputmode="numeric" value="0" aria-label="Hospitalisatieverzekering per jaar"><span class="suf">/ jr</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+                <div class="b-grp" data-grp="grpHospv" role="group" aria-label="Hospitalisatieverzekering van toepassing op">
+                  <button type="button" data-val="arbeider">Arbeider</button>
+                  <button type="button" data-val="bediende">Bediende</button>
+                  <button type="button" class="on" data-val="beide">Beide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="b-field">
+            <div class="b-flabel"><label class="lab" for="andereverz">Andere verzekeringen
+                <span class="b-info" tabindex="0" data-tip="Verzekering gewaarborgd inkomen of andere aanvullende verzekeringen bovenop de groeps- en hospitalisatieverzekering.">i</span>
+              </label>
+              <div class="b-fieldrow">
+                <span class="b-numfield"><span class="pre">€</span><input id="andereverz" type="text" inputmode="numeric" value="0" aria-label="Andere verzekeringen per jaar"><span class="suf">/ jr</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+                <div class="b-grp" data-grp="grpAndereverz" role="group" aria-label="Andere verzekeringen van toepassing op">
+                  <button type="button" data-val="arbeider">Arbeider</button>
+                  <button type="button" data-val="bediende">Bediende</button>
+                  <button type="button" class="on" data-val="beide">Beide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="firmawagen">Firmawagen
+                <span class="b-info" tabindex="0" data-tip="Maandelijkse werkgeverskost van de bedrijfswagen, gemiddeld per medewerker met wagen.">i</span>
+              </label>
+              <div class="b-fieldrow">
+                <span class="b-numfield"><span class="pre">€</span><input id="firmawagen" type="text" inputmode="numeric" value="0" aria-label="Firmawagen per maand"><span class="suf">/ mnd</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+                <div class="b-grp" data-grp="grpFirmawagen" role="group" aria-label="Firmawagen van toepassing op">
+                  <button type="button" data-val="arbeider">Arbeider</button>
+                  <button type="button" class="on" data-val="bediende">Bediende</button>
+                  <button type="button" data-val="beide">Beide</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="b-totalrow">
+            <div class="l">Doorlopende kosten<small>gemiddeld per medewerker (beide)</small></div>
+            <div class="v">€&nbsp;<span id="addonsTotal" style="font-weight:800">0</span><small style="font-size:11px;color:var(--ink-mute);font-weight:400">/jr · €<span id="addonsMonth">0</span>/mnd</small></div>
+          </div>
+          <div class="b-splitcost">
+            <div class="sc"><span class="sc-l">Per arbeider</span><span class="sc-v">€&nbsp;<span id="addonsArb">0</span><small>/jr · €<span id="addonsArbM">0</span>/mnd</small></span></div>
+            <div class="sc"><span class="sc-l">Per bediende</span><span class="sc-v">€&nbsp;<span id="addonsBed">0</span><small>/jr · €<span id="addonsBedM">0</span>/mnd</small></span></div>
+          </div>
+        </div>
+
+        <!-- STAP 4 — VERVANGINGSKOSTEN -->
+        <div class="b-panel" data-step="4">
+          <div class="b-panel-head">
+            
+            <h2>Vervangingskosten</h2>
+          </div>
+          <p class="b-panel-lead">Kosten om het werk toch uitgevoerd te krijgen: interim, tijdelijke vervanging, extra aanwerving of overuren van collega's.</p>
+          <div class="b-skiphint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg><span><b>Kent u dit cijfer niet?</b> De ingevulde waarde is het Belgische sectorgemiddelde. Laat staan en ga verder.</span></div>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="vervangFactorNum">Aandeel vervangingskosten
+                <span class="b-info" tabindex="0" data-tip="Welk deel van de directe werkgeverskosten gaat naar het vervangen van afwezigen? Vb. 50% = de helft van de directe kosten komt er als vervanging bovenop.">i</span>
+              </label>
+              <span class="b-numfield"><input id="vervangFactorNum" type="text" inputmode="numeric" value="30" aria-label="Aandeel vervangingskosten in procent"><span class="suf">%</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+            </div>
+            <input class="b-slider" id="vervangFactor" type="range" min="0" max="100" step="5" value="30" aria-label="Aandeel vervangingskosten in procent van de directe kosten">
+            <div class="b-slider-meta"><span>0%</span><span>100%</span></div>
+            <p class="b-help">% van de directe werkgeverskosten dat als vervangingskost bovenop komt.</p>
+          </div>
+
+          <div class="b-totalrow">
+            <div class="l">Vervangingskosten<small>aandeel × directe kosten</small></div>
+            <div class="v">€&nbsp;<span id="vervangYr" style="font-weight:800">0</span><small style="font-size:11px;color:var(--ink-mute);font-weight:400">/jr</small></div>
+          </div>
+        </div>
+
+        <!-- STAP 5 — ORGANISATORISCHE IMPACT -->
+        <div class="b-panel" data-step="5">
+          <div class="b-panel-head">
+            
+            <h2>Organisatorische impact</h2>
+          </div>
+          <p class="b-panel-lead">Productiviteitsverlies, managementtijd, kennisverlies, kwaliteitsverlies, vertragingen en re-integratie-inspanningen, de niet-gefactureerde kost van verzuim.</p>
+          <div class="b-skiphint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg><span><b>Kent u dit cijfer niet?</b> De ingevulde waarde is het gemiddelde (± 50%). Laat staan en ga verder.</span></div>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="orgFactorNum">Aandeel organisatorische impact
+                <span class="b-info" tabindex="0" data-tip="Geschat als percentage van de directe loonkost. Gemiddeld ± 50%. Dit is de niet-gefactureerde, indirecte kost die zelden in de boekhouding zichtbaar is.">i</span>
+              </label>
+              <span class="b-numfield"><input id="orgFactorNum" type="text" inputmode="numeric" value="50" aria-label="Aandeel organisatorische impact in procent"><span class="suf">%</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+            </div>
+            <input class="b-slider" id="orgFactor" type="range" min="0" max="150" step="5" value="50" aria-label="Aandeel organisatorische impact in procent van de directe loonkost">
+            <div class="b-slider-meta"><span>0%</span><span>150%</span></div>
+            <p class="b-help">% van de directe loonkost. Standaard 50%</p>
+          </div>
+
+          <div class="b-totalrow">
+            <div class="l">Organisatorische impact<small>aandeel × directe loonkost</small></div>
+            <div class="v">€&nbsp;<span id="orgYr" style="font-weight:800">0</span><small style="font-size:11px;color:var(--ink-mute);font-weight:400">/jr</small></div>
+          </div>
+        </div>
+
+        <!-- STAP 6 — VERZUIM (progressive disclosure) -->
+        <div class="b-panel" data-step="6">
+          <div class="b-panel-head">
+            
+            <h2>Verzuimprofiel</h2>
+          </div>
+          <p class="b-panel-lead">Pas het verzuim per categorie aan, apart voor arbeiders en bedienden. <strong>De schuiven starten op het Belgisch sectorgemiddelde</strong>, pas ze aan naar uw cijfers. De vergelijking met het sectorgemiddelde vindt u in uw rapport.</p>
+
+          <div class="b-field">
+            <div class="b-flabel">
+              <label class="lab" for="days">Netto werkdagen / jaar
+                <span class="b-info" tabindex="0" data-tip="Na aftrek van vakantie, feestdagen en ADV. Belgisch gemiddelde ±220.">i</span>
+              </label>
+              <span class="b-numfield"><input id="daysNum" type="text" inputmode="numeric" value="220" aria-label="Netto werkdagen per jaar, handmatig invoeren"><span class="suf">dgn</span><svg class="pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+            </div>
+            <input class="b-slider" id="days" type="range" min="180" max="240" step="1" value="220" aria-label="Netto werkdagen per jaar">
+            <div class="b-slider-meta"><span>180</span><span>240</span></div>
+          </div>
+
+          <div style="height:1px;background:var(--line-soft);margin:20px 0;"></div>
+
+          <div class="b-verz-head">
+            <span class="vg-title">Totaal verzuim</span>
+            <span class="vg-total"><span id="totVerzuim">0,0</span>%</span>
+          </div>
+          <p class="vg-help">Geef hieronder de verzuimpercentages per doelgroep en categorie in.</p>
+
+          <div class="b-verz-cols">
+            <div class="b-verz-col">
+              <div class="vc-head"><span>Arbeiders</span><span class="vc-n"><span id="vcArbN">0</span> pers.</span></div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Kort <small>≤ 1 maand</small></span><span class="c-pill ok"><span id="catKAv">0,00</span>%</span></div>
+                <input class="b-slider" id="catKA" type="range" min="0" max="10" step="0.01" value="0" aria-label="Kort verzuim arbeiders">
+              </div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Middellang <small>1 mnd–1 jr</small></span><span class="c-pill ok"><span id="catMAv">0,00</span>%</span></div>
+                <input class="b-slider" id="catMA" type="range" min="0" max="10" step="0.01" value="0" aria-label="Middellang verzuim arbeiders">
+              </div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Langdurig <small>&gt; 1 jaar</small></span><span class="c-pill ok"><span id="catLAv">0,00</span>%</span></div>
+                <input class="b-slider" id="catLA" type="range" min="0" max="10" step="0.01" value="0" aria-label="Langdurig verzuim arbeiders">
+              </div>
+              <div class="vc-sub"><span>Totaal arbeiders</span><b><span id="totArb">0,0</span>%</b></div>
+            </div>
+
+            <div class="b-verz-col">
+              <div class="vc-head"><span>Bedienden</span><span class="vc-n"><span id="vcBedN">0</span> pers.</span></div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Kort <small>≤ 1 maand</small></span><span class="c-pill ok"><span id="catKBv">0,00</span>%</span></div>
+                <input class="b-slider" id="catKB" type="range" min="0" max="10" step="0.01" value="0" aria-label="Kort verzuim bedienden">
+              </div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Middellang <small>1 mnd–1 jr</small></span><span class="c-pill ok"><span id="catMBv">0,00</span>%</span></div>
+                <input class="b-slider" id="catMB" type="range" min="0" max="10" step="0.01" value="0" aria-label="Middellang verzuim bedienden">
+              </div>
+              <div class="b-cat2">
+                <div class="c-top"><span class="c-name">Langdurig <small>&gt; 1 jaar</small></span><span class="c-pill ok"><span id="catLBv">0,00</span>%</span></div>
+                <input class="b-slider" id="catLB" type="range" min="0" max="10" step="0.01" value="0" aria-label="Langdurig verzuim bedienden">
+              </div>
+              <div class="vc-sub"><span>Totaal bedienden</span><b><span id="totBed">0,0</span>%</b></div>
+            </div>
+          </div>
+
+          <div class="vg-sep2"></div>
+          <p class="vg-src">Bron: Belgische nationale verzuimcijfers 2025</p>
+        </div>
+
+      </div>
+
+      <p class="b-step-err" id="bStepErr" role="alert" hidden></p>
+
+      <div class="b-nav-btns">
+        <button class="b-btn" type="button" id="bPrev" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Terug
+        </button>
+        <span class="b-stepcount">Stap <b id="bStepCur">1</b> van 6</span>
+        <button class="b-btn primary" type="button" id="bNext">
+          <span id="bNextLabel">Volgende</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+
+      <div class="b-nav-extra">
+        <button class="b-reset js-calc-reset" type="button" id="bResetBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.36 2.64L3 8"/><path d="M3 3v5h5"/></svg>Opnieuw beginnen
+        </button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- GATE + PDF PREVIEW -->
+<section class="b-gate" id="bGate" hidden aria-label="Ontvang uw rapport">
+  <div class="b-gate-inner">
+
+    <div class="b-gate-copy">
+      <span class="eyebrow">Volledig rapport</span>
+      <h2>Ontvang uw volledige <em>verzuimrapport.</em></h2>
+      <p class="b-report-intro">Meteen als PDF in uw mailbox, 10 pagina's, berekend op uw cijfers. In uw rapport:</p>
+      <ul class="b-report-list">
+        <li>Uw <b>totale verzuimkost</b>, direct én indirect</li>
+        <li><b>Wat u kunt besparen</b> door vroeger in te grijpen</li>
+        <li>Uw <b>positie</b> tegenover de Belgische sector</li>
+        <li>Uw verzuim in <b>voltijdse equivalenten</b></li>
+        <li>Een <b>concreet plan van aanpak</b> op maat</li>
+      </ul>
+      <p class="b-proof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span class="b-proof-stats"><span class="b-proof-stat"><span class="v">2.500+</span><span class="l">dossiers</span></span><span class="b-proof-stat"><span class="v">8 jaar</span><span class="l">praktijkervaring</span></span></span></p>
+
+      <form class="b-form" autocomplete="on" novalidate>
+        <div class="f-row">
+          <label class="fl" for="cName">Naam <span class="req" aria-hidden="true">*</span></label>
+          <div class="f-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><input id="cName" type="text" placeholder="Uw naam" autocomplete="name"></div>
+        </div>
+        <div class="f-row">
+          <label class="fl" for="cCompany">Bedrijf <span class="req" aria-hidden="true">*</span></label>
+          <div class="f-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M9 6h.01M9 10h.01M9 14h.01M15 6h.01M15 10h.01M15 14h.01"/></svg><input id="cCompany" type="text" placeholder="Uw organisatie" autocomplete="organization"></div>
+        </div>
+        <div class="f-row">
+          <label class="fl" for="cMail">Werk e-mail <span class="req" aria-hidden="true">*</span></label>
+          <div class="f-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><input id="cMail" type="email" placeholder="naam@bedrijf.be" autocomplete="email" required></div>
+        </div>
+        <div class="f-row">
+          <label class="fl" for="cPhone">Telefoon <span class="opt-hint">(optioneel)</span></label>
+          <div class="f-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg><input id="cPhone" type="tel" placeholder="+32 …" autocomplete="tel"></div>
+        </div>
+        <label class="b-consent"><input type="checkbox" id="cConsent" required><span>Ik ga akkoord dat Montisoro mijn gegevens gebruikt om dit rapport te bezorgen en hierover contact op te nemen. Zie de <a href="privacy.html" target="_blank" rel="noopener">privacyverklaring</a>.</span></label>
+        <p class="b-error" id="bFormErr" role="alert"></p>
+        <input type="text" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+        <button type="button" class="b-submit" id="bSubmit">Ontvang rapport →</button>
+        <button type="button" class="b-submit" id="bDownloadPdf" style="display:none;margin:12px auto 0;width:fit-content;justify-content:center;background:transparent;border:1.5px solid var(--orange);color:var(--orange);">Download rapport ↓</button>
+        <div class="b-fineprint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Gratis · GDPR-conform · geen spam · direct in uw mailbox</div>
+      </form>
+
+    </div>
+
+    <div class="b-logos">
+      <div class="b-logos-lbl">Vertrouwd door</div>
+      <div class="b-logos-mask" aria-hidden="true">
+        <div class="b-logos-track">
+          <img loading="lazy" decoding="async" src="../assets/logos/volvo.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/novartis.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/lonza.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/lyondellbasell.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/rockwool.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/rockfon.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/alcon.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/emeis.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/hb.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/legend.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/axa.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/vaillant.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/howden.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/ams.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/feneko.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/securitas.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/sortimo.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/vanbreda.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/volvo.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/novartis.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/lonza.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/lyondellbasell.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/rockwool.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/rockfon.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/alcon.svg" alt=""><img loading="lazy" decoding="async" src="../assets/logos/emeis.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/hb.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/legend.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/axa.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/vaillant.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/howden.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/ams.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/feneko.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/securitas.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/sortimo.png" alt=""><img loading="lazy" decoding="async" src="../assets/logos/vanbreda.png" alt="">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="b-method">
+  <div class="b-method-in">
+    <div class="b-method-block">
+      <strong>Methodologie</strong>
+      Loonkost = verloren werkdagen × (jaarloon / werkdagen) × 1,30 (sociale lasten). Voordelen en verzekeringen worden pro-rata toegewezen op basis van verloren werkdagen en apart getoond, zodat u zelf kunt kiezen welke kostbasis u hanteert. Indicatief, geen boekhoudkundige waarheid.
+    </div>
+    <div class="b-method-block">
+      <span class="b-method-src">Bron</span>
+      <div style="margin-top:10px;">SD Worx Verzuimbarometer 2025 · Belgisch sectorgemiddelde · Categorisering kort / middellang / langdurig.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTION -->
+<section class="b-action">
+  <div class="b-action-in">
+    <span class="ey">Liever in gesprek?</span>
+    <h2>Bespreek dit resultaat met een <em>expert.</em></h2>
+    <p class="sub">Een cijfer is een startpunt. Wij vertalen het naar waar uw organisatie grip kan winnen, en welke capability daarvoor nodig is.</p>
+    <div class="cta">
+      <a class="primary" href="contact.html#channels">Plan een gesprek →</a>
+      <a class="ghost" href="aanpak.html">Zo pakken we het aan →</a>
+    </div>
+    <p class="rea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>30–45 minuten · online of op locatie</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ms-footer">
+  <img loading="lazy" decoding="async" class="ms-fbg" src="../assets/banner-cover.jpg" alt="" role="presentation">
+  <div class="ms-fveil"></div>
+  <div class="ms-foot-in">
+    <div class="ms-foot-band">
+      <div><span class="ms-foot-eyebrow">Klaar om te starten?</span><h2>Verzuim niet langer <em>ondergaan,</em> maar begrijpen.</h2></div>
+      <a href="contact.html#channels" class="ms-foot-btn">Plan een gesprek <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="ms-foot-grid">
+      <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="mailto:hello@montisoro.com" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+      </div>
+      <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="Home.html">Home</a></li><li><a href="aanpak.html">Aanpak</a></li><li><a href="technologie.html">Technologie</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ.html">FAQ</a></li><li><a href="Referentie.html">Referenties</a></li><li><a href="fit-check.html">Fit check</a></li><li><a href="calculator.html">Verzuimcalculator</a></li></ul></div>
+      <div class="ms-foot-col ms-foot-contact"><h3>Contact</h3><div class="ms-wordmark">Montisoro</div><a href="tel:+32477899186">+32 477 89 91 86</a><span class="ms-vat">BTW BE0733.840.137</span></div>
+    </div>
+    <div class="ms-foot-bottom"><span class="ms-copy">© 2026 Montisoro</span><div class="ms-foot-legal"><a href="privacy.html">Privacy</a><a href="privacy.html#cookies">Cookies</a><a href="disclaimer.html">Algemene voorwaarden</a></div></div>
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script>window.BETA_LANG='nl';</script>
+<script src="../config/calculator-params.js"></script>
+<script src="../services/verzuim-engine.js"></script>
+<script src="../scripts/pdf-download.js"></script>
+<script src="../scripts/calculator.js"></script>
+<script src="../scripts/motion.js" defer></script>
+<script src="../scripts/montisoro-v2.js"></script>
+<script>
+/* Verzuim start op het Belgisch sectorgemiddelde (SD Worx 2025: K 3,18 · M 3,10 · L 3,86)
+   zodat het resultaatvenster meteen leeft: zodra FTE + brutoloon zijn ingevuld (stap 1–2)
+   toont het een realistisch cijfer, en elke kosten-stap (3–5) beweegt het zichtbaar mee.
+   Engine-veilig: sliders + 'input' → bestaande handlers werken state + berekening bij.
+   Alleen als de sessie nog leeg is (verzuim-sliders op 0). */
+(function(){
+  var SEED={catKA:3.18,catMA:3.10,catLA:3.86,catKB:3.18,catMB:3.10,catLB:3.86};
+  function seed(){
+    var used=Object.keys(SEED).some(function(id){var el=document.getElementById(id);return el&&parseFloat(el.value)>0;});
+    if(used) return;
+    Object.keys(SEED).forEach(function(id){
+      var el=document.getElementById(id); if(!el) return;
+      el.value=SEED[id];
+      el.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){setTimeout(seed,350);});
+  else setTimeout(seed,350);
+})();
+</script>
+<link rel="stylesheet" href="../stylesheets/forms.css">
+<link rel="stylesheet" href="../stylesheets/shell.css">
+<script src="../scripts/shell.js" defer></script>
+<script src="../scripts/phone-be.js" defer></script>
+<script src="../scripts/site-content.js" defer></script>
+<script src="../scripts/analytics.js" defer></script>
+<script src="../scripts/events.js" defer></script>
+<script>
+/* Variant D — flow-status volgt de bestaande gate-onthulling (additief, engine onaangeroerd). */
+(function(){
+  var body=document.body; if(!body) return;
+  body.classList.add('calc-flow-d');
+  var gate=document.getElementById('bGate'); if(!gate) return;
+  var main=document.getElementById('bMain');
+  /* het rapport (#bGate) naast de preview zetten: verhuis het éénmalig in de workspace-grid
+     (de engine blijft het via getElementById vinden + de hidden-toggle werkt onveranderd) */
+  var grid=main?main.querySelector('.b-grid'):null;
+  if(grid && gate.parentNode!==grid){ try{ grid.appendChild(gate); }catch(e){} }
+  function sync(){
+    var open=!gate.hasAttribute('hidden');
+    body.classList.toggle('calc-revealed', open);
+    if(open && main){
+      var out=main.querySelector('.b-output');
+      if(out) setTimeout(function(){ try{ var y=out.getBoundingClientRect().top+window.scrollY-90; window.scrollTo({top:y<0?0:y,behavior:'smooth'}); }catch(e){} },70);
+    }
+  }
+  sync();
+  try{ new MutationObserver(sync).observe(gate,{attributes:true,attributeFilter:['hidden']}); }catch(e){}
+})();
+</script>
+<script>
+/* Handmatige invoer van de 6 verzuim-percentages — additief, engine onaangeroerd.
+   Elke pil (#cat**v) wordt een klein invoerveld dat twee richtingen synct met zijn schuif:
+   typen → schuif verzetten → engine herrekent; schuif slepen → veld volgt (via de engine-write). */
+(function(){
+  var L=(window.BETA_LANG==='en')?' (enter manually)':' (handmatig invoeren)';
+  var CATS=[['catKA','catKAv'],['catMA','catMAv'],['catLA','catLAv'],['catKB','catKBv'],['catMB','catMBv'],['catLB','catLBv']];
+  function toNum(s){ s=String(s).replace(',','.').replace(/[^0-9.]/g,''); var v=parseFloat(s); return isNaN(v)?null:v; }
+  function pencilSVG(){
+    var s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    s.setAttribute('class','pencil'); s.setAttribute('viewBox','0 0 24 24');
+    s.setAttribute('fill','none'); s.setAttribute('stroke','currentColor');
+    s.setAttribute('stroke-width','2'); s.setAttribute('stroke-linecap','round'); s.setAttribute('stroke-linejoin','round');
+    s.innerHTML='<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>';
+    return s;
+  }
+  function setup(){
+    CATS.forEach(function(pair){
+      var slider=document.getElementById(pair[0]);
+      var span=document.getElementById(pair[1]);
+      if(!slider||!span||span.dataset.manualDone) return;
+      span.dataset.manualDone='1';
+      var pill=span.closest('.c-pill');
+      var inp=document.createElement('input');
+      inp.type='text'; inp.inputMode='decimal'; inp.className='c-pill-in';
+      inp.value=span.textContent.trim();
+      inp.setAttribute('aria-label',(slider.getAttribute('aria-label')||'')+L);
+      span.style.display='none';
+      span.parentNode.insertBefore(inp, span);
+      /* losse "%"-tekstnode weg → nette suffix + potlood, identiek aan de andere stappen */
+      if(pill){
+        [].slice.call(pill.childNodes).forEach(function(n){ if(n.nodeType===3) pill.removeChild(n); });
+        var suf=document.createElement('span'); suf.className='c-pill-suf'; suf.textContent='%';
+        pill.appendChild(suf); pill.appendChild(pencilSVG());
+      }
+      var min=parseFloat(slider.min)||0, max=parseFloat(slider.max)||10;
+      /* schuif → veld (de engine schrijft de verborgen span; wij volgen) */
+      try{ new MutationObserver(function(){ if(document.activeElement!==inp) inp.value=span.textContent.trim(); })
+            .observe(span,{childList:true,characterData:true,subtree:true}); }catch(e){}
+      /* veld → schuif */
+      inp.addEventListener('input',function(){
+        var v=toNum(inp.value); if(v===null) return;
+        if(v<min)v=min; if(v>max)v=max;
+        slider.value=v; slider.dispatchEvent(new Event('input',{bubbles:true}));
+      });
+      inp.addEventListener('blur',function(){ inp.value=span.textContent.trim(); });
+      if(pill) pill.addEventListener('click',function(e){ if(e.target!==inp){ inp.focus(); inp.select(); } });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(setup,120); });
+  else setTimeout(setup,120);
+})();
+</script>
+<script>
+/* #10 a11y + mobiele afwerking (additief, engine ONaangeroerd) */
+(function(){
+  var EN = (window.BETA_LANG==='en');
+  /* tooltips: data-tip → aria-label (screenreaders) + tap-to-toggle op touch */
+  function tips(){
+    [].forEach.call(document.querySelectorAll('.b-info[data-tip]'),function(el){
+      if(!el.getAttribute('aria-label')) el.setAttribute('aria-label', el.getAttribute('data-tip'));
+    });
+  }
+  document.addEventListener('click',function(e){
+    var info = e.target.closest ? e.target.closest('.b-info[data-tip]') : null;
+    [].forEach.call(document.querySelectorAll('.b-info.is-open'),function(el){ if(el!==info) el.classList.remove('is-open'); });
+    if(info){ e.preventDefault(); e.stopPropagation(); info.classList.toggle('is-open'); }
+  });
+  /* mobiele inklap: stap 3 (optionele kosten) + stap 6 (verzuim-kolommen) */
+  var mq = window.matchMedia('(max-width:640px)');
+  var resetters=[];
+  function collapsibleStep3(){
+    var p = document.querySelector('.b-panel[data-step="3"]'); if(!p || p.dataset.collapsibleDone) return;
+    var fields = [].slice.call(p.querySelectorAll(':scope > .b-field')); if(!fields.length) return;
+    p.dataset.collapsibleDone='1';
+    var grpHint = p.querySelector(':scope > .b-grp-hint');
+    var body = document.createElement('div'); body.className='b-collapse-body'; body.id='step3fields';
+    p.insertBefore(body, grpHint || fields[0]);
+    if(grpHint) body.appendChild(grpHint);
+    fields.forEach(function(f){ body.appendChild(f); });
+    var btn = document.createElement('button'); btn.type='button'; btn.className='b-collapse-toggle'; btn.setAttribute('aria-controls','step3fields');
+    btn.innerHTML='<span>'+(EN?'Add recurring costs (optional)':'Doorlopende kosten invullen (optioneel)')+'</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    p.insertBefore(btn, body);
+    function set(open){ p.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', open?'true':'false'); }
+    btn.addEventListener('click',function(){ set(!p.classList.contains('is-open')); });
+    resetters.push(function(){ set(!mq.matches); });
+  }
+  function collapsibleStep6(){
+    [].forEach.call(document.querySelectorAll('.b-panel[data-step="6"] .b-verz-col'),function(col,i){
+      if(col.dataset.collapsibleDone) return; col.dataset.collapsibleDone='1';
+      var head = col.querySelector('.vc-head'); if(!head) return;
+      col.classList.add('vc-collapsible');
+      head.setAttribute('role','button'); head.setAttribute('tabindex','0');
+      function set(open){ col.classList.toggle('is-open', open); head.setAttribute('aria-expanded', open?'true':'false'); }
+      function t(){ set(!col.classList.contains('is-open')); }
+      head.addEventListener('click',t);
+      head.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); } });
+      resetters.push(function(){ set(i===0 ? true : !mq.matches); });
+    });
+  }
+  function applyDefaults(){ resetters.forEach(function(f){ f(); }); }
+  function init(){ tips(); collapsibleStep3(); collapsibleStep6(); applyDefaults(); }
+  if(mq.addEventListener) mq.addEventListener('change', applyDefaults);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(init,140); });
+  else setTimeout(init,140);
+})();
+</script>
+<script>
+/* Reveal-afwerking (3 juli 2026, additief, engine ONaangeroerd):
+   (1) inline "gebaseerd op"-samenvatting op het resultaat = licht controle-moment zonder extra stap;
+   (2) mobiele inklap van de rapport-checklist zodat het formulier sneller bereikbaar is. */
+(function(){
+  var EN=(window.BETA_LANG==='en');
+  function grp(s,sep){ s=String(s==null?'':s).replace(/[^\d]/g,''); return s?s.replace(/\B(?=(\d{3})+(?!\d))/g,sep):'0'; }
+  var outIn=document.querySelector('.b-output .b-output-in');
+  var basis=null;
+  if(outIn){ basis=document.createElement('div'); basis.className='b-basis'; outIn.insertBefore(basis,outIn.firstChild); }
+  function fill(){
+    if(!basis) return;
+    var fte=(document.getElementById('fteNum')||{}).value||'0';
+    var sal=(document.getElementById('salaryNum')||{}).value||'0';
+    var vz=((document.getElementById('totVerzuim')||{}).textContent||'0').trim();
+    var sep=EN?',':'.';
+    basis.innerHTML='<span class="b-basis-sum"><span class="b-basis-lbl">'+(EN?'Based on':'Gebaseerd op')+'</span> '+
+      '<span class="b-basis-item"><b>'+grp(fte,sep)+'</b> '+(EN?'employees':'medewerkers')+'</span> · '+
+      '<span class="b-basis-item"><b>\u20ac'+grp(sal,sep)+'</b> '+(EN?'gross salary':'brutoloon')+'</span> · '+
+      '<span class="b-basis-item"><b>'+vz+'%</b> '+(EN?'absence':'verzuim')+'</span></span>'+
+      '<button type="button" class="b-basis-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>'+(EN?'edit':'wijzig')+'</button>';
+    var eb=basis.querySelector('.b-basis-edit');
+    if(eb) eb.addEventListener('click',function(){ var s=document.querySelector('.b-step[data-step="1"] .step-btn'); if(s) s.click(); });
+  }
+  try{ new MutationObserver(function(){ if(document.body.classList.contains('calc-revealed')) fill(); }).observe(document.body,{attributes:true,attributeFilter:['class']}); }catch(e){}
+  fill();
+})();
+</script>
+<script>
+/* Stap-labels naast de titel (Verplicht/Optioneel) \u2014 additief, engine ONaangeroerd */
+(function(){
+  var EN=(window.BETA_LANG==='en');
+  var REQ=EN?'Required':'Verplicht', OPT=EN?'Optional':'Optioneel';
+  var map={'1':'req','2':'req','3':'opt','4':'opt','5':'opt','6':'req'};
+  function go(){
+    Object.keys(map).forEach(function(n){
+      var h=document.querySelector('.b-panel[data-step="'+n+'"] .b-panel-head h2');
+      if(!h || h.querySelector('.b-steptag')) return;
+      var t=document.createElement('span');
+      t.className='b-steptag '+map[n];
+      t.textContent=(map[n]==='req'?REQ:OPT);
+      h.appendChild(document.createTextNode(' '));
+      h.appendChild(t);
+    });
+    ['3','4','5'].forEach(function(n){
+      var panel=document.querySelector('.b-panel[data-step="'+n+'"]');
+      if(!panel) return;
+      var hint=panel.querySelector('.b-skiphint');
+      var badge=panel.querySelector('.b-panel-head h2 .b-steptag');
+      if(!hint || !badge || (badge.nextElementSibling && badge.nextElementSibling.classList.contains('b-info'))) return;
+      var sp=hint.querySelector('span');
+      var info=document.createElement('span');
+      info.className='b-info'; info.setAttribute('tabindex','0');
+      info.setAttribute('data-tip',(sp||hint).textContent.replace(/\s+/g,' ').trim()); info.textContent='i';
+      badge.insertAdjacentElement('afterend', info);
+      hint.style.display='none';
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go); else go();
+})();
+</script>
+<script>
+/* Reveal-UX (3 juli 2026, additief, engine ONaangeroerd): (3) "Resultaat"-eindstaat in de stappenbalk, (4) inklapbare preview */
+(function(){
+  var EN=(window.BETA_LANG==='en');
+  var ol=document.querySelector('.b-stepper ol');
+  if(ol && !ol.querySelector('.b-step-result')){
+    var li=document.createElement('li');
+    li.className='b-step b-step-result'; li.setAttribute('aria-hidden','true');
+    li.innerHTML='<div class="step-btn" role="presentation"><span class="circle">\u2713</span><span class="name">'+(EN?'Result':'Resultaat')+'</span></div>';
+    ol.appendChild(li);
+  }
+  var out=document.querySelector('.b-output');
+  var outIn=out&&out.querySelector('.b-output-in');
+  if(out&&outIn&&!outIn.querySelector('.b-min')){
+    var btn=document.createElement('button'); btn.type='button'; btn.className='b-min';
+    function lbl(){
+      var c=out.classList.contains('is-compact');
+      btn.innerHTML=(c?(EN?'More detail':'Meer detail'):(EN?'Less detail':'Minder detail'))+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+      btn.setAttribute('aria-expanded', c?'false':'true');
+    }
+    var mqC=window.matchMedia('(max-width:1180px)');
+    var userToggled=false;
+    if(mqC.matches) out.classList.add('is-compact');
+    lbl();
+    btn.addEventListener('click',function(){ userToggled=true; out.classList.toggle('is-compact'); lbl(); });
+    if(mqC.addEventListener) mqC.addEventListener('change',function(){ if(!userToggled){ out.classList.toggle('is-compact', mqC.matches); lbl(); } });
+    outIn.appendChild(btn);
+  }
+})();
+</script>
+<script>
+/* CALCULATOR FOCUS-OVERLAY — Fit Check-stijl balk (logo · stepper · ronde X). Open via elke #bMain-CTA (incl. skip-links via delegatie), sluit via knop/Esc. Mobiel: stap-navigatie scrollt de overlay naar boven. Engine onaangeroerd. */
+(function(){
+  var EN=(window.BETA_LANG==='en');
+  var main=document.getElementById('bMain'); if(!main) return;
+  var home=EN?'Home-en.html':'Home.html';
+  var bar=document.createElement('div'); bar.className='cf-bar';
+  bar.innerHTML='<a class="cf-logo" href="'+home+'" aria-label="Montisoro"><img src="../assets/montisoro-logo.png" alt="Montisoro"></a>'+
+    '<div class="cf-stepslot"></div>'+
+    '<button type="button" class="cf-reset js-calc-reset" aria-label="'+(EN?'Start over':'Opnieuw beginnen')+'">'+
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.36 2.64L3 8"/><path d="M3 3v5h5"/></svg>'+
+    '<span>'+(EN?'Start over':'Opnieuw beginnen')+'</span></button>'+
+    '<button type="button" class="cf-close" aria-label="'+(EN?'Close':'Sluiten')+'">'+
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>';
+  document.body.appendChild(bar);
+  var slot=bar.querySelector('.cf-stepslot');
+  var stepper=main.querySelector('.b-stepper');
+  var anchor=document.createComment('cf-stepper-home');
+  if(stepper && stepper.parentNode){ stepper.parentNode.insertBefore(anchor, stepper); }
+  function open(){
+    if(stepper && stepper.parentNode!==slot){ slot.appendChild(stepper); }
+    document.body.classList.add('cf-open'); main.scrollTop=0;
+  }
+  function close(){
+    document.body.classList.remove('cf-open');
+    if(stepper && anchor.parentNode){ anchor.parentNode.insertBefore(stepper, anchor); }
+  }
+  document.addEventListener('click',function(e){
+    if(!e.target.closest) return;
+    var a=e.target.closest('a[href="#bMain"]');
+    if(a){ e.preventDefault(); open(); }
+  });
+  bar.querySelector('.cf-close').addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&document.body.classList.contains('cf-open')) close(); });
+  function toTop(){ if(document.body.classList.contains('cf-open')){ try{ main.scrollTo({top:0,behavior:'smooth'}); }catch(e){ main.scrollTop=0; } } }
+  document.addEventListener('click',function(e){
+    if(e.target.closest && e.target.closest('#bNext,#bPrev,.step-btn')){ setTimeout(toTop,70); }
+  });
+  /* maak duidelijk dat de downloadknop klaarstaat: zacht in beeld scrollen + korte puls (geen scrollIntoView) */
+  var dl=document.getElementById('bDownloadPdf');
+  if(dl){
+    var mo=new MutationObserver(function(){
+      if(dl.style.display!=='none' && document.body.classList.contains('cf-open')){
+        try{
+          var t=dl.getBoundingClientRect().top - main.getBoundingClientRect().top + main.scrollTop - (main.clientHeight/2) + (dl.offsetHeight/2);
+          main.scrollTo({top:Math.max(0,t),behavior:'smooth'});
+        }catch(e){}
+        dl.classList.add('cf-pulse'); setTimeout(function(){ dl.classList.remove('cf-pulse'); }, 1700);
+      }
+    });
+    mo.observe(dl,{attributes:true,attributeFilter:['style']});
+  }
+})();
+</script>
+</body>
+</html>

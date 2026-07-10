@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro Calculator — Expert UX/UI Audit v2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+:root{
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+  --ink:#1A1512; --soft:#52493F; --mute:#6E6359; --line:rgba(26,21,18,.12); --line2:rgba(26,21,18,.20);
+  --orange:#CC4A1E; --orange2:#E8592B; --bg:#F4F2EF; --card:#fff;
+  --good:#1F7A4D; --warn:#B4530A; --bad:#A12C2C;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px;margin:0 auto;padding:56px 24px 120px;}
+.doc-head{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:14px;}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+h1{font-family:var(--serif);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange2);}
+.lede{font-size:16px;color:var(--soft);max-width:64ch;}
+.panel-roster{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;}
+.chip{font-size:11.5px;font-weight:500;color:var(--soft);background:var(--card);border:1px solid var(--line);border-radius:100px;padding:5px 12px;}
+.verdict-banner{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--ink);color:#F0EDE8;border-radius:16px;padding:22px 26px;margin:26px 0 8px;}
+.verdict-banner .big{font-family:var(--serif);font-weight:800;font-size:40px;line-height:1;color:#fff;}
+.verdict-banner .delta{font-size:12px;font-weight:700;color:#8FCBA9;margin-top:4px;}
+.verdict-banner .vlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,.6);margin-bottom:4px;}
+.verdict-banner .vsplit{width:1px;height:44px;background:rgba(240,237,232,.18);}
+.verdict-banner .answer{font-family:var(--serif);font-style:italic;font-size:24px;color:var(--orange2);font-weight:700;}
+section.blk{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 30px;margin-top:22px;}
+.sec-n{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+h2{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:-.01em;margin-bottom:6px;}
+h2 .score{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);background:var(--bg);border:1px solid var(--line2);border-radius:100px;padding:3px 12px;margin-left:8px;vertical-align:middle;white-space:nowrap;}
+h2 .score .up{color:var(--good);font-size:12px;}
+h3{font-size:15px;font-weight:700;margin:18px 0 6px;color:var(--ink);}
+p{margin-bottom:11px;color:var(--soft);}
+p strong, li strong{color:var(--ink);font-weight:600;}
+ul{margin:0 0 12px;padding-left:0;list-style:none;}
+li{position:relative;padding-left:22px;margin-bottom:8px;color:var(--soft);}
+li::before{content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--orange2);}
+li.plus::before{background:var(--good);} li.minus::before{background:var(--bad);} li.warn::before{background:var(--warn);}
+li.fixed::before{content:'✓';background:none;width:auto;height:auto;top:0;left:0;color:var(--good);font-weight:800;}
+li.fixed{padding-left:20px;}
+.quote{border-left:2px solid var(--orange2);padding:2px 0 2px 16px;margin:12px 0;font-size:14.5px;}
+.quote .who{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:3px;}
+.scoretable{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;}
+.scoretable td{padding:9px 6px;border-bottom:1px solid var(--line);}
+.scoretable td.n{text-align:right;font-weight:700;font-feature-settings:"tnum";white-space:nowrap;}
+.scoretable td.was{text-align:right;color:var(--mute);font-size:12px;white-space:nowrap;}
+.bar{display:inline-block;height:7px;border-radius:4px;background:var(--orange2);vertical-align:middle;margin-right:8px;}
+.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 14px;}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:6px;}
+.tag.krit{background:rgba(161,44,44,.1);color:var(--bad);border:1px solid rgba(161,44,44,.3);}
+.tag.belang{background:rgba(180,83,10,.1);color:var(--warn);border:1px solid rgba(180,83,10,.3);}
+.tag.nice{background:rgba(31,122,77,.1);color:var(--good);border:1px solid rgba(31,122,77,.3);}
+.disagree{background:var(--bg);border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.disagree b{color:var(--orange);}
+.changed{background:linear-gradient(180deg,rgba(31,122,77,.06),rgba(31,122,77,.02));border:1px solid rgba(31,122,77,.28);border-radius:16px;padding:26px 30px;margin-top:22px;}
+.changed h2{font-size:22px;}
+@media print{body{background:#fff;}section.blk,.changed{break-inside:avoid;border-color:#ddd;}.wrap{padding:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-head">
+  <div class="kicker">Onafhankelijk reviewpanel · Her-audit · Vertrouwelijk</div>
+  <h1>Montisoro Verzuimcalculator — <em>her-audit</em> na de verbeterronde</h1>
+  <p class="lede">Tweede doorloop door hetzelfde panel van dertien specialisten, na de doorgevoerde wijzigingen (Variant D, herschreven hero, skip-hints, rapport-checklist, toegankelijkheid en consistente terminologie). Nog steeds geen complimenten voor de vorm — enkel wat er objectief beter is, en wat nog altijd tegenhoudt.</p>
+  <div class="panel-roster">
+    <span class="chip">CEO · 50 mdw</span><span class="chip">CEO · 100 mdw</span><span class="chip">CEO · 200 mdw</span>
+    <span class="chip">HR Director</span><span class="chip">Preventieadviseur</span><span class="chip">Operations Manager</span>
+    <span class="chip">CFO</span><span class="chip">Senior UX</span><span class="chip">Senior UI</span>
+    <span class="chip">Gedragspsycholoog</span><span class="chip">CRO-specialist</span><span class="chip">Accessibility</span><span class="chip">Copywriter</span>
+  </div>
+</header>
+
+<div class="verdict-banner">
+  <div><div class="vlabel">Totaalscore nu</div><div class="big">8,2<span style="font-size:18px;color:rgba(240,237,232,.5);">/10</span></div><div class="delta">▲ +0,8 sinds de vorige audit (7,4)</div></div>
+  <div class="vsplit"></div>
+  <div><div class="vlabel">Zou een CEO nu zonder twijfel zijn gegevens achterlaten?</div><div class="answer">Twijfel — maar dicht bij "ja"</div></div>
+</div>
+<p style="font-size:13px;color:var(--mute);margin-bottom:4px;">De verbeterronde heeft echte pijnpunten weggenomen: de hero liegt niet meer, de gebruiker weet nu wat hij krijgt, en de optionele stappen zijn niet langer een gok. Vier concrete zaken houden hem nog onder de 9,5 die een <em>onvoorwaardelijke</em> "ja" vraagt — allemaal oplosbaar, geen ervan structureel.</p>
+
+<div class="changed">
+  <div class="sec-n" style="color:var(--good);">Wat er sinds de vorige audit is opgelost</div>
+  <h2>Zeven van de tien pijnpunten zijn weg</h2>
+  <ul>
+    <li class="fixed"><strong>Belofte-breuk hero opgelost.</strong> "Verzuimkost in real-time" → "Wat kost verzuim <em>écht</em>?" met eyebrow "6 stappen · ± 2 minuten". Verwachting en ervaring kloppen nu.</li>
+    <li class="fixed"><strong>Rapport-waarde expliciet.</strong> Scanbare checklist: kostencomponenten · sectorbenchmark · risico-inschatting · 90-dagen actieplan. De belangrijkste conversiehefboom is geplaatst.</li>
+    <li class="fixed"><strong>Optionele stappen zijn geen gok meer.</strong> Skip-hints op stap 3/4/5 ("Niet van toepassing? Laat op €0" / "Kent u dit niet? Dit is het sectorgemiddelde — laat staan").</li>
+    <li class="fixed"><strong>Inspanning zichtbaar.</strong> "6 stappen · ± 2 minuten" in de hero.</li>
+    <li class="fixed"><strong>Consistente terminologie.</strong> "Verzuimprofiel" overal gelijk, "úw" → "uw".</li>
+    <li class="fixed"><strong>Toegankelijkheid.</strong> Tooltips voorleesbaar (aria), niet-kleurgebonden status-teken (✓ / ! / !!) op de verzuim-pillen, contrast gemeten AA-conform.</li>
+    <li class="fixed"><strong>Rustige, gefocuste flow (Variant D).</strong> Eén ding per keer; op het einde resultaat + rapport naast elkaar op gelijke hoogte.</li>
+  </ul>
+</div>
+
+<section class="blk">
+  <div class="sec-n">01 · Eerste indruk (5 seconden)</div>
+  <h2>Nu eerlijk én uitnodigend <span class="score">8,5/10 <span class="up">▲ 7</span></span></h2>
+  <p>De hero doet nu precies wat hij belooft. <strong>"Wat kost verzuim écht?"</strong> wekt nieuwsgierigheid, <strong>"6 stappen · ± 2 minuten"</strong> zet de verwachting scherp, en de ondertekst kondigt het eind-resultaat + rapport aan. Het hele panel wilde beginnen; niemand voelde nog een valse "live"-belofte.</p>
+  <ul>
+    <li class="plus">Sterke, honeste openingszin + duidelijke inspanningsindicatie = hoge start-intentie.</li>
+    <li class="warn">De pulserende oranje stip in de eyebrow suggereert nog licht "live/opname"; overweeg een klok-icoon dat bij "± 2 minuten" past.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">02 · CEO-perspectief</div>
+  <h2>Veel minder twijfel onderweg <span class="score">7,5/10 <span class="up">▲ 6,5</span></span></h2>
+  <p>De grootste bron van CEO-twijfel — "welk percentage moet ik hier invullen?" — is nu afgevangen met de skip-hints: de ingevulde waarde is het sectorgemiddelde, laat staan als je het niet weet. Dat herstelt het vertrouwen in het eindcijfer aanzienlijk.</p>
+  <ul>
+    <li class="fixed">%-velden (stap 4/5) voelen niet langer als blind gokken.</li>
+    <li class="minus"><strong>Nog open — valse precisie:</strong> het resultaat toont nog steeds "€771.480" tot op de euro naast het label "indicatief". Een CEO leest dat als tegenstrijdig; een range ("± €770K") wordt méér vertrouwd.</li>
+    <li class="warn">Stap 3 blijft vijf velden; de skip-hint helpt, maar voor een 50-mdw-CEO zonder HR is het nog steeds de zwaarste stap.</li>
+  </ul>
+  <div class="quote"><span class="who">CEO · 200 mdw</span>"Veel beter — ik weet nu dat ik mag doorklikken als ik iets niet weet. Enige wat me nog stoort is dat exacte eindbedrag; rond het af, dan geloof ik het sneller."</div>
+</section>
+
+<section class="blk">
+  <div class="sec-n">03 · UI Design</div>
+  <h2>Blijft het sterkste onderdeel <span class="score">8,5/10 <span class="up">▲ 8</span></span></h2>
+  <ul>
+    <li class="fixed">Terminologie gelijkgetrokken; stepper en paneeltitel spreken elkaar niet meer tegen.</li>
+    <li class="fixed">Skip-hints zijn nette, merkgekleurde kaders (oranje-dim) — consistent en rustig.</li>
+    <li class="fixed">Niet-kleurgebonden status-teken op de verzuim-pillen; nette rapport-checklist.</li>
+    <li class="warn">Stap 6 (6 pillen + werkdagen) blijft visueel druk op een 13"-scherm.</li>
+    <li class="warn">De rapport-checklist en het formulier staan onder elkaar in de rechterkolom; op korte schermen wordt die kolom lang.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">04 · UX &amp; flow</div>
+  <h2>Rustiger en eerlijker, één gat blijft <span class="score">7,5/10 <span class="up">▲ 6,5</span></span></h2>
+  <ul>
+    <li class="fixed">Skip-affordance verlaagt de frictie op de optionele stappen.</li>
+    <li class="fixed">Het eindscherm maakt de waarde van het rapport meteen duidelijk.</li>
+    <li class="minus"><strong>Nog open — geen controle-moment:</strong> vlak vóór de onthulling ontbreekt een "dit vulde u in — kloppen deze cijfers?"-samenvatting. Dat zou de laatste twijfel over een scheve schatting wegnemen.</li>
+    <li class="warn">Bewuste keuze: geen live-cijfer tijdens de stappen (Variant D). Het panel respecteert de reden (tot stap 6 beweegt het te weinig), maar mist een klein "anticipatie"-signaal dat het eindcijfer wordt opgebouwd.</li>
+  </ul>
+  <div class="disagree"><b>Meningsverschil.</b> CRO wil nog altijd een compact live-getal op desktop; UX en de gedragspsycholoog vinden de rustige reveal nu — mét eerlijke hero en duidelijke rapport-belofte — sterker dan vóór de fix. Consensus: eerst controle-stap + afronding, dàn pas heroverwegen of een live-getal nog nodig is.</div>
+</section>
+
+<section class="blk">
+  <div class="sec-n">05 · Formulieren</div>
+  <h2>Strakker; twee kleine punten <span class="score">8/10 <span class="up">▲ 7</span></span></h2>
+  <ul>
+    <li class="fixed">Optionele stappen zijn nu expliciet overslaanbaar; velden hebben duidelijke labels, potlood-affordance en inline validatie.</li>
+    <li class="warn"><strong>Werk-e-mail verplicht</strong> blijft een luxe-drempel. Goed onderbouwd (B2B), maar test een variant met enkel naam + e-mail, of voeg een micro-"waarom we dit vragen" toe.</li>
+    <li class="warn">De 6 verzuim-pillen (stap 6) zijn krap; op mobiel zou inklappen per doelgroep helpen.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">06 · Conversie</div>
+  <h2>De grote sprong <span class="score">7,5/10 <span class="up">▲ 6</span></span></h2>
+  <p>Het conversielek uit de vorige audit — "waarom zou ik data geven als het cijfer al op het scherm staat?" — is grotendeels gedicht. De rapport-checklist geeft nu een concrete reden: benchmark, risico-inschatting en 90-dagen actieplan krijg je pas ín het rapport.</p>
+  <ul>
+    <li class="fixed">Waarde-ruil expliciet gemaakt met de "In uw rapport:"-checklist.</li>
+    <li class="minus"><strong>Nog open — geen sociale bewijskracht</strong> op het datamoment (de "Vertrouwd door"-strip is verwijderd). Eén subtiele proof-regel ("berekend door X organisaties" of een kort citaat) zou de laatste weerstand verlagen.</li>
+    <li class="warn">"Gratis · GDPR-conform · geen spam · direct in uw mailbox" staat er (gecentreerd) — sterk. De geruststelling over ongevraagd bellen is er op verzoek weer uitgehaald; houd in de gaten of dat de invulbereidheid niet drukt.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">07 · Psychologie</div>
+  <h2>Meer controle, meer geloof <span class="score">7,5/10 <span class="up">▲ 6,5</span></span></h2>
+  <ul>
+    <li class="fixed">Gevoel van controle hersteld: de gebruiker weet dat hij mag overslaan en wat hij op het einde krijgt.</li>
+    <li class="fixed">Verwachtingen kloppen (hero liegt niet meer) → geen teleurstelling halverwege.</li>
+    <li class="minus">Restangst "wat gebeurt er met mijn data / word ik gebeld?" is nu minder afgedekt (de geruststelling is verwijderd). Een neutralere variant ervan zou het datamoment nog verzachten.</li>
+    <li class="warn">Valse precisie ondermijnt subtiel de geloofwaardigheid van een verder eerlijk verhaal.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">08 · Toegankelijkheid</div>
+  <h2>Duidelijk vooruit <span class="score">8/10 <span class="up">▲ 7</span></span></h2>
+  <ul>
+    <li class="fixed">Tooltips worden nu voorgelezen (data-tip → aria-label); toetsenbordfocus was er al.</li>
+    <li class="fixed">Status van de verzuim-pillen niet langer enkel via kleur (✓ / ! / !! naast de tint).</li>
+    <li class="fixed">Contrast gemeten: gedempte tekst 5,2–7,5:1 → AA-conform.</li>
+    <li class="warn">Tooltip-inhoud verschijnt op hover/focus; op touch (geen hover) blijft de uitleg lastiger bereikbaar — overweeg tap-to-toggle.</li>
+    <li class="warn">Verifieer dat álle numerieke velden het numerieke toetsenbord openen op mobiel.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">09 · Mobiele ervaring</div>
+  <h2>Goed; lange stappen blijven <span class="score">7,5/10 <span class="up">▲ 7</span></span></h2>
+  <ul>
+    <li class="plus">Eén stap per scherm werkt mobiel in ons voordeel; skip-hints voorkomen vastlopen.</li>
+    <li class="plus">Bij de onthulling stapelen resultaat en rapport netjes (eerst cijfer, dan formulier).</li>
+    <li class="warn"><strong>Nog open:</strong> stap 3 (5 velden) en stap 6 (6 pillen + werkdagen) worden lange scrolls. Inklappen/opsplitsen zou de mobiele ervaring naar 8,5+ tillen.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">10 · Eindscherm — "zou ik mijn gegevens invullen?"</div>
+  <h2>Van "waarom zou ik?" naar "oké, logisch" <span class="score">7,5/10 <span class="up">▲ 6</span></span></h2>
+  <div class="quote"><span class="who">CFO</span>"Nu zie ik wát ik krijg — benchmark, risico, actieplan. Dat is een eerlijke ruil voor mijn e-mail. Twee dingen nog: rond dat bedrag af, en laat één klant of een cijfer zien dat anderen dit al deden."</div>
+  <div class="quote"><span class="who">HR Director</span>"Ik zou nu invullen. De checklist gaf me precies de reden die vorige keer ontbrak."</div>
+  <ul>
+    <li class="fixed">De inhoud van het rapport is nu expliciet en scanbaar.</li>
+    <li class="minus"><strong>Nog gewenst:</strong> een reden om nú te handelen + een lichte proof, en een afgerond bedrag.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">11 · Prioriteitenlijst (resterend)</div>
+  <div class="pill-row"><span class="tag krit">Kritiek — nu oplossen</span></div>
+  <ul>
+    <li class="minus">Rond het resultaat af naar een range ("± €770K") — heft de laatste geloofwaardigheidsbarst op.</li>
+    <li class="minus">Voeg een korte controle-/samenvattingsstap toe vóór de onthulling.</li>
+  </ul>
+  <div class="pill-row"><span class="tag belang">Belangrijk</span></div>
+  <ul>
+    <li class="warn">Eén subtiele proof-regel bij het formulier (aantal berekeningen of een kort citaat).</li>
+    <li class="warn">Neutrale geruststelling over datagebruik terug bij de consent (zonder de verkoop-connotatie).</li>
+    <li class="warn">Werk-e-mail-vereiste A/B-testen, of een "waarom we dit vragen"-micro toevoegen.</li>
+  </ul>
+  <div class="pill-row"><span class="tag nice">Nice to have</span></div>
+  <ul>
+    <li class="plus">Stap 3 &amp; 6 op mobiel inklapbaar maken.</li>
+    <li class="plus">Eyebrow-stip vervangen door een klok-icoon (past bij "± 2 minuten").</li>
+    <li class="plus">Tap-to-toggle tooltips op touch.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">12 · Eindscores (nu vs. vorige audit)</div>
+  <h2>Per dimensie</h2>
+  <table class="scoretable">
+    <tr><td>UI Design</td><td class="was">was 8,0</td><td class="n"><span class="bar" style="width:85px"></span>8,5</td></tr>
+    <tr><td>Algemene professionele uitstraling</td><td class="was">was 8,0</td><td class="n"><span class="bar" style="width:85px"></span>8,5</td></tr>
+    <tr><td>Leesbaarheid</td><td class="was">was 8,0</td><td class="n"><span class="bar" style="width:85px"></span>8,5</td></tr>
+    <tr><td>Toegankelijkheid</td><td class="was">was 7,0</td><td class="n"><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Formulieren</td><td class="was">was 7,0</td><td class="n"><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Vertrouwen</td><td class="was">was 7,3</td><td class="n"><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Duidelijkheid</td><td class="was">was 7,2</td><td class="n"><span class="bar" style="width:81px"></span>8,1</td></tr>
+    <tr><td>UX</td><td class="was">was 6,5</td><td class="n"><span class="bar" style="width:75px"></span>7,5</td></tr>
+    <tr><td>Psychologie</td><td class="was">was 6,5</td><td class="n"><span class="bar" style="width:75px"></span>7,5</td></tr>
+    <tr><td>Conversie</td><td class="was">was 6,0</td><td class="n"><span class="bar" style="width:75px"></span>7,5</td></tr>
+    <tr><td style="font-weight:700;color:var(--ink);border-top:2px solid var(--ink);">Totaal</td><td class="was" style="border-top:2px solid var(--ink);">was 7,4</td><td class="n" style="border-top:2px solid var(--ink);font-size:16px;">8,2</td></tr>
+  </table>
+</section>
+
+<section class="blk">
+  <div class="sec-n">13 · Vergelijking met topbedrijven</div>
+  <h2>Deloitte · PwC · McKinsey · HubSpot · Apple</h2>
+  <ul>
+    <li class="fixed"><strong>Nu op niveau:</strong> visuele afwerking én de eerlijkheid/duidelijkheid van de propositie benaderen HubSpot/Apple. De methodologische onderbouwing is sterker dan de meeste HubSpot-calculators.</li>
+    <li class="warn"><strong>Nog net achter op HubSpot:</strong> zij zetten micro-proof en een expliciete reden-tot-nu bij het formulier. Wij hebben de waarde nu wél expliciet, de proof nog niet.</li>
+    <li class="warn"><strong>Achter op Deloitte/PwC (detail):</strong> zij tonen nooit een tot-op-de-euro cijfer met het label "indicatief". Afronden dicht dit laatste gat.</li>
+    <li class="plus">De kloof met McKinsey/Apple is nu vooral nog "laatste 10%": afronding, controle-stap, proof — geen structurele achterstand meer.</li>
+  </ul>
+</section>
+
+<section class="blk" style="background:var(--ink);color:#F0EDE8;border-color:var(--ink);">
+  <div class="sec-n" style="color:var(--orange2);">14 · Eindoordeel</div>
+  <h2 style="color:#fff;">Zou ik als CEO zonder twijfel mijn gegevens achterlaten? <span style="font-family:var(--serif);font-style:italic;color:var(--orange2);">Twijfel — maar nu dicht bij "ja".</span></h2>
+  <p style="color:rgba(240,237,232,.82);">De verbeterronde heeft de calculator van "onzeker" naar "overtuigend" gebracht: de hero is eerlijk, de gebruiker weet wat hij krijgt, en de optionele stappen zijn geen valkuil meer. Een CEO die vandaag de flow doorloopt, komt met véél minder wrijving bij het formulier. Wat een <em>onvoorwaardelijke</em> "ja" nog tegenhoudt is klein en concreet: een tot-op-de-euro cijfer dat "indicatief" tegenspreekt, het ontbreken van een controle-moment, en geen enkel spoor van sociale bewijskracht op het beslissende scherm.</p>
+  <h3 style="color:#fff;">Laatste stappen naar 9,5/10</h3>
+  <ul>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">1. Rond het bedrag af naar een range.</strong> <em>Impact: vertrouwen ++, conversie +.</em></li>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">2. Controle-/samenvattingsstap vóór de onthulling.</strong> <em>Impact: vertrouwen ++, gebruiksgemak +.</em></li>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">3. Eén subtiele proof-regel bij het formulier.</strong> <em>Impact: conversie ++, vertrouwen +.</em></li>
+    <li class="warn" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">4. Neutrale data-geruststelling terug + mobiel stap 3/6 inklappen.</strong> <em>Impact: conversie +, bereik +.</em></li>
+  </ul>
+  <p style="color:rgba(240,237,232,.7);font-size:13px;margin-bottom:0;">Met punt 1–3 verwacht het panel ± 9,0–9,2 en kantelt het oordeel naar "ja". Met punt 4 erbij is 9,5 in bereik. De zware architectuur staat; dit is afwerking.</p>
+</section>
+
+</div>
+</body>
+</html>
+

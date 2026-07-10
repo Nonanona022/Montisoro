@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Banner — zwart vs gekleurd — Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --off:#F0EDE8; --white:#fff; --orange:#E8592B; --orange-hover:#d04d22;
+  --muted-d:rgba(240,237,232,0.66);
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
+}
+html,body{font-family:var(--sans);background:var(--bg);color:var(--off);}
+body{}
+
+/* ── echte Montisoro-menubalk (boven elke banner) ── */
+.m-nav{position:absolute;top:0;left:0;right:0;z-index:5;background:transparent;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 40px;}
+.m-nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+.m-nav-logo img{height:58px;width:auto;display:block;}
+.m-navpill{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,0.88);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,0.5);border-radius:100px;padding:7px 7px 7px 14px;list-style:none;margin:0;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.95),inset 0 -2px 4px rgba(0,0,0,0.12),0 12px 34px rgba(0,0,0,0.3),0 4px 10px rgba(0,0,0,0.18);}
+.m-navpill li{position:relative;}
+.m-navpill li a{font-family:var(--sans);font-size:14.5px;font-weight:500;color:#33302b;text-decoration:none;padding:11px 16px;border-radius:100px;display:block;white-space:nowrap;transition:background .25s ease,color .25s ease;}
+.m-navpill li a:hover{background:rgba(0,0,0,.06);color:#000;}
+.m-navpill li a.m-active{background:var(--orange);color:#fff;font-weight:600;letter-spacing:.02em;}
+.m-navpill li a.m-active:hover{background:var(--orange-hover);color:#fff;}
+.m-navpill li a.m-cta{background:linear-gradient(180deg,#f3704a 0%,#e8592b 50%,#cf4a1f 100%);color:#fff;font-weight:600;padding:13px 24px;margin-left:8px;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.5),inset 0 -3px 5px rgba(0,0,0,0.3),0 4px 12px rgba(0,0,0,0.24);transition:transform .14s ease,box-shadow .14s ease,filter .2s ease;}
+.m-navpill li a.m-cta:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.5),inset 0 -3px 5px rgba(0,0,0,0.3),0 8px 18px rgba(0,0,0,0.3);}
+.m-navpill li a.m-cta:active{transform:translateY(0);background:linear-gradient(180deg,#cf4a1f 0%,#e8592b 100%);box-shadow:inset 0 3px 6px rgba(0,0,0,0.4),0 2px 6px rgba(0,0,0,0.24);}
+.m-navpill li a.m-cta{text-shadow:0 1px 1px rgba(0,0,0,0.4),0 2px 3px rgba(0,0,0,0.2);}
+
+/* ── Tactiel met vlakke tekst: 3D-knop, geen tekst-reliëf ── */
+.style-flattext .cta a,.style-flattext .m-navpill li a.m-cta{text-shadow:none;}
+
+/* ── LUX cta-stijl: vlak, sober, ingetogen (geen glans/reliëf) ── */
+.style-lux .cta .primary,.style-lux .m-navpill li a.m-cta{background:var(--orange);box-shadow:none;text-shadow:none;letter-spacing:.04em;filter:none;}
+.style-lux .cta .primary:hover,.style-lux .m-navpill li a.m-cta:hover{background:var(--orange-hover);box-shadow:0 6px 18px rgba(0,0,0,0.22);transform:translateY(-1px);filter:none;}
+.style-lux .cta .primary:active,.style-lux .m-navpill li a.m-cta:active{background:var(--orange-hover);box-shadow:none;transform:translateY(0);}
+.style-lux .cta .ghost{background:none;box-shadow:none;text-shadow:none;border:1px solid rgba(240,237,232,0.45);letter-spacing:.04em;}
+.style-lux .cta .ghost:hover{box-shadow:none;background:rgba(240,237,232,0.05);border-color:var(--off);transform:translateY(-1px);}
+.style-lux .cta .ghost:active{transform:translateY(0);box-shadow:none;}
+.m-en{display:flex;align-items:center;gap:8px;flex-shrink:0;border:1px solid rgba(240,237,232,.28);background:rgba(240,237,232,0.06);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--off);border-radius:100px;padding:12px 20px;font-size:14px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .25s ease,border-color .25s ease,transform .15s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,0.16),0 8px 20px rgba(0,0,0,0.3);}
+.m-en:hover{border-color:rgba(240,237,232,.6);background:rgba(240,237,232,0.12);transform:translateY(-1px);}
+.m-en svg{width:16px;height:16px;}
+.m-hamburger{display:none;background:rgba(240,237,232,0.08);border:1px solid rgba(240,237,232,0.18);border-radius:14px;cursor:pointer;color:var(--off);align-items:center;justify-content:center;width:52px;height:52px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .25s ease,transform .15s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,0.18),0 8px 20px rgba(0,0,0,0.32);}
+.m-hamburger:hover{background:rgba(240,237,232,0.15);transform:translateY(-1px);}
+.m-hamburger svg{width:26px;height:26px;}
+@media(max-width:1180px){.m-navpill{display:none}.m-en{display:none}.m-hamburger{display:flex}.m-nav{padding:18px 24px}}
+
+/* pagina-mockup = nav + banner samen (= 1 echte pagina-top) */
+.pagemock{position:relative;margin-bottom:6px;}
+
+/* ── footer (home-stijl met cover) onder elke banner ── */
+.foot{position:relative;overflow:hidden;background:#0D0905;}
+.foot .fbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
+.foot .fveil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,9,5,0.42) 0%,rgba(13,9,5,0.72) 42%,rgba(13,9,5,0.93) 100%);}
+.foot-in{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:clamp(50px,6vw,80px) clamp(24px,5vw,56px) 0;}
+.foot-band{display:flex;align-items:flex-end;justify-content:space-between;gap:36px;flex-wrap:wrap;padding-bottom:clamp(38px,5vw,56px);border-bottom:1px solid rgba(240,237,232,0.12);}
+.foot-band .eyebrow2{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.foot-band .eyebrow2::before{content:'';width:24px;height:1.5px;background:var(--orange);}
+.foot-band h2{font-family:var(--serif);font-weight:700;font-size:clamp(27px,3.3vw,42px);line-height:1.1;letter-spacing:-.02em;color:#fff;max-width:560px;}
+.foot-band h2 em{font-style:italic;color:var(--orange);}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:36px;padding:clamp(40px,5vw,56px) 0;}
+.foot-brand img{height:56px;width:auto;display:block;margin-bottom:20px;}
+.foot-brand p{font-size:13px;font-weight:300;line-height:1.7;color:var(--muted-d);max-width:300px;margin-bottom:20px;}
+.foot-social{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--off);text-decoration:none;border:1px solid rgba(240,237,232,0.12);border-radius:100px;padding:10px 18px;transition:border-color .2s,background .2s;}
+.foot-social:hover{border-color:var(--orange);background:rgba(232,89,43,0.08);}
+.foot-social svg{width:16px;height:16px;}
+.foot-socials{display:flex;gap:10px;flex-wrap:wrap;}
+.foot-social.icon-only{padding:10px;width:44px;justify-content:center;}
+.foot-col h4{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,0.34);margin-bottom:16px;}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.foot-col a{font-size:14px;color:var(--muted-d);text-decoration:none;transition:color .2s;}
+.foot-col a:hover{color:var(--orange);}
+.foot-contact a{display:block;font-size:14px;color:var(--muted-d);text-decoration:none;line-height:1.5;transition:color .2s;}
+.foot-contact a:hover{color:var(--orange);}
+.foot-contact .big{font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--off);margin-bottom:8px;}
+.foot-contact .vat{display:block;font-size:14px;color:var(--muted-d);line-height:1.5;}
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 0;border-top:1px solid rgba(240,237,232,0.12);}
+.foot-bottom .copy{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,0.34);}
+.foot-legal{display:flex;flex-wrap:wrap;gap:10px 22px;}
+.foot-legal a{font-size:12px;color:rgba(240,237,232,0.34);text-decoration:none;transition:color .2s;}
+.foot-legal a:hover{color:var(--orange);}
+@media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:34px 26px;}}
+.view-mobile .foot-grid{grid-template-columns:1fr;gap:30px;}
+.view-mobile .foot-band{flex-direction:column;align-items:flex-start;gap:22px;}
+.view-mobile .foot-in{padding-left:24px;padding-right:24px;}
+
+/* ── voet B (subtiel): geen cover, enkel zachte gloed ── */
+.foot-subtle .foot{background:#0D0905;}
+.foot-subtle .foot .fbg{display:none;}
+.foot-subtle .foot .fveil{background:radial-gradient(ellipse 52% 60% at 88% 0%, rgba(232,89,43,0.07), transparent 70%);}
+
+/* ── getemperde nav (sober) ── */
+.nav-soft .m-navpill{box-shadow:0 6px 18px rgba(0,0,0,0.18);border-color:rgba(255,255,255,0.4);}
+.nav-soft .m-en{box-shadow:none;}
+.nav-soft .m-hamburger{box-shadow:none;}
+
+/* preset-knop */
+.preset-btn{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.02em;color:#fff;background:var(--orange);border:none;border-radius:100px;padding:9px 17px;cursor:pointer;transition:background .2s,transform .15s;margin-right:6px;}
+.preset-btn:hover{background:var(--orange-hover);transform:translateY(-1px);}
+
+/* page-group label */
+.group-label{display:flex;align-items:center;gap:14px;padding:30px clamp(20px,5vw,56px) 8px;background:var(--bg);}
+.group-label .n{font-family:var(--serif);font-weight:700;font-size:13px;color:var(--orange);}
+.group-label .t{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--off);}
+.group-label .f{font-size:11.5px;color:rgba(240,237,232,.4);margin-left:auto;}
+
+.hero{position:relative;min-height:82vh;display:flex;align-items:center;overflow:hidden;background:var(--bg);}
+.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.hero .veil{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.hero.colored .veil{background:
+  radial-gradient(ellipse 72% 66% at 50% 46%, rgba(10,7,4,0.64), rgba(10,7,4,0.18) 68%, transparent 86%),
+  linear-gradient(to top, var(--bg) 2%, rgba(19,16,13,0) 24%),
+  linear-gradient(to bottom, rgba(19,16,13,0.42) 0%, transparent 22%);}
+.hero.colored.left .veil{background:
+  linear-gradient(to right, rgba(10,7,4,0.74) 0%, rgba(10,7,4,0.32) 44%, transparent 70%),
+  linear-gradient(to top, var(--bg) 2%, rgba(19,16,13,0) 24%);}
+/* zwarte versie — zoals de site nu: donkere bg + subtiele oranje gloed */
+.hero.black{background:
+  radial-gradient(ellipse 58% 52% at 76% 26%, rgba(232,89,43,0.10), transparent 66%),
+  radial-gradient(ellipse 50% 46% at 14% 86%, rgba(200,123,58,0.07), transparent 70%),
+  linear-gradient(160deg,#13100D 0%,#13100D 58%,#0D0905 100%);}
+.hero.black .bg{display:none;}
+.hero.black .veil{background:none;}
+
+/* ── Desktop / GSM weergave ── */
+.device-bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:12px;background:rgba(13,9,5,0.92);border-bottom:1px solid rgba(240,237,232,0.08);backdrop-filter:blur(8px);}
+.device-bar .lab{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,232,.45);}
+.dseg{display:inline-flex;gap:4px;background:rgba(240,237,232,0.06);border:1px solid rgba(240,237,232,0.12);border-radius:100px;padding:4px;}
+.dseg button{font-family:var(--sans);font-size:12px;font-weight:600;color:rgba(240,237,232,.62);background:none;border:none;border-radius:100px;padding:8px 20px;cursor:pointer;transition:all .2s;}
+.dseg button:hover{color:var(--off);}
+.dseg button.on{background:var(--orange);color:#fff;}
+
+/* GSM-simulatie: pagina-mockup (nav + banner) in een smal telefoonkader */
+.view-mobile .group-label{max-width:392px;margin:0 auto;padding-left:6px;padding-right:6px;}
+.view-mobile .group-label .f{display:none;}
+.view-mobile .pagemock{width:392px;margin:0 auto 36px;border-radius:30px;overflow:hidden;border:1px solid rgba(240,237,232,0.10);box-shadow:0 24px 60px rgba(0,0,0,0.5);}
+.view-mobile .m-nav{padding:16px 18px;}
+.view-mobile .m-navpill,.view-mobile .m-en{display:none;}
+.view-mobile .m-hamburger{display:flex;}
+.view-mobile .hero{min-height:680px;}
+.view-mobile .hero.center .inner,.view-mobile .hero.left .inner{padding:56px 22px;}
+.view-mobile .hero.left .col{max-width:100%;}
+.view-mobile .headline{font-size:31px;}
+.view-mobile .statement{font-size:16px;}
+.view-mobile .body{font-size:14px;}
+.view-mobile .cta{flex-direction:column;align-items:stretch;}
+.view-mobile .center .cta{align-items:center;}
+.view-mobile .cta a{text-align:center;}
+
+/* hybride — zwart als basis + zichtbare golf-accent onderaan */
+.hero.hybride{background:
+  radial-gradient(ellipse 58% 52% at 76% 22%, rgba(232,89,43,0.10), transparent 64%),
+  linear-gradient(160deg,#13100D 0%,#13100D 52%,#0D0905 100%);}
+.hero.hybride .bg{display:block;opacity:0.9;object-position:center 78%;
+  -webkit-mask-image:linear-gradient(to top, #000 0%, #000 30%, rgba(0,0,0,0.55) 52%, transparent 78%);
+          mask-image:linear-gradient(to top, #000 0%, #000 30%, rgba(0,0,0,0.55) 52%, transparent 78%);}
+.hero.hybride .veil{background:linear-gradient(to top, rgba(19,16,13,0.35) 0%, rgba(19,16,13,0) 30%);}
+
+/* toggle-knoppen naast de titel */
+.seg{display:inline-flex;gap:4px;background:rgba(240,237,232,0.06);border:1px solid rgba(240,237,232,0.12);border-radius:100px;padding:4px;margin-left:auto;}
+.seg button{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.02em;color:rgba(240,237,232,.6);background:none;border:none;border-radius:100px;padding:7px 16px;cursor:pointer;transition:all .2s;}
+.seg button:hover{color:var(--off);}
+.seg button.on{background:var(--orange);color:#fff;}
+.group-label .f{margin-left:0;}
+
+.hero .inner{position:relative;z-index:2;width:100%;}
+.hero.center .inner{max-width:900px;margin:0 auto;text-align:center;padding:80px 24px;}
+.hero.left .inner{max-width:1200px;margin:0 auto;padding:80px clamp(28px,7vw,96px);}
+.hero.left .col{max-width:600px;}
+
+/* version chip */
+.vchip{position:absolute;top:24px;left:clamp(20px,4vw,44px);z-index:3;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  border-radius:100px;padding:6px 14px;backdrop-filter:blur(6px);}
+.vchip.col{color:#fff;background:rgba(232,89,43,0.92);}
+.vchip.blk{color:rgba(240,237,232,.7);background:rgba(13,9,5,0.7);border:1px solid rgba(240,237,232,0.16);}
+
+.rule{display:block;width:44px;height:2px;background:var(--orange);margin-bottom:24px;}
+.center .rule{margin-left:auto;margin-right:auto;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+.headline{font-family:var(--serif);font-weight:900;font-size:clamp(36px,4.8vw,64px);line-height:1.05;letter-spacing:-.01em;color:var(--white);margin-bottom:22px;}
+.headline em{font-style:italic;color:var(--orange);}
+.statement{font-family:var(--serif);font-weight:700;font-style:italic;font-size:clamp(16px,1.7vw,21px);line-height:1.5;color:var(--off);max-width:680px;margin-bottom:28px;}
+.center .statement{margin-left:auto;margin-right:auto;}
+.statement em{color:var(--orange);}
+.body{font-size:clamp(14px,1.4vw,16px);font-weight:300;line-height:1.75;color:var(--muted-d);max-width:560px;margin-bottom:30px;}
+.center .body{margin-left:auto;margin-right:auto;}
+.body strong{color:var(--off);font-weight:500;}
+.cta{display:flex;gap:13px;flex-wrap:wrap;}
+.center .cta{justify-content:center;}
+.cta a{font-size:13px;font-weight:600;letter-spacing:.02em;text-decoration:none;border-radius:100px;padding:13px 26px;transition:all .2s;text-shadow:0 1px 1px rgba(0,0,0,0.45),0 2px 4px rgba(0,0,0,0.22);}
+.cta .primary{background:linear-gradient(180deg,#f3704a 0%,#e8592b 50%,#cf4a1f 100%);color:#fff;box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.5),inset 0 -3px 5px rgba(0,0,0,0.32),0 8px 20px rgba(0,0,0,0.42);transition:transform .14s ease,box-shadow .14s ease,filter .2s ease;}
+.cta .primary:hover{filter:brightness(1.06);transform:translateY(-2px);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.5),inset 0 -3px 5px rgba(0,0,0,0.32),0 14px 28px rgba(0,0,0,0.48);}
+.cta .primary:active{transform:translateY(0);background:linear-gradient(180deg,#cf4a1f 0%,#e8592b 100%);box-shadow:inset 0 3px 7px rgba(0,0,0,0.42),0 3px 8px rgba(0,0,0,0.3);}
+.cta .ghost{border:1.5px solid rgba(240,237,232,0.34);color:var(--off);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.16),inset 0 -2px 4px rgba(0,0,0,0.22),0 8px 18px rgba(0,0,0,0.28);transition:transform .14s ease,box-shadow .14s ease,border-color .2s ease,background .2s ease;}
+.cta .ghost:hover{border-color:var(--off);transform:translateY(-2px);background:rgba(240,237,232,0.07);box-shadow:inset 0 1.5px 0 rgba(255,255,255,0.18),inset 0 -2px 4px rgba(0,0,0,0.22),0 14px 26px rgba(0,0,0,0.34);}
+.cta .ghost:active{transform:translateY(0);box-shadow:inset 0 3px 6px rgba(0,0,0,0.28);}
+</style>
+</head>
+<body>
+
+<div class="device-bar">
+  <button id="preset" class="preset-btn">✦ Sober preset</button>
+  <span class="lab">Weergave</span>
+  <span class="dseg" id="dseg">
+    <button data-d="desktop" class="on">Desktop</button>
+    <button data-d="mobile">GSM</button>
+  </span>
+  <span class="lab" style="margin-left:18px;">CTA</span>
+  <span class="dseg" id="cseg">
+    <button data-c="3d" class="on">Tactiel</button>
+    <button data-c="flat">Tactiel · platte tekst</button>
+    <button data-c="lux">Lux</button>
+  </span>
+  <span class="lab" style="margin-left:18px;">Voet</span>
+  <span class="dseg" id="fseg">
+    <button data-f="cover" class="on">Cover</button>
+    <button data-f="subtle">Subtiel</button>
+  </span>
+</div>
+
+<main id="app"></main>
+
+<script>
+var IMG = '../../uploads/banner-clean.png';
+var PAGES = [
+  { n:'01', t:'Aanpak', f:'aanpak.html', align:'center',
+    eyebrow:'Onze aanpak',
+    headline:'<em>Verzuim</em> is niet het probleem.<br>Het is <em>het signaal.</em>',
+    statement:'Verzuim komt niet terug omdat niemand iets doet. Het komt terug omdat <em>niemand alles ziet.</em>',
+    ctas:[['Plan een diagnosegesprek','primary'],['Doe de fit check','ghost']] },
+  { n:'02', t:'Technologie', f:'technologie.html', align:'center',
+    eyebrow:'Technologie',
+    headline:'Human systems.<br><em>Operational intelligence.</em>',
+    body:'Een intelligent systeem dat menselijke expertise, operationele structuur en gedragsinzichten samenbrengt in <strong>één schaalbaar geheel.</strong>',
+    ctas:[['Ontdek Casey','primary'],['Plan een gesprek','ghost']] },
+  { n:'03', t:'Fit check', f:'fit-check.html', align:'center',
+    eyebrow:'Fit check',
+    headline:'Is uw verzuimaanpak klaar voor wat organisaties vandaag <em>vragen?</em>',
+    ctas:[['Start de fit check','primary']] },
+  { n:'04', t:'Contact', f:'contact.html', align:'center',
+    eyebrow:'Contact',
+    headline:'Kies hoe u ons<br><em>bereikt.</em>',
+    body:'<strong>Geen verkoopgesprek of standaardpitch.</strong> U brengt uw vraag, wij luisteren en zeggen eerlijk of we een meerwaarde kunnen zijn.',
+    ctas:[['Plan een gesprek','primary'],['Stuur een bericht','ghost']] },
+  { n:'05', t:'About', f:'about.html', align:'left',
+    eyebrow:'Over Montisoro',
+    headline:'Sommige bedrijven ontstaan uit een opportuniteit.<br><em>Montisoro</em> uit een overtuiging.',
+    body:'We verbinden diepgaande HR-expertise met technologie om medewerkers te helpen terugkeren naar werk.',
+    ctas:[['Onze aanpak','primary'],['Plan een gesprek','ghost']] }
+];
+
+function heroInner(p){
+  var h = '<span class="rule"></span>' +
+    '<p class="eyebrow">'+p.eyebrow+'</p>' +
+    '<h1 class="headline">'+p.headline+'</h1>' +
+    (p.statement ? '<p class="statement">'+p.statement+'</p>' : '') +
+    (p.body ? '<p class="body">'+p.body+'</p>' : '') +
+    '<div class="cta">'+p.ctas.map(function(c){return '<a href="#" class="'+c[1]+'">'+c[0]+'</a>';}).join('')+'</div>';
+  return p.align==='left' ? '<div class="col">'+h+'</div>' : h;
+}
+function hero(p, variant){
+  var colored = variant==='colored';
+  return '<section class="hero '+variant+' '+p.align+'" data-screen-label="'+p.t+' '+variant+'">' +
+    (colored ? '<img class="bg" src="'+IMG+'" alt="">' : '') +
+    '<div class="veil"></div>' +
+    '<span class="vchip '+(colored?'col':'blk')+'">'+(colored?'Gekleurd':'Zwart (nu)')+'</span>' +
+    '<div class="inner">'+heroInner(p)+'</div>' +
+  '</section>';
+}
+function heroEl(p, idx){
+  return '<section class="hero colored '+p.align+'" id="hero'+idx+'" data-screen-label="'+p.t+'">' +
+    '<img class="bg" src="'+IMG+'" alt="">' +
+    '<div class="veil"></div>' +
+    '<div class="inner">'+heroInner(p)+'</div>' +
+  '</section>';
+}
+function navHTML(active){
+  var items=[['Home.html','Home'],['about.html','About'],['aanpak.html','Onze aanpak'],['technologie.html','Technologie'],['fit-check.html','Fit check'],['calculator.html','Calculator'],['contact.html','Contact']];
+  var globe='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>';
+  var burger='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  return '<nav class="m-nav">' +
+    '<a href="#" class="m-nav-logo" aria-label="Montisoro home"><img src="../assets/montisoro-logo.png" alt="Montisoro"></a>' +
+    '<ul class="m-navpill">' +
+      items.map(function(it){ return '<li><a href="#"'+(it[0]===active?' class="m-active"':'')+'>'+it[1]+'</a></li>'; }).join('') +
+      '<li><a href="#" class="m-cta">Plan een gesprek \u2192</a></li>' +
+    '</ul>' +
+    '<button class="m-en" aria-label="Taal">'+globe+' EN</button>' +
+    '<button class="m-hamburger" aria-label="Menu">'+burger+'</button>' +
+  '</nav>';
+}
+function footerHTML(){
+  var li='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg>';
+  var mail='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+  return '<footer class="foot">' +
+    '<img class="fbg" src="'+IMG+'" alt="">' +
+    '<div class="fveil"></div>' +
+    '<div class="foot-in">' +
+      '<div class="foot-band">' +
+        '<div><span class="eyebrow2">Klaar om te starten?</span>' +
+        '<h2>Verzuim niet langer <em>ondergaan,</em> maar begrijpen.</h2></div>' +
+        '<div class="cta"><a href="#" class="primary">Plan een gesprek</a></div>' +
+      '</div>' +
+      '<div class="foot-grid">' +
+        '<div class="foot-brand"><img src="../assets/montisoro-logo.png" alt="Montisoro"><p>ReIntegrate What Matters.</p>' +
+          '<div class="foot-socials"><a href="#" class="foot-social">'+li+' LinkedIn</a>' +
+          '<a href="mailto:hello@montisoro.com" class="foot-social icon-only" aria-label="E-mail">'+mail+'</a></div></div>' +
+        '<div class="foot-col"><h4>Navigatie</h4><ul><li><a href="#">Home</a></li><li><a href="#">About</a></li><li><a href="#">Onze aanpak</a></li><li><a href="#">Technologie</a></li></ul></div>' +
+        '<div class="foot-col"><h4>Tools</h4><ul><li><a href="#">Fit check</a></li><li><a href="#">Verzuimcalculator</a></li><li><a href="#">Contact</a></li></ul></div>' +
+        '<div class="foot-col foot-contact"><h4>Contact</h4><div class="big">Montisoro</div><a href="tel:+32477899186">+32 477 89 91 86</a><span class="vat">BTW BE0733.840.137</span></div>' +
+      '</div>' +
+      '<div class="foot-bottom"><span class="copy">\u00a9 2026 Montisoro</span><div class="foot-legal"><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Algemene voorwaarden</a></div></div>' +
+    '</div>' +
+  '</footer>';
+}
+document.getElementById('app').innerHTML = PAGES.map(function(p, i){
+  return '<div class="group-label">' +
+      '<span class="n">'+p.n+'</span><span class="t">'+p.t+'</span><span class="f">'+p.f+'</span>' +
+      '<span class="seg" data-i="'+i+'">' +
+        '<button data-v="black">Zwart</button>' +
+        '<button data-v="hybride">Hybride</button>' +
+        '<button data-v="colored" class="on">Banner</button>' +
+      '</span>' +
+    '</div>' +
+    '<div class="pagemock">' + navHTML(p.f) + heroEl(p, i) + footerHTML() + '</div>';
+}).join('');
+
+document.querySelectorAll('.seg').forEach(function(seg){
+  var i = seg.getAttribute('data-i');
+  var hero = document.getElementById('hero'+i);
+  seg.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var v = btn.getAttribute('data-v');
+      hero.classList.remove('colored','black','hybride');
+      hero.classList.add(v);
+      seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b===btn); });
+    });
+  });
+});
+
+// Desktop / GSM weergave
+document.getElementById('dseg').querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var d = btn.getAttribute('data-d');
+    document.body.classList.toggle('view-mobile', d==='mobile');
+    document.body.classList.toggle('view-desktop', d==='desktop');
+    document.getElementById('dseg').querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b===btn); });
+  });
+});
+
+// CTA-stijl: Tactiel / Lux
+document.getElementById('cseg').querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var c=btn.getAttribute('data-c');
+    document.body.classList.toggle('style-lux', c==='lux');
+    document.body.classList.toggle('style-flattext', c==='flat');
+    document.getElementById('cseg').querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b===btn); });
+  });
+});
+// Voet: Cover / Subtiel
+document.getElementById('fseg').querySelectorAll('button').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.body.classList.toggle('foot-subtle', btn.getAttribute('data-f')==='subtle');
+    document.getElementById('fseg').querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b===btn); });
+  });
+});
+
+// ✦ Sober preset: Hybride + Lux + getemperde nav + subtiele footer
+function segOn(id, val, attr){ var s=document.getElementById(id); if(!s) return; s.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute(attr)===val); }); }
+document.getElementById('preset').addEventListener('click', function(){
+  document.querySelectorAll('.hero').forEach(function(h){ h.classList.remove('colored','black','hybride'); h.classList.add('hybride'); });
+  document.querySelectorAll('.seg').forEach(function(seg){ seg.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-v')==='hybride'); }); });
+  document.body.classList.add('style-lux'); document.body.classList.remove('style-flattext');
+  document.body.classList.add('foot-subtle');
+  document.body.classList.add('nav-soft');
+  segOn('cseg','lux','data-c'); segOn('fseg','subtle','data-f');
+});
+</script>
+</body>
+</html>

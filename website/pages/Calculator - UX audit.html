@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro Calculator — Expert UX/UI Audit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+:root{
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+  --ink:#1A1512; --soft:#52493F; --mute:#6E6359; --line:rgba(26,21,18,.12); --line2:rgba(26,21,18,.20);
+  --orange:#CC4A1E; --orange2:#E8592B; --bg:#F4F2EF; --card:#fff;
+  --good:#1F7A4D; --warn:#B4530A; --bad:#A12C2C;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:920px;margin:0 auto;padding:56px 24px 120px;}
+.doc-head{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:14px;}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+h1{font-family:var(--serif);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange2);}
+.lede{font-size:16px;color:var(--soft);max-width:64ch;}
+.panel-roster{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;}
+.chip{font-size:11.5px;font-weight:500;color:var(--soft);background:var(--card);border:1px solid var(--line);border-radius:100px;padding:5px 12px;}
+.verdict-banner{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--ink);color:#F0EDE8;border-radius:16px;padding:22px 26px;margin:26px 0 8px;}
+.verdict-banner .big{font-family:var(--serif);font-weight:800;font-size:40px;line-height:1;color:#fff;}
+.verdict-banner .vlabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,.6);margin-bottom:4px;}
+.verdict-banner .vsplit{width:1px;height:44px;background:rgba(240,237,232,.18);}
+.verdict-banner .answer{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--orange2);font-weight:700;}
+sec, section{display:block;}
+section.blk{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 30px;margin-top:22px;}
+.sec-n{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+h2{font-family:var(--serif);font-weight:700;font-size:26px;letter-spacing:-.01em;margin-bottom:6px;}
+h2 .score{font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);background:var(--bg);border:1px solid var(--line2);border-radius:100px;padding:3px 12px;margin-left:8px;vertical-align:middle;}
+h3{font-size:15px;font-weight:700;margin:18px 0 6px;color:var(--ink);}
+p{margin-bottom:11px;color:var(--soft);}
+p strong, li strong{color:var(--ink);font-weight:600;}
+ul{margin:0 0 12px;padding-left:0;list-style:none;}
+li{position:relative;padding-left:22px;margin-bottom:8px;color:var(--soft);}
+li::before{content:'';position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--orange2);}
+li.plus::before{background:var(--good);} li.minus::before{background:var(--bad);} li.warn::before{background:var(--warn);}
+.quote{border-left:2px solid var(--orange2);padding:2px 0 2px 16px;margin:12px 0;font-size:14.5px;}
+.quote .who{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:3px;}
+.scoretable{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px;}
+.scoretable td{padding:9px 6px;border-bottom:1px solid var(--line);}
+.scoretable td:last-child{text-align:right;font-weight:700;font-feature-settings:"tnum";white-space:nowrap;}
+.bar{display:inline-block;height:7px;border-radius:4px;background:var(--orange2);vertical-align:middle;margin-right:8px;}
+.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 14px;}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:6px;}
+.tag.krit{background:rgba(161,44,44,.1);color:var(--bad);border:1px solid rgba(161,44,44,.3);}
+.tag.belang{background:rgba(180,83,10,.1);color:var(--warn);border:1px solid rgba(180,83,10,.3);}
+.tag.nice{background:rgba(31,122,77,.1);color:var(--good);border:1px solid rgba(31,122,77,.3);}
+.disagree{background:var(--bg);border:1px dashed var(--line2);border-radius:10px;padding:12px 16px;margin:12px 0;font-size:14px;}
+.disagree b{color:var(--orange);}
+@media print{body{background:#fff;}section.blk{break-inside:avoid;border-color:#ddd;}.wrap{padding:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-head">
+  <div class="kicker">Onafhankelijk reviewpanel · Vertrouwelijk</div>
+  <h1>Montisoro Verzuimcalculator — <em>kritische</em> UX/UI-audit</h1>
+  <p class="lede">Dertien specialisten hebben de volledige flow doorlopen als eerste-keer-gebruiker en potentiële klant. Geen complimenten voor de vorm; ook kleine problemen worden benoemd. Waar meningen verschillen, staat dat expliciet vermeld.</p>
+  <div class="panel-roster">
+    <span class="chip">CEO · 50 mdw</span><span class="chip">CEO · 100 mdw</span><span class="chip">CEO · 200 mdw</span>
+    <span class="chip">HR Director</span><span class="chip">Preventieadviseur</span><span class="chip">Operations Manager</span>
+    <span class="chip">CFO</span><span class="chip">Senior UX</span><span class="chip">Senior UI</span>
+    <span class="chip">Gedragspsycholoog</span><span class="chip">CRO-specialist</span><span class="chip">Accessibility</span><span class="chip">Copywriter</span>
+  </div>
+</header>
+
+<div class="verdict-banner">
+  <div><div class="vlabel">Totaalscore vandaag</div><div class="big">7,4<span style="font-size:18px;color:rgba(240,237,232,.5);">/10</span></div></div>
+  <div class="vsplit"></div>
+  <div><div class="vlabel">Zou een CEO nu zonder twijfel zijn gegevens achterlaten?</div><div class="answer">Twijfel</div></div>
+</div>
+<p style="font-size:13px;color:var(--mute);margin-bottom:4px;">Sterke basis — professioneel, geloofwaardig, technisch verzorgd. Maar één structurele belofte-breuk en enkele frictie- en waardeperceptie-problemen houden hem onder de 9,5 die nodig is om twijfelloos te converteren. Details en concrete roadmap hieronder.</p>
+
+<section class="blk">
+  <div class="sec-n">01 · Eerste indruk (5 seconden)</div>
+  <h2>Duidelijk doel, maar de belofte klopt straks niet <span class="score">7/10</span></h2>
+  <p>De hero communiceert het doel meteen: <strong>"Verzuimkost in real-time."</strong> met de knop "Bereken uw verzuimkost". Iedereen in het panel begreep binnen 5 seconden wát dit is en wilde beginnen. Het oogt rustig, premium en betrouwbaar.</p>
+  <ul>
+    <li class="plus"><strong>Sterk:</strong> serif-titel + één heldere CTA + korte belofte. Geen ruis.</li>
+    <li class="minus"><strong>Kritiek probleem:</strong> de hero belooft <strong>"real-time", "Live berekening"</strong> en "zie de impact meteen" — maar in de huidige flow ziet de gebruiker tijdens het invullen <em>geen</em> cijfer. Het resultaat verschijnt pas op het einde. Belofte en ervaring spreken elkaar tegen.</li>
+    <li class="warn">Geen indicatie van <strong>inspanning</strong> ("6 stappen · ± 2 min"). Een CEO weet niet waar hij aan begint.</li>
+  </ul>
+  <div class="disagree"><b>Meningsverschil.</b> De UI-designer vindt de real-time-copy "een detail". De CRO-specialist en gedragspsycholoog noemen het een <b>expliciete verwachtingsbreuk</b> die het vertrouwen ondermijnt zodra de gebruiker merkt dat er niets beweegt. Meerderheid: dit moet opgelost.</div>
+</section>
+
+<section class="blk">
+  <div class="sec-n">02 · CEO-perspectief</div>
+  <h2>Begrijpelijk, tot de %-schattingen <span class="score">6,5/10</span></h2>
+  <p>De eerste stappen (aantal medewerkers, brutoloon) zijn glashelder. Vanaf stap 4 kantelt het.</p>
+  <ul>
+    <li class="minus"><strong>Stap 4 & 5 vragen een percentage-schatting</strong> ("Aandeel vervangingskosten", "Aandeel organisatorische impact"). Geen enkele CEO in het panel wist hier spontaan een cijfer op — men gokt of schuift maar wat. Dat ondermijnt het vertrouwen in het eindbedrag: <em>"als mijn input een gok is, is €771.480 dat ook."</em></li>
+    <li class="warn">Stap 3 stapelt vijf velden (voordelen, groeps-, hospitalisatie-, andere verzekering, firmawagen). Voor een 50-mdw-CEO zonder HR-afdeling is dat veel opzoekwerk.</li>
+    <li class="plus">De info-tooltips (i-icoontjes) zijn inhoudelijk goed en tonen dat er nagedacht is.</li>
+    <li class="warn"><strong>Valse precisie:</strong> "€771.480" tot op de euro voelt tegenstrijdig met het label "indicatief". CEO's vertrouwen een afgerond "± €770K" méér.</li>
+  </ul>
+  <div class="quote"><span class="who">CEO · 200 mdw</span>"De eerste helft is af. Maar bij 'aandeel organisatorische impact 50%' haak ik mentaal af — ik heb geen idee of dat klopt, dus ik geloof de uitkomst maar half."</div>
+</section>
+
+<section class="blk">
+  <div class="sec-n">03 · UI Design</div>
+  <h2>Het sterkste onderdeel <span class="score">8/10</span></h2>
+  <ul>
+    <li class="plus"><strong>Witruimte, hiërarchie, kleur:</strong> voorbeeldig. Rustige palette, oranje spaarzaam als accent, donkere resultaatkaders als bookend.</li>
+    <li class="plus"><strong>Consistentie:</strong> invoervelden met potlood-affordance en oranje focus zijn nu identiek over alle stappen — net opgeschoond.</li>
+    <li class="plus">Het resultaatkader en het rapport staan bij de onthulling op <strong>gelijke hoogte</strong> naast elkaar — verzorgd.</li>
+    <li class="minus"><strong>Stepper-inconsistentie:</strong> stap 6 heet in de stapbalk "Verzuim" maar als titel "Verzuimprofiel". Kies één term.</li>
+    <li class="minus"><strong>Copy-inconsistentie:</strong> in stap 6 staat nog "úw cijfers" (met accent), terwijl datzelfde woord in het methodologie-kader net naar "uw" is gezet. Trek dit gelijk.</li>
+    <li class="warn">De 6 verzuim-pillen (stap 6) blijven dicht op elkaar; op 13"-laptops oogt die stap druk.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">04 · UX & flow</div>
+  <h2>Logisch, maar "blind invullen" kost momentum <span class="score">6,5/10</span></h2>
+  <ul>
+    <li class="plus">Stap-voor-stap wizard met altijd zichtbare stapbalk (klikbaar terug) = goede oriëntatie.</li>
+    <li class="minus"><strong>Kernspanning:</strong> de gebruiker vult 6 stappen in zónder tussentijdse feedback en krijgt dan in één klap het bedrag. Dat verhoogt het afhaakrisico halverwege — precies het gedrag dat een live-cijfer zou voorkomen.</li>
+    <li class="warn">Geen samenvatting/controle vóór de onthulling ("dit vulde u in") — de gebruiker kan niet snel checken of een gok scheef zat.</li>
+    <li class="plus">Terug-navigatie herstelt netjes de invoerstatus. Solide.</li>
+  </ul>
+  <div class="disagree"><b>Meningsverschil.</b> UX vindt de rustige "één ding per keer"-flow beter voor mobiel; CRO wil minstens een compact live-getal terug om momentum vast te houden. Compromis (zie roadmap): live mini-cijfer op desktop, reveal-op-einde op mobiel.</div>
+</section>
+
+<section class="blk">
+  <div class="sec-n">05 · Formulieren</div>
+  <h2>Nette velden, twee echte struikelblokken <span class="score">7/10</span></h2>
+  <p><strong>Invoervelden (stappen):</strong></p>
+  <ul>
+    <li class="plus">Duidelijke labels, goede placeholders ("bv. 100"), handmatig typen én schuiven mogelijk, inline validatie met potlood-affordance.</li>
+    <li class="minus">De <strong>%-velden</strong> (stap 4/5) vragen een grootheid die de doelgroep niet paraat heeft. Bied een keuze: "ken ik niet → gebruik sectorstandaard" met een vooringevulde waarde.</li>
+    <li class="warn">Stap 3: vijf optionele kostenvelden zonder "sla over / niet van toepassing"-geruststelling. Maak expliciet dat leeg = €0.</li>
+  </ul>
+  <p><strong>Rapportformulier (einde):</strong> Naam*, Bedrijf*, Werk e-mail*, Telefoon (optioneel), akkoord*.</p>
+  <ul>
+    <li class="plus">Kort, B2B-logisch (werk-e-mail), telefoon terecht optioneel, consent expliciet met privacylink.</li>
+    <li class="warn">"Werk e-mail" verplicht kan een drempel zijn; goed onderbouwd maar test een variant met enkel naam + e-mail.</li>
+    <li class="minus">Geen <strong>preview van wat het rapport toevoegt</strong> bovenop wat al zichtbaar is — zie sectie 6 & 10.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">06 · Conversie</div>
+  <h2>De waarde-ruil is niet scherp genoeg <span class="score">6/10</span></h2>
+  <p>Op het onthullingsmoment ziet de gebruiker al: het totale bedrag, 4 KPI's per medewerker én het risiconiveau t.o.v. de sector. Dat is veel — en juist dáárom is de vraag "laat je gegevens achter voor het <em>volledige</em> rapport" zwak: <strong>wat krijg ik dan extra?</strong></p>
+  <ul>
+    <li class="minus"><strong>Grootste conversielek:</strong> het formulier zegt "Ontvang uw volledige verzuimrapport" maar toont niet wát erin zit. Zonder concreet "u krijgt: X, Y, Z" is er weinig reden om data te geven wanneer het hoofdcijfer al op het scherm staat.</li>
+    <li class="plus">Value-then-ask is juist opgebouwd: eerst cijfer, dan pas de vraag. Goede volgorde.</li>
+    <li class="plus">"Gratis · GDPR-conform · geen spam · direct in uw mailbox" is een sterke frictie-verlager, nu netjes gecentreerd.</li>
+    <li class="warn">Geen sociale bewijskracht meer op dit moment (de "Vertrouwd door"-strip is verwijderd). Overweeg één subtiele proof-regel bij het formulier.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">07 · Psychologie</div>
+  <h2>Vertrouwen goed opgebouwd, controle wankelt <span class="score">6,5/10</span></h2>
+  <ul>
+    <li class="plus"><strong>Geloofwaardigheid:</strong> "Belgische verzuimbarometer", "indicatie, geen schatting", sectorvergelijking en methodologie-uitleg geven autoriteit.</li>
+    <li class="minus"><strong>Gevoel van controle daalt</strong> door de %-gokvelden en het ontbreken van live-feedback: de gebruiker stuurt zonder te zien wat zijn keuze doet. Dat voedt twijfel ("klopt dit wel?") vlak vóór de datavraag — het slechtst mogelijke moment.</li>
+    <li class="warn"><strong>Verwachting:</strong> "real-time" wekt een interactief gevoel dat niet wordt ingelost → milde teleurstelling.</li>
+    <li class="plus">Het rustige, één-ding-per-keer-ritme verlaagt cognitieve belasting per scherm — goed toegepast.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">08 · Toegankelijkheid</div>
+  <h2>Degelijke basis, enkele gaten <span class="score">7/10</span></h2>
+  <ul>
+    <li class="plus">Zichtbare focus-ring op het kader, labels aan velden gekoppeld, schuiven ook per toetsenbord/typen bedienbaar, aria-labels aanwezig.</li>
+    <li class="warn"><strong>Contrast:</strong> de gedempte micro-labels (grijs op wit) en de "indicatief"-subtekst zitten dicht bij de WCAG AA-grens — laten meten.</li>
+    <li class="warn">De 6 verzuim-pillen met status­kleur (groen/oranje/rood): kleur mag niet de enige drager van betekenis zijn — voeg een woord/teken toe voor kleurenblinden.</li>
+    <li class="warn">Info-tooltips op een "i" met <code>tabindex</code>: controleer of de inhoud ook per toetsenbord en screenreader bereikbaar is (niet enkel hover).</li>
+    <li class="plus">Reduced-motion wordt gerespecteerd in de animaties.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">09 · Mobiele ervaring</div>
+  <h2>Wizard werkt mobiel goed — reveal wordt lang <span class="score">7/10</span></h2>
+  <ul>
+    <li class="plus">Eén stap per scherm is op mobiel juist een voordeel; velden en knoppen zijn ruim genoeg (≥44px).</li>
+    <li class="plus">Bij de onthulling stapelen preview en rapport netjes onder elkaar (eerst cijfer, dan formulier).</li>
+    <li class="warn">Stap 3 (5 velden) en stap 6 (6 pillen + werkdagen) worden op een telefoon lange scrolls. Overweeg opsplitsen of inklappen.</li>
+    <li class="warn">Numerieke velden: controleer dat overal het numerieke toetsenbord opent (<code>inputmode</code>).</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">10 · Eindscherm — "zou ik mijn gegevens invullen?"</div>
+  <h2>Eerlijk antwoord van het panel: verdeeld <span class="score">6/10</span></h2>
+  <div class="quote"><span class="who">CFO</span>"Ik zie mijn totaalbedrag én vier KPI's al staan. Waarom zou ik dan mijn werk-e-mail geven? Zeg me eerst wat er extra in dat rapport zit — benchmarks, besparingsscenario's, een PDF voor mijn board — anders sluit ik gewoon af."</div>
+  <div class="quote"><span class="who">HR Director</span>"Ik zou het wél doen — ik wil de sectorvergelijking en iets tastbaars om intern te delen. Maar dat moet er dan wél expliciet staan."</div>
+  <ul>
+    <li class="minus"><strong>Ontbreekt:</strong> een concrete inhoudsopgave van het rapport ("3 besparingsscenario's, sectorbenchmark, deelbare PDF, aanbevolen volgende stap").</li>
+    <li class="minus"><strong>Ontbreekt:</strong> een reden om nú te handelen en een geruststelling over frequentie van contact ("we bellen niet ongevraagd").</li>
+    <li class="plus">Aanwezig en goed: gratis, GDPR, geen spam, privacylink, "liever in gesprek"-alternatief.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">11 · Prioriteitenlijst</div>
+  <div class="pill-row"><span class="tag krit">Kritiek — nu oplossen</span></div>
+  <ul>
+    <li class="minus">Belofte-breuk oplossen: óf de hero-copy ("real-time / live / meteen") aanpassen aan de reveal-flow, óf een compact live-cijfer tijdens de stappen tonen.</li>
+    <li class="minus">Waarde van het rapport expliciet maken bij het formulier ("u ontvangt: …") — de belangrijkste conversiehefboom.</li>
+    <li class="minus">%-gokvelden (stap 4/5) voorzien van "ken ik niet → sectorstandaard" met vooringevulde waarde.</li>
+  </ul>
+  <div class="pill-row"><span class="tag belang">Belangrijk</span></div>
+  <ul>
+    <li class="warn">Samenvatting/controle-stap vóór de onthulling ("dit vulde u in — aanpassen?").</li>
+    <li class="warn">Bedrag afronden ("± €770K") om bij "indicatief" te passen.</li>
+    <li class="warn">Copy gelijktrekken ("úw"→"uw"; stepper "Verzuim" vs "Verzuimprofiel"); inspanningsindicatie "6 stappen · ± 2 min" in de hero.</li>
+    <li class="warn">Eén subtiele proof-regel bij het formulier (aantal berekeningen / een klantcitaat).</li>
+  </ul>
+  <div class="pill-row"><span class="tag nice">Nice to have</span></div>
+  <ul>
+    <li class="plus">Stap 3/6 op mobiel inklapbaar of opsplitsen.</li>
+    <li class="plus">Contrast- en toetsenbord-audit van tooltips en micro-labels.</li>
+    <li class="plus">Statuskleur van de verzuim-pillen ook niet-kleurgebonden maken.</li>
+  </ul>
+</section>
+
+<section class="blk">
+  <div class="sec-n">12 · Eindscores</div>
+  <h2>Per dimensie</h2>
+  <table class="scoretable">
+    <tr><td>UI Design</td><td><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Algemene professionele uitstraling</td><td><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Leesbaarheid</td><td><span class="bar" style="width:80px"></span>8,0</td></tr>
+    <tr><td>Vertrouwen</td><td><span class="bar" style="width:73px"></span>7,3</td></tr>
+    <tr><td>Duidelijkheid</td><td><span class="bar" style="width:72px"></span>7,2</td></tr>
+    <tr><td>Formulieren</td><td><span class="bar" style="width:70px"></span>7,0</td></tr>
+    <tr><td>Mobiele ervaring</td><td><span class="bar" style="width:70px"></span>7,0</td></tr>
+    <tr><td>UX</td><td><span class="bar" style="width:65px"></span>6,5</td></tr>
+    <tr><td>Psychologie</td><td><span class="bar" style="width:65px"></span>6,5</td></tr>
+    <tr><td>Conversie</td><td><span class="bar" style="width:60px"></span>6,0</td></tr>
+    <tr><td style="font-weight:700;color:var(--ink);border-top:2px solid var(--ink);">Totaal</td><td style="border-top:2px solid var(--ink);font-size:16px;">7,4</td></tr>
+  </table>
+  <p style="margin-top:12px;">De vorm (UI, uitstraling, leesbaarheid) tilt de score op; UX, psychologie en conversie trekken hem omlaag. De rode draad achter die drie is telkens dezelfde: <strong>de gebruiker mist feedback en een scherpe reden om data te ruilen</strong>.</p>
+</section>
+
+<section class="blk">
+  <div class="sec-n">13 · Vergelijking met topbedrijven</div>
+  <h2>Deloitte · PwC · McKinsey · HubSpot · Apple</h2>
+  <ul>
+    <li class="plus"><strong>Op niveau:</strong> visuele afwerking, typografie en rust benaderen HubSpot/Apple-kwaliteit. De methodologische onderbouwing is sterker dan de meeste HubSpot-calculators.</li>
+    <li class="minus"><strong>Achter op HubSpot (conversie):</strong> zij tonen expliciet wat je krijgt, gebruiken een live-cijfer en micro-proof rond het formulier. Daar verliezen we.</li>
+    <li class="minus"><strong>Achter op Deloitte/PwC (geloofwaardigheid van input):</strong> zij vermijden dat de gebruiker ruwe %-schattingen moet gokken, of kaderen die met benchmarks per sector als default.</li>
+    <li class="warn"><strong>Achter op McKinsey/Apple (afwerking van details):</strong> valse precisie, copy-inconsistenties en de belofte-breuk zijn precies het soort details dat zij niet laten passeren.</li>
+  </ul>
+</section>
+
+<section class="blk" style="background:var(--ink);color:#F0EDE8;border-color:var(--ink);">
+  <div class="sec-n" style="color:var(--orange2);">14 · Eindoordeel</div>
+  <h2 style="color:#fff;">Zou ik als CEO zonder twijfel mijn gegevens achterlaten? <span style="font-family:var(--serif);font-style:italic;color:var(--orange2);">Twijfel.</span></h2>
+  <p style="color:rgba(240,237,232,.82);">De calculator is professioneel, geloofwaardig en mooi afgewerkt — genoeg om te beginnen en de flow af te maken. Maar op het beslissende moment ontbreekt precies wat een <em>twijfelloze</em> "ja" maakt: het hoofdcijfer staat al op het scherm, de extra waarde van het rapport is niet benoemd, en enkele inputs voelden als een gok. Dat samen zet een CEO op "twijfel", niet op "ja".</p>
+  <h3 style="color:#fff;">Stappenplan naar 9,5/10</h3>
+  <ul>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">1. Los de belofte-breuk op.</strong> Live mini-cijfer op desktop tijdens de stappen (of hero-copy bijstellen). <em>Impact: gebruiksgemak ++, vertrouwen ++, conversie +.</em></li>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">2. Benoem de rapport-waarde</strong> met een concrete "u ontvangt: …"-lijst bij het formulier. <em>Impact: conversie +++, vertrouwen +.</em></li>
+    <li class="minus" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">3. Ontgok de %-velden</strong> met sectordefaults + "ken ik niet". <em>Impact: vertrouwen +++, gebruiksgemak ++.</em></li>
+    <li class="warn" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">4. Controle-stap + afronding + proof-regel + copy gelijktrekken.</strong> <em>Impact: vertrouwen ++, conversie +.</em></li>
+    <li class="warn" style="color:rgba(240,237,232,.82);"><strong style="color:#fff;">5. A11y- & mobiel-detailronde</strong> (contrast, tooltips, lange stappen). <em>Impact: gebruiksgemak +, bereik +.</em></li>
+  </ul>
+  <p style="color:rgba(240,237,232,.7);font-size:13px;margin-bottom:0;">Met punt 1–3 opgelost verwacht het panel een sprong naar ± 8,7. Met 4–5 erbij is 9,5 realistisch — en verandert het eindoordeel van "twijfel" in "ja".</p>
+</section>
+
+</div>
+</body>
+</html>
+

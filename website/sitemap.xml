@@ -5,7 +5,7 @@
   <!-- ── Homepage ── -->
   <url>
     <loc>https://montisoro.com/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://montisoro.com/Home-en.html</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
@@ -25,13 +25,13 @@
   <!-- ── About ── -->
   <url>
     <loc>https://montisoro.com/about.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.90</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/about.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/about-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/about-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/about.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/about-en.html" />
   </url>
@@ -39,13 +39,13 @@
   <!-- ── Onze aanpak ── -->
   <url>
     <loc>https://montisoro.com/aanpak.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.90</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/aanpak.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/aanpak-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/aanpak-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/aanpak.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/aanpak-en.html" />
   </url>
@@ -53,13 +53,13 @@
   <!-- ── Technologie ── -->
   <url>
     <loc>https://montisoro.com/technologie.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/technologie.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/technologie-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/technologie-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/technologie.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/technologie-en.html" />
   </url>
@@ -67,13 +67,13 @@
   <!-- ── Calculator ── -->
   <url>
     <loc>https://montisoro.com/calculator.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/calculator-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-en.html" />
   </url>
@@ -81,13 +81,13 @@
   <!-- ── Fit Check ── -->
   <url>
     <loc>https://montisoro.com/fit-check.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/fit-check.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/fit-check-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/fit-check-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/fit-check.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/fit-check-en.html" />
   </url>
@@ -95,13 +95,13 @@
   <!-- ── Contact ── -->
   <url>
     <loc>https://montisoro.com/contact.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.95</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/contact-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.90</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en.html" />
   </url>
@@ -109,13 +109,13 @@
   <!-- ── Privacy ── -->
   <url>
     <loc>https://montisoro.com/privacy.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.30</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.30</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/privacy.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/privacy-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/privacy-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.25</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.25</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/privacy.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/privacy-en.html" />
   </url>
@@ -123,13 +123,13 @@
   <!-- ── Disclaimer ── -->
   <url>
     <loc>https://montisoro.com/disclaimer.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.30</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.30</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/disclaimer.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/disclaimer-en.html" />
   </url>
   <url>
     <loc>https://montisoro.com/disclaimer-en.html</loc>
-    <lastmod>2026-06-24</lastmod><priority>0.25</priority>
+    <lastmod>2026-07-10</lastmod><priority>0.25</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/disclaimer.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/disclaimer-en.html" />
   </url>
