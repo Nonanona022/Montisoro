@@ -45,9 +45,9 @@ window.MONTISORO_CASES = [
   {
     slug: 'referentie-case-alcon', company: 'Alcon', logo: '../assets/logos/alcon.svg',
     eyebrow_nl: 'Oogzorg & medische technologie', eyebrow_en: 'Eye care & medical technology',
-    hero_title_nl: 'Elke medewerker weer *aan boord*.', hero_title_en: 'Every employee back *on board*.',
-    hero_sum_nl: 'Op een veeleisende productievloer in Puurs en Bornem volgt Montisoro uitgevallen medewerkers persoonlijk op met het Re-boarding-programma. Vertrouwelijke begeleiding, afstemming met de arbeidsarts en maandelijkse data-analyse brengen mens en beleid samen, met een sterk gedaald langdurig verzuim als resultaat.',
-    hero_sum_en: 'On a demanding production floor in Puurs and Bornem, Montisoro personally follows up absent employees through its Re-boarding programme. Confidential guidance, coordination with the occupational physician and monthly data analysis bring people and policy together, with a sharp drop in long-term absence as the result.',
+    hero_title_nl: 'Duurzame begeleiding tijdens *arbeidsongeschiktheid*.', hero_title_en: 'Lasting support during *incapacity for work*.',
+    hero_sum_nl: 'Alcon is wereldleider in oogzorg en telt meer dan 430 medewerkers in Puurs en Bornem. Als veeleisende productieomgeving wilde Alcon medewerkers tijdens arbeidsongeschiktheid beter ondersteunen én tegelijk verder bouwen aan een duurzaam verzuimbeleid, met een sterk gedaald langdurig verzuim als resultaat.',
+    hero_sum_en: 'Alcon is a world leader in eye care, with more than 430 employees in Puurs and Bornem. As a demanding production environment, Alcon wanted to support employees better during incapacity for work while continuing to build a sustainable absence policy, with a sharp drop in long-term absence as the result.',
     about_title_nl: 'Wereldleider in *oogzorg.*', about_title_en: 'World leader in *eye care.*',
     fact_sector_nl: 'Oogzorg & medische technologie', fact_sector_en: 'Eye care & medical technology',
     foot_loc: '2', foot_mdw: '430', foot_txt_nl: '', foot_txt_en: '',
@@ -55,18 +55,18 @@ window.MONTISORO_CASES = [
     tech: 'Storm',
     photo_about: '../assets/cases/alcon-about.png', photo_approach: 'none', quote_photo: '',
     chal_title_nl: 'Opvolgen én *aangepast werk*.', chal_title_en: 'Follow-up and *adapted work*.',
-    chal_nl: ['Medewerkers opvolgen tijdens arbeidsongeschiktheid','Op een hectische werkvloer de juiste zorg en aandacht geven','Aangepast werk omzetten naar de dagelijkse praktijk','Duidelijke spelregels en transparantie rond aangepast werk','Een duurzame, mensgerichte relatie met medewerkers behouden'],
-    chal_en: ['Following up employees during incapacity for work','Giving the right care and attention on a hectic shop floor','Turning adapted work into everyday practice','Clear rules and transparency around adapted work','Sustaining a durable, people-centred relationship with employees'],
-    appr_title_nl: 'Eén traject in *zes* stappen.', appr_title_en: 'One journey in *six* steps.',
-    appr_nl: ['Re-boarding: vertrouwelijke gesprekken en persoonlijke coaching tijdens uitval','(Progressieve) werkhervatting in overleg met de arbeidsarts','Opvolging tot een duurzame werkhervatting, conform het vooropgestelde doel','Maandelijks multidisciplinair overleg op basis van data-analyse','Aangepast werk en werkhervatting verankerd in het vitaliteitsbeleid','Doorlopende ondersteuning van HR, management, leidinggevenden en arbeidsarts'],
-    appr_en: ['Re-boarding: confidential conversations and personal coaching during absence','(Gradual) return to work in consultation with the occupational physician','Follow-up until a lasting return to work, in line with the agreed goal','Monthly multidisciplinary consultation based on data analysis','Adapted work and return-to-work embedded in the vitality policy','Ongoing support for HR, management, supervisors and the occupational physician'],
+    chal_nl: ['Medewerkers persoonlijk opvolgen tijdens arbeidsongeschiktheid','De verbinding tussen medewerker en werkgever behouden','Duurzame werkhervatting stimuleren','Een duidelijk kader rond aangepast werk uitbouwen','Verzuiminzichten vertalen naar beleid en concrete verbeteracties'],
+    chal_en: ['Following up employees personally during incapacity for work','Maintaining the connection between employee and employer','Encouraging a sustainable return to work','Building a clear framework for adapted work','Translating absence insights into policy and concrete improvements'],
+    appr_title_nl: 'De oplossing in *vier* bouwstenen.', appr_title_en: 'The solution in *four* building blocks.',
+    appr_nl: ['Zorgprogramma: een vaste coach begeleidt medewerkers vertrouwelijk tijdens arbeidsongeschiktheid, met werkhervatting zodra dat medisch verantwoord is.','Kader voor aangepast werk: duidelijke afspraken rond aangepast werk en werkhervatting, verankerd in het vitaliteitsbeleid.','Multidisciplinair overleg: HR, management en partners vertalen dossierinzichten naar structurele verbeteringen.','Strategische ondersteuning: advies, begeleiding van complexe dossiers, data-analyse en beleidsontwikkeling.'],
+    appr_en: ['Care programme: a dedicated coach guides employees confidentially during incapacity, with a return to work as soon as it is medically responsible.','Adapted-work framework: clear agreements on adapted work and return-to-work, embedded in the vitality policy.','Multidisciplinary consultation: HR, management and partners turn case insights into structural improvements.','Strategic support: advice, guidance on complex cases, data analysis and policy development.'],
     res_title_nl: 'Wat de samenwerking *opleverde.*', res_title_en: 'What the collaboration *delivered.*',
     results: [
       { t_nl:'Langdurig verzuim daalt sterk', t_en:'Long-term absence down sharply', d_nl:'Het langdurig ziekteverzuim is sterk gedaald.', d_en:'Long-term sickness absence has fallen sharply.' },
       { t_nl:'Middellang stabiliseert', t_en:'Medium-term stabilised', d_nl:'Gestabiliseerd, met de eerste dalende trends zichtbaar.', d_en:'Stabilised, with the first downward trends visible.' },
       { t_nl:'Kort verzuim geminimaliseerd', t_en:'Short-term minimised', d_nl:'Kortdurend ziekteverzuim is herleid tot een minimum.', d_en:'Short-term sickness absence reduced to a minimum.' },
       { t_nl:'Controles zijn de uitzondering', t_en:'Controls the exception', d_nl:'Controles tijdens ziekte behoren tot de uitzonderingen.', d_en:'Illness controls have become the exception.' },
-      { t_nl:'Zorg die gevoeld wordt', t_en:'Care that is felt', d_nl:'Medewerkers waarderen de persoonlijke begeleiding tijdens uitval.', d_en:'Employees value the personal guidance during absence.' }
+      { t_nl:'Meer draagvlak én dialoog', t_en:'More support and dialogue', d_nl:'Meer duidelijkheid rond aangepast werk, hogere tevredenheid en sterkere samenwerking.', d_en:'More clarity around adapted work, higher satisfaction and stronger collaboration.' }
     ],
     glance_sub_nl: 'De hele case in *vier* punten.', glance_sub_en: 'The whole case in *four* points.',
     glance: [
@@ -75,8 +75,8 @@ window.MONTISORO_CASES = [
       { t_nl:'Resultaat', t_en:'Result', d_nl:'Langdurig verzuim sterk gedaald; kort verzuim herleid tot een minimum.', d_en:'Long-term absence down sharply; short-term reduced to a minimum.' },
       { t_nl:'Duur', t_en:'Duration', d_nl:'Een langlopende samenwerking met blijvende impact.', d_en:'A long-running partnership with lasting impact.' }
     ],
-    quote_nl: 'Ik zou Montisoro als externe partner voor ziektebeleid zeer zeker aanraden. Ze bieden input en ondersteuning voor een modern, mensgericht ziektebeleid, met bijzonder sterke support voor HR, leidinggevenden én medewerkers. De opvolging van wie ziek thuis zit is bijzonder belangrijk, en Montisoro weet dat als geen ander op zich te nemen, tot grote tevredenheid van bedrijf én medewerker.',
-    quote_en: 'I would certainly recommend Montisoro as an external partner for absence policy. They provide input and support for a modern, people-centred absence policy, with exceptionally strong support for HR, managers and employees alike. Following up those who are off sick matters enormously, and Montisoro takes that on like no other, to the great satisfaction of both company and employee.',
+    quote_nl: 'Ik zou Montisoro als externe partner voor ziektebeleid zeer zeker aanraden. Ze bieden input en ondersteuning voor een modern, mensgericht ziektebeleid, met bijzonder sterke support voor HR, leidinggevenden én medewerkers. De opvolging van wie ziek thuis zit is bijzonder belangrijk, en Montisoro weet dat als geen ander op zich te nemen, tot grote tevredenheid van bedrijf én medewerker. Bijkomend zorgt Montisoro voor data-analyse als beleidsbepalende input.',
+    quote_en: 'I would certainly recommend Montisoro as an external partner for absence policy. They provide input and support for a modern, people-centred absence policy, with exceptionally strong support for HR, managers and employees alike. Following up those who are off sick matters enormously, and Montisoro takes that on like no other, to the great satisfaction of both company and employee. On top of that, Montisoro provides data analysis as decisive input for policy.',
     quote_name: 'William De Plecker',
     quote_role_nl: 'HR Manager', quote_role_en: 'HR Manager'
   },
