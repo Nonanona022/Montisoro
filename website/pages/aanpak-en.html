@@ -202,6 +202,7 @@ body{padding-top:64px;}
 .check-dot::before{content:counter(check-counter, decimal-leading-zero);}
 .check-dot::after{content:'';display:inline-block;width:16px;height:1.5px;background:currentColor;border-radius:1px;}
 .check-item:hover .check-dot{color:var(--orange);background:transparent;box-shadow:none;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
 .check-callout{margin-top:0;padding:clamp(28px,3vw,40px) 0 0;background:none;border:none;border-top:1px solid var(--border-l);border-radius:0;text-align:center;}
 .check-callout-lead{font-family:var(--serif);font-weight:700;font-style:normal;font-size:clamp(23px,2.8vw,32px);color:var(--text-primary);margin-bottom:10px;letter-spacing:-.01em;}
@@ -454,7 +455,7 @@ body{padding-top:64px;}
     <h1 class="hs-headline"><em>Absence</em> is not the problem. <br>It is <em>the signal.</em></h1>
     <p class="hs-statement">Absence is the signal of what plays out between <em>people</em>, <em>work</em> and <em>organization</em>.</p>
     <span class="hs-divider"></span>
-    <p class="hs-body">Montisoro makes visible where things get stuck and builds the structure for a lasting return to work.</p>
+    <p class="hs-body">Montisoro reveals where things get stuck and builds the structure for a lasting return to work.</p>
     <div class="hs-cta-row">
       <a class="btn btn-primary" href="contact-en.html#channels">Book a call →</a>
       <a class="btn btn-ghost" href="calculator-en.html">Calculate your absence cost</a>
@@ -501,7 +502,7 @@ body{padding-top:64px;}
   <div class="chapter-inner">
     <span class="eyebrow on-dark">Where organizations lose their grip</span>
     <h2 class="title h-section on-dark">How much stays <em>out of sight?</em></h2>
-    <p class="sub on-dark">Ten signals. Three hits is rarely a coincidence, it’s a pattern.</p>
+    <p class="sub on-dark">Ten signals. Three hits are rarely coincidence — it’s a pattern.</p>
 
     <div class="check-wrap">
       <div class="check-list">
@@ -791,5 +792,23 @@ body{padding-top:64px;}
 <script src="../scripts/site-content.js" defer></script>
 <script src="../scripts/analytics.js" defer></script>
 <script src="../scripts/events.js" defer></script>
+<script>
+// ── A11y (A-2): decorative CSS-counter number also as real text for screenreaders,
+//    and announce the group as a list. Visually unchanged; still works without JS (CSS counter stays). ──
+(function(){
+  document.querySelectorAll('.check-list').forEach(function(list){
+    list.setAttribute('role','list');
+    list.querySelectorAll('.check-item').forEach(function(item, i){
+      item.setAttribute('role','listitem');
+      var dot = item.querySelector('.check-dot');
+      if(dot) dot.setAttribute('aria-hidden','true');
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = String(i+1).padStart(2,'0') + '. ';
+      item.insertBefore(sr, item.firstChild);
+    });
+  });
+})();
+</script>
 </body>
 </html>
