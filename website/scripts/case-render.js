@@ -44,6 +44,8 @@
     setMeta('meta[property="og:title"]','content', t);
     setMeta('meta[property="og:description"]','content', plain(f('hero_sum')).slice(0,158));
     setMeta('meta[property="og:url"]','content', baseUrl);
+    setMeta('meta[name="twitter:title"]','content', t);
+    setMeta('meta[name="twitter:description"]','content', plain(f('hero_sum')).slice(0,158));
   }
 
   var T = {

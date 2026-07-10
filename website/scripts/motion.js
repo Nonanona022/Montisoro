@@ -360,11 +360,24 @@
   window.MForm = MForm;
 
   // ──── Accordion / expandable content ────
+  var __accId = 0;
   function accordion(){
     document.querySelectorAll('.m-accordion .m-acc-head').forEach(function(head){
       if (head.__accordionBound) return;
       head.__accordionBound = true;
       var item = head.closest('.m-accordion');
+      var body = item ? item.querySelector('.m-acc-body') : null;
+      // ARIA-koppeling head ↔ body (a11y-audit F-2): screenreader weet welk paneel
+      // de knop bestuurt, en het paneel krijgt een regio-rol met de knop als label.
+      if (body){
+        __accId++;
+        var hid = head.id || ('m-acc-h-' + __accId);
+        var bid = body.id || ('m-acc-b-' + __accId);
+        head.id = hid; body.id = bid;
+        head.setAttribute('aria-controls', bid);
+        if (!body.hasAttribute('role')) body.setAttribute('role', 'region');
+        body.setAttribute('aria-labelledby', hid);
+      }
       head.setAttribute('aria-expanded', item.classList.contains('is-open') ? 'true' : 'false');
       head.addEventListener('click', function(){
         var willOpen = !item.classList.contains('is-open');
@@ -401,7 +414,8 @@
       'referentie':'Referentie', 'referentie-en':'Referentie', 'references':'Referentie',
       'referentie-case':'referentie-case', 'referentie-case-en':'referentie-case',
       'referentie-case-alcon':'referentie-case-alcon', 'referentie-case-alcon-en':'referentie-case-alcon',
-      'referentie-case-lonza':'referentie-case-lonza', 'referentie-case-lonza-en':'referentie-case-lonza'
+      'referentie-case-lonza':'referentie-case-lonza', 'referentie-case-lonza-en':'referentie-case-lonza',
+      'referentie-case-feneko':'referentie-case-feneko', 'referentie-case-feneko-en':'referentie-case-feneko'
     };
     // huidige pagina-sleutel (zonder .html, lowercase, zonder -en)
     var key = path.replace(/\.html$/i, '').toLowerCase();
