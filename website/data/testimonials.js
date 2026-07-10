@@ -4,9 +4,9 @@
                      role_nl/role_en(=sector · omvang, context), title_nl/title_en(=titel),
                      quote_nl/quote_en(=uitleg), link_nl/link_en(=case-pagina),
                      pdf(optioneel), order, active }
-   ⚠️ Geanonimiseerd (sector i.p.v. echte merknamen), juridisch veilig.
-   → logo leeg? Dan toont de kaart de sectornaam (company) als serif-merkmerk.
-     Zet een echte, goedgekeurde logo-afbeelding in 'logo' zodra beschikbaar. */
+   ⚠️ Sector + omvang (role_*) spiegelen exact window.MONTISORO_CASES (cases.js) =
+      dé bron van waarheid voor klantfeiten. Wijzig feiten dáár, niet enkel hier.
+   → logo leeg? Dan toont de kaart de sectornaam (company) als serif-merkmerk. */
 window.MONTISORO_TESTIMONIALS_SECTION = { enabled: true };
 window.MONTISORO_TESTIMONIALS = [
   {
@@ -14,8 +14,8 @@ window.MONTISORO_TESTIMONIALS = [
     company: 'Volvo Group',
     company_en: 'Volvo Group',
     logo: '../assets/logos/volvo.svg',
-    role_nl: 'Industrie · 250+ medewerkers',
-    role_en: 'Manufacturing · 250+ employees',
+    role_nl: 'Productie & industrie · meerdere sites',
+    role_en: 'Manufacturing & industry · multiple sites',
     title_nl: 'Van versnipperde opvolging naar één aanpak',
     title_en: 'From fragmented follow-up to one approach',
     quote_nl: 'We brachten structuur, maakten de kosten zichtbaar en grepen sneller in waar het telde.',
@@ -31,8 +31,8 @@ window.MONTISORO_TESTIMONIALS = [
     company: 'Alcon',
     company_en: 'Alcon',
     logo: '../assets/logos/alcon.svg',
-    role_nl: 'Zorg & welzijn · 120 medewerkers',
-    role_en: 'Care & wellbeing · 120 employees',
+    role_nl: 'Oogzorg & medische technologie · 430 medewerkers',
+    role_en: 'Eye care & medical technology · 430 employees',
     title_nl: 'Mens én data in één beweging',
     title_en: 'People and data in one motion',
     quote_nl: 'Re-integratie voelt niet langer als losse dossiers, maar als één traject met een duidelijke richting.',
@@ -48,8 +48,8 @@ window.MONTISORO_TESTIMONIALS = [
     company: 'Lonza',
     company_en: 'Lonza',
     logo: '../assets/logos/lonza.svg',
-    role_nl: 'Logistiek · 400+ medewerkers',
-    role_en: 'Logistics · 400+ employees',
+    role_nl: 'Life sciences · meerdere sites',
+    role_en: 'Life sciences · multiple sites',
     title_nl: 'Rust en onderbouwing als basis',
     title_en: 'Calm and evidence as the foundation',
     quote_nl: 'Elke stap uitlegbaar, naar de leiding én naar de medewerker, met een meetbaar resultaat.',
@@ -71,8 +71,8 @@ window.MONTISORO_TESTIMONIALS = [
     title_en: 'Healthy work, step by step',
     quote_nl: 'Een gezondheidsbeleid op maat, ergonomische coaching op de werkvloer en gerichte re-integratie.',
     quote_en: 'A tailored health policy, ergonomic coaching on the floor and targeted re-integration.',
-    link_nl: 'case.html?c=referentie-case-feneko',
-    link_en: 'case-en.html?c=referentie-case-feneko',
+    link_nl: 'referentie-case-feneko.html',
+    link_en: 'referentie-case-feneko-en.html',
     pdf: '',
     order: 4,
     active: true

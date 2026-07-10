@@ -133,5 +133,82 @@
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/disclaimer.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/disclaimer-en.html" />
   </url>
+  <!-- ── FAQ ── -->
+  <url>
+    <loc>https://montisoro.com/FAQ.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/FAQ.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/FAQ-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/FAQ-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.65</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/FAQ.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/FAQ-en.html" />
+  </url>
+
+  <!-- ── Referenties (overzicht) ── -->
+  <url>
+    <loc>https://montisoro.com/Referentie.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/Referentie.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/Referentie-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/Referentie-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/Referentie.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/Referentie-en.html" />
+  </url>
+
+  <!-- ── Referentie-cases ── -->
+  <url>
+    <loc>https://montisoro.com/referentie-case.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-alcon.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-alcon.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-alcon-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-alcon-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-alcon.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-alcon-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-lonza.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-lonza.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-lonza-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-lonza-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-lonza.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-lonza-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-feneko.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-feneko.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-feneko-en.html" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/referentie-case-feneko-en.html</loc>
+    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-feneko.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/referentie-case-feneko-en.html" />
+  </url>
 
 </urlset>
