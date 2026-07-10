@@ -38,7 +38,7 @@ html{scroll-behavior:smooth}
   --bg-page:#f9f8f6; --bg-card:#ffffff;
   --orange:#E8592B; --orange-hover:#d04d22; --orange-tint:#FAE8E1;
   --white:#FFFFFF; --off:#F0EDE8;
-  --muted-d:rgba(240,237,232,0.55); --muted-d-2:rgba(240,237,232,0.52); --muted-d-3:rgba(240,237,232,0.5);
+  --muted-d:rgba(240,237,232,0.64); --muted-d-2:rgba(240,237,232,0.52); --muted-d-3:rgba(240,237,232,0.5);
   --div-d:rgba(240,237,232,0.09);
   --text-primary:#1a1a1a; --text-muted:#6b7280; --border-l:rgba(0,0,0,0.08);
   --serif:'Playfair Display',Georgia,serif;
@@ -146,8 +146,9 @@ body{padding-top:64px;}
 .principles-list{display:flex;flex-direction:column;border-top:1px solid rgba(0,0,0,0.10);}
 .principle{display:grid;grid-template-columns:120px 1fr;gap:32px;padding:32px 0;border-bottom:1px solid rgba(0,0,0,0.10);align-items:start;transition:padding-left .25s ease;}
 .principle:hover{padding-left:8px;}
-.principle:hover .p-num{color:var(--orange-hover);}
-.p-num{font-family:var(--serif);font-weight:900;font-size:48px;line-height:1;color:var(--orange);letter-spacing:-.04em;transition:color .25s ease;}
+.principle:hover .p-num{color:var(--orange);opacity:1;}
+.principle.rv{transition-delay:calc(var(--d,0ms)*.6)!important;}
+.p-num{font-family:var(--serif);font-weight:900;font-size:48px;line-height:1;color:var(--orange);opacity:.3;letter-spacing:-.04em;transition:color .25s ease,opacity .25s ease;}
 .p-content h3{font-family:var(--sans);font-weight:700;font-size:22px;color:var(--text-primary);line-height:1.25;margin-bottom:10px;letter-spacing:-.01em;}
 .p-content p{font-size:15px;font-weight:300;line-height:1.78;color:var(--text-muted);max-width:560px;}
 @media(max-width:680px){
@@ -720,7 +721,7 @@ body{padding-top:64px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#78101d141417381517160c110b170a17561b1715" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#a9c1ccc5c5c6e9c4c6c7ddc0dac6dbc687cac6c4" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigation</h3><ul><li><a href="Home-en.html">Home</a></li><li><a href="aanpak-en.html">Approach</a></li><li><a href="technologie-en.html">Technology</a></li><li><a href="about-en.html">About</a></li><li><a href="contact-en.html">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="FAQ-en.html">FAQ</a></li><li><a href="Referentie-en.html">References</a></li><li><a href="fit-check-en.html">Fit check</a></li><li><a href="calculator-en.html">Calculator</a></li></ul></div>
