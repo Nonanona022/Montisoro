@@ -19,6 +19,28 @@
   /* cinematic motion — crisp-but-smooth, Apple-tempo (gebruikt door motion.css) */
   --m-base:.9s; --m-slow:1.15s; --m-very:1.45s;
   --m-ease:cubic-bezier(.16,1,.3,1);
+
+  /* ═══ SEMANTISCHE DESIGN-TOKENS — één centrale bron van waarheid ═══
+     Nieuwe/te-migreren code gebruikt UITSLUITEND deze namen. Additief: de legacy-vars
+     (--bg/--off/--orange/--text-primary…) blijven bestaan en spiegelen dezelfde waarden,
+     zodat niets breekt. Losse HEX-codes worden stap voor stap hiernaartoe gemigreerd.
+     NB: bewust NIEUWE namen (--surface-*/--ink-*/--accent-*) — de legacy-namen NIET
+     herdefiniëren hier, want deze sheet laadt als laatste en zou pagina-:root overschrijven. */
+  --surface-primary:#13100D;      /* donkere basissectie   (= legacy --bg) */
+  --surface-secondary:#1A1512;    /* donker paneel/sectie   (= --bg-page op donker) */
+  --surface-elevated:#1C1814;     /* kaart / opgetild vlak  (= --bg-mid) */
+  --surface-deep:#0D0905;         /* diepste laag           (= --bg-deep) */
+  --surface-light:#FFFFFF;        /* witte sectie */
+  --surface-light-soft:#f9f8f6;   /* zachte witte sectie    (= --bg-page op licht) */
+  --ink-primary:#F0EDE8;          /* primaire tekst op donker (= --off) */
+  --ink-secondary:rgba(240,237,232,.6);   /* secundaire tekst op donker (= --muted-d) */
+  --ink-on-light:#1a1a1a;         /* tekst op wit */
+  --ink-on-light-soft:#6b7280;    /* secundaire tekst op wit */
+  --border-subtle:rgba(240,237,232,.12);  /* haarlijn op donker (= --div-d) */
+  --border-on-light:rgba(0,0,0,.08);
+  --accent-primary:#E8592B;       /* merk-oranje: tekst/borders/accent */
+  --accent-cta:#CC4A1E;           /* gevulde CTA (WCAG AA) */
+  --accent-cta-hover:#B8420F;
 }
 
 /* ─────────── TYPOGRAFIE & RITME ─────────── */

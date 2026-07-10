@@ -470,12 +470,12 @@ body.theme-light .m-footer-links a:hover{color:var(--orange);}
 
 /* ── SEMI-DONKER THEMA (variant) — warme charcoal, lichte tekst ── */
 body.theme-mid{
-  --bg:#201915;--bg-r:#28211B;--bg-mid:#2C251F;--bg-deep:#17120F;--bg-page:#262019;
-  --off:#F4F1EC;--white:#ffffff;
+  --bg:#13100D;--bg-r:#1A1410;--bg-mid:#1C1814;--bg-deep:#0D0905;--bg-page:#1A1512;
+  --off:#F0EDE8;--white:#ffffff;
   --muted-d:rgba(244,241,236,.62);--muted-d-2:rgba(244,241,236,.42);--muted-d-3:rgba(244,241,236,.24);
   --div-d:rgba(244,241,236,.12);--div-d-2:rgba(244,241,236,.18);
   --text-primary:#F4F1EC;--text-muted:rgba(244,241,236,.6);
-  --bg-card:#2C251F;--border-l:rgba(244,241,236,.12);--div-l:rgba(244,241,236,.10);
+  --bg-card:#1A1512;--border-l:rgba(244,241,236,.12);--div-l:rgba(244,241,236,.10);
 }
 /* nav volgt de gedeelde stijl (transparant over hero, frosted bij scroll) — géén theme-mid-tint, gelijk aan de andere pagina's */
 body.theme-mid .t-text{color:rgba(244,241,236,.58);}
@@ -560,8 +560,8 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Montisoro","url":"https://montisoro.com/","logo":"https://montisoro.com/assets/montisoro-logo.png","email":"hello@montisoro.com","telephone":"+32-477-89-91-86","address":{"@type":"PostalAddress","streetAddress":"Tisseltstraat 25","postalCode":"1880","addressLocality":"Ramsdonk","addressCountry":"BE"},"vatID":"BE0733840137","sameAs":["https://www.linkedin.com/in/laurence-van-den-bergh/"]}</script>
 <noscript><style>.rv,.hero-headline .w{opacity:1!important;transform:none!important;}.hero-headline .re,.hero-headline .what{color:var(--orange)!important;}</style></noscript>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Montisoro","url":"https://montisoro.com/","inLanguage":"nl-BE"}</script>
-<style>/* Home-hero zwart, zonder glow/noise (21 juni 2026) */
-.hero{background:#000 !important;}
+<style>/* Home-hero op merk near-black (was #000): één warme donkertemperatuur, on-token; wave-cover houdt de sectie-scheiding */
+.hero{background:var(--bg) !important;}
 .hero::before,.hero::after{display:none !important;background:none !important;}
 </style>
 <link rel="stylesheet" href="../stylesheets/ds2.css">

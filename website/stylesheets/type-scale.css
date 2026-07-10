@@ -12,15 +12,7 @@
    montisoro-v2.css (o.a. voor .title.h-section).
 ═══════════════════════════════════════════════════════════════════ */
 
-/* ── HERO ── */
-html .hs-headline{font-size:clamp(32px,4.2vw,58px)!important;margin-bottom:26px!important;}
-html .hs-eyebrow{margin-bottom:20px!important;}
-html .hs-statement{font-size:clamp(16px,1.5vw,18px)!important;margin-bottom:26px!important;}
-html .hs-tagline{font-size:clamp(16px,1.6vw,19px)!important;margin-bottom:26px!important;}
-html .hs-promise{margin-bottom:28px!important;}
-html .hs-body{margin-bottom:26px!important;}
-html .hs-rule{margin-bottom:24px!important;}
-html .hs-divider{margin-bottom:22px!important;}
+/* ── HERO ── banners worden nu centraal in shell.css beheerd (.hero-statement .hs-*); dit verouderde blok is verwijderd. ── */
 
 /* ── SECTIE-RITME ── */
 html .chapter.dark{padding:44px 24px!important;}
