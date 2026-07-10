@@ -206,17 +206,47 @@
   status = 200
 
 # ═══════════════════════════════════════════════════════════════════
-# SEO — DUBBELE URL's CONSOLIDEREN (301 naar de canonieke schone URL)
-# /pages/* en /Home.html mogen niet als aparte indexeerbare kopie blijven
-# bestaan naast de schone URL's. 301 → één canonieke versie per pagina.
-# Volgorde: deze specifieke 301's staan VÓÓR de generieke rewrites hieronder,
-# zodat ze eerst matchen (Netlify = first-match-wins). Geen loop: de rewrite-
-# targets (/pages/*) worden direct geserveerd, niet opnieuw door de regels gehaald.
+# SEO — SCHONE, EXTENSIELOZE, KLEINE-LETTER URL's (canoniek)
+# Canonical + hreflang + sitemap wijzen naar /aanpak, /faq, /home-en, …
+# (extensieloos, lowercase). Deze 301's canonicaliseren legacy/.html/
+# mixed-case → de schone URL. Volgorde: specifieke 301's VÓÓR generieke
+# rewrites (Netlify = first-match-wins). Geen loop: 200-rewrite-targets
+# (/pages/*) worden direct geserveerd, niet opnieuw door de regels gehaald.
 # ═══════════════════════════════════════════════════════════════════
-# Home heeft één canonieke URL: "/"
+# Home = "/" ; mixed-case pagina's → lowercase extensieloos
 [[redirects]]
   from = "/Home.html"
   to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Home-en.html"
+  to = "/home-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/FAQ.html"
+  to = "/faq"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/FAQ-en.html"
+  to = "/faq-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Referentie.html"
+  to = "/referentie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Referentie-en.html"
+  to = "/referentie-en"
   status = 301
   force = true
 
@@ -232,34 +262,67 @@
   status = 301
   force = true
 
-# Overige pagina's: /pages/X(.html) → schone /X.html
+# Overige: /pages/X(.html) én /X.html → schone extensieloze /X
 [[redirects]]
   from = "/pages/:slug.html"
-  to = "/:slug.html"
+  to = "/:slug"
   status = 301
   force = true
 
 [[redirects]]
   from = "/pages/:slug"
-  to = "/:slug.html"
+  to = "/:slug"
   status = 301
   force = true
 
 # ═══════════════════════════════════════════════════════════════════
-# SCHONE URL's — serveer /pages/* op de root (montisoro.com/about-en.html)
-# zodat canonical + hreflang + sitemap (allemaal /X.html) kloppen met wat
-# Netlify echt serveert. 200 = rewrite (URL blijft schoon, geen redirect-hop).
+# SCHONE URL's SERVEREN (200 rewrite — URL blijft schoon, geen hop)
 # ═══════════════════════════════════════════════════════════════════
-# Homepage → Home.html (force: overschrijft de noindex index.html splash)
 [[redirects]]
   from = "/"
   to = "/pages/Home.html"
   status = 200
   force = true
 
-# Elke /X.html op de root → /pages/X.html (vangt about-en.html, calculator.html, …)
+[[redirects]]
+  from = "/home-en"
+  to = "/pages/Home-en.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/faq"
+  to = "/pages/FAQ.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/faq-en"
+  to = "/pages/FAQ-en.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/referentie"
+  to = "/pages/Referentie.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/referentie-en"
+  to = "/pages/Referentie-en.html"
+  status = 200
+  force = true
+
+# Legacy .html blijft werken (200-serve; canonical dedupt naar extensieloos)
 [[redirects]]
   from = "/:slug.html"
+  to = "/pages/:slug.html"
+  status = 200
+
+# Generieke extensieloze schone URL (/aanpak, /about-en, /referentie-case-…)
+[[redirects]]
+  from = "/:slug"
   to = "/pages/:slug.html"
   status = 200
 
