@@ -26,9 +26,6 @@
   }
 
   function esc(s){ var d = document.createElement('div'); d.textContent = (s==null?'':String(s)); return d.innerHTML; }
-
-  function __webpUrl(u){ return String(u).replace(/\.(png|jpe?g)(\?.*)?$/i, function(_,e,q){ return '.webp' + (q||''); }); }
-  function wpic(imgHtml, src){ return /\.(png|jpe?g)(\?|$)/i.test(String(src)) ? '<picture><source srcset="' + esc(__webpUrl(src)) + '" type="image/webp">' + imgHtml + '</picture>' : imgHtml; }
   function emph(s){ return esc(s).replace(/\*(.+?)\*/g, '<em>$1</em>'); }
   function L(nl, en){ return lang === 'en' ? en : nl; }
   function f(key){ return c[key + '_' + lang]; }
@@ -79,7 +76,7 @@
   }
   function backHref(){ return lang === 'en' ? 'Referentie-en.html' : 'Referentie.html'; }
   function photo(id, cls, shape, radius, placeholder, val){
-    if (val){ return '<div class="' + cls + '">' + wpic('<img src="' + esc(val) + '" alt="">', val) + '</div>'; }
+    if (val){ return '<div class="' + cls + '"><img src="' + esc(val) + '" alt=""></div>'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<div class="' + cls + '"><image-slot ' + attr + '></image-slot></div>';
   }
@@ -91,7 +88,7 @@
   html += '<section class="chapter dark" data-screen-label="01 Hero" style="padding-top:clamp(128px,17vh,188px) !important;">' +
     '<div class="chapter-inner">' +
       '<a class="case-back" href="' + backHref() + '"><span aria-hidden="true">\u2190</span> ' + L('Alle referenties','All references') + '</a>' +
-      (c.logo ? wpic('<img class="cs2-hero-logo" src="' + esc(c.logo) + '" alt="' + esc(c.company) + '">', c.logo) : '') +
+      (c.logo ? '<img class="cs2-hero-logo" src="' + esc(c.logo) + '" alt="' + esc(c.company) + '">' : '') +
       '<span class="eyebrow on-dark">' + esc(f('eyebrow') || f('fact_sector') || c.sector || '') + '</span>' +
       '<h1 class="title h-large on-dark">' + emph(f('hero_title')) + '</h1>' +
       '<p class="cs2-hero-sum">' + esc(f('hero_sum')) + '</p>' +
@@ -107,7 +104,7 @@
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kSector + '</div><div class="cs2-fact-v">' + esc(f('fact_sector')) + '</div></div></div>' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kFoot + '</div><div class="cs2-fact-v">' + footprint() + '</div></div></div>' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kScope + '</div><div class="cs2-fact-v">' + esc(f('fact_scope')) + '</div></div></div>' +
-          '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kTech + '</div><div class="cs2-fact-v">SaaS-platform ' + esc(c.tech || '') + '</div></div></div>' +
+          '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kTech + '</div><div class="cs2-fact-v">' + (c.tech ? 'SaaS-platform ' + esc(c.tech) : L('NVT','N/A')) + '</div></div></div>' +
         '</div>' +
         '<div class="cs2-photo rv">' + photoInner('about', 'rounded', 16, T.photoAbout, c.photo_about) + '</div>' +
       '</div>' +
@@ -141,7 +138,7 @@
         var num = ('0' + (i+1)).slice(-2);
         return '<div class="cs2-rcard rv"' + d + '><div class="cs2-rcard-num">' + num + '</div><h3>' + esc(L(r.t_nl, r.t_en)) + '</h3><p>' + esc(L(r.d_nl, r.d_en)) + '</p></div>';
       }).join('') + '</div>' +
-      (results.length ? '<p class="cs2-res-note" style="margin-top:22px;font-size:12px;line-height:1.5;color:#6b7280;max-width:56ch;">' + T.resNote + '</p>' : '') +
+      '' +
     '</div></section>';
 
   /* 05 IN \u00c9\u00c9N OOGOPSLAG */
@@ -161,7 +158,7 @@
     var qname = esc(c.quote_name || f('quote_name') || '');
     var qrole = esc(f('quote_role') || '');
     var qco = qrole ? qrole + ' \u00b7 ' + esc(c.company) : esc(c.company);
-    var qphoto = c.quote_photo ? '<div class="cs2-quote-photo">' + wpic('<img src="' + esc(c.quote_photo) + '" alt="">', c.quote_photo) + '</div>' : '';
+    var qphoto = c.quote_photo ? '<div class="cs2-quote-photo"><img src="' + esc(c.quote_photo) + '" alt=""></div>' : '';
     html += '<section class="chapter light" data-screen-label="' + esc(T.lbQuote) + '">' +
       '<div class="chapter-inner"><div class="cs2-quote' + (qphoto ? '' : ' cs2-quote-nophoto') + '">' +
         '<div><div class="cs2-quote-mark">\u201c</div><p class="cs2-quote-txt">' + esc(f('quote')) + '</p></div>' +
@@ -177,10 +174,10 @@
   function photoInner(id, shape, radius, placeholder, val, wrapCls){
     // returns the inner element(s) for a photo container; caller wraps except quote
     if (wrapCls){
-      if (val){ return '<div class="' + wrapCls + '">' + wpic('<img src="' + esc(val) + '" alt="">', val) + '</div>'; }
+      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt=""></div>'; }
       return '<div class="' + wrapCls + '"><image-slot id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '" placeholder="' + esc(placeholder) + '"></image-slot></div>';
     }
-    if (val){ return wpic('<img src="' + esc(val) + '" alt="">', val); }
+    if (val){ return '<img src="' + esc(val) + '" alt="">'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<image-slot ' + attr + '></image-slot>';
   }

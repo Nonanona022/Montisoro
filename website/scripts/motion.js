@@ -415,7 +415,8 @@
       'referentie-case':'referentie-case', 'referentie-case-en':'referentie-case',
       'referentie-case-alcon':'referentie-case-alcon', 'referentie-case-alcon-en':'referentie-case-alcon',
       'referentie-case-lonza':'referentie-case-lonza', 'referentie-case-lonza-en':'referentie-case-lonza',
-      'referentie-case-feneko':'referentie-case-feneko', 'referentie-case-feneko-en':'referentie-case-feneko'
+      'referentie-case-feneko':'referentie-case-feneko', 'referentie-case-feneko-en':'referentie-case-feneko',
+      'referentie-case-novartis':'referentie-case-novartis', 'referentie-case-novartis-en':'referentie-case-novartis'
     };
     // huidige pagina-sleutel (zonder .html, lowercase, zonder -en)
     var key = path.replace(/\.html$/i, '').toLowerCase();
