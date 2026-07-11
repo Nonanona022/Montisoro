@@ -173,7 +173,7 @@ window.MONTISORO_CASES = [
     appr_en: ['A tailored health policy, with preventive and curative actions','A risk analysis of the shop floor with concrete improvement points','Ergonomic coaching on the floor by our experts','A personal info sheet per employee, with monthly follow-up','A re-integration coach who runs the entire process','Ongoing support for the HR Manager'],
     res_title_nl: 'Wat de samenwerking *opleverde.*', res_title_en: 'What the collaboration *delivered.*',
     results: [
-      { t_nl:'Betere ergonomie', t_en:'Better ergonomics', d_nl:'Daling van 60% in ergonomische klachten.', d_en:'A 60% drop in ergonomic complaints.'' },
+      { t_nl:'Betere ergonomie', t_en:'Better ergonomics', d_nl:'Daling van 60% in ergonomische klachten.', d_en:'A 60% drop in ergonomic complaints.' },
       { t_nl:'Bevestigd door de arbeidsarts', t_en:'Confirmed by the physician', d_nl:'De vooruitgang wordt bevestigd door de betrokken arbeidsarts.', d_en:'The progress is confirmed by the occupational physician.' },
       { t_nl:'Iedereen mee aan boord', t_en:'Everyone on board', d_nl:'Het beleid groeit in stappen, zodat elke medewerker mee blijft.', d_en:'The policy grows step by step, keeping every employee involved.' },
       { t_nl:'Duurzame werkhervatting', t_en:'Lasting return to work', d_nl:'Langdurig zieken krijgen gerichte steun naar duurzaam herstel.', d_en:'Long-term absentees get targeted support toward lasting recovery.' }
