@@ -57,8 +57,8 @@ window.MONTISORO_TESTIMONIALS = [
     link_nl: 'referentie-case-lonza.html',
     link_en: 'referentie-case-lonza-en.html',
     pdf: '',
-    order: 3,
-    active: true
+    order: 5,
+    active: false
   },
   {
     id: 't4',
@@ -91,7 +91,7 @@ window.MONTISORO_TESTIMONIALS = [
     link_nl: 'referentie-case-novartis.html',
     link_en: 'referentie-case-novartis-en.html',
     pdf: '',
-    order: 5,
+    order: 3,
     active: true
   }
 ];

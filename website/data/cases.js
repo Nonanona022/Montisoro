@@ -90,7 +90,7 @@ window.MONTISORO_CASES = [
     foot_loc: '1', foot_mdw: '1100', foot_txt_nl: '', foot_txt_en: '',
     fact_scope_nl: 'Langdurig verzuim.', fact_scope_en: 'Long-term absence.',
     tech: 'Storm',
-    photo_about: '', photo_approach: 'none', quote_photo: '',
+    photo_about: '../assets/cases/novartis-about.png', photo_approach: 'none', quote_photo: '',
     chal_title_nl: 'Stijgend verzuim, steeds *minder grip*.', chal_title_en: 'Rising absence, less and less *grip*.',
     chal_nl: ['Langdurig verzuim liep op, zonder dat iemand er echt grip op had.','Een re-integratiebeleid dat ontbrak, waardoor richting soms zoek was.','Versnipperde opvolging en informatie tussen HR, leidinggevende en arbeidsarts — niemand hield het overzicht.','Onderzoeken volgden één vaste structuur, niet afgestemd op ieders werkhervattingsmogelijkheden.','Niemand had scherp zicht op de verzuimcijfers en de trends erachter.'],
     chal_en: ['Long-term absence was rising, without anyone truly having a grip on it.','A missing return-to-work policy, which meant direction was sometimes lost.','Fragmented follow-up and information between HR, managers and the occupational physician — no one kept the overview.','Examinations followed one fixed structure, not tailored to each person\'s return-to-work options.','No one had a sharp view of the absence figures and the trends behind them.'],
