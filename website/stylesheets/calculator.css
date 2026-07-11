@@ -377,6 +377,20 @@ body.calc-revealed #bMain .b-step .name{color:var(--ink-mute);font-weight:500;}
   body.calc-revealed #bMain .b-progress{display:none;}
   body.calc-revealed #bMain .b-step-result .name{display:block;}
 }
+/* (3b) reveal-staat óók in de focus-overlay: daar leeft de stepper in .cf-stepslot (buiten #bMain),
+   dus de #bMain-reveal-regels hierboven missen 'm → ✓-bolletje bleef donker (opacity .45) en het
+   label bleef op "Verzuimprofiel" (stap 6) staan. Hier gespiegeld naar de overlay-balk. */
+body.cf-open.calc-revealed .cf-stepslot .b-step-result{opacity:1;}
+body.cf-open.calc-revealed .cf-stepslot .b-step .circle{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:none;}
+body.cf-open.calc-revealed .cf-stepslot .b-step-result .circle{box-shadow:0 0 0 4px rgba(232,89,43,.16);}
+body.cf-open.calc-revealed .cf-stepslot .b-step:not(:last-child)::after{background:var(--orange);}
+/* label: bij reveal enkel "Resultaat" tonen — verberg de (eventueel nog actieve) stap-6-naam */
+body.cf-open.calc-revealed .cf-stepslot .b-step:not(.b-step-result).is-active .name{display:none !important;}
+body.cf-open.calc-revealed .cf-stepslot .b-step-result .name{display:block !important;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;font-size:11px;font-weight:600;letter-spacing:.02em;line-height:1.2;color:var(--off,#F0EDE8);white-space:nowrap;text-align:center;}
+@media(max-width:680px){
+  body.cf-open.calc-revealed .cf-stepslot .b-progress{display:none !important;}
+  body.cf-open.calc-revealed .cf-stepslot .b-step-result .name{display:block !important;}
+}
 /* (4) inklapbare preview: "minder/meer detail" — ALLEEN op klein scherm (≤1180px, zelfde breekpunt
    als de hamburger-nav). Op desktop is er ruimte genoeg → preview altijd volledig, geen knop. */
 .b-min{display:none;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:16px;padding:9px;background:none;border:1px solid var(--div-d);border-radius:var(--radius-md);color:var(--muted-d);font-family:inherit;font-size:var(--text-sm);font-weight:600;cursor:pointer;transition:background .15s,color .15s;}
