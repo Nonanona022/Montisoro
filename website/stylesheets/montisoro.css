@@ -258,6 +258,12 @@ i.ti,span.ti{opacity:0;}
   .m-nav-links li.m-lang{margin-left:2px;}
   .m-nav-links li.m-lang .m-lang-btn{border-radius:100px!important;letter-spacing:.06em;}
 }
+/* ─────────── DESKTOP GROOT (≥1440px): grotere, ademende nav-links ─────────── */
+@media(min-width:1440px){
+  .m-nav-links li a:not(.m-cta){font-size:15px!important;letter-spacing:.07em!important;color:rgba(240,237,232,.72)!important;padding:8px 15px!important;}
+  .m-nav-links li a.m-cta{font-size:14px!important;padding:11px 24px!important;}
+  .m-nav-links li.m-lang .m-lang-btn{font-size:13px!important;}
+}
 
 /* ─────────── NAV ADAPTIEF: lichte sectie achter de nav → licht frosted + donkere tekst ─────────── */
 @media(min-width:1181px){
