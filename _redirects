@@ -30,13 +30,72 @@
 /api/admin-users             /.netlify/functions/admin-users             200
 /api/health                  /.netlify/functions/health                  200
 
-# ── SEO: dubbele URL's consolideren naar de canonieke schone URL (301) ──
-/Home.html         /             301!
-/pages/Home.html   /             301!
-/pages/Home        /             301!
-/pages/:slug.html  /:slug.html   301!
-/pages/:slug       /:slug.html   301!
+# ── SEO: canonicaliseer legacy/mixed-case → schone kleine-letter URL (301) ──
+/Home.html            /               301!
+/Home-en.html         /home-en        301!
+/FAQ.html             /faq            301!
+/FAQ-en.html          /faq-en         301!
+/Referentie.html      /referentie     301!
+/Referentie-en.html   /referentie-en  301!
+/pages/Home.html      /               301!
+/pages/Home           /               301!
+/pages/:slug.html     /:slug          301!
+/pages/:slug          /:slug          301!
+
+# ── OUDE WEBSITE (pre-2026, /nl/…) → nieuwe pagina's (301, SEO-waarde mee) ──
+/nl/home                                      /            301
+/nl/english                                   /home-en     301
+/nl/france                                    /            301
+/nl/laurence_van_den_bergh                    /about       301
+/nl/visie_en_missie                           /about       301
+/nl/waarin_wij_geloven                        /about       301
+/nl/onze_doelgroep                            /about       301
+/nl/experten                                  /about       301
+/nl/waardenetwerkorganisatie                  /about       301
+/nl/waarom_kiezen_voor_montisoro              /aanpak      301
+/nl/klantreis                                 /aanpak      301
+/nl/competenties                              /aanpak      301
+/nl/quinn_model                               /aanpak      301
+/nl/wat_doen_we_dan                           /aanpak      301
+/nl/gezondheidsbeleid                         /aanpak      301
+/nl/aanpak_ziekteverzuim                      /aanpak      301
+/nl/stress_en_burn-out_management             /aanpak      301
+/nl/begeleiding_reintegratietrajecten         /aanpak      301
+/nl/aanscherpen_van_persoonlijke_vaardigheden /aanpak      301
+/nl/analyse_ziekteverzuim                     /calculator  301
+/nl/analyses                                  /fit-check   301
+/nl/quick_quinn_scan                          /fit-check   301
+/nl/teamrollen_belbin                         /fit-check   301
+/nl/lifehacking_scan                          /fit-check   301
+/nl/quinn_analyse_voor_de_starter             /fit-check   301
+/nl/quinn_analyse_voor_de_gevorderde          /fit-check   301
+/nl/quinn_analyse_voor_de_expert              /fit-check   301
+/nl/ondernemersscan                           /fit-check   301
+/nl/organizational_culture_assessment         /fit-check   301
+/nl/hoe_geloofwaardig_ben_jij                 /fit-check   301
+/nl/roos_van_leary                            /fit-check   301
+/nl/stressvolle_levensgebeurtenissen          /fit-check   301
+/nl/werkstress                                /fit-check   301
+/nl/wellbeing-scan_vanuit_hr                  /fit-check   301
+/nl/intake_formulier                          /contact     301
+/nl/referenties                               /referentie  301
+/nl/referenties_old                           /referentie  301
+/nl/adres_contact                             /contact     301
+/nl/faq                                       /faq         301
+/nl/disclaimer                                /disclaimer  301
+/nl/privacy_statement                         /privacy     301
+/nl/literatuur                                /            301
+/nl/subsidies                                 /            301
+/nl/sitemap                                   /            301
+# vangnet: elke andere oude /nl/-URL → home
+/nl/*                                         /            301
 
 # ── Schone URL's serveren (200 rewrite, URL blijft schoon) ──
-/                  /pages/Home.html    200!
-/:slug.html        /pages/:slug.html   200
+/                     /pages/Home.html             200!
+/home-en              /pages/Home-en.html          200!
+/faq                  /pages/FAQ.html              200!
+/faq-en               /pages/FAQ-en.html           200!
+/referentie           /pages/Referentie.html       200!
+/referentie-en        /pages/Referentie-en.html    200!
+/:slug.html           /pages/:slug.html            200
+/:slug                /pages/:slug.html            200
