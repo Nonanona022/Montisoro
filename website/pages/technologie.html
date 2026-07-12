@@ -341,6 +341,11 @@ body{padding-top:64px;}
 .m-footer-links{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:flex-end;}
 .m-footer-links a{font-size:12px;color:rgba(240,237,232,.28);text-decoration:none;transition:color .2s;padding:5px 0;}
 .m-footer-links a:hover{color:var(--orange);}
+
+/* mobiel: enkel centrale video */
+@media(max-width:768px){
+  .vcar:not(.vcar-single) .vcar-slide:not([data-pos="0"]){opacity:0!important;visibility:hidden!important;pointer-events:none!important;}
+}
 </style>
 <link rel="stylesheet" href="../stylesheets/site.css">
 <link rel="stylesheet" href="../stylesheets/montisoro-v2.css">
@@ -348,6 +353,8 @@ body{padding-top:64px;}
 <link rel="stylesheet" href="../stylesheets/ds2.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Montisoro","url":"https://montisoro.com/","logo":"https://montisoro.com/assets/montisoro-logo.png","email":"hello@montisoro.com","telephone":"+32-477-89-91-86","address":{"@type":"PostalAddress","streetAddress":"Tisseltstraat 25","postalCode":"1880","addressLocality":"Ramsdonk","addressCountry":"BE"},"vatID":"BE0733840137","sameAs":["https://www.linkedin.com/in/laurence-van-den-bergh/"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Montisoro","url":"https://montisoro.com/","inLanguage":"nl-BE"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Storm","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"SaaS-platform voor verzuimopvolging, casemanagement en re-integratie.","url":"https://montisoro.com/technologie#storm","publisher":{"@type":"Organization","name":"Montisoro","url":"https://montisoro.com/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Casey AI","applicationCategory":"BusinessApplication","operatingSystem":"Web","description":"Contextual intelligence layer met AI-ondersteuning voor verzuimbeslissingen — human in the loop.","url":"https://montisoro.com/technologie#casey","publisher":{"@type":"Organization","name":"Montisoro","url":"https://montisoro.com/"}}</script>
 </head>
 <body class="ms-dark-hero ds2">
 
@@ -443,7 +450,7 @@ body{padding-top:64px;}
     <div class="vcar rv" aria-label="Storm productdemos">
       <div class="vcar-track">
       <div class="tech-video vcar-slide" aria-label="Storm video 1">
-        <video playsinline preload="metadata" poster="../assets/storm-demo-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <video playsinline preload="metadata" poster="../assets/storm-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
           <source src="../assets/storm-demo.mp4#t=0.1" type="video/mp4">
         </video>
         <div class="tv-bar">
@@ -454,7 +461,7 @@ body{padding-top:64px;}
         </div>
       </div>
       <div class="tech-video vcar-slide" aria-label="Storm video 2">
-        <video playsinline preload="metadata" poster="../assets/storm-2-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <video playsinline preload="metadata" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
           <source src="../assets/storm-2.mp4#t=0.1" type="video/mp4">
         </video>
         <div class="tv-bar">
@@ -465,7 +472,7 @@ body{padding-top:64px;}
         </div>
       </div>
       <div class="tech-video vcar-slide" aria-label="Storm video 3">
-        <video playsinline preload="metadata" poster="../assets/storm-3-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <video playsinline preload="metadata" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
           <source src="../assets/storm-3.mp4#t=0.1" type="video/mp4">
         </video>
         <div class="tv-bar">
@@ -476,7 +483,7 @@ body{padding-top:64px;}
         </div>
       </div>
       <div class="tech-video vcar-slide" aria-label="Storm video 4">
-        <video playsinline preload="metadata" poster="../assets/storm-4-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
+        <video playsinline preload="metadata" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
           <source src="../assets/storm-4.mp4#t=0.1" type="video/mp4">
         </video>
         <div class="tv-bar">
@@ -782,8 +789,9 @@ body{padding-top:64px;}
         <div class="waitlist-cta">
           <label class="waitlist-field">
             <i class="ph-light ph-envelope-simple"></i>
-            <input type="email" id="caseyWaitEmail" placeholder="naam@bedrijf.be">
+            <input type="email" id="caseyWaitEmail" placeholder="naam@bedrijf.be" aria-label="Uw zakelijke e-mailadres" autocomplete="email" required>
           </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;color:var(--text-muted);margin:2px 0 12px;cursor:pointer;"><input type="checkbox" id="caseyWaitConsent" style="margin-top:2px;accent-color:#CC4A1E;">Ik ga akkoord dat Montisoro mij contacteert over het pilootprogramma (<a href="/privacy" style="color:var(--orange);">privacyverklaring</a>).</label>
           <button type="button" id="caseyWaitBtn" class="waitlist-submit">Pilootprogramma bespreken →</button>
           <div class="waitlist-fineprint"><i class="ph-light ph-lock-simple"></i>GDPR-conform · geen spam · alleen relevante updates</div>
         </div>
@@ -821,7 +829,7 @@ body{padding-top:64px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="mailto:hello@montisoro.com" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#18707d747477587577766c716b776a77367b7775" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigatie</h3><ul><li><a href="/">Home</a></li><li><a href="/aanpak">Aanpak</a></li><li><a href="/technologie">Technologie</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="/faq">FAQ</a></li><li><a href="/referentie">Referenties</a></li><li><a href="/fit-check">Fit check</a></li><li><a href="/calculator">Verzuimcalculator</a></li></ul></div>
@@ -831,12 +839,16 @@ body{padding-top:64px;}
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   var btn = document.getElementById('caseyWaitBtn');
   var inp = document.getElementById('caseyWaitEmail');
   if (!btn || !inp) return;
+  inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); btn.click(); } });
+  var _cs=document.getElementById('caseyWaitConsent');
+  var _consentMsg='Vink de toestemming aan om verder te gaan.';
   btn.addEventListener('click', function(){
+    if(_cs && !_cs.checked){ (window.MForm?MForm.notify:window.alert)(_consentMsg); return; }
     var email = inp.value.trim();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)){ (window.MForm?MForm.notify:window.alert)('Vul een geldig e-mailadres in.'); return; }
     btn.disabled = true; btn.textContent = 'Versturen…';
