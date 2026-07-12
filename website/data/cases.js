@@ -16,7 +16,7 @@ window.MONTISORO_CASES = [
     foot_loc: '', foot_mdw: '', foot_txt_nl: 'Meerdere sites · ploegenarbeid', foot_txt_en: 'Multiple sites · shift work',
     fact_scope_nl: 'Kort- en langdurig verzuim, re-integratie en inzetbaarheid.', fact_scope_en: 'Short- and long-term absence, return-to-work and employability.',
     tech: 'Storm',
-    photo_about: '', photo_approach: '', quote_photo: '',
+    photo_about: '../assets/cases/volvo-about.png', photo_approach: 'none', quote_photo: '',
     chal_title_nl: 'Stijgend verzuim, steeds *minder grip*.', chal_title_en: 'Rising absence, less and less *grip*.',
     chal_nl: ['Stijgend ziekteverzuim en complexe dossiers','Gebrek aan een uniforme en duidelijke aanpak','Beperkte interne capaciteit en expertise','Nood aan meer betrokkenheid van leidinggevenden','Vraag naar duurzame en mensgerichte re-integratie'],
     chal_en: ['Rising absence and complex cases','No uniform, clear approach','Limited internal capacity and expertise','A need for more manager involvement','Demand for sustainable, people-centred return-to-work'],
