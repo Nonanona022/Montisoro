@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — video-carousel demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../stylesheets/type-scale.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#13100D;--bg-deep:#0D0905;
+  --orange:#E8592B;--off:#F0EDE8;--muted-d:rgba(240,237,232,.62);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--off);}
+.sec{padding:72px 24px 96px;overflow:hidden;}
+.head{max-width:720px;margin:0 auto 8px;text-align:center;}
+.head .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.head .eyebrow::before{content:'';width:24px;height:1px;background:var(--orange);}
+.head h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.1;}
+.head h1 em{font-style:italic;color:var(--orange);}
+.head p{margin-top:14px;color:var(--muted-d);font-weight:300;font-size:15px;line-height:1.7;}
+
+/* ── Carousel ── */
+.car{position:relative;max-width:1240px;margin:56px auto 0;height:clamp(300px,44vw,560px);}
+.car-track{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.slide{position:absolute;top:50%;left:50%;aspect-ratio:16/9;width:min(56%,720px);border-radius:14px;overflow:hidden;
+  background:#0c0905;cursor:pointer;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .6s cubic-bezier(.16,1,.3,1),filter .6s;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.8);will-change:transform,opacity;}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.slide .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,9,5,.55),rgba(12,9,5,0) 55%);}
+.slide .num{position:absolute;top:14px;left:14px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(232,89,43,.92);padding:5px 10px;border-radius:100px;}
+.slide .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:66px;height:66px;border-radius:50%;
+  background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;transition:.25s;opacity:0;}
+.slide .play::after{content:'';margin-left:4px;border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #13100D;}
+.slide.active .play{opacity:1;}
+.slide.active:hover .play{transform:translate(-50%,-50%) scale(1.08);background:#fff;}
+
+/* posities */
+.slide[data-pos="0"]{transform:translate(-50%,-50%) scale(1);opacity:1;z-index:5;filter:none;}
+.slide[data-pos="-1"]{transform:translate(-132%,-50%) scale(.56);opacity:.5;z-index:3;filter:brightness(.6);}
+.slide[data-pos="1"]{transform:translate(32%,-50%) scale(.56);opacity:.5;z-index:3;filter:brightness(.6);}
+.slide[data-pos="-2"]{transform:translate(-176%,-50%) scale(.4);opacity:.2;z-index:1;filter:brightness(.45);}
+.slide[data-pos="2"]{transform:translate(76%,-50%) scale(.4);opacity:.2;z-index:1;filter:brightness(.45);}
+.slide[data-pos="hidden"]{transform:translate(-50%,-50%) scale(.3);opacity:0;z-index:0;pointer-events:none;}
+
+/* verbindingslijnen */
+.car-lines{display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100px;z-index:6;pointer-events:none;overflow:visible;}
+.car-lines .flow{stroke:rgba(255,255,255,.5);stroke-width:2.5;stroke-dasharray:0.5 9;stroke-linecap:round;fill:none;}
+.car-lines .node{fill:rgba(255,255,255,.85);stroke:none;}
+.car-lines .node-c{fill:rgba(255,255,255,.85);}
+
+.dots{display:flex;gap:9px;justify-content:center;margin-top:40px;}
+.dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(240,237,232,.25);cursor:pointer;transition:.25s;padding:0;}
+.dots button.on{background:var(--orange);width:26px;border-radius:100px;}
+.hint{text-align:center;color:var(--muted-d);font-size:13px;margin-top:22px;font-weight:300;}
+
+@media(max-width:640px){
+  .slide{width:82%;}
+  .slide[data-pos="-1"]{transform:translate(-128%,-50%) scale(.5);opacity:.35;}
+  .slide[data-pos="1"]{transform:translate(28%,-50%) scale(.5);opacity:.35;}
+  .slide[data-pos="-2"],.slide[data-pos="2"]{opacity:0;}
+}
+</style>
+</head>
+<body>
+<div class="sec">
+  <div class="head">
+    <span class="eyebrow">Montisoro · in beeld</span>
+    <h1>Vier video's, <em>één verhaal</em></h1>
+    <p>Klik op een zijvideo of een bolletje: die schuift naar het midden en speelt groot af, terwijl de andere drie herkenbaar blijven meekijken — verbonden door één doorlopende lijn.</p>
+  </div>
+
+  <div class="car" id="car">
+    <svg class="car-lines" viewBox="0 0 1240 80" preserveAspectRatio="none">
+      <!-- links: in de lege tussenruimte tussen zijkader en centraal kader -->
+      <circle class="node" cx="175" cy="40" r="5"></circle>
+      <path class="flow" d="M187,40 Q212,14 237,40 T287,40"></path>
+      <circle class="node" cx="299" cy="40" r="5"></circle>
+      <!-- rechts -->
+      <circle class="node" cx="941" cy="40" r="5"></circle>
+      <path class="flow" d="M953,40 Q978,66 1003,40 T1053,40"></path>
+      <circle class="node" cx="1065" cy="40" r="5"></circle>
+    </svg>
+    <div class="car-track" id="track">
+      <div class="slide" data-i="0"><span class="num">01</span><img alt="Video 1" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&q=70"><div class="shade"></div><span class="play"></span></div>
+      <div class="slide" data-i="1"><span class="num">02</span><img alt="Video 2" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=70"><div class="shade"></div><span class="play"></span></div>
+      <div class="slide" data-i="2"><span class="num">03</span><img alt="Video 3" src="https://images.unsplash.com/photo-1526779259212-939e64788e3c?w=1200&q=70"><div class="shade"></div><span class="play"></span></div>
+      <div class="slide" data-i="3"><span class="num">04</span><img alt="Video 4" src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=70"><div class="shade"></div><span class="play"></span></div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <p class="hint">Demo — placeholders. Straks jouw 4 video's; klik = naar midden + afspelen.</p>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var n=slides.length, active=0;
+  var dotsWrap=document.getElementById('dots');
+  slides.forEach(function(_,i){
+    var b=document.createElement('button'); b.setAttribute('aria-label','Video '+(i+1));
+    b.onclick=function(){active=i;render();}; dotsWrap.appendChild(b);
+  });
+  var dots=[].slice.call(dotsWrap.children);
+  function render(){
+    slides.forEach(function(s,i){
+      var d=i-active; if(d>2)d-=n; if(d<-2)d+=n;
+      s.setAttribute('data-pos', Math.abs(d)>2?'hidden':String(d));
+      s.classList.toggle('active', d===0);
+    });
+    dots.forEach(function(dt,i){dt.classList.toggle('on',i===active);});
+  }
+  slides.forEach(function(s,i){ s.addEventListener('click',function(){ active=i; render(); }); });
+  render();
+})();
+</script>
+</body>
+</html>
