@@ -241,6 +241,9 @@ body{padding-top:64px;}
   .cal-head{padding:28px 24px 20px;}
   .cal-body{padding:22px 24px 28px;}
 }
+
+/* AA-contrast op licht */
+.channel-tag,.cal-eyebrow,#bfFlow .ab-head{color:#B8420F;}
 </style>
 <link rel="stylesheet" href="../stylesheets/site.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Montisoro","url":"https://montisoro.com/","logo":"https://montisoro.com/assets/montisoro-logo.png","image":"https://montisoro.com/assets/og-image.jpg","email":"hello@montisoro.com","telephone":"+32-477-89-91-86","address":{"@type":"PostalAddress","streetAddress":"Tisseltstraat 25","postalCode":"1880","addressLocality":"Ramsdonk","addressCountry":"BE"},"vatID":"BE0733840137","areaServed":"BE","sameAs":["https://www.linkedin.com/in/laurence-van-den-bergh/"]}</script>
@@ -252,7 +255,7 @@ body{padding-top:64px;}
 
 <!-- ── NAV ── -->
 <nav class="m-nav" id="mNav">
-  <a href="/home-en" class="m-nav-logo" aria-label="Montisoro home"><picture><source srcset="../assets/montisoro-logo.webp" type="image/webp"><img decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"></picture></a>
+  <a href="/home-en" class="m-nav-logo" aria-label="Montisoro home"><img decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"></a>
   <ul class="m-nav-links">
     <li><a href="/aanpak-en">Approach</a></li>
     <li><a href="/technologie-en">Technology</a></li>
@@ -305,7 +308,7 @@ body{padding-top:64px;}
     <div class="hs-cta-row" style="margin-top:4px;"><a class="btn btn-primary" href="#channels">Book a call →</a></div>
     <p class="cta-note">30–45 minutes · online or on-site</p>
     <div class="hs-founder" style="display:inline-flex;align-items:center;gap:12px;margin-top:18px;text-align:left;opacity:0;animation:fu .6s .66s ease forwards;">
-      <picture><source srcset="../assets/team/laurence.webp" type="image/webp"><img src="../assets/team/laurence.jpg" alt="Laurence Van den Bergh" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid rgba(240,237,232,.20);" loading="lazy" decoding="async" width="640" height="640"></picture>
+      <img src="../assets/team/laurence.jpg" alt="Laurence Van den Bergh" style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid rgba(240,237,232,.20);" loading="lazy" decoding="async" width="640" height="640">
       <p style="margin:0;font-size:13.5px;color:var(--muted-d,#9a938b);line-height:1.4;"><span style="font-family:var(--serif,'Playfair Display',serif);font-weight:700;color:var(--white,#F0EDE8);">Laurence Van den Bergh</span> · you speak directly with the founder</p>
     </div>
   </div>
@@ -324,7 +327,7 @@ body{padding-top:64px;}
     <div class="channels-grid">
 
       <!-- 1. Plan een gesprek (primary) — opens calendar modal -->
-      <a href="mailto:hello@montisoro.com?subject=Booking%20request" onclick="openCalModal();return false;" class="channel primary rv">
+      <a href="/cdn-cgi/l/email-protection#472f222b2b28072a2829332e342835286924282a783432252d2224337a0528282c2e292062757735223632223433" onclick="openCalModal();return false;" class="channel primary rv">
         <svg class="channel-svg-bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="ch-sh" x1="1" x2="0.1" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.22"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
@@ -346,14 +349,14 @@ body{padding-top:64px;}
       </a>
 
       <!-- 2. E-mail -->
-      <a href="mailto:hello@montisoro.com" onclick="openContactModal();return false;" class="channel rv" style="--d:100ms">
+      <a href="/cdn-cgi/l/email-protection#9ef6fbf2f2f1def3f1f0eaf7edf1ecf1b0fdf1f3" onclick="openContactModal();return false;" class="channel rv" style="--d:100ms">
         <div class="channel-icon"><i class="ph-light ph-envelope-simple"></i></div>
         <span class="channel-tag">Email</span>
         <h3>Send us a message</h3>
         <p class="channel-body">Send your question in writing. You'll get an instant confirmation and we reply within one business day.</p>
         <div class="channel-meta">
           <i class="ph-light ph-at"></i>
-          <span><strong>hello@montisoro.com</strong></span>
+          <span><strong><span class="__cf_email__" data-cfemail="aec6cbc2c2c1eec3c1c0dac7ddc1dcc180cdc1c3">[email&#160;protected]</span></strong></span>
         </div>
         <i class="ph ph-arrow-up-right channel-arrow"></i>
       </a>
@@ -428,7 +431,7 @@ body{padding-top:64px;}
             <i class="ph-light ph-envelope-simple"></i>
             <div>
               <span class="label">Email</span>
-              <span class="value"><a href="mailto:hello@montisoro.com">hello@montisoro.com</a></span>
+              <span class="value"><a href="/cdn-cgi/l/email-protection#0f676a6363604f6260617b667c607d60216c6062"><span class="__cf_email__" data-cfemail="85ede0e9e9eac5e8eaebf1ecf6eaf7eaabe6eae8">[email&#160;protected]</span></a></span>
             </div>
           </div>
 
@@ -577,6 +580,7 @@ body{padding-top:64px;}
 
           <div class="c-foot" id="bfFoot">
             <button type="button" class="bf-btn bf-btn-ghost" id="bfBack">Back</button>
+            <span class="bf-hint" id="bfHint" aria-live="polite"></span>
             <button type="button" class="bf-btn bf-btn-primary" id="bfNext" disabled>Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
         </div>
@@ -649,8 +653,8 @@ body{padding-top:64px;}
 #bfFlow .legend{display:flex;gap:16px;margin-top:12px;font-size:10.5px;color:var(--text-muted);}
 #bfFlow .legend span{display:flex;align-items:center;gap:6px;}
 #bfFlow .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
-#bfFlow .legend .free{background:#fff;border:1.5px solid var(--border-l);}
-#bfFlow .legend .busy{background:#f0f0f0;border:1.5px solid #e3e3e3;}
+#bfFlow .legend .free{background:#fff;border:1.5px solid #b9b2a8;}
+#bfFlow .legend .busy{background:#e9e6e1;border:1.5px solid #d7d2ca;}
 #bfFlow .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 @media(max-width:560px){#bfFlow .form-grid{grid-template-columns:1fr;}}
 #bfFlow .field{display:flex;flex-direction:column;gap:6px;}
@@ -693,9 +697,10 @@ body{padding-top:64px;}
 #bfFlow .bf-btn-primary:disabled{opacity:.4;cursor:not-allowed;}
 #bfFlow .bf-btn-ghost{background:transparent;border-color:var(--border-l);color:var(--text-muted);}
 #bfFlow .bf-btn-ghost:hover{border-color:var(--text-primary);color:var(--text-primary);}
+#bfFlow .bf-hint{flex:1;text-align:right;margin-right:12px;font-size:11.5px;font-weight:400;color:var(--text-muted);}
 </style>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── Own booking flow (replaces Calendly). Availability is simulated for now;
    to be replaced by a Microsoft Graph call (Outlook free/busy + create event). ── */
 (function(){
@@ -774,6 +779,7 @@ body{padding-top:64px;}
       back.style.visibility = state.step===1 ? 'hidden' : 'visible';
       next.innerHTML = (state.step===3 ? 'Confirm booking' : 'Next') + ARROW;
       next.disabled = !canAdvance();
+      var hint=$('bfHint'); if(hint){ hint.textContent = !next.disabled ? '' : (state.step===1?'Choose the type of meeting first.':state.step===2?'Pick a day and a time slot.':state.step===3?'Fill in all required fields.':''); }
     }
     if(state.step===2){ renderCal(); renderTimes(); }
     if(state.step===3){ $('bfAddrBlock').classList.toggle('show', state.type==='onsite'); }
@@ -1060,7 +1066,7 @@ body{padding-top:64px;}
 
 <!-- ── FOOTER ── -->
 <footer class="ms-footer">
-  <picture><source srcset="../assets/banner-cover.webp" type="image/webp"><img loading="lazy" decoding="async" class="ms-fbg" src="../assets/banner-cover.jpg" alt="" role="presentation" width="1600" height="1061"></picture>
+  <img loading="lazy" decoding="async" class="ms-fbg" src="../assets/banner-cover.jpg" alt="" role="presentation" width="1600" height="1061">
   <div class="ms-fveil"></div>
   <div class="ms-foot-in">
     <div class="ms-foot-band">
@@ -1068,8 +1074,8 @@ body{padding-top:64px;}
       <a href="/contact-en#channels" class="ms-foot-btn">Book a call <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
     <div class="ms-foot-grid">
-      <div class="ms-foot-brand"><picture><source srcset="../assets/montisoro-logo.webp" type="image/webp"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"></picture><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="mailto:hello@montisoro.com" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+      <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"><p><em>Re</em>integrate <em>What</em> Matters.</p>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#eb838e878784ab8684859f8298849984c5888486" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigation</h3><ul><li><a href="/home-en">Home</a></li><li><a href="/aanpak-en">Approach</a></li><li><a href="/technologie-en">Technology</a></li><li><a href="/about-en">About</a></li><li><a href="/contact-en">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="/faq-en">FAQ</a></li><li><a href="/referentie-en">References</a></li><li><a href="/fit-check-en">Fit check</a></li><li><a href="/calculator-en">Calculator</a></li></ul></div>
@@ -1079,7 +1085,7 @@ body{padding-top:64px;}
   </div>
 </footer>
 
-<script src="../config/config.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../config/config.js"></script>
 <script>
 // ── Hairline-card reveal: fade-up on scroll, staggered via --d ──
 (function(){
@@ -1104,5 +1110,21 @@ body{padding-top:64px;}
 <script src="../scripts/analytics.js" defer></script>
 <script src="../scripts/events.js" defer></script>
 <script>(function(){function w(){document.querySelectorAll(".cal-card .field").forEach(function(f){var l=f.querySelector("label"),i=f.querySelector("input,textarea,select");if(l&&i){if(!i.id)i.id="bff"+Math.random().toString(36).slice(2,8);if(!l.getAttribute("for"))l.setAttribute("for",i.id);}});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",w);else w();})();</script>
+
+<script>
+/* Pre-launch batch: Tab-trap in open modals (focus+ESC+herstel bestonden al) */
+(function(){
+  var FOC='a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Tab') return;
+    var m=document.querySelector('.cal-modal.is-open'); if(!m) return;
+    var list=[].slice.call(m.querySelectorAll(FOC)).filter(function(el){ return el.offsetParent!==null; });
+    if(!list.length) return;
+    var first=list[0], last=list[list.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && (document.activeElement===last || !m.contains(document.activeElement))){ e.preventDefault(); first.focus(); }
+  });
+})();
+</script>
 </body>
 </html>

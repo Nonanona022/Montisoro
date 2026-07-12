@@ -195,7 +195,7 @@
 @media(prefers-reduced-motion:reduce){.hero-statement .hs-eyebrow,.hero-statement .hs-headline,.hero-statement .hs-body,.hero-statement .hs-cta-row,.hero-statement .hs-rule,.hero-statement .hs-divider,.hero-statement .hs-tagline,.hero-statement .hs-promise,.hero-statement .hs-statement,.hero-statement .hs-credibility{animation:none!important;opacity:1!important;transform:none!important;}}
 /* gedeelde golf-cover onderaan ELKE hero (manifest + about + calculator) + Home header.hero */
 /* gedeelde lijnen-achtergrond op ELKE hero — full-bleed, vervaagt naar boven én onder, subtiel zodat tekst leesbaar blijft */
-.hero-statement::after,.ms-dark-hero header.hero::after{content:'';display:block;position:absolute;left:0;right:0;top:0;height:100%;z-index:0;pointer-events:none;background:url('../assets/banner-lines.jpg') center/cover no-repeat;background-image:image-set(url("../assets/banner-lines.webp") type("image/webp"),url("../assets/banner-lines.jpg") type("image/jpeg"));opacity:0.5;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);}
+.hero-statement::after,.ms-dark-hero header.hero::after{content:'';display:block;position:absolute;left:0;right:0;top:0;height:100%;z-index:0;pointer-events:none;background:url('../assets/banner-lines.jpg') center/cover no-repeat;opacity:0.5;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.55) 15%,#000 35%,#000 65%,rgba(0,0,0,0.55) 85%,transparent 100%);}
 .ms-dark-hero header.hero{position:relative;}
 .ms-dark-hero header.hero > *{position:relative;z-index:2;}
 
@@ -228,4 +228,4 @@ body.ff-calculator-off [data-ff="calculator"] { display:none !important; }
 .ff-notice span{font-size:14px;line-height:1.6;color:#6b7280;}
 
 /* a11y: footer touch-targets */
-.ms-foot-col a,.ms-foot-contact a,.ms-foot-legal a,.ms-foot-social{display:inline-flex;align-items:center;min-height:24px;padding:3px 0;}
+.ms-foot-col a,.ms-foot-contact a,.ms-foot-legal a,.ms-foot-social{display:inline-flex;align-items:center;min-height:32px;padding:7px 0;margin:-4px 0;}
