@@ -4,6 +4,13 @@
 # Spiegelt de [[redirects]] uit netlify.toml. First-match-wins, top→onder.
 # ═══════════════════════════════════════════════════════════════════
 
+# ── montisoro.be → 301 naar montisoro.com (.be = redirect-domein, .com = canoniek) ──
+# Host-gebaseerd: raakt ALLEEN montisoro.be-verkeer; .com blijft ongemoeid. Padbehoudend (:splat).
+http://montisoro.be/*         https://montisoro.com/:splat    301!
+https://montisoro.be/*        https://montisoro.com/:splat    301!
+http://www.montisoro.be/*     https://montisoro.com/:splat    301!
+https://www.montisoro.be/*    https://montisoro.com/:splat    301!
+
 # ── API → Netlify Functions (zonder deze 404't /api/* → login + health kapot) ──
 /api/calculator-report       /.netlify/functions/calculator-report       200
 /api/track                   /.netlify/functions/track                   200
