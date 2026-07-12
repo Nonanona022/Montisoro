@@ -179,6 +179,14 @@ body{padding-top:64px;}
 .tv-time{flex:none;font-family:var(--sans);font-size:12px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums;min-width:34px;text-align:right;}
 @media(max-width:640px){.tech-video{margin:4px 0 32px;}.tv-bar{opacity:1;transform:none;}}
 
+
+/* — vcar met 1 video: toon als enkel kader (oude stijl), geen carousel — */
+.vcar.vcar-single{height:auto;}
+.vcar.vcar-single .vcar-track{position:static;}
+.vcar.vcar-single .vcar-slide{position:relative;top:auto;left:auto;transform:none!important;opacity:1!important;filter:none!important;width:100%;margin:0;box-shadow:0 40px 90px -34px rgba(0,0,0,.55);}
+.vcar.vcar-single .vcar-slide .tv-bar{display:flex!important;}
+.vcar.vcar-single .vcar-dots{display:none;}
+
 /* — Video-carousel (4 video's: midden groot + zijkaders) — */
 .vcar{position:relative;margin:8px 0 74px;height:clamp(240px,42vw,520px);}
 .vcar-track{position:absolute;inset:0;}
@@ -633,39 +641,6 @@ body{padding-top:64px;}
           <button type="button" class="tv-btn tv-fs" aria-label="Fullscreen"></button>
         </div>
       </div>
-      <div class="tech-video vcar-slide" aria-label="Casey video 2">
-        <video playsinline preload="metadata" poster="../assets/casey-2-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
-          <source src="../assets/casey-2.mp4#t=0.1" type="video/mp4">
-        </video>
-        <div class="tv-bar">
-          <button type="button" class="tv-btn tv-play" aria-label="Play"></button>
-          <div class="tv-track"><div class="tv-progress"></div></div>
-          <span class="tv-time">0:00</span>
-          <button type="button" class="tv-btn tv-fs" aria-label="Fullscreen"></button>
-        </div>
-      </div>
-      <div class="tech-video vcar-slide" aria-label="Casey video 3">
-        <video playsinline preload="metadata" poster="../assets/casey-3-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
-          <source src="../assets/casey-3.mp4#t=0.1" type="video/mp4">
-        </video>
-        <div class="tv-bar">
-          <button type="button" class="tv-btn tv-play" aria-label="Play"></button>
-          <div class="tv-track"><div class="tv-progress"></div></div>
-          <span class="tv-time">0:00</span>
-          <button type="button" class="tv-btn tv-fs" aria-label="Fullscreen"></button>
-        </div>
-      </div>
-      <div class="tech-video vcar-slide" aria-label="Casey video 4">
-        <video playsinline preload="metadata" poster="../assets/casey-4-poster.jpg" controlsList="nodownload noplaybackrate noremoteplayback" disablePictureInPicture>
-          <source src="../assets/casey-4.mp4#t=0.1" type="video/mp4">
-        </video>
-        <div class="tv-bar">
-          <button type="button" class="tv-btn tv-play" aria-label="Play"></button>
-          <div class="tv-track"><div class="tv-progress"></div></div>
-          <span class="tv-time">0:00</span>
-          <button type="button" class="tv-btn tv-fs" aria-label="Fullscreen"></button>
-        </div>
-      </div>
       </div>
       <div class="vcar-dots"></div>
     </div>
@@ -836,7 +811,7 @@ body{padding-top:64px;}
     </div>
     <div class="ms-foot-grid">
       <div class="ms-foot-brand"><img loading="lazy" decoding="async" src="../assets/montisoro-logo.png" alt="Montisoro" width="617" height="456"><p><em>Re</em>integrate <em>What</em> Matters.</p>
-        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#dcb4b9b0b0b39cb1b3b2a8b5afb3aeb3f2bfb3b1" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+        <div class="ms-foot-socials"><a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="ms-foot-social icon-only" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg></a><a href="/cdn-cgi/l/email-protection#69010c050506290406071d001a061b06470a0604" class="ms-foot-social icon-only" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
       </div>
       <div class="ms-foot-col"><h3>Navigation</h3><ul><li><a href="/home-en">Home</a></li><li><a href="/aanpak-en">Approach</a></li><li><a href="/technologie-en">Technology</a></li><li><a href="/about-en">About</a></li><li><a href="/contact-en">Contact</a></li></ul></div>
       <div class="ms-foot-col"><h3>Tools</h3><ul><li><a href="/faq-en">FAQ</a></li><li><a href="/referentie-en">References</a></li><li><a href="/fit-check-en">Fit check</a></li><li><a href="/calculator-en">Calculator</a></li></ul></div>
@@ -934,6 +909,8 @@ body{padding-top:64px;}
   document.querySelectorAll('.vcar').forEach(function(car){
     var slides=[].slice.call(car.querySelectorAll('.vcar-slide'));
     var n=slides.length; if(!n) return; var active=0;
+    if(n<=1){ car.classList.add('vcar-single'); var sv=car.querySelector('video'); if(sv){ sv.setAttribute('data-pos','0'); try{sv.preload='metadata';}catch(_){}}
+      return; }
     var dotsWrap=car.querySelector('.vcar-dots');
     if(dotsWrap){ slides.forEach(function(_,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Video '+(i+1)); b.addEventListener('click',function(){ setActive(i); }); dotsWrap.appendChild(b); }); }
     var dots=dotsWrap?[].slice.call(dotsWrap.children):[];
