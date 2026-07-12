@@ -395,10 +395,10 @@ body{padding-top:64px;}
   <ul class="m-nav-links">
     <li><a href="/aanpak">Aanpak</a></li>
     <li><a href="/technologie">Technologie</a></li>
-    <li><a href="/fit-check">Fit check</a></li>
-    <li><a href="/calculator">Calculator</a></li>
     <li><a href="/about">About</a></li>
     <li><a href="/contact">Contact</a></li>
+    <li><a href="/referentie">Referenties</a></li>
+    <li><a href="/faq">FAQ</a></li>
     <li><a href="/contact#channels" class="m-cta">Plan een gesprek →</a></li>
   </ul>
   <button class="m-hamburger" aria-label="Menu"><i class="ph ph-list"></i></button>
@@ -460,7 +460,7 @@ body{padding-top:64px;}
       /* Borderloze haarlijn-grid — schaalt naar ELK aantal (mobiel-first).
          Elke kaart heeft border-top → rij-scheiding werkt voor elke rij.
          Verticale scheiding per kolom via nth-child, per breekpunt gezet. */
-      .ref-grid{display:grid;grid-template-columns:1fr;gap:0;margin-top:clamp(38px,4vw,52px);}
+      .ref-grid{display:grid;grid-template-columns:1fr;gap:0;margin-top:clamp(20px,2.4vw,32px);}
       .ref-card{display:flex;flex-direction:column;gap:16px;padding:clamp(28px,3vw,38px) 0;border-top:1px solid var(--border-l,rgba(26,21,18,.14));text-decoration:none;}
       .ref-sector{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-muted,#6b7280);}
       /* Vaste logo-baan: élk logo veilig ingeperkt (hoogte én breedte), met lucht */
@@ -479,10 +479,7 @@ body{padding-top:64px;}
       }
       /* 3 kolommen (desktop) */
       @media(min-width:981px){
-        .ref-grid{grid-template-columns:repeat(3,1fr);}
-        .ref-card{border-left:1px solid var(--border-l,rgba(26,21,18,.14));padding-left:clamp(24px,2.2vw,34px);}
-        .ref-card:nth-child(2n+1){border-left:1px solid var(--border-l,rgba(26,21,18,.14));padding-left:clamp(24px,2.2vw,34px);}
-        .ref-card:nth-child(3n+1){border-left:none;padding-left:0;}
+        .ref-card{padding-top:clamp(32px,3.2vw,46px);padding-bottom:clamp(32px,3.2vw,46px);}
       }
     </style>
     <div class="ref-grid" id="refGrid"></div>

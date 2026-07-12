@@ -6,9 +6,6 @@ Disallow: /components/
 Disallow: /hooks/
 Disallow: /contexts/
 Disallow: /layouts/
-Disallow: /api/
 Disallow: /documents/
-Disallow: /config/
-Disallow: /admin-panel/
 
 Sitemap: https://montisoro.com/sitemap.xml

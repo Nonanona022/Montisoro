@@ -26,7 +26,7 @@ window.MONTISORO_TRUSTED = [
   { name:'Emeis',                      logo:'../assets/logos/emeis.png', order:7,  active:true },
   { name:'HB Accountants',             logo:'../assets/logos/hb.png', order:8,  active:true },
   { name:'Legend Biotech',             logo:'../assets/logos/legend.png', order:9,  active:true },
-  { name:'AXA Belgium',                logo:'../assets/logos/axa.png', order:10, active:true },
+  { name:'AXA Belgium',                logo:'../assets/logos/axa.png', order:10, active:false },
   { name:'Vaillant',                   logo:'../assets/logos/vaillant.png', order:11, active:true },
   { name:'Howden',                     logo:'../assets/logos/howden.png', order:12, active:true },
   { name:'AMS', logo:'../assets/logos/ams.png', order:13, active:true },
