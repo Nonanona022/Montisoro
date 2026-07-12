@@ -245,6 +245,9 @@
     var eTotB=$('totBed'); if(eTotB) eTotB.textContent=nf(totB,1);
     var eArbN=$('vcArbN'); if(eArbN) eArbN.textContent=nf(dispArb);
     var eBedN=$('vcBedN'); if(eBedN) eBedN.textContent=nf(rawFte-dispArb);
+    /* kolom zonder personen dimmen (sliders doen dan niets) */
+    try{ var _ca=eArbN&&eArbN.closest?eArbN.closest('.b-verz-col'):null; if(_ca) _ca.classList.toggle('is-zero', rawFte>0 && dispArb===0);
+         var _cb=eBedN&&eBedN.closest?eBedN.closest('.b-verz-col'):null; if(_cb) _cb.classList.toggle('is-zero', rawFte>0 && (rawFte-dispArb)===0); }catch(e){}
     /* samengevoegd verzuim (alles samen) — headcount-gewogen uit de engine */
     var totEl=$('totVerzuim'); if(totEl) totEl.textContent=nf(R.totVerz,1);
 

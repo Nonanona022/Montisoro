@@ -656,3 +656,7 @@ body.cf-open.calc-revealed .cf-stepslot .b-step-result .name{display:block !impo
 .b-form .f-input.is-error svg{color:var(--bad);}
 .b-consent.is-error{color:var(--bad);}
 .b-consent.is-error input{outline:2px solid var(--bad);outline-offset:2px;border-radius:3px;}
+
+/* kolom zonder personen (0 pers.) gedimd — sliders hebben dan geen effect */
+.b-verz-col.is-zero{opacity:.42;}
+.b-verz-col.is-zero .b-slider{pointer-events:none;}
