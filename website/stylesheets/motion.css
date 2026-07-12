@@ -38,6 +38,15 @@
   .rv{opacity:1!important;transform:none!important;transition:none!important;}
 }
 
+/* ── P0 pre-launch (LCP): hero paint direct ────
+   De subpagina-hero's startten op opacity:0 met een fade-entree → de browser had niets te schilderen
+   tot de animatie liep (trage FCP/LCP). Basis = zichtbaar (!important wint van keyframes/inline),
+   de transform-beweging van de entree blijft gewoon spelen. Zelfde gevoel, geen paint-straf. */
+.hs-rule,.hs-eyebrow,.hs-headline,.hs-statement,.hs-tagline,.hs-promise,.hs-divider,.hs-body,.hs-cta,.hs-cta-row,.hs-proof{opacity:1!important;}
+
+/* ── P0 pre-launch (ankers): #channels/#storm/#casey landen onder de vaste nav, niet erachter ── */
+[id]{scroll-margin-top:96px;}
+
 /* ──── Minpunt 05b (audit) — promptere hero-entree: titel verschijnt vrijwel meteen ────
    De per-pagina fu-entree startte de headline pas rond .34s (voelde als "leeg laden").
    !important overschrijft de niet-!important per-pagina delays uit één centrale plek.
