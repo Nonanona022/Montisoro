@@ -1,0 +1,305 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MONTISORO · v2 — GLOBAAL SYSTEEM (productie)
+   Editorial discipline · Premium Technology × Minimal Luxury.
+   Laadt als LAATSTE in de <head> (na site.css). Alleen site-brede
+   verfijning — géén content/structuur/functionaliteit gewijzigd.
+   Pagina-specifieke composities komen in latere overname-stappen.
+═══════════════════════════════════════════════════════════════════ */
+/* Fonts + iconen nu self-hosted (GDPR). Fonts via stylesheets/fonts.css.
+   Iconen (Phosphor) worden als <link> in de page-<head> geladen (naast Tabler) —
+   bewust GEEN @import meer: een @import blokkeert deze stylesheet tot de ~400KB
+   icoon-CSS binnen is → veroorzaakte een FOUC. Als <link> laden ze parallel. */
+
+:root{
+  --mono:'DM Mono',ui-monospace,monospace;
+  /* CTA-fill token (ronde 3): gevulde knoppen halen WCAG AA (wit 4,6:1) terwijl
+     accent-oranje #E8592B blijft voor tekst/borders/eyebrows op donker. */
+  --orange-cta:#CC4A1E; --orange-cta-hover:#B8420F;
+  --ph-duotone-secondary-opacity:0.22;
+  /* cinematic motion — crisp-but-smooth, Apple-tempo (gebruikt door motion.css) */
+  --m-base:.9s; --m-slow:1.15s; --m-very:1.45s;
+  --m-ease:cubic-bezier(.16,1,.3,1);
+
+  /* ═══ SEMANTISCHE DESIGN-TOKENS — één centrale bron van waarheid ═══
+     Nieuwe/te-migreren code gebruikt UITSLUITEND deze namen. Additief: de legacy-vars
+     (--bg/--off/--orange/--text-primary…) blijven bestaan en spiegelen dezelfde waarden,
+     zodat niets breekt. Losse HEX-codes worden stap voor stap hiernaartoe gemigreerd.
+     NB: bewust NIEUWE namen (--surface-*/--ink-*/--accent-*) — de legacy-namen NIET
+     herdefiniëren hier, want deze sheet laadt als laatste en zou pagina-:root overschrijven. */
+  --surface-primary:#13100D;      /* donkere basissectie   (= legacy --bg) */
+  --surface-secondary:#1A1512;    /* donker paneel/sectie   (= --bg-page op donker) */
+  --surface-elevated:#1C1814;     /* kaart / opgetild vlak  (= --bg-mid) */
+  --surface-deep:#0D0905;         /* diepste laag           (= --bg-deep) */
+  --surface-light:#FFFFFF;        /* witte sectie */
+  --surface-light-soft:#f9f8f6;   /* zachte witte sectie    (= --bg-page op licht) */
+  --ink-primary:#F0EDE8;          /* primaire tekst op donker (= --off) */
+  --ink-secondary:rgba(240,237,232,.6);   /* secundaire tekst op donker (= --muted-d) */
+  --ink-on-light:#1a1a1a;         /* tekst op wit */
+  --ink-on-light-soft:#6b7280;    /* secundaire tekst op wit */
+  --border-subtle:rgba(240,237,232,.12);  /* haarlijn op donker (= --div-d) */
+  --border-on-light:rgba(0,0,0,.08);
+  --accent-primary:#E8592B;       /* merk-oranje: tekst/borders/accent */
+  --accent-cta:#CC4A1E;           /* gevulde CTA (WCAG AA) */
+  --accent-cta-hover:#B8420F;
+}
+
+/* ─────────── TYPOGRAFIE & RITME ─────────── */
+.eyebrow,.hero-eyebrow,.hs-eyebrow,.banner-eyebrow,.channel-tag,.casey-tag,
+.check-eyebrow,.manifesto-eyebrow,.output-eyebrow,.stat-tag,.cta-tag{
+  letter-spacing:.2em !important;
+  font-weight:600 !important;
+}
+.title,.hero-headline,.hs-headline,.banner-headline,.mission-statement,
+.manifesto-statement,.h-section,.founder-name{
+  letter-spacing:-.025em !important;
+}
+.sub,.hero-body,.hs-body,.banner-body{line-height:1.85 !important;}
+.eyebrow::before{width:34px !important;height:1px !important;}
+.title.h-section{font-size:clamp(29px,3.5vw,46px) !important;line-height:1.08 !important;}
+
+/* ─────────── ICONOGRAFIE — de filled "SaaS" wrappers ontdoen ─────────── */
+.card-l .icon-wrap,
+.channel .channel-icon,
+.usecase-card .icn,
+.contact-pill .icn{
+  background:transparent !important;
+  border:none !important;
+  width:auto !important; height:auto !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  margin-bottom:8px;
+}
+.card-l .icon-wrap i,
+.channel .channel-icon i,
+.usecase-card .icn i,
+.contact-pill .icn i{
+  color:var(--orange) !important;
+  font-size:30px !important;
+  -webkit-text-stroke:0 !important;
+}
+.card-l:hover .icon-wrap,
+.channel:hover .channel-icon{background:transparent !important;}
+.card-l:hover .icon-wrap i{color:var(--orange) !important;}
+.ph,.ph-light,.ph-regular,.ph-duotone,.ph-bold,.ph-fill{line-height:1;display:inline-flex;}
+
+/* Geen icon-flits: Tabler onzichtbaar tot de Phosphor-swap klaar is */
+i.ti,span.ti{opacity:0;}
+.ph,.ph-light,.ph-regular,.ph-duotone,.ph-bold,.ph-fill{opacity:1;}
+
+/* ─────────── NAVIGATIE ─────────── */
+.m-nav-links li a{letter-spacing:.06em !important;font-weight:400 !important;}
+.m-nav-links li a.m-cta{
+  background:transparent !important;
+  border:1px solid rgba(232,89,43,0.55) !important;
+  color:var(--orange) !important;
+  border-radius:100px !important;
+  letter-spacing:.08em !important;
+}
+.m-nav-links li a.m-cta:hover{background:var(--orange-cta) !important;color:#fff !important;}
+
+/* ─────────── NAV "KADER +" (nav-boxed2) — site-brede standaard, desktop ───────────
+   Bron van waarheid voor de homepage-navigatie, nu gedeeld over alle pagina's.
+   Logo vrij links; menu als gecentreerde witte pil; <1025px → hamburger-overlay. */
+@media(min-width:1181px){
+  body.nav-boxed2 .m-nav{background:transparent !important;border:none !important;box-shadow:none !important;}
+  body.nav-boxed2 .m-nav.scrolled{background:rgba(26,21,18,.82) !important;-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);}
+  body.nav-boxed2 .m-nav-logo img{filter:none;}
+  body.nav-boxed2 .m-nav-links{background:#fff;border:1px solid rgba(26,21,18,.10);border-radius:100px;padding:6px 10px 6px 26px;box-shadow:0 12px 32px -14px rgba(0,0,0,.55);position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);max-width:calc(100vw - 260px);}
+  body.nav-boxed2 .m-nav-links li a:not(.m-cta){color:rgba(26,21,18,.62) !important;background:none !important;transform-origin:center;transition:color .22s cubic-bezier(.16,1,.3,1),transform .22s cubic-bezier(.16,1,.3,1),font-weight .22s cubic-bezier(.16,1,.3,1);}
+  body.nav-boxed2 .m-nav-links li a:not(.m-cta)::after{display:none !important;}
+  body.nav-boxed2 .m-nav-links li a:not(.m-cta):hover{color:var(--orange) !important;font-weight:600 !important;transform:none !important;}
+  body.nav-boxed2 .m-nav-links li a.m-active{color:var(--orange) !important;font-weight:700 !important;background:rgba(232,89,43,.12) !important;border-radius:100px !important;}
+  body.nav-boxed2 .m-nav-links li a.m-cta{background:var(--orange-cta) !important;color:#fff !important;border-color:var(--orange-cta) !important;}
+  body.nav-boxed2 .m-nav-links li a.m-cta:hover{background:var(--orange-cta-hover) !important;border-color:var(--orange-cta-hover) !important;color:#fff !important;}
+  body.nav-boxed2 .m-nav-links li.m-lang{margin-left:6px;}
+  body.nav-boxed2 .m-nav-links li.m-lang .m-lang-btn{color:rgba(26,21,18,.62) !important;border-color:rgba(26,21,18,.2) !important;}
+}
+
+/* ─────────── BUTTONS — pil-standaard (bron = homepage), site-breed ───────────
+   Eén gedeelde knopstijl zodat elke pagina dezelfde CTA-vorm/maat/micro-interactie krijgt. */
+.btn{
+  border-radius:100px !important;
+  padding:16px 32px !important;
+  font-size:11.5px !important;
+  letter-spacing:.12em !important;
+  gap:9px;
+  transition:background .25s cubic-bezier(.16,1,.3,1),color .25s cubic-bezier(.16,1,.3,1),border-color .25s cubic-bezier(.16,1,.3,1),gap .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1) !important;
+}
+.btn:hover{gap:13px;}
+/* ALLE CTA's identiek: vol oranje, witte letters, zelfde hover (op verzoek site-breed).
+   Dubbele class (.btn.btn-*) wint van losse inline-overrides per pagina. */
+.btn.btn-primary,.btn.btn-ghost,.btn.btn-ghost-light,.btn.btn-calc{
+  background:var(--orange-cta,#CC4A1E) !important;
+  border:1.5px solid var(--orange-cta,#CC4A1E) !important;
+  color:#fff !important;
+}
+.btn.btn-primary:hover,.btn.btn-ghost:hover,.btn.btn-ghost-light:hover,.btn.btn-calc:hover{
+  background:var(--orange-cta-hover,#B8420F) !important;
+  border-color:var(--orange-cta-hover,#B8420F) !important;
+  color:#fff !important;
+  transform:translateY(-2px);
+}
+
+/* ─────────── TITEL-SYSTEEM (.title-cover / MEGA) — site-brede standaard ───────────
+   Content-pagina's gebruiken al <span class="eyebrow"> + <h2 class="title h-section">
+   binnen genummerde <section class="chapter" data-screen-label="0N …">. We trekken de
+   sectietitel-schaal gelijk met Home en voegen centraal de grote, vage MEGA-numeral toe
+   (nummer via JS uit data-screen-label). Eén titeltaal over de hele site. */
+.title.h-section{font-size:clamp(30px,4.6vw,56px) !important;line-height:1.12 !important;letter-spacing:-.02em !important;}
+.chapter .eyebrow{letter-spacing:.18em !important;}
+
+/* ─────────── BANNER-KLEUR — gelijk aan about (vlak nabij-zwart) ───────────
+   De manifesto-hero's (.hero-statement) hebben een warme facet-SVG; we leggen er een
+   donkere overlay overheen (achter de tekst) zodat de banner net als about als zwart leest. */
+.hero-statement::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:rgba(0,0,0,0.42);}
+.hero-statement > .hs-inner{position:relative;z-index:1;}
+
+/* ─────────── CONTACT-KANALEN / BADGES ─────────── */
+.channel{border-radius:4px !important;}
+.channel .channel-arrow{color:var(--orange) !important;}
+.hs-badge{border-radius:100px !important;letter-spacing:.04em !important;}
+.trust-item i{font-size:20px !important;}
+
+/* ─────────── MONO-ACCENTEN ─────────── */
+.stat-tag,.calc-stat-eyebrow,.s-num,.pillar-num,.waitlist-fineprint,
+.cal-fineprint,.fineprint,.fc-step-tag{
+  font-family:var(--mono) !important;
+  letter-spacing:.06em !important;
+  text-transform:uppercase;
+}
+
+/* ─────────── TAP-COMFORT (touch) ─────────── */
+@media(pointer:coarse){
+  .m-nav-links li a,.hero-scroll,.cta-link{min-height:44px;display:inline-flex;align-items:center;}
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGINA-NIVEAU — overname-stap 2 & 3 (scoped via body-classes/JS)
+═══════════════════════════════════════════════════════════════════ */
+/* ── HOME (.ad-home) ── */
+.ad-home .hero-eyebrow{letter-spacing:.26em !important;font-size:12px !important;margin-bottom:30px !important;}
+.ad-home .hero-headline{font-size:clamp(52px,7.6vw,104px) !important;line-height:.94 !important;letter-spacing:-.035em !important;}
+.ad-home .hero-body{font-size:17px !important;line-height:1.85 !important;max-width:500px !important;}
+.ad-home .hero-inner{max-width:660px !important;position:relative;z-index:1;}
+.ad-home .hero-rule{width:60px !important;height:2px !important;margin-bottom:38px !important;}
+.ad-home .hero{position:relative;overflow:hidden;}
+.ad-home .hero::after{content:"M";position:absolute;right:-5%;top:50%;transform:translateY(-50%);font-family:var(--serif);font-weight:900;font-size:48vw;line-height:.7;color:rgba(240,237,232,0.035);pointer-events:none;z-index:0;user-select:none;}
+.ad-index{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted-d-2,rgba(240,237,232,0.38));margin-bottom:28px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.ad-index .s{color:var(--orange);}
+.ad-home .foundation-teaser{counter-reset:mz;gap:0 !important;border-top:1px solid rgba(0,0,0,0.14) !important;margin-top:18px !important;}
+.ad-home .foundation-teaser .card-l{counter-increment:mz;position:relative;background:transparent !important;border:none !important;border-right:1px solid rgba(0,0,0,0.10) !important;border-radius:0 !important;box-shadow:none !important;padding:38px 34px 34px !important;transform:none !important;}
+.ad-home .foundation-teaser .card-l:first-child{padding-left:0 !important;}
+.ad-home .foundation-teaser .card-l:last-child{border-right:none !important;padding-right:0 !important;}
+.ad-home .foundation-teaser .card-l:hover{transform:none !important;box-shadow:none !important;}
+.ad-home .foundation-teaser .icon-wrap{display:none !important;}
+.ad-home .foundation-teaser .card-l::before{content:counter(mz,decimal-leading-zero);display:block;font-family:var(--serif);font-weight:900;font-size:54px;color:var(--orange);margin-bottom:18px;line-height:1;}
+.ad-home .foundation-teaser .card-l h3{font-size:23px !important;margin-bottom:12px !important;}
+.ad-home .foundation-teaser .card-l p{font-size:14px !important;line-height:1.7 !important;}
+@media(max-width:760px){
+  .ad-home .hero::after{font-size:64vw;top:40%;}
+  .ad-index{font-size:10px;gap:10px;}
+  .ad-home .foundation-teaser .card-l{border-right:none !important;border-bottom:1px solid rgba(0,0,0,0.10) !important;padding:30px 0 !important;}
+  .ad-home .foundation-teaser .card-l:last-child{border-bottom:none !important;}
+  .ad-home .foundation-teaser .card-l::before{font-size:44px !important;margin-bottom:12px !important;}
+}
+@media(max-width:560px){.ad-home .hero::after{font-size:78vw;}}
+
+/* ── ABOUT (.ad-about) — hero-tekst gecentreerd ── */
+.ad-about .hero-inner{text-align:center;max-width:1040px;margin-left:auto;margin-right:auto;}
+.ad-about .hero-rule,.ad-about .hero-divider{margin-left:auto !important;margin-right:auto !important;}
+.ad-about .hero-scroll{justify-content:center;}
+
+/* ── AANPAK — signaalnummer op de eerste regel ── */
+.check-list .check-item{align-items:flex-start !important;align-self:start !important;}
+.check-item .check-dot{align-self:flex-start !important;margin-top:0 !important;height:22px !important;}
+
+/* ══════════════════════════════════════════════════════════════════
+   UNIFORME HERO-ACHTERGROND (21 juni 2026)
+   Alle pagina-hero's BEHALVE de Home-banner krijgen dezelfde behandeling:
+   volledig zwart, zonder glow/noise. (Home gebruikt .hero, niet geraakt.)
+   ══════════════════════════════════════════════════════════════════ */
+.hero-statement{background:#000 !important;min-height:520px;display:flex;flex-direction:column;justify-content:center;}
+.hero-statement .hs-canvas{display:none !important;}
+/* (Dode oude-banner fade-up cascade + bijhorende keyframe verwijderd 23 juni 2026 — 0 markup-usage; vervangen door .hero-statement + shell.css `fu`) */
+/* About-hero (.ad-about) — zwart, geen foto/glow/noise (Home = .ad-home, niet geraakt) */
+.ad-about .hero{background:#000 !important;min-height:520px !important;display:flex !important;align-items:center;justify-content:center;text-align:center;padding:clamp(72px,11vw,150px) 24px !important;}
+.ad-about .hero-content{padding:0 !important;align-items:center;justify-content:center;width:100%;}
+.ad-about .hero-inner{margin:0 auto !important;max-width:1040px;}
+.ad-about .hero-rule,.ad-about .hero-divider{margin-left:auto !important;margin-right:auto !important;}
+.ad-about .hero-eyebrow{justify-content:center;}
+.ad-about .hero-body{text-align:center !important;text-align-last:center !important;margin-left:auto;margin-right:auto;}
+.ad-about .hero-photo{display:none !important;}
+.ad-about .hero-content::before,.ad-about .hero-content::after{display:none !important;background:none !important;}
+/* ROI Bridge-sectie — zwart, zonder glow/noise */
+.roi-bridge-canvas{display:none !important;}
+.chapter.dark:has(.roi-bridge-canvas){background:#000 !important;}
+
+
+
+/* ─────────── NAV DONKER GLAS (editorial) — site-brede standaard, desktop ───────────
+   Donkere glas-balk, onderlijn-active, outline-CTA. Vervangt de witte pil (nav-boxed2). */
+@media(min-width:1181px){
+  /* ── CONCEPT 02 · HET ZWEVENDE KADER — balk transparant, linkenrij = frosted capsule ── */
+  .m-nav{background:transparent;border-bottom:none;}
+  .m-nav.scrolled{background:transparent;}
+  .m-nav-links{gap:clamp(4px,.9vw,12px);padding:6px 6px 6px 16px;border-radius:100px;border:1px solid transparent;background:transparent;transition:background .42s cubic-bezier(.16,1,.3,1),border-color .42s cubic-bezier(.16,1,.3,1),box-shadow .42s cubic-bezier(.16,1,.3,1),transform .42s cubic-bezier(.16,1,.3,1);}
+  /* materialiseert in één beweging bij scroll */
+  .m-nav.scrolled .m-nav-links{background:rgba(26,21,18,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border-color:rgba(240,237,232,.12);box-shadow:0 18px 46px -22px rgba(0,0,0,.85);transform:translateY(-1px);}
+  .m-nav-links li a{font-size:13.5px;font-weight:400;letter-spacing:.06em;color:rgba(240,237,232,.6);padding:8px 12px;border-radius:0;background:none!important;position:relative;transition:color .25s cubic-bezier(.16,1,.3,1);}
+  .m-nav-links li a::after{content:'';position:absolute;left:12px;right:100%;bottom:2px;height:1.5px;background:var(--orange);transition:right .35s cubic-bezier(.16,1,.3,1);}
+  .m-nav-links li a:hover{color:var(--off);background:none!important;}
+  .m-nav-links li a:hover::after{right:12px;}
+  .m-nav-links li a.m-active{color:var(--orange)!important;background:none!important;}
+  .m-nav-links li a.m-active::after{right:12px;}
+  /* CTA: gevulde oranje pill — de enige kleur op het scherm */
+  .m-nav-links li a.m-cta{background:var(--orange-cta)!important;color:#fff!important;border:1px solid var(--orange-cta)!important;border-radius:100px;padding:10px 20px!important;font-weight:600;letter-spacing:.05em;margin-left:6px;transition:background .25s,color .25s,border-color .25s;}
+  .m-nav-links li a.m-cta::after{display:none;}
+  .m-nav-links li a.m-cta:hover{background:var(--orange-cta-hover,#B33F17)!important;color:#fff!important;border-color:var(--orange-cta-hover,#B33F17);}
+  .m-nav-links li.m-lang{margin-left:2px;}
+  .m-nav-links li.m-lang .m-lang-btn{border-radius:100px!important;letter-spacing:.06em;}
+}
+/* ─────────── DESKTOP GROOT (≥1440px): grotere, ademende nav-links ─────────── */
+@media(min-width:1440px){
+  .m-nav-links li a:not(.m-cta){font-size:15px!important;letter-spacing:.07em!important;color:rgba(240,237,232,.72)!important;padding:8px 15px!important;}
+  .m-nav-links li a.m-cta{font-size:14px!important;padding:11px 24px!important;}
+  .m-nav-links li.m-lang .m-lang-btn{font-size:13px!important;}
+}
+
+/* ─────────── NAV ADAPTIEF: lichte sectie achter de nav → licht frosted + donkere tekst ─────────── */
+@media(min-width:1181px){
+  body.ms-nav-light .m-nav{background:transparent !important;border-bottom:none !important;-webkit-backdrop-filter:none;backdrop-filter:none;}
+  body.ms-nav-light .m-nav.scrolled{background:transparent !important;}
+  body.ms-nav-light .m-nav.scrolled .m-nav-links{background:rgba(255,255,255,.82) !important;border-color:rgba(26,21,18,.10) !important;box-shadow:0 18px 46px -24px rgba(0,0,0,.4);}
+  body.ms-nav-light .m-nav-logo img{filter:brightness(0) !important;}
+  body.ms-nav-light .m-nav-links li a:not(.m-cta){color:rgba(26,21,18,.66) !important;}
+  body.ms-nav-light .m-nav-links li a:not(.m-cta):hover,body.ms-nav-light .m-nav-links li a.m-active{color:var(--orange,#E8592B) !important;}
+  body.ms-nav-light .m-nav-links li a.m-cta{background:var(--orange-cta,#CC4A1E) !important;color:#fff !important;border-color:var(--orange-cta,#CC4A1E) !important;}
+  body.ms-nav-light .m-nav-links li a.m-cta:hover{background:var(--orange-cta,#CC4A1E) !important;color:#fff !important;border-color:var(--orange-cta,#CC4A1E) !important;}
+  body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn{color:#1a1512 !important;border-color:rgba(26,21,18,.28) !important;}
+  body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn i,body.ms-nav-light .m-nav-links li.m-lang .m-lang-btn svg{color:#1a1512 !important;}
+}
+
+/* verberg de · stip naast de EN-pil overal in de nav-balk (blijft enkel in de mobiele hamburger-overlay) */
+.m-nav .m-lang-dot,.m-nav-links .m-lang-dot{display:none !important;}
+/* GEEN default <li>-opsommingsbullet in de nav: de EN-taalpil is een <li> dat (afhankelijk van
+   shell.js-conditie) buiten de pill kan staan als los kind van #mNav → default disc • lekte links
+   van de EN-knop. Onvoorwaardelijk uitschakelen op alle nav-list-items. */
+.m-nav ul,.m-nav-links,#mNav{list-style:none !important;}
+.m-nav li,.m-nav-links li,#mNav > li,#mNav li{list-style:none !important;}
+.m-nav li::marker,.m-nav-links li::marker,#mNav li::marker{content:"" !important;}
+
+/* ─────────── TYPOGRAFIE-REGEL: oranje italic-accenten → RECHT (upright) ───────────
+   Site-breed worden de cursieve oranje <em>-accenten in titels/tekst rechtop gezet.
+   TWEE UITZONDERINGEN waar de oranje cursief bewaard blijft:
+     1. de hero-banner (.hero / .hero-statement / .hs-headline / .hero-headline)
+     2. de "Klaar om te starten?"-sectie (#action + footer-band + calculator-action) */
+.title em,.h-section em,.ds-define-term em,.chapter em,.lead em,.sub em,
+.banner-body em,.hs-body em,.hero-body em,
+h1 em,h2 em,h3 em,h4 em,p em,li em,blockquote em,figcaption em{
+  font-style:normal !important;
+}
+/* Uitzonderingen — oranje cursief blijft hier bewaard: */
+.hero em,.hero-statement em,.hs-headline em,.hero-headline em,.hs-statement em,
+#action em,.action em,.ms-foot-band em,.foot-band em,.b-action em{
+  font-style:italic !important;
+}
