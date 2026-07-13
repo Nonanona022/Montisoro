@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Montisoro — Go / No-Go Productie-audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#13100D; --bg-r:#1A1410; --bg-deep:#0D0905;
+  --orange:#E8592B;
+  --off:#F0EDE8; --white:#fff;
+  --muted:rgba(240,237,232,.56); --muted-2:rgba(240,237,232,.36);
+  --div:rgba(240,237,232,.10); --div-2:rgba(240,237,232,.16);
+  --green:#3E9D6B; --amber:#D99A2B; --red:#D6533B;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--off);-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(22px,5vw,60px)}
+.narrow{max-width:880px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);white-space:nowrap}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange)}
+
+/* cover */
+.cover{padding:clamp(58px,10vw,112px) 0 clamp(40px,6vw,64px);border-bottom:1px solid var(--div);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(232,89,43,.13),transparent 64%)}
+.cover-in{position:relative;z-index:1}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7.2vw,88px);line-height:1.04;letter-spacing:-.025em;color:var(--white);margin:22px 0 0}
+.cover h1 em{font-style:italic;color:var(--orange)}
+.cover-sub{font-weight:300;font-size:clamp(15px,1.7vw,19px);line-height:1.75;color:var(--muted);max-width:62ch;margin-top:24px}
+.cover-sub strong{color:var(--off);font-weight:500}
+.cover-meta{display:flex;flex-wrap:wrap;gap:10px 30px;margin-top:30px;font-size:12px;color:var(--muted-2);font-family:var(--mono)}
+.cover-meta b{color:var(--off);font-weight:500}
+
+/* verdict band */
+.verdict{margin-top:clamp(36px,5vw,52px);border:1px solid rgba(217,154,43,.45);border-radius:18px;background:linear-gradient(180deg,rgba(217,154,43,.10),rgba(217,154,43,.03));padding:clamp(26px,4vw,40px);position:relative;overflow:hidden}
+.verdict .v-tag{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.verdict .v-tag .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(217,154,43,.18)}
+.verdict h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.6vw,42px);line-height:1.1;letter-spacing:-.02em;color:var(--white)}
+.verdict h2 em{font-style:italic;color:var(--amber)}
+.verdict .v-opts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.v-opt{flex:1;min-width:180px;border:1px solid var(--div-2);border-radius:12px;padding:16px 18px;background:rgba(0,0,0,.18)}
+.v-opt .n{font-family:var(--serif);font-weight:900;font-size:20px;color:var(--muted-2)}
+.v-opt .t{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+.v-opt.is-on{border-color:var(--amber);background:rgba(217,154,43,.12)}
+.v-opt.is-on .n{color:var(--amber)}
+.v-opt.is-on .t{color:var(--off);font-weight:500}
+.verdict .v-line{font-size:14.5px;font-weight:300;color:var(--muted);line-height:1.8;margin-top:20px;max-width:74ch}
+.verdict .v-line b{color:var(--off);font-weight:600}
+
+section{padding:clamp(50px,7vw,92px) 0;border-bottom:1px solid var(--div)}
+.sec-head{margin-bottom:clamp(30px,5vw,48px)}
+.kick{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--orange);text-transform:uppercase}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4vw,46px);line-height:1.08;letter-spacing:-.02em;color:var(--white);margin-top:14px}
+.sec-head h2 em{font-style:italic;color:var(--orange)}
+.sec-head p{font-weight:300;font-size:clamp(14px,1.5vw,17px);color:var(--muted);max-width:66ch;margin-top:14px;line-height:1.8}
+.sec-head p b{color:var(--off);font-weight:500}
+
+/* expert grid */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--div);border:1px solid var(--div);border-radius:16px;overflow:hidden}
+@media(max-width:860px){.team{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.team{grid-template-columns:1fr}}
+.tm-c{background:var(--bg-r);padding:clamp(20px,2.4vw,26px);display:flex;flex-direction:column;gap:10px}
+.tm-r{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.tm-v{font-family:var(--serif);font-style:italic;font-weight:700;font-size:15px;color:var(--off);line-height:1.4}
+.tm-n{font-size:12.5px;font-weight:300;color:var(--muted);line-height:1.55}
+.tm-c .stamp{margin-top:auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;font-weight:500}
+.stamp.go{color:var(--green)} .stamp.cond{color:var(--amber)} .stamp.no{color:var(--red)}
+
+/* scores */
+.scoretable{border:1px solid var(--div-2);border-radius:16px;overflow:hidden}
+.st-row{display:grid;grid-template-columns:1.4fr 2.4fr auto;gap:clamp(14px,2.6vw,30px);align-items:center;padding:clamp(13px,1.8vw,18px) clamp(16px,2.4vw,28px);border-top:1px solid var(--div)}
+.st-row:first-child{border-top:none}
+.st-row.head{background:var(--bg-deep)}
+.st-row.head span{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.st-name{font-weight:500;font-size:14px;color:var(--off)}
+.st-name small{display:block;font-weight:300;font-size:12px;color:var(--muted-2);margin-top:3px}
+.bar{height:9px;border-radius:100px;background:rgba(240,237,232,.07);overflow:hidden;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:100px}
+.bar i.lo{background:var(--red)} .bar i.mid{background:var(--amber)} .bar i.hi{background:var(--green)}
+.st-val{text-align:right;font-family:var(--mono);font-size:14px;font-weight:500;white-space:nowrap}
+.st-val.lo{color:var(--red)} .st-val.mid{color:var(--amber)} .st-val.hi{color:var(--green)}
+.st-row.total{background:linear-gradient(180deg,var(--bg-r),var(--bg-deep));border-top:1px solid var(--div-2)}
+.st-row.total .st-name{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--white)}
+.st-row.total .st-val{font-size:16px}
+
+/* surface matrix */
+.matrix{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.mx{border:1px solid var(--div);border-radius:12px;padding:16px 16px 14px;background:var(--bg-r)}
+.mx .m-s{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;margin-bottom:9px}
+.mx .m-s::before{content:'';width:8px;height:8px;border-radius:50%}
+.mx.ok .m-s{color:var(--green)} .mx.ok .m-s::before{background:var(--green)}
+.mx.warn .m-s{color:var(--amber)} .mx.warn .m-s::before{background:var(--amber)}
+.mx.no .m-s{color:var(--red)} .mx.no .m-s::before{background:var(--red)}
+.mx h4{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--off);margin-bottom:5px}
+.mx p{font-size:12px;font-weight:300;color:var(--muted);line-height:1.5}
+
+/* blocker tiers */
+.tier{border:1px solid var(--div-2);border-radius:16px;overflow:hidden;margin-bottom:18px}
+.tier-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px clamp(18px,2.4vw,26px)}
+.tier-head h3{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.2vw,24px);color:var(--white)}
+.tier-head .cnt{font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+.tier.k{border-color:rgba(214,83,59,.5)} .tier.k .tier-head{background:rgba(214,83,59,.12)} .tier.k .tier-head h3{color:#F4B8AB}
+.tier.h .tier-head{background:rgba(217,154,43,.10)} .tier.h .tier-head h3{color:#F2C98A}
+.tier.m .tier-head{background:rgba(62,157,107,.08)} .tier.m .tier-head h3{color:#A9D9BE}
+.tier.l .tier-head{background:rgba(240,237,232,.04)}
+.tier-item{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px clamp(18px,2.4vw,26px);border-top:1px solid var(--div)}
+.tier-item .id{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--orange);white-space:nowrap;padding-top:2px}
+.tier-item h4{font-weight:600;font-size:15px;color:var(--off);margin-bottom:6px}
+.tier-item p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65}
+.tier-item p strong{color:var(--off);font-weight:500}
+.tier-item p .imp{color:#F2C98A}
+.tier-item p .fix{color:#A9D9BE}
+
+footer{padding:clamp(40px,6vw,68px) 0;text-align:center}
+footer .big{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(19px,2.6vw,30px);color:var(--off);margin-bottom:18px;line-height:1.3}
+footer .big em{color:var(--orange)}
+footer p{font-size:12px;color:var(--muted-2);line-height:1.8}
+::selection{background:var(--orange);color:#fff}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap cover-in">
+    <span class="eyebrow">Go / No-Go · Productie-audit · Vertrouwelijk</span>
+    <h1>Mag Montisoro <em>live?</em></h1>
+    <p class="cover-sub">Onafhankelijke livegang-beoordeling door een verantwoordelijk team — <strong>CTO, CEO, CFO, HR Director, QA Lead, UX Lead, Security Lead en Product Owner.</strong> Beoordeeld over alle oppervlakken (website, calculator, fit check, dashboard, PDF, e-mailflow) in NL + EN en op mobiel, tablet en desktop. Streng gewogen — alsof onze handtekening onder de livegang staat.</p>
+    <div class="cover-meta">
+      <span>Datum · <b>6 juni 2026</b></span>
+      <span>Domein · <b>montisoro.com</b></span>
+      <span>Type · <b>GO / NO-GO</b></span>
+      <span>Wijzigingen · <b>geen (alleen oordeel)</b></span>
+    </div>
+
+    <div class="verdict">
+      <div class="v-tag"><span class="dot"></span>Eindbesluit</div>
+      <h2>Conditionele GO — <em>klaar mits fixes.</em> Vandaag live = NO-GO.</h2>
+      <div class="v-opts">
+        <div class="v-opt"><div class="n">01</div><div class="t">Niet klaar</div></div>
+        <div class="v-opt is-on"><div class="n">02</div><div class="t">Klaar mits fixes ✓</div></div>
+        <div class="v-opt"><div class="n">03</div><div class="t">Klaar voor productie</div></div>
+      </div>
+      <p class="v-line">De <b>front-end is livegang-waardig</b> — visueel, inhoudelijk en tweetalig sterk. Maar de <b>commerciële motor staat uit</b>: de back-end is "klaar maar inert" (<b>K1</b>), de admin mist een externe toegangspoort (<b>K2</b>), en kerncijfers + testimonials zijn nog niet onderbouwd (<b>K3</b>). Live gaan vóór K1–K3 betekent: bezoekers vullen de calculator in, maar <b>er komt geen lead binnen en geen rapport de deur uit</b> — stille omzetlekkage plus juridisch en security-risico. Dit zijn config- en content-fixes, geen ontwikkelwerk. Zet ze om → dan is het een volmondige GO.</p>
+    </div>
+  </div>
+</header>
+
+<!-- TEAM -->
+<section>
+  <div class="wrap">
+    <div class="sec-head narrow">
+      <span class="eyebrow">Het oordeel van het team</span>
+      <h2>Acht brillen, <em>één handtekening.</em></h2>
+      <p>Elk lid stemt GO, conditioneel of NO-GO. Eén NO-GO op een kritisch domein blokkeert de livegang — zo werkt een verantwoorde release.</p>
+    </div>
+    <div class="team">
+      <div class="tm-c"><span class="tm-r">CEO</span><p class="tm-v">"Het verhaal verkoopt. Maar ik teken niet voor een funnel die leads laat vallen."</p><span class="stamp cond">CONDITIONEEL</span></div>
+      <div class="tm-c"><span class="tm-r">CTO</span><p class="tm-v">"Code is klaar, back-end is inert. Het is een env-schakelaar, geen sprint."</p><span class="stamp cond">CONDITIONEEL</span></div>
+      <div class="tm-c"><span class="tm-r">CFO</span><p class="tm-v">"€14,7M en 30–35% zonder onderbouwing — dat zet ik niet op een publieke site."</p><span class="stamp no">NO-GO</span></div>
+      <div class="tm-c"><span class="tm-r">HR Director</span><p class="tm-v">"Inhoudelijk klopt het en het is bruikbaar. Domein-expertise is overtuigend."</p><span class="stamp go">GO</span></div>
+      <div class="tm-c"><span class="tm-r">QA Lead</span><p class="tm-v">"Schoon, geen console-errors, NL+EN consistent. Device-matrix niet volledig getest."</p><span class="stamp cond">CONDITIONEEL</span></div>
+      <div class="tm-c"><span class="tm-r">UX Lead</span><p class="tm-v">"Premium, rustig, duidelijk. Mobiel solide. Klaar qua belevenis."</p><span class="stamp go">GO</span></div>
+      <div class="tm-c"><span class="tm-r">Security Lead</span><p class="tm-v">"Admin op client-side auth zonder externe poort. Zo gaat dit niet live."</p><span class="stamp no">NO-GO</span></div>
+      <div class="tm-c"><span class="tm-r">Product Owner</span><p class="tm-v">"Scope af, kwaliteit hoog. Drie schakelaars staan tussen ons en GO."</p><span class="stamp cond">CONDITIONEEL</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCORES -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kick">Scorecard</span>
+      <h2>Streng gescoord — <em>per dimensie.</em></h2>
+      <p>Op /10, zonder coulance. <b style="color:var(--green)">Groen ≥ 7,5</b> · <b style="color:var(--amber)">amber 5–7,4</b> · <b style="color:var(--red)">rood &lt; 5</b>. Productie-readiness weegt de blokkers mee — vandaar het lage cijfer ondanks sterke onderdelen.</p>
+    </div>
+    <div class="scoretable">
+      <div class="st-row head"><span>Dimensie</span><span>Score</span><span style="text-align:right">/10</span></div>
+
+      <div class="st-row"><div class="st-name">UI<small>Editorial, consistent, merkvast — NL+EN</small></div><div class="bar"><i class="hi" style="width:85%"></i></div><div class="st-val hi">8,5</div></div>
+      <div class="st-name-spacer"></div>
+      <div class="st-row"><div class="st-name">UX<small>Heldere flows, goede microcopy</small></div><div class="bar"><i class="hi" style="width:80%"></i></div><div class="st-val hi">8,0</div></div>
+      <div class="st-row"><div class="st-name">Mobile UX<small>Getest op 390px+: geen overflow, hamburger-nav, tap-targets ≥44px</small></div><div class="bar"><i class="hi" style="width:100%"></i></div><div class="st-val hi">10</div></div>
+      <div class="st-row"><div class="st-name">Trust<small>Eerlijke framing, maar geen echte testimonials/cases/certs</small></div><div class="bar"><i class="mid" style="width:60%"></i></div><div class="st-val mid">6,0</div></div>
+      <div class="st-row"><div class="st-name">Conversie<small>Sterk ontwerp — maar lead-capture staat uit (K1)</small></div><div class="bar"><i class="mid" style="width:55%"></i></div><div class="st-val mid">5,5</div></div>
+      <div class="st-row"><div class="st-name">Calculator<small>SD Worx-bron, methodologie, indicatief — sterk</small></div><div class="bar"><i class="hi" style="width:85%"></i></div><div class="st-val hi">8,5</div></div>
+      <div class="st-row"><div class="st-name">PDF<small>6 pp, navolgbaar; levering inert tot K1</small></div><div class="bar"><i class="hi" style="width:80%"></i></div><div class="st-val hi">8,0</div></div>
+      <div class="st-row"><div class="st-name">Dashboard<small>Rijk, gefixt; PDF-acties demo tot K1</small></div><div class="bar"><i class="hi" style="width:78%"></i></div><div class="st-val hi">7,8</div></div>
+      <div class="st-row"><div class="st-name">Performance<small>CDN-fonts + render-blocking; niet Lighthouse-gemeten</small></div><div class="bar"><i class="mid" style="width:68%"></i></div><div class="st-val mid">6,8</div></div>
+      <div class="st-row"><div class="st-name">Security<small>Admin client-side gate, geen externe poort, env niet gezet</small></div><div class="bar"><i class="lo" style="width:45%"></i></div><div class="st-val lo">4,5</div></div>
+      <div class="st-row"><div class="st-name">Production Readiness<small>Geblokkeerd op K1 + K2 + claim-onderbouwing</small></div><div class="bar"><i class="lo" style="width:48%"></i></div><div class="st-val lo">4,8</div></div>
+
+      <div class="st-row total"><div class="st-name">Gewogen totaal</div><div class="bar"><i class="mid" style="width:69%"></i></div><div class="st-val mid">6,9</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SURFACE MATRIX -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kick">Oppervlakken</span>
+      <h2>Status per <em>onderdeel.</em></h2>
+      <p><b style="color:var(--green)">Sterk</b> · <b style="color:var(--amber)">aandacht</b> · <b style="color:var(--red)">blokker</b>. De e-mailflow is de enige harde rode — en die raakt alles eronder.</p>
+    </div>
+    <div class="matrix">
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>Website</h4><p>16 pagina's, NL+EN, editorial en consistent.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>Calculator</h4><p>Bron + methodologie; lead-capture inert tot K1.</p></div>
+      <div class="mx warn"><div class="m-s">Aandacht</div><h4>Fit Check</h4><p>Werkt; inzending afhankelijk van K1-backend.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>Dashboard</h4><p>Rijk + gefixt; PDF-acties in demo tot K1.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>PDF</h4><p>6 pagina's, navolgbaar; aflevering via K1.</p></div>
+      <div class="mx no"><div class="m-s">Blokker</div><h4>E-mailflow</h4><p>Inert — geen mails, geen leads (K1).</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>NL</h4><p>Volledig, primaire taal, consistent.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>EN</h4><p>Volledig gelokaliseerd, incl. nieuwe drawers.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>Mobile</h4><p>Getest op 390px: geen overflow, tap-targets ≥44px.</p></div>
+      <div class="mx warn"><div class="m-s">Aandacht</div><h4>Tablet</h4><p>Breakpoints ok; calculator-stepper te checken.</p></div>
+      <div class="mx ok"><div class="m-s">Sterk</div><h4>Desktop</h4><p>Volwaardig, premium, stabiel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCKERS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kick">Bevindingen</span>
+      <h2>Blokkers &amp; <em>prioriteiten.</em></h2>
+      <p>Gerangschikt naar livegang-impact. De drie <b style="color:#F4B8AB">kritieke</b> blokken bepalen het NO-GO; alles daaronder is "fix snel na (of vlak vóór) livegang".</p>
+    </div>
+
+    <!-- KRITIEK -->
+    <div class="tier k">
+      <div class="tier-head"><h3>Kritieke blokkers</h3><span class="cnt">3 · NO-GO zolang open</span></div>
+      <div class="tier-item"><div class="id">K1</div><div>
+        <h4>Back-end volledig inert — geen leads, geen mails, geen rapport-aflevering</h4>
+        <p>Calculator, fit check en contact posten naar <strong>/api/form-submit</strong> en <strong>/api/calculator-report</strong> (Resend + Supabase), maar de <strong>env-sleutels ontbreken</strong> (RESEND_API_KEY, MAIL_FROM, Supabase, ALLOWED_ORIGIN…). <span class="imp">Impact:</span> bezoekers voltooien de funnel, maar er komt <strong>geen lead binnen en geen PDF de deur uit</strong> — enkel een mailto-vangnet. Stille omzetlekkage op dag één. <span class="fix">Fix:</span> env zetten + één lead en één rapport end-to-end testen.</p>
+      </div></div>
+      <div class="tier-item"><div class="id">K2</div><div>
+        <h4>Admin-beveiliging: client-side gate zonder externe toegangspoort</h4>
+        <p>De admin draait op een client-side sessie; server-side auth (<strong>/api/admin-auth</strong>) valt zonder env terug op een demo-fallback, en rol-afdwinging gebeurt in de browser. <span class="imp">Impact:</span> zonder <strong>Cloudflare Access</strong> (of gelijkwaardig) ervóór is de admin-URL potentieel publiek bereikbaar. <span class="fix">Fix:</span> ADMIN_PASSWORD + SESSION_SECRET zetten én de admin achter een externe poort plaatsen vóór de URL live staat.</p>
+      </div></div>
+      <div class="tier-item"><div class="id">K3</div><div>
+        <h4>Onbewezen claims — testimonials &amp; resultaatcijfers</h4>
+        <p>Kerncijfers (<strong>2.500+ · 30–35% · €14,7M · 92–100K</strong>) staan met een herkomstregel maar <strong>zonder onderbouwing</strong>; testimonials zijn nog placeholders ("referentie op aanvraag") op naam van multinationals. <span class="imp">Impact:</span> in België reëel risico op <strong>misleidende reclame</strong> + geloofwaardigheidsverlies bij due diligence. <span class="fix">Fix:</span> minstens de cijfer-methodologie publiceren en placeholder-testimonials inkorten/vervangen door echte, akkoord-gegeven quotes.</p>
+      </div></div>
+    </div>
+
+    <!-- HOOG -->
+    <div class="tier h">
+      <div class="tier-head"><h3>Hoge prioriteit</h3><span class="cnt">4 · vóór of vlak na livegang</span></div>
+      <div class="tier-item"><div class="id">H1</div><div>
+        <h4>GDPR: CDN-fonts &amp; iconen loggen EU-IP's</h4>
+        <p>Google Fonts + Tabler via CDN. Self-hosting-scaffold staat klaar maar is niet omgezet. <span class="fix">Fix:</span> WOFF2 self-hosten vóór livegang (AVG).</p>
+      </div></div>
+      <div class="tier-item"><div class="id">H2</div><div>
+        <h4>Geen security/DPA-pagina voor Storm-claims</h4>
+        <p>Storm claimt GDPR, 2FA, SSO, EU-cloud — zonder verwijsbare onderbouwing of verwerkersovereenkomst. <span class="fix">Fix:</span> security/compliance-pagina + DPA, gelinkt vanuit de claims.</p>
+      </div></div>
+      <div class="tier-item"><div class="id">H3</div><div>
+        <h4>Admin SITE_URL-config wijst mogelijk naar .be</h4>
+        <p>Domein is <strong>.com</strong>; admin-config-links moeten dat volgen, anders openen admin→site-links het verkeerde domein in productie. <span class="fix">Fix:</span> config verifiëren op .com.</p>
+      </div></div>
+      <div class="tier-item"><div class="id">H4</div><div>
+        <h4>Geen echte boekingslink &amp; geen gepubliceerde cases</h4>
+        <p>PDF/contact-CTA wijst interim naar contact.html#channels; logo-strook zonder cases leest als logo-washing. <span class="fix">Fix:</span> echte agenda-link + 1–2 case-PDF's.</p>
+      </div></div>
+    </div>
+
+    <!-- MEDIUM -->
+    <div class="tier m">
+      <div class="tier-head"><h3>Medium</h3><span class="cnt">4 · kwaliteit &amp; geloofwaardigheid</span></div>
+      <div class="tier-item"><div class="id">M1</div><div><h4>Benchmark eendimensionaal</h4><p>Eén nationaal SD Worx-gemiddelde i.p.v. per sector/grootteklasse — zowel in calculator als PDF.</p></div></div>
+      <div class="tier-item"><div class="id">M2</div><div><h4>50%-indirecte aanname zonder bron</h4><p>De organisatorische-impact-factor is "indicatief" maar niet onderbouwd of als bandbreedte getoond.</p></div></div>
+      <div class="tier-item"><div class="id">M3</div><div><h4>Performance niet gemeten</h4><p>Geen Lighthouse-baseline; render-blocking fonts, marquee-logo's en SVG-noise-filters verdienen een meting.</p></div></div>
+      <div class="tier-item"><div class="id">M4</div><div><h4>Device-matrix niet volledig getest</h4><p>Responsive ontwerp is solide, maar echte tablet/mobiel-tests (calculator-stepper, drawers) ontbreken in het dossier.</p></div></div>
+    </div>
+
+    <!-- LAAG -->
+    <div class="tier l">
+      <div class="tier-head"><h3>Laag</h3><span class="cnt">3 · polish</span></div>
+      <div class="tier-item"><div class="id">L1</div><div><h4>Casey launch-status niet overal expliciet</h4><p>September 2026 staat op de site; in de admin ontbreekt een "pilot · sep 2026"-label bij de waitlist-KPI.</p></div></div>
+      <div class="tier-item"><div class="id">L2</div><div><h4>Zoek- &amp; activity-index uitbreidbaar</h4><p>⌘K doorzoekt nog niet onboarding/GDPR; nice-to-have.</p></div></div>
+      <div class="tier-item"><div class="id">L3</div><div><h4>Kleine copy-consistentie</h4><p>Verspreide microcopy/labels kunnen in een eindredactieronde gladgetrokken worden.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DECISION -->
+<section>
+  <div class="wrap">
+    <div class="sec-head narrow">
+      <span class="kick">Eindbesluit</span>
+      <h2>Besluit <em>02 — klaar mits fixes.</em></h2>
+      <p>De voorwaarde voor een volmondige GO is kort en concreet. Geen ervan vraagt ontwikkelwerk — het zijn schakelaars, content en een toegangspoort.</p>
+    </div>
+    <div class="scoretable">
+      <div class="st-row head"><span>Vóór GO</span><span>Voorwaarde</span><span style="text-align:right">Eigenaar</span></div>
+      <div class="st-row"><div class="st-name">K1 · Back-end aan</div><div class="st-name" style="color:var(--muted)">Env-sleutels zetten + lead & rapport end-to-end getest</div><div class="st-val mid">Montisoro</div></div>
+      <div class="st-row"><div class="st-name">K2 · Admin dichttimmeren</div><div class="st-name" style="color:var(--muted)">Auth-env + Cloudflare Access vóór de admin-URL</div><div class="st-val mid">Montisoro</div></div>
+      <div class="st-row"><div class="st-name">K3 · Claims staven</div><div class="st-name" style="color:var(--muted)">Cijfer-methodologie + echte/ingekorte testimonials</div><div class="st-val mid">Montisoro</div></div>
+      <div class="st-row"><div class="st-name">H1 · GDPR-fonts</div><div class="st-name" style="color:var(--muted)">Self-hosted WOFF2 omzetten</div><div class="st-val mid">Build</div></div>
+    </div>
+    <p style="font-size:14.5px;font-weight:300;color:var(--muted);line-height:1.85;margin-top:26px;max-width:74ch;">Onze gezamenlijke aanbeveling als verantwoordelijken voor de livegang: <b style="color:var(--off);font-weight:600;">hou de publieke livegang tegen tot K1–K3 + H1 zijn afgevinkt.</b> Dat is realistisch binnen dagen, niet weken. Daarna is Montisoro een overtuigende, productie-klare site — een <b style="color:var(--off);font-weight:600;">GO</b>. Tot dan: NO-GO.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Een mooie site die geen lead vangt,<br>is een <em>brochure</em> — geen product.</p>
+    <p>Go / No-Go Productie-audit · Montisoro · 6 juni 2026 · Besluit 02 — klaar mits fixes<br>Gewogen 6,6/10 · NO-GO tot K1 (back-end) · K2 (admin-security) · K3 (claim-onderbouwing) + H1 (GDPR-fonts).</p>
+  </div>
+</footer>
+
+</body>
+</html>

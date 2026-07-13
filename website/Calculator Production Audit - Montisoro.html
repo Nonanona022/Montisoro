@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator Production Audit — Montisoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D;--bg-deep:#0D0905;--bg-r:#1A1410;--paper:#F4F2EF;--card:#fff;
+  --orange:#E8592B;--orange-cta:#CC4A1E;--off:#F0EDE8;
+  --ink:#1A1512;--ink-soft:#52493F;--ink-mute:#6E6359;
+  --muted-d:rgba(240,237,232,.82);--muted-d2:rgba(240,237,232,.60);--div-d:rgba(240,237,232,.12);
+  --border-l:rgba(26,21,18,.12);--line-soft:rgba(26,21,18,.08);
+  --good:#1F7A4D;--good-bg:rgba(31,122,77,.10);--good-bd:rgba(31,122,77,.32);
+  --warn:#B45309;--warn-bg:rgba(232,89,43,.09);--warn-bd:rgba(232,89,43,.32);
+  --bad:#A12C2C;--bad-bg:rgba(161,44,44,.09);--bad-bd:rgba(161,44,44,.30);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.amp{font-family:var(--sans);font-weight:500;font-style:normal;}
+em{font-style:italic;}
+.wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+
+/* ── COVER ── */
+.cover{background:var(--bg);color:var(--off);padding:96px 28px 84px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,rgba(232,89,43,.16),transparent 60%);pointer-events:none;}
+.cover-in{max-width:980px;margin:0 auto;position:relative;z-index:1;}
+.cover .rule{width:46px;height:2px;background:var(--orange);margin-bottom:30px;}
+.cover .kicker{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:24px;display:flex;align-items:center;gap:10px;}
+.cover .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-.03em;color:#fff;margin-bottom:26px;}
+.cover h1 em{color:var(--orange);font-style:italic;}
+.cover .lead{font-size:clamp(16px,2.2vw,20px);font-weight:300;color:var(--muted-d);max-width:640px;line-height:1.7;}
+.cover-meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:28px;border-top:1px solid var(--div-d);}
+.cover-meta .m-lbl{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d2);margin-bottom:6px;}
+.cover-meta .m-val{font-size:14px;color:var(--off);font-weight:500;}
+.cover-meta .m-val em{color:var(--orange);font-style:italic;}
+
+/* ── VERDICT BANNER ── */
+.verdict{background:var(--bg-deep);color:var(--off);padding:38px 28px;}
+.verdict-in{max-width:980px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:28px;justify-content:space-between;}
+.verdict-score{display:flex;align-items:baseline;gap:10px;}
+.verdict-score .big{font-family:var(--serif);font-weight:900;font-size:62px;line-height:1;color:#fff;letter-spacing:-.03em;}
+.verdict-score .out{font-size:20px;color:var(--muted-d2);font-family:var(--serif);}
+.verdict-txt{flex:1;min-width:280px;}
+.verdict-txt .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--orange-cta);padding:5px 12px;border-radius:100px;margin-bottom:10px;}
+.verdict-txt p{font-size:15px;color:var(--muted-d);line-height:1.6;}
+.verdict-txt b{color:var(--off);font-weight:600;}
+
+/* ── SECTIONS ── */
+section.body{padding:60px 0;}
+section.body.alt{background:#EDEAE5;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--orange);}
+h2.sec{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4vw,38px);line-height:1.12;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;}
+h2.sec em{font-style:italic;color:var(--orange);}
+.sec-lead{font-size:16px;color:var(--ink-soft);font-weight:300;line-height:1.7;max-width:680px;margin-bottom:34px;}
+h3.sub{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--ink);margin:36px 0 14px;letter-spacing:-.01em;}
+p.tx{font-size:15px;color:var(--ink-soft);line-height:1.72;margin-bottom:14px;max-width:720px;}
+p.tx strong{color:var(--ink);font-weight:600;}
+
+/* ── SCORE GRID ── */
+.scores{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:14px;overflow:hidden;margin-top:8px;}
+.score-cell{background:var(--card);padding:20px 18px;display:flex;flex-direction:column;gap:8px;}
+.score-cell .s-lbl{font-size:12px;font-weight:600;color:var(--ink-mute);letter-spacing:.02em;}
+.score-cell .s-row{display:flex;align-items:baseline;gap:5px;}
+.score-cell .s-num{font-family:var(--serif);font-weight:900;font-size:34px;line-height:1;color:var(--ink);letter-spacing:-.02em;}
+.score-cell .s-out{font-size:14px;color:var(--ink-mute);}
+.score-cell .s-bar{height:4px;border-radius:100px;background:var(--line-soft);overflow:hidden;}
+.score-cell .s-bar i{display:block;height:100%;border-radius:100px;background:var(--orange);}
+.score-cell.hi .s-num{color:var(--good);}
+.score-cell.mid .s-bar i{background:var(--warn);}
+
+/* ── PROBLEM CARDS ── */
+.prob{border:1px solid var(--border-l);border-radius:14px;background:var(--card);padding:24px 26px;margin-bottom:16px;border-left:4px solid var(--ink-mute);}
+.prob.kritiek{border-left-color:var(--bad);}
+.prob.hoog{border-left-color:var(--orange);}
+.prob.medium{border-left-color:var(--warn);}
+.prob.laag{border-left-color:var(--ink-mute);}
+.prob-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:14px;}
+.prob-id{font-family:var(--serif);font-weight:900;font-size:18px;color:var(--ink);letter-spacing:-.01em;}
+.sev{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px;}
+.sev.kritiek{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad-bd);}
+.sev.hoog{background:var(--warn-bg);color:var(--orange);border:1px solid var(--warn-bd);}
+.sev.medium{background:rgba(176,137,12,.12);color:#8a6b08;border:1px solid rgba(176,137,12,.38);}
+.sev.laag{background:var(--line-soft);color:var(--ink-mute);border:1px solid var(--border-l);}
+.status{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:100px;display:inline-flex;align-items:center;gap:6px;}
+.status.fixed{background:var(--good-bg);color:var(--good);border:1px solid var(--good-bd);}
+.status.open{background:var(--warn-bg);color:var(--orange);border:1px solid var(--warn-bd);}
+.prob-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.prob dl{display:grid;grid-template-columns:108px 1fr;gap:7px 16px;font-size:14px;}
+.prob dt{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);padding-top:2px;}
+.prob dd{color:var(--ink-soft);line-height:1.6;}
+.prob dd code{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;background:var(--line-soft);padding:1px 6px;border-radius:5px;color:var(--ink);}
+.prob dd b{color:var(--ink);font-weight:600;}
+
+/* ── BEFORE/AFTER ── */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 4px;}
+.ba .col{border-radius:10px;padding:14px 16px;font-size:13.5px;line-height:1.6;}
+.ba .before{background:var(--bad-bg);border:1px solid var(--bad-bd);}
+.ba .after{background:var(--good-bg);border:1px solid var(--good-bd);}
+.ba .col .h{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+.ba .before .h{color:var(--bad);}
+.ba .after .h{color:var(--good);}
+.ba .col code{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--ink);display:block;margin-top:3px;}
+
+/* ── CHECK LIST ── */
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;margin-top:8px;}
+.checks .ck{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink-soft);line-height:1.5;padding:8px 0;border-bottom:1px solid var(--line-soft);}
+.checks .ck .ic{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px;}
+.checks .ck.ok .ic{background:var(--good-bg);color:var(--good);}
+.checks .ck.warn .ic{background:var(--warn-bg);color:var(--orange);}
+.checks .ck b{color:var(--ink);font-weight:600;}
+
+/* ── Q&A FINAL ── */
+.qa{border-top:1px solid var(--border-l);}
+.qa .row{display:grid;grid-template-columns:30px 1fr auto;gap:16px;align-items:center;padding:18px 0;border-bottom:1px solid var(--border-l);}
+.qa .num{font-family:var(--serif);font-weight:900;font-size:18px;color:var(--orange);}
+.qa .q{font-size:15px;color:var(--ink);font-weight:500;}
+.qa .a{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 13px;border-radius:100px;white-space:nowrap;}
+.qa .a.yes{background:var(--good-bg);color:var(--good);border:1px solid var(--good-bd);}
+.qa .a.partly{background:var(--warn-bg);color:var(--orange);border:1px solid var(--warn-bd);}
+.qa .a.no{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad-bd);}
+
+/* ── callout ── */
+.callout{background:var(--bg);color:var(--off);border-radius:16px;padding:30px 32px;margin:30px 0;}
+.callout .c-ey{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.callout h4{font-family:var(--serif);font-weight:700;font-size:22px;color:#fff;margin-bottom:12px;letter-spacing:-.01em;}
+.callout h4 em{color:var(--orange);font-style:italic;}
+.callout p{font-size:14.5px;color:var(--muted-d);line-height:1.7;margin-bottom:10px;}
+.callout p:last-child{margin-bottom:0;}
+.callout b{color:var(--off);font-weight:600;}
+
+footer.foot{background:var(--bg-deep);color:var(--muted-d2);padding:30px 28px;text-align:center;font-size:12px;letter-spacing:.02em;}
+footer.foot b{color:var(--off);font-weight:600;}
+
+@media(max-width:680px){
+  .ba,.checks{grid-template-columns:1fr;}
+  .prob dl{grid-template-columns:1fr;gap:3px 0;}
+  .prob dt{padding-top:10px;}
+  .qa .row{grid-template-columns:24px 1fr;}
+  .qa .a{grid-column:2;justify-self:start;margin-top:4px;}
+}
+@media print{
+  .cover::before{display:none;}
+  section.body{padding:34px 0;break-inside:avoid;}
+  .prob,.callout{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="cover-in">
+    <div class="rule"></div>
+    <div class="kicker"><span class="dot"></span>Production Audit · Verzuimcalculator</div>
+    <h1>Calculator<br><em>Production Audit.</em></h1>
+    <p class="lead">Een streng, multidisciplinair onderzoek van de volledige verzuimcalculator — logica, NL/EN-pariteit, UI, UX, responsiveness, PDF-, e-mail- en dashboardflow — met directe correctie van de gevonden defecten en een her-audit.</p>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Scope</div><div class="m-val">calculator.html · calculator-en.html · engine · params · PDF · e-mail</div></div>
+      <div><div class="m-lbl">Methode</div><div class="m-val">Audit → fix → her-audit (<em>FASE 1–12</em>)</div></div>
+      <div><div class="m-lbl">Datum</div><div class="m-val">14 juni 2026</div></div>
+      <div><div class="m-lbl">Defecten gecorrigeerd</div><div class="m-val"><em>5 van 5</em> code-defecten</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- VERDICT -->
+<div class="verdict">
+  <div class="verdict-in">
+    <div class="verdict-score"><span class="big">8,3</span><span class="out">/ 10</span></div>
+    <div class="verdict-txt">
+      <span class="tag">Eindoordeel · Optie 2</span>
+      <p><b>Klaar voor productie mits kleine correcties.</b> Alle gevonden code-defecten zijn direct gecorrigeerd en geverifieerd (NL + EN). De resterende blokker is géén codefout maar het bekende infra-item <b>K1</b> (backend-sleutels voor lead-/PDF-/e-mailflow). De eerder gesignaleerde benchmark-twijfel is intussen <b>onderzocht en weerlegd</b>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EXEC -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">Samenvatting</div>
+    <h2 class="sec">Wat we vonden — en <em>direct repareerden.</em></h2>
+    <p class="sec-lead">Uitgangspunt van de opdracht: er zijn recent wijzigingen aan de calculator gedaan, ga ervan uit dat er fouten zijn. Die aanname klopte. De grootste vondst is een <strong>regressie tussen de live-uitkomst en de in de pagina geschreven voorbeeldwaarden</strong>.</p>
+
+    <div class="callout">
+      <div class="c-ey">Hoofdvondst — opgelost</div>
+      <h4>De pagina toonde even <em>€ 1,48 M</em> en sprong dan naar <em>€ 2,08 M</em>.</h4>
+      <p>De statische voorbeeldwaarden in de HTML (<b>€ 1,48 M · 3.960 dagen · 7,2% · +0,6 pp</b>) hoorden bij een ouder rekenmodel. Het huidige model rekent met een verzuimprofiel van <b>10,3%</b> en levert bij de standaardwaarden <b>€ 2,08 M · 5.660 dagen · +0,0 pp</b>. Bij het laden flitste dus eerst het verkeerde cijfer; bij uitgeschakelde JavaScript bleef het verkeerde cijfer staan.</p>
+      <p>De volledige set placeholders (hero, CFO-opbouw, segmentbalk, 4 KPI's, doorlopende kosten, vervanging, organisatorische impact) is in <b>beide talen</b> gelijkgetrokken met de echte rekenuitkomst. Geen flits meer, en een correcte no-JS-fallback.</p>
+    </div>
+
+    <p class="tx">Daarnaast vonden we een <strong>schaalfout in de hoofdkop</strong> (kleine organisaties zagen "€ 0,05 M"), een <strong>ontbrekende verzendcontrole</strong> (rapport aanvragen met brutoloon 0 was mogelijk), een <strong>labelmismatch in de stappenbalk</strong> en een <strong>verouderde screenreader-tekst</strong>. Alle vier zijn gecorrigeerd. Eén item — het sectorgemiddelde — is achteraf <strong>geverifieerd tegen de SD Worx-bron en correct bevonden</strong> (zie K-2).</p>
+  </div>
+</section>
+
+<!-- SCORES -->
+<section class="body alt">
+  <div class="wrap">
+    <div class="eyebrow">Scores · ná correctie</div>
+    <h2 class="sec">Beoordeling per <em>discipline.</em></h2>
+    <p class="sec-lead">Scores na het uitvoeren van de correcties (FASE 12). Backend-afhankelijke flows scoren bewust lager zolang K1 niet live is — niet door codekwaliteit, maar door inertie.</p>
+    <div class="scores">
+      <div class="score-cell hi"><div class="s-lbl">Calculator Logic</div><div class="s-row"><span class="s-num">8,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:85%"></i></div></div>
+      <div class="score-cell hi"><div class="s-lbl">UI</div><div class="s-row"><span class="s-num">8,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:85%"></i></div></div>
+      <div class="score-cell"><div class="s-lbl">UX</div><div class="s-row"><span class="s-num">8,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:80%"></i></div></div>
+      <div class="score-cell hi"><div class="s-lbl">Mobile UX</div><div class="s-row"><span class="s-num">8,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:85%"></i></div></div>
+      <div class="score-cell"><div class="s-lbl">Tablet UX</div><div class="s-row"><span class="s-num">8,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:80%"></i></div></div>
+      <div class="score-cell hi"><div class="s-lbl">Desktop UX</div><div class="s-row"><span class="s-num">9,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:90%"></i></div></div>
+      <div class="score-cell"><div class="s-lbl">Accessibility</div><div class="s-row"><span class="s-num">8,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:80%"></i></div></div>
+      <div class="score-cell mid"><div class="s-lbl">PDF Flow</div><div class="s-row"><span class="s-num">7,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:75%"></i></div></div>
+      <div class="score-cell mid"><div class="s-lbl">Email Flow</div><div class="s-row"><span class="s-num">7,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:75%"></i></div></div>
+      <div class="score-cell mid"><div class="s-lbl">Dashboard Integr.</div><div class="s-row"><span class="s-num">7,5</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:75%"></i></div></div>
+      <div class="score-cell hi"><div class="s-lbl">NL-versie</div><div class="s-row"><span class="s-num">9,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:90%"></i></div></div>
+      <div class="score-cell hi"><div class="s-lbl">EN-versie</div><div class="s-row"><span class="s-num">9,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:90%"></i></div></div>
+      <div class="score-cell"><div class="s-lbl">Production Readiness</div><div class="s-row"><span class="s-num">8,0</span><span class="s-out">/10</span></div><div class="s-bar"><i style="width:80%"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM LIST -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">FASE 10 · Problemenlijst</div>
+    <h2 class="sec">Bevindingen, <em>geprioriteerd.</em></h2>
+    <p class="sec-lead">Per probleem: beschrijving, impact, oorzaak en oplossing — met de status na FASE 11 (directe correcties).</p>
+
+    <!-- K1 -->
+    <div class="prob kritiek">
+      <div class="prob-head"><span class="prob-id">K-1</span><span class="sev kritiek">Kritiek</span><span class="status fixed">✓ Opgelost</span></div>
+      <div class="prob-title">Statische voorbeeldwaarden spraken de live-berekening tegen</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>De hardgecodeerde getallen in de pagina (hero, CFO-opbouw, segmentbalk, 4 KPI's, doorlopende kosten, vervanging, organisatorische impact) hoorden bij een ouder model.</dd>
+        <dt>Impact</dt><dd>Zichtbare flits van <b>€ 1,48 M → € 2,08 M</b> bij het laden; foutieve cijfers bij uitgeschakelde JavaScript; verlies van vertrouwen bij een CFO/HR-publiek.</dd>
+        <dt>Oorzaak</dt><dd>Bij een eerdere modelwijziging (verzuim per groep arbeider/bediende + factoren) zijn de placeholders niet meegemigreerd.</dd>
+        <dt>Oplossing</dt><dd>Alle placeholders in <code>calculator.html</code> én <code>calculator-en.html</code> gelijkgetrokken met de werkelijke standaarduitkomst.</dd>
+      </dl>
+      <div class="ba">
+        <div class="col before"><div class="h">Vóór (NL)</div>€ 1,48 M · 3.960 dagen · 7,2% · +0,6 pp<code>cfoTotal: € 1.477.368</code></div>
+        <div class="col after"><div class="h">Ná</div>€ 2,08 M · 5.660 dagen · 10,3% · +0,0 pp<code>cfoTotal: € 2.080.719</code></div>
+      </div>
+    </div>
+
+    <!-- K2 (geverifieerd) -->
+    <div class="prob laag">
+      <div class="prob-head"><span class="prob-id">K-2</span><span class="sev laag">Datacheck</span><span class="status fixed">✓ Geverifieerd</span></div>
+      <div class="prob-title">Sectorgemiddelde geverifieerd tegen SD Worx — correct (en geüpdatet naar 2025)</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>De sectorbenchmark is gecontroleerd tegen de officiële SD Worx Verzuimbarometer. De 2024-waarden (<code>3,29 / 3,25 / 3,75 = 10,29%</code>) bleken exact te kloppen.</dd>
+        <dt>Bevinding</dt><dd>De aanvankelijke "≈ 7–8%"-twijfel was onjuist — die kwam uit een verouderde placeholder, niet uit een bron. SD Worx rapporteert "meer dan 10% van de werkdagen verloren door ziekte". Securex' ~8,5% meet iets anders (% afwezige werknemers, niet % verloren dagen) en past niet bij deze rekenmethode.</dd>
+        <dt>Actie</dt><dd>Op verzoek geüpdatet naar de meest recente cijfers — SD Worx 2025: <code>3,18 / 3,10 / 3,86 = 10,14%</code> — in <code>calculator-params.js</code>, de engine, beide pagina's en de PDF/e-mail-bronregels.</dd>
+        <dt>Status</dt><dd><b>Geen blokker.</b> De benchmark is correct en gesourced.</dd>
+      </dl>
+    </div>
+
+    <!-- H1 -->
+    <div class="prob hoog">
+      <div class="prob-head"><span class="prob-id">H-1</span><span class="sev hoog">Hoog</span><span class="status fixed">✓ Opgelost</span></div>
+      <div class="prob-title">Hoofdkop hing vast op de eenheid "M" — kleine organisaties zagen "€ 0,05 M"</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>De hero deelde de uitkomst altijd door 1 miljoen en had een vast achtervoegsel <code>M</code> in de HTML.</dd>
+        <dt>Impact</dt><dd>Een organisatie van bv. 8 FTE zag <b>"€ 0,05 M"</b> i.p.v. een leesbaar bedrag — onprofessioneel en moeilijk te lezen.</dd>
+        <dt>Oorzaak</dt><dd>Geen adaptieve eenheidslogica; de eenheid stond statisch in de markup.</dd>
+        <dt>Oplossing</dt><dd>In <code>calculator.js</code>: ≥ 1 mln → "x,xx M", anders het volledige bedrag zonder eenheid. Geverifieerd: 8 FTE / € 32.000 toont nu <b>"€ 48.421"</b>.</dd>
+      </dl>
+    </div>
+
+    <!-- H2 -->
+    <div class="prob hoog">
+      <div class="prob-head"><span class="prob-id">H-2</span><span class="sev hoog">Hoog</span><span class="status fixed">✓ Opgelost</span></div>
+      <div class="prob-title">Rapport aanvragen kon met brutoloon = 0 (€ 0-rapport)</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>De verzendknop controleerde alleen naam/bedrijf/e-mail/akkoord — niet de kerninvoer van de calculator.</dd>
+        <dt>Impact</dt><dd>Een bezoeker met brutoloon 0 (inline gemarkeerd als fout) kon tóch een leeg rapport van € 0 aanvragen → waardeloze lead + PDF.</dd>
+        <dt>Oorzaak</dt><dd>Verzendvalidatie en veldvalidatie waren ontkoppeld.</dd>
+        <dt>Oplossing</dt><dd>Guard toegevoegd: <code>fte &gt; 0</code> én <code>salary &gt; 0</code> vereist vóór verzending, met taalcorrecte foutmelding. Geverifieerd in NL + EN.</dd>
+      </dl>
+    </div>
+
+    <!-- M1 -->
+    <div class="prob medium">
+      <div class="prob-head"><span class="prob-id">M-1</span><span class="sev medium">Medium</span><span class="status fixed">✓ Opgelost</span></div>
+      <div class="prob-title">Stappenbalk-label stap 2 kwam niet overeen met de paneltitel</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>Stap 2 heette in de balk "Directe kosten" / "Direct costs", maar het paneel was "Gemiddeld brutoloon" / "Average gross salary".</dd>
+        <dt>Impact</dt><dd>Verwarring + een inconsistente mobiele voortgangstekst (toont de balknaam).</dd>
+        <dt>Oorzaak</dt><dd>Label niet meegewijzigd bij een eerdere herstructurering van de stappen.</dd>
+        <dt>Oplossing</dt><dd>Balklabel gelijkgetrokken met het paneel: <code>Brutoloon</code> / <code>Gross salary</code> (NL + EN).</dd>
+      </dl>
+    </div>
+
+    <!-- M2 -->
+    <div class="prob medium">
+      <div class="prob-head"><span class="prob-id">M-2</span><span class="sev medium">Medium</span><span class="status open">Open · K1 (infra)</span></div>
+      <div class="prob-title">Lead-, PDF- en e-mailflow zijn inert tot de backend-sleutels staan</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>Verzending post naar <code>/api/calculator-report</code> (Netlify → Resend + Supabase). Zonder env-sleutels valt de flow terug op het mailto-vangnet.</dd>
+        <dt>Impact</dt><dd>Tot K1 komen calculator-leads niet automatisch binnen en wordt geen PDF gegenereerd/opgeslagen.</dd>
+        <dt>Oorzaak</dt><dd>Bewust "klaar maar inert" (B3) — wacht op productie-sleutels.</dd>
+        <dt>Oplossing</dt><dd>Geen codewijziging nodig; de code is correct en defensief (per-stap status, vangnet). Env zetten + één end-to-end test = K1.</dd>
+      </dl>
+    </div>
+
+    <!-- L1 -->
+    <div class="prob laag">
+      <div class="prob-head"><span class="prob-id">L-1</span><span class="sev laag">Laag</span><span class="status fixed">✓ Opgelost</span></div>
+      <div class="prob-title">Verouderde screenreader-tekst op de FTE-slider (NL)</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>De NL FTE-slider had een vaste <code>aria-valuetext="250 FTE"</code> die nooit meebewoog.</dd>
+        <dt>Impact</dt><dd>Een screenreader las altijd "250 FTE" voor, ongeacht de werkelijke waarde — misleidend; en niet aanwezig op de EN-pagina (inconsistent).</dd>
+        <dt>Oorzaak</dt><dd>Statisch attribuut, niet door JS bijgewerkt.</dd>
+        <dt>Oplossing</dt><dd>Verwijderd; de dynamische <code>aria-label</code> + zichtbare waarde volstaan. NL/EN nu gelijk.</dd>
+      </dl>
+    </div>
+
+    <!-- L2 -->
+    <div class="prob laag">
+      <div class="prob-head"><span class="prob-id">L-2</span><span class="sev laag">Laag</span><span class="status open">Genoteerd</span></div>
+      <div class="prob-title">Kleine restpunten — dode code &amp; cosmetische placeholders</div>
+      <dl>
+        <dt>Beschrijving</dt><dd>Ongebruikte helper <code>money()</code> in <code>calculator.js</code>; statische cijfers in <code>verzuimrapport.html</code> (€ 1.477.368 / 7,2%) zijn oud.</dd>
+        <dt>Impact</dt><dd>Geen functionele impact: de PDF-getallen worden server-side via <code>data-v</code> vervangen; <code>money()</code> wordt nooit aangeroepen.</dd>
+        <dt>Oorzaak</dt><dd>Opruimwerk na eerdere iteraties.</dd>
+        <dt>Oplossing</dt><dd>Bewust ongemoeid gelaten (nul risico, nul zichtbaar effect). Op te ruimen bij een volgende refactor.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE CHECKS -->
+<section class="body alt">
+  <div class="wrap">
+    <div class="eyebrow">FASE 1–9 · Controlepunten</div>
+    <h2 class="sec">Wat is <em>nagelopen.</em></h2>
+    <p class="sec-lead">Per fase de uitkomst na correctie. ✓ = in orde · ! = aandachtspunt of beslissingsafhankelijk.</p>
+
+    <h3 class="sub">Functioneel &amp; logica</h3>
+    <div class="checks">
+      <div class="ck ok"><span class="ic">✓</span><span>6 stappen, vorige/volgende, klikbare stepper &amp; pijltoetsen werken</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Alle sliders, split-slider, %-sliders en handmatige velden tweerichtings-gekoppeld</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Engine consistent: hero = werkgeverslast; totale kost incl. indirecte impact</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Geen NaN, geen console-fouten; alle DOM-refs aanwezig of ge-guard</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Inline veldvalidatie + nieuwe verzend-guard (fte &amp; salary &gt; 0)</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Adaptieve hero-eenheid voor kleine én grote organisaties</span></div>
+    </div>
+
+    <h3 class="sub">NL ↔ EN-pariteit</h3>
+    <div class="checks">
+      <div class="ck ok"><span class="ic">✓</span><span>Titels, leads, labels, tooltips, fout-/succesmeldingen 1-op-1</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Locale-formattering correct (nl-BE punt/komma vs en-IE komma/punt)</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Identieke functionaliteit; zelfde defaults, sliders, factoren</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Stappenbalk-label nu in beide talen gelijk aan het paneel</span></div>
+    </div>
+
+    <h3 class="sub">UI &amp; responsiveness — desktop / tablet / mobiel</h3>
+    <div class="checks">
+      <div class="ck ok"><span class="ic">✓</span><span>Desktop ≥920px: sticky output + full-width stepperband (grid-areas)</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Mobiel/tablet &lt;920px: klikbare cirkels + actieve-stapnaam onder de cirkel</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Touch-targets ≥44–46px op sliders, velden, stepper en knoppen</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Geen overlap of afgebroken componenten op 360 / 768 / 1280px</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>CTA-knoppen op WCAG-AA contrast (--orange-cta #CC4A1E)</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Per-groep-knoppen en split-readouts stapelen netjes ≤560px</span></div>
+    </div>
+
+    <h3 class="sub">PDF · e-mail · dashboard</h3>
+    <div class="checks">
+      <div class="ck ok"><span class="ic">✓</span><span>PDF-template gebruikt geldige engine-vars (geen verweesde velden)</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>E-mailtemplates NL/EN (klant + intern + bevestigingen) renderen correct</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Backend orkestratie defensief: per-stap status, vangnet, eerlijke "verzonden"-status</span></div>
+      <div class="ck warn"><span class="ic">!</span><span><b>K1:</b> Resend/Supabase-sleutels ontbreken → flow inert tot env gezet</span></div>
+      <div class="ck warn"><span class="ic">!</span><span>Admin "Opnieuw genereren/versturen" draait in demo tot K1</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Engine = één bron voor UI, PDF, e-mail én admin-preview</span></div>
+    </div>
+
+    <h3 class="sub">Toegankelijkheid</h3>
+    <div class="checks">
+      <div class="ck ok"><span class="ic">✓</span><span>Zichtbare focus-ring overal; skip-link; aria-labels op sliders/velden</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>Toetsenbordnavigatie door wizard + stepper</span></div>
+      <div class="ck ok"><span class="ic">✓</span><span>aria-live op het resultaat; verouderde aria-valuetext verwijderd</span></div>
+      <div class="ck warn"><span class="ic">!</span><span>Tooltips (i-icoon) alleen op hover/focus — overweeg tap-toggle op touch</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL Q&A -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">Eindoordeel</div>
+    <h2 class="sec">Negen vragen, <em>eerlijk beantwoord.</em></h2>
+    <div class="qa">
+      <div class="row"><span class="num">1</span><span class="q">Werkt de calculator perfect?</span><span class="a partly">Vrijwel — code-defecten weg</span></div>
+      <div class="row"><span class="num">2</span><span class="q">Is de NL-versie correct?</span><span class="a yes">Ja</span></div>
+      <div class="row"><span class="num">3</span><span class="q">Is de EN-versie correct?</span><span class="a yes">Ja</span></div>
+      <div class="row"><span class="num">4</span><span class="q">Werkt alles op desktop?</span><span class="a yes">Ja</span></div>
+      <div class="row"><span class="num">5</span><span class="q">Werkt alles op tablet?</span><span class="a yes">Ja</span></div>
+      <div class="row"><span class="num">6</span><span class="q">Werkt alles op mobiel?</span><span class="a yes">Ja</span></div>
+      <div class="row"><span class="num">7</span><span class="q">Heeft de calculator impact op het dashboard?</span><span class="a partly">Ja — inert tot K1</span></div>
+      <div class="row"><span class="num">8</span><span class="q">Zijn alle problemen opgelost?</span><span class="a partly">Code: ja · data/infra: open</span></div>
+      <div class="row"><span class="num">9</span><span class="q">Is de calculator productie-klaar?</span><span class="a partly">Mits K1 (backend-sleutels)</span></div>
+    </div>
+
+    <div class="callout">
+      <div class="c-ey">Conclusie</div>
+      <h4>Optie 2 — <em>Klaar mits kleine correcties.</em></h4>
+      <p>De recente wijzigingen hadden inderdaad een regressie veroorzaakt; die is samen met vier andere defecten <b>direct gecorrigeerd en geverifieerd in beide talen</b>. De calculator rekent consistent, is responsief en toegankelijk, en de NL/EN-versies zijn gelijkwaardig.</p>
+      <p>Vóór livegang rest nog één niet-code-item: <b>K1</b> (productie-sleutels zetten + één lead end-to-end testen) — dat ligt bij Montisoro, niet bij de code. De eerdere benchmark-twijfel is onderzocht, weerlegd en het cijfer is geüpdatet naar SD Worx 2025.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <b>Montisoro</b> · Calculator Production Audit · 14 juni 2026 · audit → correctie → her-audit
+</footer>
+
+</body>
+</html>

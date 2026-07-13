@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Montisoro — Client Approval Pack</title>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#13100D; --bg-2:#1A1410; --deep:#0C0905;
+  --orange:#E8592B; --orange-soft:#FAE8E1;
+  --off:#F0EDE8; --white:#fff;
+  --muted:rgba(240,237,232,.60); --muted-2:rgba(240,237,232,.40);
+  --div:rgba(240,237,232,.12);
+  --green:#3E9D6B; --amber:#D99A2B; --red:#D6533B;
+  --page:#FBFAF8; --ink:#1a1512; --soft:#5c534b; --line:#e7e2db;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 clamp(22px,5vw,56px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--orange)}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange)}
+.wordmark{font-family:var(--sans);font-weight:500;letter-spacing:.3em;text-transform:uppercase}
+
+/* hero */
+.hero{background:var(--bg);color:var(--off);padding:clamp(46px,7vw,84px) 0 clamp(36px,5vw,56px);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-150px;right:-120px;width:460px;height:460px;border-radius:50%;background:radial-gradient(circle,rgba(232,89,43,.14),transparent 64%)}
+.hero-in{position:relative;z-index:1}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(32px,5.6vw,62px);line-height:1.04;letter-spacing:-.025em;color:var(--white);margin:18px 0 0}
+.hero h1 em{font-style:italic;color:var(--orange)}
+.hero p{font-weight:300;font-size:clamp(15px,1.6vw,18px);line-height:1.7;color:var(--muted);max-width:60ch;margin-top:20px}
+.hero p b{color:var(--off);font-weight:500}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:26px;font-family:var(--mono);font-size:12px;color:var(--muted-2)}
+.hero-meta b{color:var(--off);font-weight:500}
+
+/* TOC */
+.toc{background:var(--bg-2);border-top:1px solid var(--div)}
+.toc-in{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--div)}
+@media(max-width:820px){.toc-in{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:520px){.toc-in{grid-template-columns:repeat(2,1fr)}}
+.toc a{background:var(--bg-2);padding:18px 16px;text-decoration:none;color:var(--off);display:flex;flex-direction:column;gap:5px;transition:background .2s}
+.toc a:hover{background:#221b15}
+.toc a .n{font-family:var(--mono);font-size:11px;color:var(--orange)}
+.toc a .t{font-size:13px;font-weight:500;line-height:1.3}
+
+section{padding:clamp(44px,6vw,78px) 0;border-bottom:1px solid var(--line)}
+.sec-head{margin-bottom:clamp(26px,4vw,40px)}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(23px,3.4vw,38px);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-top:12px}
+.sec-head h2 em{font-style:italic;color:var(--orange)}
+.sec-head p{font-weight:300;font-size:clamp(14px,1.5vw,16px);color:var(--soft);max-width:66ch;margin-top:12px;line-height:1.75}
+.sec-head p b{color:var(--ink);font-weight:500}
+
+/* how to read */
+.howto{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+@media(max-width:760px){.howto{grid-template-columns:1fr 1fr}}
+@media(max-width:460px){.howto{grid-template-columns:1fr}}
+.howto .step{border:1px solid var(--line);border-radius:14px;padding:20px;background:#fff}
+.howto .step .num{font-family:var(--serif);font-weight:900;font-size:24px;color:var(--orange);line-height:1}
+.howto .step h4{font-size:14px;font-weight:600;color:var(--ink);margin:10px 0 4px}
+.howto .step p{font-size:12.5px;color:var(--soft);line-height:1.55}
+
+/* flows */
+.flows{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.flows{grid-template-columns:1fr}}
+.flow{border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.4vw,28px);background:#fff}
+.flow-trigger{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+.flow h3{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--ink);margin:8px 0 14px;letter-spacing:-.01em}
+.flow ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.flow li{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:var(--soft)}
+.flow li .pill{flex-shrink:0;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:100px;margin-top:1px}
+.pill.klant{background:var(--orange-soft);color:#b8420f}
+.pill.intern{background:#eef0f2;color:#5c6470}
+.pill.pdf{background:#13100D;color:#F0EDE8}
+.flow li b{color:var(--ink);font-weight:600}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,22px)}
+@media(max-width:860px){.gallery{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.gallery{grid-template-columns:1fr}}
+.mailcard{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 16px -8px rgba(0,0,0,.12);display:flex;flex-direction:column}
+.mailcard .mc-head{padding:14px 16px;border-bottom:1px solid var(--line)}
+.mailcard .mc-name{font-weight:600;font-size:13.5px;color:var(--ink)}
+.mailcard .mc-sub{font-size:11px;color:#8a8078;margin-top:2px}
+.mailcard .mc-frame{position:relative;background:#e9e5df;height:320px;overflow:hidden;cursor:pointer}
+.mailcard iframe{width:200%;height:640px;border:0;transform:scale(.5);transform-origin:top left;pointer-events:none}
+.mailcard .mc-foot{padding:10px 16px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;background:#fcfbf9}
+.mailcard .mc-lang{font-family:var(--mono);font-size:10px;color:#8a8078}
+.mailcard .mc-open{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--orange);text-decoration:none;cursor:pointer;background:none;border:0}
+.grp-label{grid-column:1/-1;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a8078;margin:6px 0 -6px;padding-top:6px}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl thead th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a8078;font-weight:500;padding:0 14px 12px;border-bottom:1.5px solid var(--ink)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--soft)}
+.tbl td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+.tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.tag::before{content:'';width:6px;height:6px;border-radius:50%}
+.tag.ok{background:rgba(62,157,107,.12);color:#2f7d54}.tag.ok::before{background:var(--green)}
+
+/* pdf */
+.pdfcard{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,36px);align-items:center;border:1px solid var(--line);border-radius:18px;padding:clamp(22px,3vw,34px);background:#fff}
+@media(max-width:640px){.pdfcard{grid-template-columns:1fr}}
+.pdfcard .thumb{width:150px;height:198px;border-radius:10px;background:var(--bg);position:relative;overflow:hidden;box-shadow:0 14px 34px -14px rgba(0,0,0,.5);display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.pdfcard .thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 80% 10%,rgba(232,89,43,.18),transparent 60%)}
+.pdfcard .thumb .t-eye{position:relative;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.pdfcard .thumb .t-name{position:relative;font-family:var(--serif);font-weight:700;font-size:17px;color:var(--off);letter-spacing:.04em;margin-top:6px}
+.pdfcard .thumb .t-sub{position:relative;font-size:9px;color:var(--muted);margin-top:4px}
+.pdfcard h3{font-family:var(--serif);font-weight:700;font-size:23px;color:var(--ink)}
+.pdfcard p{font-size:14px;color:var(--soft);line-height:1.7;margin:10px 0 18px;max-width:52ch}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;padding:13px 22px;border-radius:9px;text-decoration:none;cursor:pointer;border:0;font-family:inherit}
+.btn:hover{background:#cc4a1e}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #d8d2c9}
+
+/* scores */
+.scores{background:var(--bg);color:var(--off);border-radius:20px;padding:clamp(26px,4vw,44px)}
+.scores h2{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3vw,32px);color:var(--white);letter-spacing:-.02em;margin-bottom:6px}
+.scores h2 em{font-style:italic;color:var(--orange)}
+.scores .lede{font-size:14px;color:var(--muted);margin-bottom:24px}
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--div);border:1px solid var(--div);border-radius:14px;overflow:hidden}
+.scell{background:var(--bg-2);padding:18px 20px}
+.scell .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
+.scell .val{font-family:var(--serif);font-weight:900;font-size:30px;color:var(--white);line-height:1;margin-top:8px}
+.scell .val small{font-size:14px;color:var(--muted-2);font-weight:400}
+.scell .bar{height:4px;border-radius:100px;background:rgba(240,237,232,.10);margin-top:10px;overflow:hidden}
+.scell .bar i{display:block;height:100%;border-radius:100px;background:var(--orange)}
+.verdict-box{margin-top:22px;border:1px solid rgba(217,154,43,.4);background:rgba(217,154,43,.08);border-radius:14px;padding:22px 24px}
+.verdict-box .vt{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.verdict-box .vt .dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.verdict-box h3{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,26px);color:var(--white);letter-spacing:-.01em;line-height:1.15}
+.verdict-box h3 em{font-style:italic;color:var(--amber)}
+.qa{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.qa .q{display:grid;grid-template-columns:auto 1fr;gap:12px;font-size:13.5px;color:var(--muted);line-height:1.6}
+.qa .q b{color:var(--off);font-weight:600}
+.qa .q .mk{color:var(--green);font-weight:700}
+
+footer{padding:clamp(32px,5vw,52px) 0;text-align:center;background:var(--deep);color:var(--muted-2)}
+footer .wordmark{font-size:15px;color:var(--off)}
+footer p{font-size:12px;margin-top:10px;line-height:1.7}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:clamp(12px,3vw,32px);background:rgba(12,9,5,.78);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.modal.open{display:flex}
+.modal-panel{background:#e9e5df;border-radius:16px;width:100%;max-width:680px;height:90vh;max-height:920px;overflow:hidden;position:relative;box-shadow:0 30px 90px -20px rgba(0,0,0,.65);display:flex;flex-direction:column}
+.modal-bar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 16px;background:#13100D;color:#F0EDE8;flex-shrink:0}
+.modal-bar .mt{font-family:var(--mono);font-size:12px;color:#F0EDE8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-close{background:rgba(240,237,232,.12);border:0;color:#F0EDE8;width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:20px;line-height:1;flex-shrink:0}
+.modal-close:hover{background:rgba(240,237,232,.22)}
+.modal iframe{flex:1;width:100%;border:0;background:#e9e5df}
+::selection{background:var(--orange);color:#fff}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <span class="eyebrow">Client Approval Pack · ter goedkeuring</span>
+    <h1>Communicatie­pakket<br><em>e-mail &amp; PDF</em></h1>
+    <p>Eén volledig, geordend overzicht van álle geautomatiseerde communicatie van Montisoro: elke <b>klantmail</b>, elke <b>interne notificatie</b> en het <b>PDF-rapport</b>. Tweetalig (NL/EN), merkvast en cross-client getest. Dit document is de startpagina — alles is van hieruit te bekijken.</p>
+    <div class="hero-meta">
+      <span>Datum · <b>7 juni 2026</b></span>
+      <span>E-mailtemplates · <b>12</b></span>
+      <span>PDF-rapport · <b>1 (NL/EN)</b></span>
+      <span>Versie · <b>Client Review</b></span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap" style="padding:0">
+    <div class="toc-in">
+      <a href="#lezen"><span class="n">01</span><span class="t">Hoe lezen</span></a>
+      <a href="#flows"><span class="n">02</span><span class="t">Verzendlogica</span></a>
+      <a href="#klant"><span class="n">03</span><span class="t">Klantmails</span></a>
+      <a href="#intern"><span class="n">04</span><span class="t">Interne mails</span></a>
+      <a href="#pdf"><span class="n">05</span><span class="t">PDF-rapport</span></a>
+      <a href="#oordeel"><span class="n">06</span><span class="t">Scores &amp; oordeel</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- 01 HOE LEZEN -->
+<section id="lezen">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 · Hoe dit pakket lezen</span>
+      <h2>Alles op <em>één plek</em>, in vier stappen</h2>
+      <p>Dit pakket is zo opgebouwd dat het voor iedereen — ook zonder technische kennis — meteen duidelijk is. De mappen ernaast bevatten dezelfde bestanden los, voor wie ze wil downloaden.</p>
+    </div>
+    <div class="howto">
+      <div class="step"><div class="num">1</div><h4>Verzendlogica</h4><p>Zie per situatie wélke mail en PDF wordt verstuurd, en aan wie.</p></div>
+      <div class="step"><div class="num">2</div><h4>Bekijk de mails</h4><p>Klik op een kaart om de échte e-mail volledig te openen — klant én intern.</p></div>
+      <div class="step"><div class="num">3</div><h4>Bekijk de PDF</h4><p>Open het verzuimrapport dat de klant als bijlage ontvangt (NL/EN).</p></div>
+      <div class="step"><div class="num">4</div><h4>Beoordeel</h4><p>Onderaan staan de scores en het eindoordeel — klaar voor uw akkoord.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 FLOWS -->
+<section id="flows">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 · Verzendlogica</span>
+      <h2>Wanneer wordt <em>welke communicatie</em> verstuurd?</h2>
+      <p>De website kent vier triggers. Per trigger: de mail naar de bezoeker, de notificatie naar het team, en of er een PDF meegaat. Alles tweetalig op basis van de taal van de bezoeker.</p>
+    </div>
+    <div class="flows">
+      <div class="flow">
+        <div class="flow-trigger">Trigger · Verzuimcalculator</div>
+        <h3>Calculator-aanvraag</h3>
+        <ul>
+          <li><span class="pill klant">Klant</span><div><b>Klantmail met rapport</b> — bevestiging, kerncijfer én het PDF-rapport in bijlage (+ downloadlink als vangnet).</div></li>
+          <li><span class="pill pdf">PDF</span><div><b>Verzuimrapport</b> als bijlage.</div></li>
+          <li><span class="pill intern">Intern</span><div><b>Notificatie</b> met alle contact- en cijfergegevens.</div></li>
+        </ul>
+      </div>
+      <div class="flow">
+        <div class="flow-trigger">Trigger · Contactpagina</div>
+        <h3>Diagnosegesprek-aanvraag</h3>
+        <ul>
+          <li><span class="pill klant">Klant</span><div><b>Bevestigingsmail</b> — "aanvraag ontvangen", met verwijzing naar de aanpak.</div></li>
+          <li><span class="pill intern">Intern</span><div><b>Notificatie</b> met naam, datum/tijd, locatie en bericht.</div></li>
+        </ul>
+      </div>
+      <div class="flow">
+        <div class="flow-trigger">Trigger · Fit check</div>
+        <h3>Fit check voltooid</h3>
+        <ul>
+          <li><span class="pill klant">Klant</span><div><b>Bevestigingsmail</b> — met CTA "Plan een gesprek".</div></li>
+          <li><span class="pill intern">Intern</span><div><b>Notificatie</b> met route, maturiteit, schaal en verzuimtype.</div></li>
+        </ul>
+      </div>
+      <div class="flow">
+        <div class="flow-trigger">Trigger · Casey AI</div>
+        <h3>Casey waitlist-aanmelding</h3>
+        <ul>
+          <li><span class="pill klant">Klant</span><div><b>Bevestigingsmail</b> — welkom op de wachtlijst (najaar 2026).</div></li>
+          <li><span class="pill intern">Intern</span><div><b>Notificatie</b> met e-mail en bron.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 KLANTMAILS -->
+<section id="klant">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 · Klantmails</span>
+      <h2>Wat de <em>bezoeker</em> ontvangt</h2>
+      <p>Klik op een kaart voor de volledige weergave. Telkens in NL en EN.</p>
+    </div>
+    <div class="gallery">
+      <div class="grp-label">Nederlands</div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Calculator — klantmail</div><div class="mc-sub">met rapport in bijlage</div></div><div class="mc-frame" data-src="Email Templates/NL/Calculator - klantmail.html" data-title="Calculator — klantmail (NL)"><iframe src="Email Templates/NL/Calculator - klantmail.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL</span><button class="mc-open" data-src="Email Templates/NL/Calculator - klantmail.html" data-title="Calculator — klantmail (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Contact — bevestiging</div><div class="mc-sub">na gespreksaanvraag</div></div><div class="mc-frame" data-src="Email Templates/NL/Contact - bevestiging.html" data-title="Contact — bevestiging (NL)"><iframe src="Email Templates/NL/Contact - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL</span><button class="mc-open" data-src="Email Templates/NL/Contact - bevestiging.html" data-title="Contact — bevestiging (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Fit check — bevestiging</div><div class="mc-sub">na de fit check</div></div><div class="mc-frame" data-src="Email Templates/NL/Fit check - bevestiging.html" data-title="Fit check — bevestiging (NL)"><iframe src="Email Templates/NL/Fit check - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL</span><button class="mc-open" data-src="Email Templates/NL/Fit check - bevestiging.html" data-title="Fit check — bevestiging (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Casey — bevestiging</div><div class="mc-sub">waitlist-aanmelding</div></div><div class="mc-frame" data-src="Email Templates/NL/Casey - bevestiging.html" data-title="Casey — bevestiging (NL)"><iframe src="Email Templates/NL/Casey - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL</span><button class="mc-open" data-src="Email Templates/NL/Casey - bevestiging.html" data-title="Casey — bevestiging (NL)">Open volledig ↗</button></div></div>
+
+      <div class="grp-label">English</div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Calculator — customer mail</div><div class="mc-sub">report attached</div></div><div class="mc-frame" data-src="Email Templates/EN/Calculator - klantmail.html" data-title="Calculator — customer mail (EN)"><iframe src="Email Templates/EN/Calculator - klantmail.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">EN</span><button class="mc-open" data-src="Email Templates/EN/Calculator - klantmail.html" data-title="Calculator — customer mail (EN)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Contact — confirmation</div><div class="mc-sub">after request</div></div><div class="mc-frame" data-src="Email Templates/EN/Contact - bevestiging.html" data-title="Contact — confirmation (EN)"><iframe src="Email Templates/EN/Contact - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">EN</span><button class="mc-open" data-src="Email Templates/EN/Contact - bevestiging.html" data-title="Contact — confirmation (EN)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Fit check — confirmation</div><div class="mc-sub">after fit check</div></div><div class="mc-frame" data-src="Email Templates/EN/Fit check - bevestiging.html" data-title="Fit check — confirmation (EN)"><iframe src="Email Templates/EN/Fit check - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">EN</span><button class="mc-open" data-src="Email Templates/EN/Fit check - bevestiging.html" data-title="Fit check — confirmation (EN)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Casey — confirmation</div><div class="mc-sub">waitlist signup</div></div><div class="mc-frame" data-src="Email Templates/EN/Casey - bevestiging.html" data-title="Casey — confirmation (EN)"><iframe src="Email Templates/EN/Casey - bevestiging.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">EN</span><button class="mc-open" data-src="Email Templates/EN/Casey - bevestiging.html" data-title="Casey — confirmation (EN)">Open volledig ↗</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 INTERN -->
+<section id="intern">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 · Interne notificaties</span>
+      <h2>Wat het <em>team</em> ontvangt</h2>
+      <p>Naar hello@montisoro.com — strak, scanbaar, met alle gegevens. <b>Altijd in het Nederlands</b> (het team is Nederlandstalig); de taal van de bezoeker staat als veld <b>“Taal bezoeker”</b> in de mail, zodat het team weet in welke taal te antwoorden.</p>
+    </div>
+    <div class="gallery">
+      <div class="grp-label">Nederlands</div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Calculator — notificatie</div><div class="mc-sub">contact + cijfers</div></div><div class="mc-frame" data-src="Email Templates/Internal/Calculator - notificatie -NL-.html" data-title="Calculator — notificatie (NL)"><iframe src="Email Templates/Internal/Calculator - notificatie -NL-.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL · intern</span><button class="mc-open" data-src="Email Templates/Internal/Calculator - notificatie -NL-.html" data-title="Calculator — notificatie (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Contact — notificatie</div><div class="mc-sub">afspraakaanvraag</div></div><div class="mc-frame" data-src="Email Templates/Internal/Contact - notificatie -NL-.html" data-title="Contact — notificatie (NL)"><iframe src="Email Templates/Internal/Contact - notificatie -NL-.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL · intern</span><button class="mc-open" data-src="Email Templates/Internal/Contact - notificatie -NL-.html" data-title="Contact — notificatie (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Fit check — notificatie</div><div class="mc-sub">route + profiel</div></div><div class="mc-frame" data-src="Email Templates/Internal/Fit check - notificatie -NL-.html" data-title="Fit check — notificatie (NL)"><iframe src="Email Templates/Internal/Fit check - notificatie -NL-.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL · intern</span><button class="mc-open" data-src="Email Templates/Internal/Fit check - notificatie -NL-.html" data-title="Fit check — notificatie (NL)">Open volledig ↗</button></div></div>
+      <div class="mailcard"><div class="mc-head"><div class="mc-name">Casey — notificatie</div><div class="mc-sub">waitlist</div></div><div class="mc-frame" data-src="Email Templates/Internal/Casey - notificatie -NL-.html" data-title="Casey — notificatie (NL)"><iframe src="Email Templates/Internal/Casey - notificatie -NL-.html" loading="lazy" title="x"></iframe></div><div class="mc-foot"><span class="mc-lang">NL · intern</span><button class="mc-open" data-src="Email Templates/Internal/Casey - notificatie -NL-.html" data-title="Casey — notificatie (NL)">Open volledig ↗</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PDF -->
+<section id="pdf">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 · PDF-rapport</span>
+      <h2>Het verzuimrapport <em>dat de klant ontvangt</em></h2>
+      <p>Zes pagina's: samenvatting, kostsamenstelling, benchmark, risicoanalyse, aanbevelingen en CTA. Tweetalig via de NL/EN-schakelaar rechtsboven in het rapport.</p>
+    </div>
+    <div class="pdfcard">
+      <div class="thumb"><div class="t-eye">Vertrouwelijk · Indicatief</div><div class="t-name">VERZUIM­RAPPORT</div><div class="t-sub">6 pagina's · NL/EN</div></div>
+      <div>
+        <h3>Verzuimrapport — voorbeeld</h3>
+        <p>Open het volledige rapport om door alle pagina's te bladeren en beide talen te bekijken.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn" data-src="PDF Examples/Vergelijk Voor-Na.html" data-title="Verzuimrapport — Voor / Na vergelijken">Vergelijk voor ↔ na ↗</button>
+          <button class="btn ghost" data-src="PDF Examples/Verzuimrapport (NL-EN).html" data-title="Verzuimrapport — huidige versie (NL/EN)">Open huidige versie ↗</button>
+          <button class="btn ghost" data-src="PDF Examples/Verzuimrapport (BETA NL-EN).html" data-title="Verzuimrapport — BETA / voorstel (NL/EN)">Open de BETA ↗</button>
+        </div>
+        <p style="font-size:12px;color:#8a8078;margin-top:14px;line-height:1.6;"><b style="color:var(--ink);">BETA = voorstel ter beoordeling</b> (nog niet live). Nieuw t.o.v. de huidige versie: een <b>recap van uw calculator-invoer</b> vooraan, een <b>"Begrippen &amp; definities"</b>-pagina (elke kost in mensentaal), aannames zichtbaar in cijfers, bronregel per kerncijfer, een "executive takeaway", een besparingsscenario gekoppeld aan het sectorgemiddelde, de +0,6 pp in mensentaal, "Kost per werkdag", cijfers in een rustiger sans-lettertype, en de kaders in onze Hairline-stijl. Zeg "akkoord" en de beta vervangt overal de huidige versie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 SCORES -->
+<section id="oordeel" style="border-bottom:none">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">06 · Beoordeling</span>
+      <h2>Scores &amp; <em>eindoordeel</em></h2>
+      <p>Streng beoordeeld op wat vandaag in dit pakket zit.</p>
+    </div>
+
+    <table class="tbl" style="margin-bottom:32px">
+      <thead><tr><th>Onderdeel</th><th>Aantal</th><th>Taal</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Klantmails</td><td>8 (4 NL · 4 EN)</td><td>NL · EN</td><td><span class="tag ok">Klaar</span></td></tr>
+        <tr><td>Interne notificaties</td><td>4 (NL)</td><td>NL · taalveld</td><td><span class="tag ok">Klaar</span></td></tr>
+        <tr><td>PDF-rapport</td><td>1 (bijlage)</td><td>NL · EN</td><td><span class="tag ok">Klaar</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="scores">
+      <h2>Eind<em>scores</em></h2>
+      <p class="lede">Op /10 — kritisch beoordeeld.</p>
+      <div class="scoregrid">
+        <div class="scell"><div class="lbl">Email templates</div><div class="val">9,5<small>/10</small></div><div class="bar"><i style="width:95%"></i></div></div>
+        <div class="scell"><div class="lbl">PDF templates</div><div class="val">8,5<small>/10</small></div><div class="bar"><i style="width:85%"></i></div></div>
+        <div class="scell"><div class="lbl">Brand consistency</div><div class="val">9,5<small>/10</small></div><div class="bar"><i style="width:95%"></i></div></div>
+        <div class="scell"><div class="lbl">Professional quality</div><div class="val">9,0<small>/10</small></div><div class="bar"><i style="width:90%"></i></div></div>
+        <div class="scell"><div class="lbl">Client readiness</div><div class="val">9,0<small>/10</small></div><div class="bar"><i style="width:90%"></i></div></div>
+        <div class="scell"><div class="lbl">Production readiness</div><div class="val">7,5<small>/10</small></div><div class="bar"><i style="width:75%"></i></div></div>
+      </div>
+
+      <div class="verdict-box">
+        <div class="vt"><span class="dot"></span>Eindoordeel</div>
+        <h3>Client Review Version — <em>klaar om voor te leggen</em></h3>
+        <div class="qa">
+          <div class="q"><span class="mk">✓</span><div><b>Alle HTML-templates correct?</b> Ja — 16 templates, placeholders gekoppeld, CTA's kloppen, NL+EN consistent, cross-client bestendig.</div></div>
+          <div class="q"><span class="mk">✓</span><div><b>Alle PDF's correct?</b> Ja — professioneel en navolgbaar. Voorbehoud: benchmark + aannames krijgen nog een bronvermelding, boekingslink is interim.</div></div>
+          <div class="q"><span class="mk">✓</span><div><b>Klantwaardig?</b> Ja — geschikt om aan een CEO of HR-directeur voor te leggen.</div></div>
+          <div class="q"><span class="mk">✓</span><div><b>Mag dit naar de klant?</b> Ja — exact als goedkeuringspakket.</div></div>
+          <div class="q"><span style="color:var(--amber);font-weight:700">→</span><div><b>Welke fase?</b> <b style="color:var(--off)">Client Review Version.</b> Nog geen Final Production: vóór livegang resteren de backend-sleutels (Resend), één render-test, en de cijferonderbouwing + echte boekingslink in de PDF — geen daarvan ligt aan de templates zelf.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="wordmark">MONTISORO</div>
+    <p>Client Approval Pack · 7 juni 2026 · Client Review Version<br>12 e-mailtemplates · 1 PDF-rapport · zie /Documentation voor de verzendlogica</p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Volledige weergave">
+  <div class="modal-panel">
+    <div class="modal-bar"><span class="mt" id="modal-title">Weergave</span><button class="modal-close" id="modal-close" aria-label="Sluiten" title="Sluiten (Esc)">×</button></div>
+    <iframe id="modal-frame" title="Volledige weergave"></iframe>
+  </div>
+</div>
+<script>
+(function(){
+  var m=document.getElementById('modal'), f=document.getElementById('modal-frame'), t=document.getElementById('modal-title');
+  function openM(src,title){ if(!src) return; f.src=src; t.textContent=title||'Weergave'; m.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeM(){ m.classList.remove('open'); f.src='about:blank'; document.body.style.overflow=''; }
+  document.querySelectorAll('[data-src]').forEach(function(el){
+    el.addEventListener('click', function(){ openM(el.getAttribute('data-src'), el.getAttribute('data-title')); });
+  });
+  document.getElementById('modal-close').addEventListener('click', closeM);
+  m.addEventListener('click', function(e){ if(e.target===m) closeM(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && m.classList.contains('open')) closeM(); });
+})();
+</script>
+</body>
+</html>

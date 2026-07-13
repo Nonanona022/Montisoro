@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Calculator Documentation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" href="../../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<link rel="stylesheet" href="briefing.css">
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════ 01 — COVER ═══════════ -->
+<section class="page page--dark" data-screen-label="01 Cover">
+  <svg class="cover-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cc-bg" x1="0.2" x2="0.8" y1="0" y2="1"><stop offset="0%" stop-color="#1B130C"/><stop offset="55%" stop-color="#13100D"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+      <radialGradient cx="50%" cy="6%" id="cc-gtr" r="50%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.16"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="10%" cy="92%" id="cc-gbl" r="42%"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="cc-sh" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.13"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <filter id="cc-grain"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#cc-bg)" width="794" height="1123"/>
+    <rect fill="url(#cc-gtr)" width="794" height="1123"/>
+    <rect fill="url(#cc-gbl)" width="794" height="1123"/>
+    <polygon fill="url(#cc-sh)" opacity="0.5" points="794,0 794,460 380,1123 -100,1123"/>
+    <path d="M 794 700 C 560 670, 300 860, 0 960" fill="none" stroke="#E8592B" stroke-opacity="0.14" stroke-width="1.2"/>
+    <text x="540" y="700" font-family="Playfair Display, Georgia, serif" font-size="640" font-weight="900" font-style="italic" fill="#F0EDE8" opacity="0.03" text-anchor="middle">€</text>
+    <rect filter="url(#cc-grain)" width="794" height="1123" opacity="0.045"/>
+  </svg>
+  <div class="cover-pad cover-inner">
+    <img class="cover-logo" src="assets/montisoro-logo.png" alt="Montisoro">
+    <div class="cover-mid">
+      <div class="cover-rule"></div>
+      <div class="cover-kicker">Absence calculator · Documentation</div>
+      <h1 class="cover-title">What absence<br><em>really</em> costs.</h1>
+      <p class="cover-sub">How the Montisoro absence calculator works — for those who fill it in and for those who want to understand the model behind it. One document, two parts, with a fully worked example.</p>
+    </div>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Part A</div><div class="m-val">For the user</div></div>
+      <div><div class="m-lbl">Part B</div><div class="m-val">The calculation model</div></div>
+      <div><div class="m-lbl">Version</div><div class="m-val">June 2026</div></div>
+    </div>
+    <div class="cover-foot"><span>Re-integrate What Matters</span><span>montisoro.com/calculator</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — READING GUIDE ═══════════ -->
+<section class="page" data-screen-label="02 Guide">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Reading guide</span></div>
+
+    <span class="eyebrow">About this document</span>
+    <h2 class="sec-title">Two parts,<br>one <em>model.</em></h2>
+    <p class="sec-lead">Part A is for those who fill in the calculator and want to understand their report. Part B exposes the full calculation model — formulas, parameters and sources. The figures in both parts come from exactly the same engine.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="t-no">A1</span><span class="t-title">The six steps<small>What the calculator asks of you</small></span><span class="t-pg">03</span></div>
+      <div class="toc-row"><span class="t-no">A2</span><span class="t-title">Reading your report<small>Six insights into your figure</small></span><span class="t-pg">04</span></div>
+      <div class="toc-row"><span class="t-no">A3</span><span class="t-title">A worked example<small>From input to cost, with numbers</small></span><span class="t-pg">05</span></div>
+      <div class="toc-row"><span class="t-no">B1</span><span class="t-title">The input variables<small>Each field, range and default</small></span><span class="t-pg">06</span></div>
+      <div class="toc-row"><span class="t-no">B2</span><span class="t-title">The calculation model<small>The formulas, in order</small></span><span class="t-pg">07</span></div>
+      <div class="toc-row"><span class="t-no">B3</span><span class="t-title">Benchmark &amp; risk<small>Comparison with the sector</small></span><span class="t-pg">08</span></div>
+      <div class="toc-row"><span class="t-no">B4</span><span class="t-title">Savings &amp; priorities<small>Scenarios and recommendations</small></span><span class="t-pg">09</span></div>
+      <div class="toc-row"><span class="t-no">B5</span><span class="t-title">Parameters &amp; sources<small>What is fixed + the disclaimer</small></span><span class="t-pg">10</span></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">One source of truth: the same engine feeds the calculator, the <em>PDF report</em> and the internal emails.</p>
+      <p class="co-cite">What you see on screen is exactly what goes into your report.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Reading guide</span><span class="pf-no">02</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — PART A: SIX STEPS ═══════════ -->
+<section class="page" data-screen-label="03 Part A steps">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part A · User</span></div>
+
+    <div class="part-open"><span class="part-tag">Part A · For the user</span><h2 class="part-h">Six steps to<br>your <em>cost picture.</em></h2></div>
+    <p class="sec-lead" style="margin-top:12px;">The calculator is a guided wizard. You fill in six short steps; each field is editable via a slider or by typing the exact number. The result is <strong>a first indication</strong> — not to capture everything exactly, but to make visible what is often underestimated.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Organisation</h3><p>Number of employees (FTE, part-timers pro rata) and the blue-collar / white-collar split. This sets the headcount basis for the whole model.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Average gross salary</h3><p>Gross salary per year, incl. holiday pay, year-end bonus and average bonus — excluding employer social security (added separately by the engine).</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Recurring costs</h3><p>Fixed costs alongside guaranteed salary: benefits in kind, group, hospitalisation and other insurance, company car — each assignable to blue-collar, white-collar or both.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Replacement costs</h3><p>The share of direct costs added to get the work done anyway: temp staff, temporary replacement, extra hiring or overtime. Expressed as a %.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Organisational impact</h3><p>The non-invoiced cost: productivity and quality loss, management time, knowledge loss, delays, reintegration. As a % of direct salary cost (default ± 50%).</p></div></div>
+      <div class="hl-row"><div class="hl-num">06</div><div><h3>Absence profile</h3><p>Net working days per year (± 220) and absence per category — short (≤ 1 mo), medium (1 mo–1 yr) and long-term (&gt; 1 yr) — separately for blue- and white-collar.</p></div></div>
+    </div>
+
+    <p class="note"><strong>Editable &amp; transparent:</strong> every input field shows a pencil icon — drag the slider or type the exact number. Light validation flags missing core data (number of employees and gross salary).</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part A · The six steps</span><span class="pf-no">03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — PART A: READING YOUR REPORT ═══════════ -->
+<section class="page" data-screen-label="04 Part A report">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part A · User</span></div>
+
+    <span class="eyebrow">Reading your report</span>
+    <h2 class="sec-title">Six insights into <em>your figure.</em></h2>
+    <p class="sec-lead">The report translates your input into six readable outcomes. Two cost concepts are central — and the difference between them matters.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:16px;">Employer cost</h3><p>The headline figure: the <strong>invoiceable</strong> annual cost of absence — direct salary cost + recurring costs + replacement. This often appears (partly) in the books.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:16px;">Total cost</h3><p>The employer cost plus the estimated <strong>organisational impact</strong> — the non-invoiced cost that is rarely visible anywhere. Usually the figure that surprises.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Benchmark</h3><p>Your absence rate against the Belgian sector average, per category and in total — so you immediately see where you deviate.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Risk level</h3><p>Low, Average, Elevated or High — set by how far your absence sits above or below the sector average, with a short explanation.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Savings scenarios</h3><p>What a reduction of 0.5 · 1 · 2 percentage points of absence would save you annually — translated linearly into euros.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Priorities</h3><p>Three concrete focus points, automatically derived from the category where you deviate most from the benchmark.</p></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">The report also shows the <em>FTE equivalent:</em> all lost working days combined, converted into full-time employees. Often the most tangible number.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part A · Reading your report</span><span class="pf-no">04</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — PART A: WORKED EXAMPLE ═══════════ -->
+<section class="page" data-screen-label="05 Example">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part A · Example</span></div>
+
+    <span class="eyebrow">A worked example</span>
+    <h2 class="sec-title">From input to cost,<br>with <em>numbers.</em></h2>
+    <p class="sec-lead">A simplified example for an organisation of 250 employees, at the Belgian sector average. Recurring costs are set to zero here to show the chain cleanly.</p>
+
+    <div class="block tight">
+      <div class="divlabel">The input</div>
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Employees</div><div class="kv-v">250 FTE</div></div>
+        <div class="kv-row"><div class="kv-k">Average gross salary</div><div class="kv-v">€ 45,000 / year</div></div>
+        <div class="kv-row"><div class="kv-k">Net working days</div><div class="kv-v">220 days</div></div>
+        <div class="kv-row"><div class="kv-k">Absence (= sector average)</div><div class="kv-v">10.14%</div></div>
+        <div class="kv-row"><div class="kv-k">Replacement factor · organisation factor</div><div class="kv-v">30% · 50%</div></div>
+      </div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">The calculation</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Cost per lost day</td><td>(€45,000 ÷ 220) × 1.30</td><td class="num"><span class="mono">€ 266</span></td></tr>
+          <tr><td>Lost working days</td><td>250 × 220 × 10.14%</td><td class="num"><span class="mono">5,577 days</span></td></tr>
+          <tr><td>Direct salary cost</td><td>5,577 × €266</td><td class="num"><span class="mono">€ 1,483,482</span></td></tr>
+          <tr><td>+ Replacement cost (30%)</td><td>30% × direct salary cost</td><td class="num"><span class="mono">€ 445,045</span></td></tr>
+          <tr><td><strong>= Employer cost</strong></td><td>salary cost + replacement</td><td class="num"><span class="mono">€ 1,928,527</span></td></tr>
+          <tr><td>+ Organisational impact (50%)</td><td>50% × direct salary cost</td><td class="num"><span class="mono">€ 741,741</span></td></tr>
+          <tr><td><strong>= Total cost</strong></td><td>employer cost + impact</td><td class="num"><span class="mono">€ 2,670,268</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr);margin-top:14px;">
+      <div class="stat"><div class="s-v"><em>€</em>1.93M</div><div class="s-l">Employer cost (invoiceable).</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>2.67M</div><div class="s-l">Total cost (incl. impact).</div></div>
+      <div class="stat"><div class="s-v">25.4</div><div class="s-l">FTE equivalent of lost days.</div></div>
+    </div>
+    <p class="note"><strong>Note:</strong> illustrative, with recurring costs at zero. In practice, benefits and insurance raise the employer cost further. Figures rounded.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part A · Worked example</span><span class="pf-no">05</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — PART B: INPUT VARIABLES ═══════════ -->
+<section class="page page--dark" data-screen-label="06 Inputs">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part B · Technical</span></div>
+
+    <div class="part-open"><span class="part-tag">Part B · The calculation model</span><h2 class="part-h">The <em>input</em> variables.</h2></div>
+    <p class="sec-lead" style="margin-top:12px;color:var(--off-mute);">Every field the engine reads, with range and default value. Absence and most costs can be set separately for blue- and white-collar.</p>
+
+    <div style="background:#fff;border-radius:4px;padding:6px 18px;margin-top:8px;">
+      <table class="tbl" style="margin-top:6px;">
+        <thead><tr><th>Field</th><th>Range</th><th>Default</th></tr></thead>
+        <tbody>
+          <tr><td>Employees (FTE)</td><td>1 – 2,000+</td><td class="num"><span class="mono">—</span></td></tr>
+          <tr><td>Blue/white-collar split</td><td>0 – 100%</td><td class="num"><span class="mono">60% blue</span></td></tr>
+          <tr><td>Gross salary / year</td><td>€ 20,000 – 120,000+</td><td class="num"><span class="mono">—</span></td></tr>
+          <tr><td>Benefits in kind</td><td>€ / month</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Company car</td><td>€ / month</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Group / hospitalisation / other insurance</td><td>€ / year</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Replacement factor</td><td>0 – 100%</td><td class="num"><span class="mono">30%</span></td></tr>
+          <tr><td>Organisation factor</td><td>0 – 150%</td><td class="num"><span class="mono">50%</span></td></tr>
+          <tr><td>Net working days / year</td><td>180 – 240</td><td class="num"><span class="mono">220</span></td></tr>
+          <tr><td>Absence short / medium / long</td><td>0 – 10% per category</td><td class="num"><span class="mono">sector</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note" style="color:var(--off-mute-2);border-color:var(--line-d);"><strong style="color:var(--off-mute);">Group assignment:</strong> recurring costs are weighted to the right group via a blue/white-collar share. Absence is entered per group and headcount-weighted into a combined figure for the dashboard and benchmark.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part B · Input variables</span><span class="pf-no">06</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — PART B: THE MODEL ═══════════ -->
+<section class="page" data-screen-label="07 Model">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part B · Technical</span></div>
+
+    <span class="eyebrow">The calculation model</span>
+    <h2 class="sec-title">From input to <em>cost.</em></h2>
+    <p class="sec-lead">The model is fully deterministic and transparent. Below is the core calculation, step by step, with the exact formulas as the engine applies them.</p>
+
+    <div class="divlabel">The chain, in order</div>
+    <div class="formula"><span class="fx-c">// cost of one lost working day</span><br>cost/day <span class="fx-op">=</span> ( gross salary ÷ working days ) <span class="fx-op">×</span> 1.30 <span class="fx-c">(employer SSC +30%)</span></div>
+    <div class="formula"><span class="fx-c">// lost days, per group, summed</span><br>lost days <span class="fx-op">=</span> employees <span class="fx-op">×</span> working days <span class="fx-op">×</span> ( absence% ÷ 100 )</div>
+    <div class="formula"><span class="fx-c">// direct salary cost of absence</span><br>salary cost <span class="fx-op">=</span> lost days <span class="fx-op">×</span> cost/day</div>
+    <div class="formula">replacement cost <span class="fx-op">=</span> salary cost <span class="fx-op">×</span> ( replacement factor ÷ 100 )<br>org. impact <span class="fx-op">=</span> salary cost <span class="fx-op">×</span> ( org. factor ÷ 100 )</div>
+    <div class="formula" style="border-left-color:var(--orange);background:var(--orange-soft);"><span class="fx-c">// the headline + the total</span><br><strong>employer cost</strong> <span class="fx-op">=</span> salary cost <span class="fx-op">+</span> recurring costs <span class="fx-op">+</span> replacement<br><strong>total cost</strong> <span class="fx-op">=</span> employer cost <span class="fx-op">+</span> org. impact</div>
+
+    <p class="note"><strong>Derived:</strong> FTE equivalent = lost days ÷ working days · cost per employee = employer cost ÷ FTE · recurring costs = benefits + insurance, distributed pro rata across the lost days.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part B · The calculation model</span><span class="pf-no">07</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — PART B: BENCHMARK & RISK ═══════════ -->
+<section class="page" data-screen-label="08 Benchmark">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part B · Technical</span></div>
+
+    <span class="eyebrow">Benchmark &amp; risk</span>
+    <h2 class="sec-title">Comparing with <em>the sector.</em></h2>
+
+    <div class="block tight">
+      <div class="divlabel">Sector benchmark — Belgian average</div>
+      <div class="bench">
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Short absence (≤ 1 month)</span><span class="br-val">3.18%</span></div><div class="br-track"><div class="br-fill" style="width:31%"></div></div></div>
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Medium (1 month – 1 year)</span><span class="br-val">3.10%</span></div><div class="br-track"><div class="br-fill" style="width:31%"></div></div></div>
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Long-term (&gt; 1 year)</span><span class="br-val">3.86%</span></div><div class="br-track"><div class="br-fill" style="width:38%"></div></div></div>
+        <div class="bench-row you"><div class="br-top"><span class="br-name">Total sector average</span><span class="br-val">10.14%</span></div><div class="br-track"><div class="br-fill" style="width:100%"></div></div></div>
+      </div>
+      <p class="note"><strong>Source:</strong> SD Worx Absence Barometer 2025 (national, all sectors). To be updated annually via the admin panel.</p>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Risk level — difference vs the sector (in percentage points)</div>
+      <table class="tbl">
+        <thead><tr><th>Level</th><th>Condition</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>Low</td><td><span class="mono">difference &lt; −0.5 pp</span></td><td>Below the sector average; limited risk of structural absence.</td></tr>
+          <tr><td>Average</td><td><span class="mono">≤ +1.0 pp</span></td><td>Around the sector; targeted follow-up keeps costs manageable.</td></tr>
+          <tr><td>Elevated</td><td><span class="mono">≤ +3.0 pp</span></td><td>Noticeably above; elevated risk of productivity loss.</td></tr>
+          <tr><td>High</td><td><span class="mono">&gt; +3.0 pp</span></td><td>Well above; high risk to continuity and cost.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><strong>Difference (percentage points):</strong> the organisation's total absence minus the sector average (10.14%). A positive number means more absence than the sector; a negative number means less.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part B · Benchmark &amp; risk</span><span class="pf-no">08</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — PART B: SAVINGS & PRIORITIES ═══════════ -->
+<section class="page" data-screen-label="09 Savings">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part B · Technical</span></div>
+
+    <span class="eyebrow">Savings &amp; priorities</span>
+    <h2 class="sec-title">From figure to <em>action.</em></h2>
+
+    <div class="block tight">
+      <div class="divlabel">Savings scenarios</div>
+      <p class="body-p" style="margin-bottom:6px;">Linear model: the cost is proportional to the absence rate. A reduction of <em>X</em> percentage points yields <span class="lead-fig">employer cost × (X ÷ total&nbsp;absence%)</span>, capped so the reduction is never larger than current absence.</p>
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Scenario 1 — modest</div><div class="kv-v">− 0.5 percentage points</div></div>
+        <div class="kv-row"><div class="kv-k">Scenario 2 — targeted</div><div class="kv-v">− 1.0 percentage points</div></div>
+        <div class="kv-row"><div class="kv-k">Scenario 3 — ambitious</div><div class="kv-v">− 2.0 percentage points</div></div>
+      </div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Priorities — rule-based</div>
+      <p class="body-p" style="margin-bottom:8px;">The engine ranks the three absence categories by their deviation from the sector benchmark and selects the matching recommendation. If no category deviates notably, it supplements with generic priorities (make data visible, anchor policy).</p>
+      <div class="hl-grid cols-3" style="margin-top:6px;">
+        <div class="hl-card"><div class="c-role">Short</div><h3 style="font-size:14px;">Frequent absence</h3><p>Strengthen managers in return-to-work and absence conversations; surface patterns early.</p></div>
+        <div class="hl-card"><div class="c-role">Medium</div><h3 style="font-size:14px;">Case management</h3><p>Structured case management so cases do not evolve into long-term absence.</p></div>
+        <div class="hl-card"><div class="c-role">Long-term</div><h3 style="font-size:14px;">Reintegration</h3><p>External direction on protracted cases to speed up return and control the heaviest cost driver.</p></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">The report closes with three <em>concrete</em> priorities — not a scorecard, but a starting point for the conversation.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part B · Savings &amp; priorities</span><span class="pf-no">09</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — PART B: PARAMETERS & SOURCES ═══════════ -->
+<section class="page" data-screen-label="10 Parameters">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Part B · Technical</span></div>
+
+    <span class="eyebrow">Parameters &amp; assumptions</span>
+    <h2 class="sec-title">What is <em>fixed.</em></h2>
+    <p class="sec-lead">All parameters live in one configuration file and are manageable via the admin panel. If the law or the sector figure changes, one place updates the whole system.</p>
+
+    <table class="tbl" style="margin-top:14px;">
+      <thead><tr><th>Parameter</th><th>Default</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Employer social security</td><td class="num"><span class="mono">× 1.30</span></td><td>+30% on gross salary.</td></tr>
+        <tr><td>Sector — short</td><td class="num"><span class="mono">3.18%</span></td><td>Belgian average, category K.</td></tr>
+        <tr><td>Sector — medium</td><td class="num"><span class="mono">3.10%</span></td><td>Belgian average, category M.</td></tr>
+        <tr><td>Sector — long-term</td><td class="num"><span class="mono">3.86%</span></td><td>Belgian average, category L.</td></tr>
+        <tr><td>Replacement factor</td><td class="num"><span class="mono">30%</span></td><td>Replacement = % of direct salary cost.</td></tr>
+        <tr><td>Organisation factor</td><td class="num"><span class="mono">50%</span></td><td>Org. impact = % of direct salary cost.</td></tr>
+        <tr><td>Savings steps</td><td class="num"><span class="mono">0.5 · 1 · 2</span></td><td>Reduction in percentage points of absence.</td></tr>
+        <tr><td>Net working days</td><td class="num"><span class="mono">± 220</span></td><td>After holidays, public holidays and ADV.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="block tight">
+      <div class="divlabel">Legal context</div>
+      <p class="body-p"><strong>Solidarity contribution (RIT 3.0):</strong> in 2026 the employer pays 30% of the sickness benefit amount in months 2 and 3 of incapacity; in 2027 extended to months 4 and 5. The calculator keeps gross salary excluding employer social security; that is added separately (×1.30).</p>
+    </div>
+
+    <p class="note"><strong>Disclaimer:</strong> the calculator provides a substantiated indication based on your input and the Belgian sector average — not an audit or accounting statement. The actual cost depends on organisation-specific factors. Intended to start the right conversation, not to capture everything exactly.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator Documentation</span><span>Part B · Parameters &amp; sources</span><span class="pf-no">10</span></div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

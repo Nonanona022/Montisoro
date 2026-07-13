@@ -14,7 +14,7 @@
   var c = cases.filter(function(x){ return x.slug === slug; })[0];
   if (!c){
     if (root.hasAttribute('data-generic')){
-      root.innerHTML = '<section class="chapter dark" style="padding-top:clamp(128px,17vh,188px) !important;min-height:60vh;"><div class="chapter-inner"><a class="case-back" href="' + (lang==='en'?'Referentie-en.html':'Referentie.html') + '"><span aria-hidden="true">\u2190</span> ' + (lang==='en'?'All references':'Alle referenties') + '</a><h1 class="title h-large on-dark">' + (lang==='en'?'Reference not found':'Referentie niet gevonden') + '</h1><p class="cs2-hero-sum">' + (lang==='en'?'This case is unavailable. Return to the references overview.':'Deze case is niet beschikbaar. Ga terug naar het referentie-overzicht.') + '</p></div></section>';
+      root.innerHTML = '<section class="chapter dark" style="padding-top:clamp(128px,17vh,188px) !important;min-height:60vh;"><div class="chapter-inner"><a class="case-back" href="' + (lang==='en'?'references-en.html':'Referentie.html') + '"><span aria-hidden="true">\u2190</span> ' + (lang==='en'?'All references':'Alle referenties') + '</a><h1 class="title h-large on-dark">' + (lang==='en'?'Reference not found':'Referentie niet gevonden') + '</h1><p class="cs2-hero-sum">' + (lang==='en'?'This case is unavailable. Return to the references overview.':'Deze case is niet beschikbaar. Ga terug naar het referentie-overzicht.') + '</p></div></section>';
     }
     return;
   }
@@ -74,7 +74,7 @@
     }
     return esc(f('foot_txt') || '');
   }
-  function backHref(){ return lang === 'en' ? 'Referentie-en.html' : 'Referentie.html'; }
+  function backHref(){ return lang === 'en' ? 'references-en.html' : 'Referentie.html'; }
   function photo(id, cls, shape, radius, placeholder, val){
     if (val){ return '<div class="' + cls + '"><img src="' + esc(val) + '" alt=""></div>'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';

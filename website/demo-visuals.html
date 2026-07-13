@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro — Visual Proof Demo (concept)</title>
+<style>
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-900.woff2') format('woff2');font-weight:900;font-display:swap;}
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-700.woff2') format('woff2');font-weight:700;font-display:swap;}
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-italic-700.woff2') format('woff2');font-weight:700;font-style:italic;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-400.woff2') format('woff2');font-weight:400;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-600.woff2') format('woff2');font-weight:600;font-display:swap;}
+:root{--bg:#13100d;--surface:#1b1714;--surf2:#221d19;--line:rgba(240,237,232,.12);--line2:rgba(240,237,232,.07);--white:#F0EDE8;--off:#D8D3CC;--muted:#9a938b;--muted2:#736d65;--orange:#E8592B;--green:#3bbf84;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1120px;margin:0 auto;padding:clamp(40px,6vw,84px) clamp(20px,5vw,48px);}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(34px,5.5vw,58px);line-height:1.02;letter-spacing:-.02em;color:var(--white);margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(16px,1.8vw,20px);line-height:1.7;color:var(--off);max-width:62ch;}
+.note{font-size:13px;color:var(--muted2);margin-top:22px;padding-top:18px;border-top:1px solid var(--line);max-width:74ch;}
+.note code{font-family:'DM Mono',ui-monospace,monospace;font-size:.9em;color:var(--off);}
+
+/* page card */
+.pg{margin-top:clamp(40px,6vw,68px);border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);}
+.pg-head{display:flex;align-items:center;gap:16px;padding:22px clamp(20px,3vw,30px);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.pg-no{font-family:var(--serif);font-style:italic;font-weight:700;color:var(--orange);font-size:22px;}
+.pg-name{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.6vw,27px);color:var(--white);letter-spacing:-.01em;flex:1;}
+.verdict{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:100px;padding:6px 14px;white-space:nowrap;}
+.v-yes{background:rgba(232,89,43,.13);color:var(--orange);}
+.v-no{background:rgba(240,237,232,.07);color:var(--muted);}
+.v-have{background:rgba(59,191,132,.12);color:var(--green);}
+.pg-body{padding:clamp(20px,3vw,30px);}
+.rat{font-size:14.5px;color:var(--off);max-width:74ch;margin-bottom:6px;}
+.rat b{color:var(--white);font-weight:600;}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 26px;margin:16px 0 6px;font-size:13px;color:var(--muted);}
+.meta-row b{color:var(--off);font-weight:500;}
+
+/* before/after */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+@media(max-width:820px){.ba{grid-template-columns:1fr;}}
+.col{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--bg);}
+.col .lbl{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;}
+.col.before .lbl{color:var(--muted2);} .col.after .lbl{color:var(--orange);}
+.col.full{grid-column:1/-1;}
+
+/* mini page mock */
+.mock{background:linear-gradient(180deg,#0d0b09,#13100d);border:1px solid var(--line2);border-radius:10px;padding:22px;min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:9px;}
+.mock .eb{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);}
+.mock .ttl{font-family:var(--serif);font-weight:700;color:var(--white);font-size:clamp(18px,2.4vw,26px);line-height:1.08;}
+.mock .bar{height:8px;border-radius:4px;background:rgba(240,237,232,.10);}
+.mock .bar.s{width:70%;} .mock .bar.xs{width:45%;}
+.mock .btn{align-self:flex-start;background:var(--orange);color:#fff;font-size:11px;font-weight:600;border-radius:100px;padding:7px 16px;margin-top:4px;}
+
+/* UI screenshot placeholder (Storm/Casey/dashboard) */
+.shot{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#0e0c0a;position:relative;}
+.shot-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;background:#1b1714;border-bottom:1px solid var(--line2);}
+.shot-bar i{width:10px;height:10px;border-radius:50%;background:rgba(240,237,232,.2);}
+.shot-bar .u{margin-left:10px;height:13px;flex:1;border-radius:4px;background:rgba(240,237,232,.07);max-width:240px;}
+.shot-body{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;position:relative;background:repeating-linear-gradient(135deg,rgba(232,89,43,.04) 0 12px,transparent 12px 24px);}
+.shot-skel{position:absolute;inset:18px;display:grid;grid-template-columns:120px 1fr;gap:14px;opacity:.5;}
+.shot-skel .side{display:flex;flex-direction:column;gap:9px;}
+.shot-skel .side .l{height:9px;border-radius:4px;background:rgba(240,237,232,.14);}
+.shot-skel .main{display:flex;flex-direction:column;gap:11px;}
+.shot-skel .main .l{height:11px;border-radius:4px;background:rgba(240,237,232,.10);}
+.shot-skel .main .card{height:60px;border-radius:8px;background:rgba(240,237,232,.06);border:1px solid var(--line2);}
+.shot-tag{position:relative;z-index:2;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);background:rgba(19,16,13,.82);border:1px dashed rgba(232,89,43,.6);border-radius:100px;padding:8px 16px;}
+.cap{font-size:12.5px;color:var(--muted2);margin-top:10px;}
+.cap b{color:var(--off);font-weight:500;}
+
+.eff{font-size:12.5px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px solid var(--line2);}
+.eff b{color:var(--off);font-weight:500;}
+
+/* people row (real existing material) */
+.team{display:flex;margin-top:4px;}
+.team img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--bg);margin-right:-12px;box-shadow:0 0 0 1px var(--line);}
+.host{display:flex;align-items:center;gap:11px;margin-top:6px;}
+.host img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1px solid var(--line);}
+.host .nm{font-family:var(--serif);font-weight:700;color:var(--white);font-size:14px;}
+.host .rl{font-size:12px;color:var(--muted);}
+
+/* final matrix */
+.matrix{margin-top:clamp(46px,7vw,76px);}
+.matrix h2{font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.4vw,34px);color:var(--white);margin-bottom:18px;}
+table{width:100%;border-collapse:collapse;font-size:13.5px;}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted2);padding:10px 12px 10px 0;border-bottom:1px solid var(--line);}
+td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line2);color:var(--off);vertical-align:top;}
+td:first-child{color:var(--white);font-weight:500;white-space:nowrap;}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:middle;}
+.d1{background:var(--orange);}.d2{background:#E8B45C;}.d3{background:var(--muted2);}
+.concl{margin-top:clamp(40px,6vw,64px);background:linear-gradient(180deg,rgba(232,89,43,.08),rgba(232,89,43,.02));border:1px solid rgba(232,89,43,.26);border-radius:18px;padding:clamp(26px,4vw,38px);}
+.concl h2{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3.2vw,30px);color:var(--white);margin-bottom:14px;}
+.concl p{max-width:72ch;margin-bottom:12px;font-size:14.5px;}
+.concl b{color:var(--white);font-weight:600;} .concl .o{color:var(--orange);}
+/* Storm UI demo-simulatie */
+.storm{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#100e0c;}
+.storm-bar{display:flex;align-items:center;gap:6px;padding:8px 11px;background:#1b1714;border-bottom:1px solid var(--line2);}
+.storm-bar i{width:9px;height:9px;border-radius:50%;background:rgba(240,237,232,.18);}
+.storm-bar .url{margin-left:8px;font-size:9px;color:var(--muted2);background:rgba(240,237,232,.05);border-radius:5px;padding:3px 10px;}
+.storm-app{display:grid;grid-template-columns:120px 1fr;}
+.storm-side{background:#16130f;border-right:1px solid var(--line2);padding:12px 9px;display:flex;flex-direction:column;gap:3px;}
+.storm-logo{font-family:var(--serif);font-weight:700;color:var(--white);font-size:13px;margin-bottom:9px;padding-left:3px;}
+.storm-nav{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:6px;color:var(--muted);font-size:10.5px;}
+.storm-nav.on{background:rgba(232,89,43,.14);color:var(--orange);font-weight:600;}
+.storm-nav .ic{width:12px;height:12px;border-radius:3px;background:currentColor;opacity:.5;}
+.storm-main{padding:13px 15px;}
+.storm-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;}
+.storm-h .t{font-family:var(--serif);font-weight:700;color:var(--white);font-size:15px;}
+.storm-h .pill{font-size:9px;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:3px 10px;}
+.storm-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:11px;}
+.storm-kpi .k{background:#1b1714;border:1px solid var(--line2);border-radius:8px;padding:8px 9px;}
+.storm-kpi .k .lbl{font-size:8px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted2);margin:0;}
+.storm-kpi .k .v{font-family:var(--serif);font-weight:700;color:var(--white);font-size:17px;margin-top:2px;}
+.storm-kpi .k .v.o{color:var(--orange);}
+.storm-chart{background:#1b1714;border:1px solid var(--line2);border-radius:8px;padding:11px;display:flex;align-items:flex-end;gap:5px;height:88px;margin-bottom:9px;}
+.storm-chart .b{flex:1;background:linear-gradient(180deg,rgba(232,89,43,.75),rgba(232,89,43,.2));border-radius:3px 3px 0 0;}
+.storm-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line2);font-size:10px;color:var(--off);}
+.storm-row .dotp{width:7px;height:7px;border-radius:50%;background:var(--orange);flex:none;}
+.storm-row .g{height:7px;border-radius:4px;background:rgba(240,237,232,.08);}
+/* full-bleed parallax band */
+.fb-band{position:relative;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;width:100vw;height:clamp(420px,72vh,760px);overflow:hidden;background:#13100d;margin-top:20px;margin-bottom:6px;}
+.fb-img{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;object-position:center 42%;will-change:transform;}
+.fb-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(19,16,13,.28) 0%,rgba(19,16,13,.12) 38%,rgba(19,16,13,.62) 100%);}
+.fb-cap{position:absolute;left:0;right:0;bottom:clamp(28px,5vw,56px);text-align:center;padding:0 24px;}
+.fb-eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.fb-line{display:block;font-family:var(--serif,'Playfair Display',Georgia,serif);font-weight:900;font-size:clamp(26px,4.4vw,52px);line-height:1.08;letter-spacing:-.02em;color:#F0EDE8;max-width:18ch;margin:0 auto;text-wrap:balance;}
+.fb-tag{position:absolute;left:16px;top:14px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(19,16,13,.66);border-radius:100px;padding:8px 16px;}
+@media(prefers-reduced-motion:reduce){.fb-img{transform:none !important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="tag">Concept · de echte website is niet gewijzigd</span>
+  <h1>Visual Proof — <em>Demo</em></h1>
+  <p class="lead">Pagina per pagina, mijn eigen oordeel: waar voegt een beeld objectief <strong>bewijs</strong> toe, en waar is de pagina sterker <em>zonder</em>? Placeholders simuleren enkel plaatsing, grootte en witruimte — geen stock, geen AI-mensen. De definitieve beelden lever jij later aan.</p>
+  <div class="note">Demo-bestand <code>website/demo-visuals.html</code> · niet gelinkt, niet in de navigatie. Productie blijft onaangeroerd. Mensen-beelden tonen je <b>echte</b> teamfoto's; productschermen (Storm/Casey) zijn gemarkeerde placeholders omdat dat materiaal nog niet bestaat.</div>
+
+  <!-- 01 HOME -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">01</span><span class="pg-name">Home</span><span class="verdict v-yes">Visual · 1 (laag)</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> de hero blijft bewust tekstueel en zwart — dáár géén beeld. Maar lager, bij de technologie-teaser, mist de bezoeker één ding: <b>bewijs dat dit échte software is</b>, geen praatje. Eén productglimp lost dat op.</p>
+      <div class="meta-row"><span><b>Type:</b> Storm/dashboard-glimp</span><span><b>Plek:</b> technologie-teaser (niet de hero)</span><span><b>Doel:</b> tastbaarheid</span></div>
+      <div class="ba">
+        <div class="col before"><div class="lbl">Voor</div>
+          <div class="mock"><span class="eb">Technologie</span><span class="ttl">Human systems.<br>Operational intelligence.</span><span class="bar s"></span><span class="bar xs"></span></div>
+          <div class="cap">Sterke tekst — maar het product blijft abstract.</div>
+        </div>
+        <div class="col after"><div class="lbl">Na · demo-simulatie</div>
+          <div class="storm"><div class="storm-bar"><i></i><i></i><i></i><span class="url">storm.montisoro.com</span></div><div class="storm-app"><div class="storm-side"><div class="storm-logo">Storm</div><div class="storm-nav on"><span class="ic"></span>Dossiers</div><div class="storm-nav"><span class="ic"></span>Trajecten</div><div class="storm-nav"><span class="ic"></span>Casey AI</div><div class="storm-nav"><span class="ic"></span>Rapporten</div></div><div class="storm-main"><div class="storm-h"><span class="t">Verzuimoverzicht</span><span class="pill">Live</span></div><div class="storm-kpi"><div class="k"><div class="lbl">Dossiers</div><div class="v">34</div></div><div class="k"><div class="lbl">Trajecten</div><div class="v o">12</div></div><div class="k"><div class="lbl">Casey-acties</div><div class="v">87</div></div><div class="k"><div class="lbl">Gem. duur</div><div class="v">21d</div></div></div><div class="storm-chart"><div class="b" style="height:40%"></div><div class="b" style="height:62%"></div><div class="b" style="height:48%"></div><div class="b" style="height:78%"></div><div class="b" style="height:55%"></div><div class="b" style="height:90%"></div><div class="b" style="height:70%"></div><div class="b" style="height:84%"></div></div><div class="storm-row"><span class="dotp"></span><span class="g" style="max-width:120px"></span><span>Re-integratie · fase 2</span></div><div class="storm-row"><span class="dotp"></span><span class="g" style="max-width:90px"></span><span>Casey · opvolging gepland</span></div></div></div></div>
+          <div class="cap"><b>Klein, sober</b>, naast de teaser-tekst. Niet groot — het is bewijs, geen showcase.</div>
+        </div>
+      </div>
+      <div class="eff"><b>Effect:</b> productbewijs ↑ · vertrouwen ↑ (licht) · branding neutraal mits sober. Prioriteit: <b>laag</b> — alleen als het Storm-beeld bestaat.</div>
+    </div>
+  </div>
+
+  <!-- 02 ABOUT -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">02</span><span class="pg-name">About</span><span class="verdict v-have">Al aanwezig</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> géén actie nodig. About toont al je <b>11 echte teamfoto's</b> + het founder-verhaal. Human Proof staat hier al sterk. Een extra beeld zou enkel herhalen.</p>
+      <div class="team"><img src="assets/team/laurence.jpg" alt=""><img src="assets/team/jeroen.jpg" alt=""><img src="assets/team/astrid.jpg" alt=""><img src="assets/team/edith.jpg" alt=""><img src="assets/team/rico.jpg" alt=""><img src="assets/team/els.jpg" alt=""></div>
+      <div class="eff"><b>Effect:</b> al optimaal. Bewust niets toevoegen.</div>
+    </div>
+  </div>
+
+  <!-- 03 TECHNOLOGIE -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">03</span><span class="pg-name">Technologie</span><span class="verdict v-yes">Visual · hoogste impact</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> dit is dé pagina waar beeld echt telt. Storm en Casey worden nu enkel in woorden beschreven (Agentic AI, Human-in-the-Loop). Een niet-technische HR Director of CEO <b>ziet het product nooit</b> → het blijft een belofte.</p>
+      <div class="meta-row"><span><b>Type:</b> echte Storm-screenshot (+ optioneel Casey-gesprek)</span><span><b>Plek:</b> direct onder de Storm-uitleg, naast de feature-grid</span><span><b>Doel:</b> product tastbaar + geloofwaardig</span></div>
+      <div class="ba">
+        <div class="col after full"><div class="lbl">Na · demo-simulatie (groot, want hier is het de kern)</div>
+          <div class="storm"><div class="storm-bar"><i></i><i></i><i></i><span class="url">storm.montisoro.com</span></div><div class="storm-app"><div class="storm-side"><div class="storm-logo">Storm</div><div class="storm-nav on"><span class="ic"></span>Dossiers</div><div class="storm-nav"><span class="ic"></span>Trajecten</div><div class="storm-nav"><span class="ic"></span>Casey AI</div><div class="storm-nav"><span class="ic"></span>Rapporten</div><div class="storm-nav"><span class="ic"></span>Team</div></div><div class="storm-main"><div class="storm-h"><span class="t">Verzuimoverzicht</span><span class="pill">Live</span></div><div class="storm-kpi"><div class="k"><div class="lbl">Actieve dossiers</div><div class="v">34</div></div><div class="k"><div class="lbl">Lopende trajecten</div><div class="v o">12</div></div><div class="k"><div class="lbl">Casey-acties</div><div class="v">87</div></div><div class="k"><div class="lbl">Gem. duur</div><div class="v">21d</div></div></div><div class="storm-chart"><div class="b" style="height:38%"></div><div class="b" style="height:60%"></div><div class="b" style="height:46%"></div><div class="b" style="height:76%"></div><div class="b" style="height:54%"></div><div class="b" style="height:88%"></div><div class="b" style="height:68%"></div><div class="b" style="height:82%"></div><div class="b" style="height:58%"></div><div class="b" style="height:72%"></div></div><div class="storm-row"><span class="dotp"></span><span class="g" style="max-width:160px"></span><span>Re-integratie · fase 2 · Casey opvolging</span></div><div class="storm-row"><span class="dotp"></span><span class="g" style="max-width:120px"></span><span>Langdurig dossier · plan van aanpak</span></div></div></div></div>
+          <div class="cap"><b>Groot &amp; centraal</b> — dit is het enige beeld dat groot mag, want het ís het verhaal. Optioneel een tweede, kleiner Casey-conversatiebeeld ernaast.</div>
+        </div>
+      </div>
+      <div class="eff"><b>Effect:</b> geloofwaardigheid ↑↑↑ · conversie ↑↑ · "belofte" → "product". <span class="o">Vereist één echt beeld van jou</span> — het enige materiaal dat nog niet bestaat.</div>
+    </div>
+  </div>
+
+  <!-- 04 AANPAK -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">04</span><span class="pg-name">Onze Aanpak</span><span class="verdict v-no">Geen foto · evt. diagram later</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> géén foto. De pagina heeft al een rijke tekststructuur (story-acts, contrast-grid, ROI-shift). Een foto zou ruis zijn. Hooguit een <b>procesdiagram</b> (geen beeld, wel een schema) — maar dat is Phase-2-werk, geen go-live-blokker.</p>
+      <div class="eff"><b>Effect:</b> blijft even sterk zonder beeld. Bewust niets toevoegen nu.</div>
+    </div>
+  </div>
+
+  <!-- 05 CALCULATOR + FIT CHECK -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">05</span><span class="pg-name">Calculator &amp; Fit Check</span><span class="verdict v-no">Geen beeld</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> géén beeld. De tool zélf is de ervaring — het resultaat verschijnt live op het scherm. We hebben de rapport-preview hier al getest en bewust <b>teruggedraaid</b>: een beeld leidt af van de invoer-flow en een abstracte thumbnail zaait twijfel ("wiens cijfers?"). De methodologie-call-out (tekst) doet hier het vertrouwenswerk.</p>
+      <div class="eff"><b>Effect:</b> sterker zónder beeld. Niet opnieuw toevoegen.</div>
+    </div>
+  </div>
+
+  <!-- 06 CONTACT -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">06</span><span class="pg-name">Contact</span><span class="verdict v-have">Al live</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> al gedaan. Laurence staat al bij de "Plan een gesprek"-CTA — een gezicht op het beslismoment. Géén extra beeld; herhaling zou het verzwakken.</p>
+      <div class="host"><img src="assets/team/laurence.jpg" alt="Laurence"><div><div class="nm">Laurence Van den Bergh</div><div class="rl">· u spreekt rechtstreeks met de Founder</div></div></div>
+      <div class="eff"><b>Effect:</b> al optimaal op het juiste moment.</div>
+    </div>
+  </div>
+
+  <!-- 07 LEGAL -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">07</span><span class="pg-name">Privacy · Disclaimer · 404</span><span class="verdict v-no">Geen beeld</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Oordeel:</b> géén beeld. Legal/utility-pagina's. Een visual voegt niets toe, kost enkel laadtijd en afleiding.</p>
+    </div>
+  </div>
+
+  <!-- ════ DEEL B · SFEERFOTO'S (optioneel) ════ -->
+  <div style="margin-top:clamp(46px,7vw,76px);padding-top:clamp(30px,4vw,44px);border-top:1px solid var(--line);">
+    <span class="tag">Deel B · optioneel</span>
+    <h1 style="font-size:clamp(26px,4vw,42px);">Sfeerfoto's — <em>alleen als ze écht zijn</em></h1>
+    <p class="lead" style="font-size:16px;">Warmte toevoegen mág — maar uitsluitend met <strong>echte, specifieke</strong> beelden (jullie team aan het werk, een echte workshop, het echte kantoor). Geen stock, geen generieke "mensen-rond-een-laptop". Hieronder de drie plekken waar het de pagina warmer maakt zónder de rust te breken.</p>
+  </div>
+
+  <!-- B1 AANPAK -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">B1</span><span class="pg-name">Onze Aanpak — workshop/sessie</span><span class="verdict v-yes">Beste plek</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Type:</b> één echte foto van een workshop of begeleidingssessie. <b>Waarom:</b> maakt je méthode tastbaar — proces-bewijs, geen decoratie. <b>Plek:</b> volle breedte, tussen de aanpak-uitleg en de FAQ.</p>
+      <div style="position:relative;border-radius:14px;overflow:hidden;margin-top:16px;aspect-ratio:16/7;">
+        <img src="assets/demo-workshop.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 38%;">
+        <span style="position:absolute;left:16px;bottom:14px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(19,16,13,.66);border-radius:100px;padding:8px 16px;">Demo · echte workshop-/sessiefoto</span>
+      </div>
+      <div class="cap"><b>Breed &amp; rustig</b> (≈16:6), veel witruimte eromheen. Eventueel licht in jullie warme tint zodat het bij de huisstijl past.</div>
+      <div class="eff"><b>Effect:</b> proces tastbaar ↑↑ · menselijkheid ↑ · "zo werken wij echt". Hoogste sfeer-impact.</div>
+    </div>
+  </div>
+
+  <!-- B1b · FULL-BLEED + PARALLAX -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">B1b</span><span class="pg-name">Onze Aanpak — full-bleed + zachte parallax</span><span class="verdict v-yes">Jouw idee</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Jouw vraag:</b> de foto op ware grootte (edge-to-edge) met een parallax-effect bij het scrollen. <b>Hieronder live</b> — scroll traag door de band: de foto <b>drijft langzamer</b> dan de pagina (subtiel, ~16px). Géén dramatische reveal-and-disappear; dat zou te "spektakel" zijn voor de huisstijl.</p>
+    </div>
+    <!-- full-bleed band breekt uit de content-kolom -->
+    <div class="fb-band" id="fbBand">
+      <img src="assets/demo-workshop.png" alt="" class="fb-img" id="fbImg">
+      <div class="fb-veil"></div>
+      <div class="fb-cap">
+        <span class="fb-eyebrow">Onze aanpak in de praktijk</span>
+        <span class="fb-line">Zo werken wij — naast uw mensen, niet erover.</span>
+      </div>
+      <span class="fb-tag">Demo · full-bleed band met zachte parallax-drift</span>
+    </div>
+    <div class="pg-body">
+      <div class="cap"><b>Full-bleed (100% breedte)</b> + lichte donkere sluier zodat tekst leesbaar overheen kan. De drift is bewust klein gehouden (premium, geen janky "vliegende" foto).</div>
+      <div class="eff"><b>Eerlijke afweging:</b> impact ↑↑ (groots, menselijk) · <b>maar</b> parallax = <i>iets</i> meer beweging op de pagina. Op gsm zet ik 'm zachter/uit en bij <code>reduced-motion</code> volledig uit. Dit is de grens van wat bij Montisoro's rust past — verder zou ik niet gaan.</div>
+    </div>
+  </div>
+
+  <!-- B1c SCROLL-FLOW -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">B1c</span><span class="pg-name">Scroll-flow — foto centraal → naar rechts, tekst links</span><span class="verdict v-yes">Nieuw voorstel</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Mechaniek:</b> de foto verschijnt groot en centraal. Terwijl je <b>naar beneden scrollt</b> schuift hij soepel naar de rechterhelft en komt links de tekst binnen. Eén herbruikbaar patroon voor élke pagina waar een echte foto komt. <i>Scroll traag door de band hieronder.</i></p>
+    </div>
+  </div>
+
+  <style>
+  .sf-stage{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:230vh;background:#13100d;}
+  .sf-sticky{position:sticky;top:0;height:100vh;overflow:hidden;}
+  .sf-photo{position:absolute;top:50%;left:50%;width:min(74vw,780px);aspect-ratio:4/3;margin:0;border-radius:18px;overflow:hidden;transform:translate(-50%,-50%);transform-origin:center;will-change:left,width;box-shadow:0 40px 110px -40px rgba(0,0,0,.75);}
+  .sf-photo img{width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block;}
+  .sf-text{position:absolute;top:50%;left:max(24px,7vw);transform:translateY(-50%);max-width:40ch;opacity:0;will-change:opacity,transform;}
+  .sf-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .sf-title{font-family:var(--serif);font-weight:900;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:-.02em;color:var(--white);margin:0 0 16px;}
+  .sf-title em{font-style:italic;color:var(--orange);}
+  .sf-body{font-size:clamp(15px,1.5vw,18px);line-height:1.65;color:var(--off,#D8D3CC);margin:0;}
+  .sf-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,.5);}
+  @media(max-width:760px){
+    .sf-stage{height:auto;}
+    .sf-sticky{position:static;height:auto;display:flex;flex-direction:column;gap:22px;padding:44px 24px;}
+    .sf-photo{position:static;transform:none;width:100%;}
+    .sf-text{position:static;transform:none;opacity:1;max-width:none;}
+    .sf-hint{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .sf-photo{left:auto;right:6vw;width:min(46vw,520px);transform:translateY(-50%);}
+    .sf-text{opacity:1;}
+    .sf-hint{display:none;}
+  }
+  </style>
+  <section class="sf-stage" id="sfStage" aria-label="Scroll-flow demo">
+    <div class="sf-sticky">
+      <div class="sf-text" id="sfText">
+        <span class="sf-eyebrow">Onze aanpak in de praktijk</span>
+        <h2 class="sf-title">Naast uw mensen,<br><em>niet erover.</em></h2>
+        <p class="sf-body">We bouwen het systeem rond uw organisatie — met uw mensen aan tafel, niet vanaf de zijlijn. Dat is wat een workshop bij Montisoro echt is.</p>
+      </div>
+      <figure class="sf-photo" id="sfPhoto"><img src="assets/demo-workshop.png" alt=""></figure>
+      <span class="sf-hint">↓ scroll</span>
+    </div>
+  </section>
+
+  <div class="pg" style="margin-top:18px;">
+    <div class="pg-body">
+      <div class="eff"><b>Eerlijke afweging:</b> dit is de meest filmische optie — groots en menselijk. <b>Maar</b> het is ook de meest <i>bewegelijke</i>: een scroll-gedreven sticky-sectie. Op gsm en bij <code>reduced-motion</code> valt het terug op een rustige statische split (foto rechts, tekst links). Mijn advies: prachtig voor <b>één</b> sleutelmoment (bv. Aanpak), maar niet op elke pagina herhalen — anders verdwijnt de rust die Montisoro juist kenmerkt.</div>
+    </div>
+  </div>
+
+  <!-- B2 ABOUT -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">B2</span><span class="pg-name">About — team aan het werk</span><span class="verdict v-yes">Aanvulling</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Type:</b> één candid "team aan het werk"-foto. <b>Waarom:</b> de portretten heb je al — een werkmoment geeft warmte bovenop de gezichten. <b>Plek:</b> naast het verhaal of net boven de teamgrid.</p>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-top:16px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;aspect-ratio:4/3;border-radius:14px;overflow:hidden;">
+          <img src="assets/team/laurence.jpg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/team/jeroen.jpg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/team/els.jpg" alt="" style="width:100%;height:100%;object-fit:cover;">
+          <img src="assets/team/rico.jpg" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:8px;">
+          <span style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);">De mensen</span>
+          <span style="font-family:var(--serif);font-weight:700;color:var(--white);font-size:20px;line-height:1.1;">Echte gezichten,<br>echt werk.</span>
+          <div class="team" style="margin-top:6px;"><img src="assets/team/laurence.jpg" alt=""><img src="assets/team/jeroen.jpg" alt=""><img src="assets/team/astrid.jpg" alt=""><img src="assets/team/rico.jpg" alt=""></div>
+        </div>
+      </div>
+      <div class="cap">Echte teamportretten — jullie eigen materiaal, geen stock.</div>
+      <div class="eff"><b>Effect:</b> menselijkheid ↑ · warmte ↑. Aanvullend, niet kritisch.</div>
+    </div>
+  </div>
+
+  <!-- B3 HOME -->
+  <div class="pg">
+    <div class="pg-head"><span class="pg-no">B3</span><span class="pg-name">Home — één warm menselijk moment</span><span class="verdict v-no">Laag · optioneel</span></div>
+    <div class="pg-body">
+      <p class="rat"><b>Type:</b> één warme, echte foto laag op de pagina (níét de hero — die blijft bewust strak zwart). <b>Waarom:</b> breekt de pure tekst-stroom met één menselijk anker. <b>Plek:</b> bij de "wie zit erachter"- of contactsectie onderaan.</p>
+      <div style="position:relative;border-radius:14px;overflow:hidden;margin-top:16px;aspect-ratio:16/5;">
+        <img src="assets/demo-workshop.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;">
+        <span style="position:absolute;left:16px;bottom:13px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:rgba(19,16,13,.66);border-radius:100px;padding:7px 15px;">Demo · warm menselijk moment</span>
+      </div>
+      <div class="cap">Laagste prioriteit — alleen als je een sterke, echte foto hebt. Anders weglaten.</div>
+      <div class="eff"><b>Effect:</b> warmte ↑ (licht) · risico op ruis als het beeld niet top is. Bewust laag gehouden.</div>
+    </div>
+  </div>
+
+  <!-- MATRIX -->
+  <div class="matrix">
+    <h2>Eindmatrix</h2>
+    <table>
+      <thead><tr><th>Pagina</th><th>Beeld?</th><th>Type</th><th>Grootte</th><th>Prioriteit</th><th>Status materiaal</th></tr></thead>
+      <tbody>
+        <tr><td>Technologie</td><td><span class="dot d1"></span>Ja</td><td>Storm-screenshot</td><td>Groot</td><td>Hoog</td><td class="o" style="color:var(--orange)">nieuw nodig</td></tr>
+        <tr><td>Home</td><td><span class="dot d2"></span>Ja (licht)</td><td>Storm-glimp</td><td>Klein</td><td>Laag</td><td>nieuw nodig</td></tr>
+        <tr><td>Contact</td><td><span class="dot d1"></span>Ja</td><td>Laurence</td><td>Klein</td><td>—</td><td style="color:var(--green)">al live</td></tr>
+        <tr><td>About</td><td><span class="dot d1"></span>Ja</td><td>Team</td><td>Grid</td><td>—</td><td style="color:var(--green)">al live</td></tr>
+        <tr><td>Aanpak</td><td><span class="dot d3"></span>Nee</td><td>(diagram = P2)</td><td>—</td><td>Laag</td><td>—</td></tr>
+        <tr><td>Calculator / Fit Check</td><td><span class="dot d3"></span>Nee</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Privacy / Disclaimer / 404</td><td><span class="dot d3"></span>Nee</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONCLUSIE -->
+  <div class="concl">
+    <h2>Eindconclusie — eerlijk &amp; kritisch</h2>
+    <p><b>Absoluut behouden:</b> de twee die al live zijn (Laurence op Contact, team op About) — die werken en kostten niets nieuw.</p>
+    <p><b>De enige nieuwe visual die er objectief toe doet:</b> <span class="o">een echte Storm-screenshot op Technologie</span>. Dat is de grootste sprong in geloofwaardigheid op de hele site, want daar is de afstand tussen "wat ze beloven" en "wat het ís" het grootst. Dit is het enige dat nieuw materiaal van jou vraagt.</p>
+    <p><b>De Home-glimp</b> is een <i>nice-to-have</i> (laag) — alleen zinvol als het Storm-beeld er tóch is; anders niet de moeite.</p>
+    <p><b>Wat ik bewust NIET zou doen:</b> beeld op Aanpak, Calculator, Fit Check, of de legal-pagina's. Daar voegt het niets toe — sommige worden er zelfs zwakker van (afleiding van de tool/tekst). Geen beeld om beeld.</p>
+    <p style="margin-bottom:0;"><b>Netto:</b> de site heeft <span class="o">één</span> nieuw beeld nodig om wezenlijk overtuigender te worden, niet tien. Lever één goede Storm-screenshot en we zijn er. Dat is het verschil tussen een mooiere site en een <b>overtuigendere</b> site.</p>
+  </div>
+
+</div>
+<script>
+(function(){
+  var band=document.getElementById('fbBand'), img=document.getElementById('fbImg');
+  if(!band||!img) return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var amount=window.matchMedia('(max-width:760px)').matches?34:64; // px drift, zachter op gsm
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var r=band.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+    if(r.bottom<0||r.top>vh) return;
+    var progress=(vh-r.top)/(vh+r.height); // 0 (net onder) → 1 (net boven)
+    var y=(progress-0.5)*2*amount;          // -amount … +amount
+    img.style.transform='translate3d(0,'+y.toFixed(1)+'px,0)';
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ requestAnimationFrame(update); ticking=true; } },{passive:true});
+  window.addEventListener('resize',update,{passive:true});
+  update();
+})();
+/* B1c scroll-flow */
+(function(){
+  var stage=document.getElementById('sfStage'), photo=document.getElementById('sfPhoto'), text=document.getElementById('sfText');
+  if(!stage||!photo||!text) return;
+  if(window.matchMedia&&(window.matchMedia('(max-width:760px)').matches||window.matchMedia('(prefers-reduced-motion:reduce)').matches)) return;
+  function ease(t){ return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; } // easeInOutQuad
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var r=stage.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+    var total=r.height-vh;                      // scrollbare afstand binnen de sticky
+    var p=total>0 ? (-r.top)/total : 0;         // 0 (begin) → 1 (einde)
+    p=Math.max(0,Math.min(1,p));
+    // transitie-venster: foto blijft eerst even centraal, schuift dan naar rechts
+    var t=ease(Math.max(0,Math.min(1,(p-0.18)/0.5)));
+    var left=50+t*22;                           // 50% (centraal) → 72% (rechts)
+    var width=(74 - t*30);                      // vw: 74 → 44 (krimpt)
+    photo.style.left=left+'%';
+    photo.style.width='min('+width+'vw,'+(780-t*260).toFixed(0)+'px)';
+    text.style.opacity=t.toFixed(3);
+    text.style.transform='translateY(-50%) translateX('+((1-t)*-36).toFixed(1)+'px)';
+  }
+  window.addEventListener('scroll',function(){ if(!ticking){ requestAnimationFrame(update); ticking=true; } },{passive:true});
+  window.addEventListener('resize',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>

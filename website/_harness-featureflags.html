@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harnas — Feature Flags kill-switch</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="stylesheets/shell.css">
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;background:#fff;color:#13100d;}
+  .harness-head{background:#13100d;color:#f0ede8;padding:20px 28px;}
+  .harness-head h1{margin:0 0 4px;font-size:19px;}
+  .harness-head p{margin:0;font-size:13px;color:#b7aea3;}
+  #results{padding:18px 28px;border-bottom:1px solid #eee;}
+  .r{display:flex;gap:10px;align-items:baseline;padding:5px 0;font-size:13.5px;font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .r .ic{font-weight:700;width:22px;flex-shrink:0;}
+  .r.pass .ic{color:#1F8A5B;} .r.fail .ic{color:#c0392b;}
+  .r.fail{color:#c0392b;font-weight:600;}
+  #summary{padding:12px 28px;font-weight:700;font-size:15px;}
+  .stage{padding:0 28px 40px;}
+  .stage h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#a89f95;margin:26px 0 8px;}
+  .fakenav{display:flex;gap:18px;padding:12px 0;border-bottom:1px solid #eee;flex-wrap:wrap;}
+  .fakenav a{color:#13100d;text-decoration:none;font-size:14px;}
+  .hero-statement{padding:20px 0;}
+  .hs-cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .btn{display:inline-block;padding:12px 22px;border-radius:100px;background:#CC4A1E;color:#fff;border:none;font-size:14px;cursor:pointer;text-decoration:none;}
+  #bMain,#bfFlow{border:1px dashed #ccc;padding:24px;margin-top:12px;border-radius:12px;color:#666;}
+  .fc-modal{border:1px dashed #ccc;padding:24px;margin-top:12px;border-radius:12px;color:#666;}
+</style>
+</head>
+<body>
+<div class="harness-head">
+  <h1>Harnas — Feature Flags kill-switch (Audit P11)</h1>
+  <p>Stubt <code>/api/site-content</code> met alle flags = <b>false</b> en laadt de échte <code>site-content.js</code> + <code>shell.css</code>. Verifieert de volledige lees-keten.</p>
+</div>
+<div id="results"></div>
+<div id="summary"></div>
+
+<div class="stage">
+  <h2>Gesimuleerde pagina (bevat alle flow-ankerpunten)</h2>
+  <nav class="fakenav">
+    <a href="calculator.html" id="cta-calc">Calculator</a>
+    <a href="fit-check.html" id="cta-fc">Fit check</a>
+    <a href="contact.html#channels" id="cta-booking">Plan een gesprek</a>
+    <a href="about.html" id="cta-about">About</a>
+  </nav>
+
+  <section class="hero-statement">
+    <div class="hs-cta-row">
+      <button class="btn" onclick="FitCheck.open()" id="fc-start">Start de fit check →</button>
+    </div>
+  </section>
+
+  <main id="bMain">#bMain — calculator workspace (moet verborgen worden)</main>
+  <div class="fc-modal" id="fcModal">#fcModal — fit-check modal (moet verborgen worden)</div>
+  <div id="bfFlow">#bfFlow — booking wizard (moet verborgen worden)</div>
+</div>
+
+<!-- 1) Stub het endpoint VÓÓR site-content.js draait -->
+<script>
+  window.fetch = function (url) {
+    if (String(url).indexOf('/api/site-content') !== -1) {
+      return Promise.resolve({
+        ok: true,
+        json: function () {
+          return Promise.resolve({
+            ok: true, configured: true,
+            content: { feature_flags: { booking_enabled: false, fitcheck_enabled: false, calculator_enabled: false } }
+          });
+        }
+      });
+    }
+    return Promise.reject(new Error('unstubbed: ' + url));
+  };
+</script>
+
+<!-- 2) De echte read-bridge -->
+<script src="scripts/site-content.js"></script>
+
+<!-- 3) Assertions -->
+<script>
+  function hidden(el){ return !el || getComputedStyle(el).display === 'none'; }
+  function run(){
+    var out = document.getElementById('results');
+    var checks = [];
+    function ck(label, cond){ checks.push({ label: label, ok: !!cond }); }
+
+    // (a) body-classes
+    ck('body.ff-booking-off gezet', document.body.classList.contains('ff-booking-off'));
+    ck('body.ff-fitcheck-off gezet', document.body.classList.contains('ff-fitcheck-off'));
+    ck('body.ff-calculator-off gezet', document.body.classList.contains('ff-calculator-off'));
+
+    // (b) flow-containers verborgen door shell.css
+    ck('#bMain (calculator) verborgen', hidden(document.getElementById('bMain')));
+    ck('#fcModal (fit-check) verborgen', hidden(document.getElementById('fcModal')));
+    ck('#bfFlow (booking) verborgen', hidden(document.getElementById('bfFlow')));
+
+    // (c) entry-CTA's krijgen data-ff + worden verborgen
+    var calc = document.getElementById('cta-calc');
+    ck('calculator-link data-ff="calculator"', calc.getAttribute('data-ff') === 'calculator');
+    ck('calculator-link verborgen', hidden(calc));
+    var fc = document.getElementById('cta-fc');
+    ck('fit-check-link data-ff="fitcheck"', fc.getAttribute('data-ff') === 'fitcheck');
+    ck('fit-check-link verborgen', hidden(fc));
+    var fcBtn = document.getElementById('fc-start');
+    ck('fit-check start-knop data-ff="fitcheck"', fcBtn.getAttribute('data-ff') === 'fitcheck');
+    ck('fit-check start-knop verborgen', hidden(fcBtn));
+
+    // (d) booking-CTA blijft BEWUST zichtbaar (leidt naar hele contactpagina)
+    var bk = document.getElementById('cta-booking');
+    ck('booking-CTA blijft zichtbaar (geen data-ff)', !bk.hasAttribute('data-ff') && !hidden(bk));
+
+    // (e) graceful notices geïnjecteerd i.p.v. blanco gat
+    ck('notice #ff-notice-calculator aanwezig + zichtbaar', !hidden(document.getElementById('ff-notice-calculator')));
+    ck('notice #ff-notice-fitcheck aanwezig + zichtbaar', !hidden(document.getElementById('ff-notice-fitcheck')));
+    ck('notice #ff-notice-booking aanwezig + zichtbaar', !hidden(document.getElementById('ff-notice-booking')));
+
+    // render
+    var pass = 0;
+    out.innerHTML = checks.map(function(c){
+      if (c.ok) pass++;
+      return '<div class="r ' + (c.ok?'pass':'fail') + '"><span class="ic">' + (c.ok?'✓':'✕') + '</span><span>' + c.label + '</span></div>';
+    }).join('');
+    var sum = document.getElementById('summary');
+    var all = pass === checks.length;
+    sum.textContent = (all ? '✓ ALLE ' : '✕ ') + pass + '/' + checks.length + ' checks geslaagd';
+    sum.style.color = all ? '#1F8A5B' : '#c0392b';
+  }
+  // laat site-content.js zijn (gestubte) fetch + apply afronden
+  setTimeout(run, 150);
+</script>
+</body>
+</html>

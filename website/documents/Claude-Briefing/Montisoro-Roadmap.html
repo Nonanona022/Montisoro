@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Roadmap &amp; Status</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" href="../../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<link rel="stylesheet" href="briefing.css">
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════ 01 — COVER ═══════════ -->
+<section class="page page--dark" data-screen-label="01 Cover">
+  <svg class="cover-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="rc-bg" x1="0.2" x2="0.8" y1="0" y2="1"><stop offset="0%" stop-color="#1B130C"/><stop offset="55%" stop-color="#13100D"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+      <radialGradient cx="16%" cy="8%" id="rc-gtl" r="46%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.16"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="92%" cy="94%" id="rc-gbr" r="44%"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.14"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="rc-sh" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.13"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <filter id="rc-grain"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#rc-bg)" width="794" height="1123"/>
+    <rect fill="url(#rc-gtl)" width="794" height="1123"/>
+    <rect fill="url(#rc-gbr)" width="794" height="1123"/>
+    <polygon fill="url(#rc-sh)" opacity="0.55" points="0,0 320,0 0,560"/>
+    <path d="M 0 760 C 240 730, 520 900, 794 980" fill="none" stroke="#E8592B" stroke-opacity="0.16" stroke-width="1.2"/>
+    <path d="M 0 840 C 260 810, 540 960, 794 1040" fill="none" stroke="#E8592B" stroke-opacity="0.10" stroke-width="0.8"/>
+    <text x="240" y="700" font-family="Playfair Display, Georgia, serif" font-size="640" font-weight="900" font-style="italic" fill="#F0EDE8" opacity="0.03" text-anchor="middle">M</text>
+    <rect filter="url(#rc-grain)" width="794" height="1123" opacity="0.045"/>
+  </svg>
+  <div class="cover-pad cover-inner">
+    <img class="cover-logo" src="assets/montisoro-logo.png" alt="Montisoro">
+    <div class="cover-mid">
+      <div class="cover-rule"></div>
+      <div class="cover-kicker">Roadmap · Productstatus &amp; planning</div>
+      <h1 class="cover-title">Van <em>fundament</em><br>naar <em>schaal.</em></h1>
+      <p class="cover-sub">Waar Montisoro vandaag staat, hoe het gebouwd is, wat de laatste stap naar live is en wat de komende fases brengen — van website en calculator tot Casey AI, go-live en groei.</p>
+    </div>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Document</div><div class="m-val">Roadmap &amp; status</div></div>
+      <div><div class="m-lbl">Peildatum</div><div class="m-val">Juni 2026</div></div>
+      <div><div class="m-lbl">Status</div><div class="m-val">Pre-launch</div></div>
+    </div>
+    <div class="cover-foot"><span>Re-integrate What Matters</span><span>montisoro.com</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — LEESWIJZER ═══════════ -->
+<section class="page" data-screen-label="02 Leeswijzer">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Leeswijzer</span></div>
+
+    <span class="eyebrow">Over deze roadmap</span>
+    <h2 class="sec-title">Eén tijdlijn,<br>van bouw tot <em>groei.</em></h2>
+    <p class="sec-lead">Dit document beschrijft de status en planning van het Montisoro-product: de website, de verzuimcalculator, de backend, het admin-panel en de technologie (Storm &amp; Casey AI). Het is bewust eerlijk over wat af is en wat nog moet.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="t-no">01</span><span class="t-title">Waar we staan<small>De status in één blik</small></span><span class="t-pg">03</span></div>
+      <div class="toc-row"><span class="t-no">02</span><span class="t-title">De architectuur<small>De bouwstenen van het product</small></span><span class="t-pg">04</span></div>
+      <div class="toc-row"><span class="t-no">03</span><span class="t-title">Fases 1–3 · voltooid<small>Fundament, calculator, backend</small></span><span class="t-pg">05</span></div>
+      <div class="toc-row"><span class="t-no">04</span><span class="t-title">Fases 4–6 · volgend<small>Go-live, Casey AI, vertrouwen &amp; schaal</small></span><span class="t-pg">06</span></div>
+      <div class="toc-row"><span class="t-no">05</span><span class="t-title">Mijlpalen<small>De tijdlijn op een rij</small></span><span class="t-pg">07</span></div>
+      <div class="toc-row"><span class="t-no">06</span><span class="t-title">Open acties &amp; blokkers<small>Wat nog moet, en in welke volgorde</small></span><span class="t-pg">08</span></div>
+      <div class="toc-row"><span class="t-no">07</span><span class="t-title">Go-live runbook<small>De stappen naar de lancering</small></span><span class="t-pg">09</span></div>
+      <div class="toc-row"><span class="t-no">08</span><span class="t-title">Na de lancering<small>Casey-pilot &amp; groei</small></span><span class="t-pg">10</span></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">Eén principe loopt door de hele roadmap: <em>eerst bewijsbaar, dan groter.</em></p>
+      <p class="co-cite">Vertrouwen verdiend door resultaat, behouden door transparantie.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Leeswijzer</span><span class="pf-no">02</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — WAAR WE STAAN ═══════════ -->
+<section class="page" data-screen-label="03 Status">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Status</span></div>
+
+    <span class="eyebrow">Waar we staan</span>
+    <h2 class="sec-title">Bijna alles is <em>gebouwd.</em><br>Eén schakel naar live.</h2>
+    <p class="sec-lead">De volledige website, de verzuimcalculator, het rapport, de backend en het admin-panel zijn af. De architectuur staat klaar maar inert — de laatste stap is configuratie, geen ontwikkeling.</p>
+
+    <div class="divlabel">Status in één blik</div>
+    <div class="stat-strip">
+      <div class="stat"><div class="s-v">16</div><div class="s-l">Pagina's live, NL + EN, volledig responsive.</div></div>
+      <div class="stat"><div class="s-v">6</div><div class="s-l">Stappen in de productie-calculator + PDF-rapport.</div></div>
+      <div class="stat"><div class="s-v">4</div><div class="s-l">Rollen in het admin-panel (Admin/Consultant/Sales/Viewer).</div></div>
+      <div class="stat"><div class="s-v">1</div><div class="s-l">Resterende blokker naar go-live (K1: sleutels + DNS).</div></div>
+    </div>
+
+    <div class="block">
+      <div class="divlabel">Wat vandaag werkt</div>
+      <ul class="list-clean list-two">
+        <li>Merk, website &amp; design­systeem (NL + EN).</li>
+        <li>Verzuimcalculator — 6-staps wizard in productie.</li>
+        <li>Eén rekenengine voor calculator, PDF &amp; admin.</li>
+        <li>Verzuimrapport — print-ready PDF, data-gedreven.</li>
+        <li>Netlify-backend (Resend + Supabase) — klaar.</li>
+        <li>Admin-panel met server-side auth &amp; rollen.</li>
+        <li>E-mail- &amp; PDF-communicatiepakket (NL + EN).</li>
+        <li>Storm-platform — actief bij corporate klanten.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">De backend is <em>“klaar maar inert”.</em> De laatste handeling is geen code — het is de schakelaar omzetten.</p>
+      <p class="co-cite">K1 · environment-variabelen + DNS + één end-to-end test</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Waar we staan</span><span class="pf-no">03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — ARCHITECTUUR ═══════════ -->
+<section class="page" data-screen-label="04 Architectuur">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Architectuur</span></div>
+
+    <span class="eyebrow">De bouwstenen</span>
+    <h2 class="sec-title">Hoe het product is <em>opgebouwd.</em></h2>
+    <p class="sec-lead">Een statische site met een dunne, veilige backend. Bewust eenvoudig: snel, GDPR-conform en met één bron van waarheid voor de rekenlogica.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card"><div class="c-num">01</div><h3>Website</h3><p>Statische site (16 pagina's, NL + EN), self-hosted fonts, SEO &amp; hreflang, editorial designsysteem. Snel en privacyvriendelijk.</p></div>
+      <div class="hl-card"><div class="c-num">02</div><h3>Calculator <span class="amp">&amp;</span> engine</h3><p>De 6-staps wizard deelt één rekenengine met het PDF-rapport en de backend. Eén bron van waarheid — wat de bezoeker ziet, komt in het rapport.</p></div>
+      <div class="hl-card"><div class="c-num">03</div><h3>Backend</h3><p>Netlify Functions met Resend (e-mail) en Supabase (database + private PDF-opslag). Rate-limiting op de endpoints. Web3Forms volledig verwijderd.</p></div>
+      <div class="hl-card"><div class="c-num">04</div><h3>Admin <span class="amp">&amp;</span> comms</h3><p>Admin-panel met server-side auth en 4 rollen, leads-inbox, en een volledig e-mail- &amp; PDF-communicatiepakket met klantbevestigingen (NL + EN).</p></div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Stack in feiten</div>
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Front-end</div><div class="kv-v">Statische site · website/</div></div>
+        <div class="kv-row"><div class="kv-k">Backend</div><div class="kv-v">Netlify Functions</div></div>
+        <div class="kv-row"><div class="kv-k">E-mail</div><div class="kv-v">Resend (SPF/DKIM/DMARC)</div></div>
+        <div class="kv-row"><div class="kv-k">Database &amp; opslag</div><div class="kv-v">Supabase (private bucket, RLS aan)</div></div>
+        <div class="kv-row"><div class="kv-k">Domein</div><div class="kv-v">montisoro.com (registrar: EasyHost)</div></div>
+      </div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>De architectuur</span><span class="pf-no">04</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — FASES 1-3 ═══════════ -->
+<section class="page" data-screen-label="05 Fases voltooid">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Tijdlijn · voltooid</span></div>
+
+    <span class="eyebrow">De weg tot nu</span>
+    <h2 class="sec-title">Drie fases <em>afgerond.</em></h2>
+    <p class="sec-lead">Het fundament, de calculator en de backend zijn gebouwd en getest.</p>
+
+    <div style="margin-top:18px;">
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">01</div><span class="ph-status done">Voltooid</span></div>
+        <div class="ph-body">
+          <h3>Fundament <em>&amp; merk</em></h3>
+          <div class="ph-when">Basis · website</div>
+          <p>Volledige merkidentiteit, design­systeem en website — 16 pagina's in NL én EN, responsive, met self-hosted fonts (GDPR-conform) en editorial designpatronen (Hairline-kaart, Hairline-rij, Hairline-accordeon).</p>
+          <div class="ph-tags"><span>Brand</span><span>Design system</span><span>Website NL+EN</span><span>SEO</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">02</div><span class="ph-status done">Voltooid</span></div>
+        <div class="ph-body">
+          <h3>Calculator <em>naar productie</em></h3>
+          <div class="ph-when">Fase 2</div>
+          <p>De 6-staps verzuimcalculator gepromoot tot productie op de bestaande routes. Eén gedeelde rekenengine voor de UI, het PDF-rapport en de backend. Het data-gedreven verzuimrapport (print-ready A4) levert per klant een onderbouwd kostenbeeld.</p>
+          <div class="ph-tags"><span>Wizard</span><span>Verzuim-engine</span><span>PDF-rapport</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">03</div><span class="ph-status done">Voltooid</span></div>
+        <div class="ph-body">
+          <h3>Backend, admin <em>&amp; communicatie</em></h3>
+          <div class="ph-when">Fase 3</div>
+          <p>Netlify Functions met Resend (e-mail) en Supabase (opslag). Admin-panel met server-side authenticatie en een 4-rollenmodel. Volledig e-mail- en PDF-communicatiepakket met klantbevestigingen — alles gebouwd en geverifieerd, wachtend op productiesleutels.</p>
+          <div class="ph-tags"><span>Netlify</span><span>Resend</span><span>Supabase</span><span>Admin + rollen</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Tijdlijn · voltooid</span><span class="pf-no">05</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — FASES 4-6 ═══════════ -->
+<section class="page" data-screen-label="06 Fases volgend">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Tijdlijn · volgend</span></div>
+
+    <span class="eyebrow">Wat komt</span>
+    <h2 class="sec-title">Van <em>go-live</em> naar groei.</h2>
+    <p class="sec-lead">Drie fases brengen Montisoro van pre-launch naar een schaalbaar, bewezen aanbod.</p>
+
+    <div style="margin-top:18px;">
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">04</div><span class="ph-status prog">Bezig</span></div>
+        <div class="ph-body">
+          <h3>Go-live</h3>
+          <div class="ph-when">Nu · de blokker</div>
+          <p>De environment-variabelen zetten (Supabase, Resend, Netlify), DNS &amp; e-mailauthenticatie (SPF/DKIM/DMARC) configureren, het admin-panel achter een toegangspoort plaatsen en één lead end-to-end testen. Een geordende pre-launch-runbook ligt klaar.</p>
+          <div class="ph-tags"><span>K1 · sleutels</span><span>DNS</span><span>Admin-gate</span><span>End-to-end test</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">05</div><span class="ph-status next">Volgend</span></div>
+        <div class="ph-body">
+          <h3>Casey AI <em>pilootprogramma</em></h3>
+          <div class="ph-when">September 2026</div>
+          <p>Pilootprogramma's met een selecte groep early adopters. Zij krijgen als eersten toegang tot Casey — de contextuele intelligentielaag — en bepalen mee hoe het systeem evolueert: early previews, product updates, feature voting en community events.</p>
+          <div class="ph-tags"><span>Early adopters</span><span>Agentic AI</span><span>Human in the Loop</span></div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="ph-meta"><div class="ph-no">06</div><span class="ph-status next">Volgend</span></div>
+        <div class="ph-body">
+          <h3>Vertrouwen <em>&amp; schaal</em></h3>
+          <div class="ph-when">Doorlopend</div>
+          <p>Geverifieerde klantquotes en gepubliceerde cases, onderbouwing en methodologie achter de resultaatcijfers, een security/DPA-pagina voor de Storm-claims en een echte boekingslink in het PDF-rapport. Zo wordt het verhaal niet alleen sterk, maar ook bewijsbaar.</p>
+          <div class="ph-tags"><span>Testimonials</span><span>Methodologie</span><span>Security/DPA</span><span>Cases</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Tijdlijn · volgend</span><span class="pf-no">06</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — MIJLPALEN ═══════════ -->
+<section class="page page--dark" data-screen-label="07 Mijlpalen">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Mijlpalen</span></div>
+
+    <span class="eyebrow">De tijdlijn op een rij</span>
+    <h2 class="sec-title">Mijlpalen, <em>verleden</em><br>en <em>komend.</em></h2>
+    <p class="sec-lead">De grote stappen, chronologisch — van de lancering van het Storm-platform tot de groeifase na go-live.</p>
+
+    <div class="hl-list" style="border-color:var(--line-d);">
+      <div class="hl-row has-tag" style="border-color:var(--line-d);"><div class="hl-num">’23</div><div><h3>Storm live</h3><p>Het SaaS-platform gaat in productie en wordt actief bij corporate organisaties.</p></div><span class="hl-tag">Voltooid</span></div>
+      <div class="hl-row has-tag" style="border-color:var(--line-d);"><div class="hl-num">’26</div><div><h3>Website, calculator <span class="amp">&amp;</span> backend</h3><p>Volledige site (NL+EN), 6-staps calculator, verzuimrapport, backend, admin-panel en communicatiepakket gebouwd en getest.</p></div><span class="hl-tag">Voltooid</span></div>
+      <div class="hl-row has-tag" style="border-color:var(--line-d);"><div class="hl-num" style="color:#fff;">Q3</div><div><h3>Go-live</h3><p>Productiesleutels, DNS, e-mailauthenticatie en admin-gate gezet; één lead end-to-end getest. Site publiek.</p></div><span class="hl-tag">Nu</span></div>
+      <div class="hl-row has-tag" style="border-color:var(--line-d);"><div class="hl-num" style="color:#fff;">Sep</div><div><h3>Casey AI · pilot</h3><p>Start van het pilootprogramma met early adopters. September 2026.</p></div><span class="hl-tag">Volgend</span></div>
+      <div class="hl-row has-tag" style="border-color:var(--line-d);"><div class="hl-num" style="color:#fff;">→</div><div><h3>Vertrouwen <span class="amp">&amp;</span> schaal</h3><p>Testimonials, methodologie-onderbouwing, security/DPA en gepubliceerde cases. Doorlopend.</p></div><span class="hl-tag">Volgend</span></div>
+    </div>
+
+    <p class="note" style="color:var(--off-mute-2);border-color:var(--line-d);"><strong style="color:var(--off-mute);">Lezing:</strong> alles tot en met de backend is af; go-live wacht enkel op configuratie (K1). De pilot- en groeifase volgen zodra de basis live en stabiel is.</p>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Mijlpalen</span><span class="pf-no">07</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — OPEN ACTIES ═══════════ -->
+<section class="page" data-screen-label="08 Open acties">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Open acties</span></div>
+
+    <span class="eyebrow">Open acties &amp; blokkers</span>
+    <h2 class="sec-title">Wat nog <em>moet</em><br>vóór en ná go-live.</h2>
+    <p class="sec-lead">Een handvol concrete punten resteert. De meeste wachten op materiaal of beslissingen — niet op ontwikkeling.</p>
+
+    <div class="blk">
+      <div class="blk-h"><span class="blk-code">K1</span><span class="blk-t">Productiesleutels &amp; DNS</span></div>
+      <p>De Netlify/Resend/Supabase-sleutels en DNS staan nog niet. Tot dan komen calculator- en formulierleads niet binnen (mailto-vangnet actief). <strong>Dé laatste schakel naar live.</strong></p>
+    </div>
+    <div class="blk">
+      <div class="blk-h"><span class="blk-code">K2</span><span class="blk-t">Admin-toegangspoort</span></div>
+      <p>Het admin-panel kreeg server-side auth + rollen. Vóór de publieke URL hoort het achter een externe toegangspoort (bv. Cloudflare Access) als verplichte eerste laag.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-h"><span class="blk-code">T1</span><span class="blk-t">Echte testimonial-quotes</span></div>
+      <p>Letterlijke quote + naam + functie + schriftelijk akkoord per klant. Tot dan: eerlijke referentie-framing (“geverifieerde referentie op aanvraag”).</p>
+    </div>
+    <div class="blk">
+      <div class="blk-h"><span class="blk-code">T2</span><span class="blk-t">Onderbouwing resultaatcijfers</span></div>
+      <p>Meetperiode, definitie en berekening achter 2.500+ · 30–35% · €14,7M. Ideaal als aparte methodologie-pagina.</p>
+    </div>
+    <div class="blk">
+      <div class="blk-h"><span class="blk-code">PDF</span><span class="blk-t">Echte boekingslink</span></div>
+      <p>De CTA in het verzuimrapport wijst nu naar de contactpagina; te vervangen door een echte agenda-link (Calendly / Bookings) zodra beschikbaar.</p>
+    </div>
+
+    <p class="note"><strong>Volgorde:</strong> K1 deblokkeert de live-gang; K2 hoort daar direct bij. T1, T2 en de PDF-link tillen het vertrouwen verder op en kunnen parallel lopen — ze blokkeren de lancering niet.</p>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Open acties</span><span class="pf-no">08</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — GO-LIVE RUNBOOK ═══════════ -->
+<section class="page" data-screen-label="09 Runbook">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Go-live runbook</span></div>
+
+    <span class="eyebrow">De stappen naar live</span>
+    <h2 class="sec-title">Geen code meer.<br>Enkel <em>configuratie.</em></h2>
+    <p class="sec-lead">Een geordende checklist brengt de site live. Werk van boven naar beneden; sla niets over. Geschatte doorlooptijd: één werkdag plus DNS-propagatie.</p>
+
+    <table class="tbl" style="margin-top:12px;">
+      <thead><tr><th>Stap</th><th>Wat</th><th>Sleutel</th></tr></thead>
+      <tbody>
+        <tr><td>0 · Pre-flight</td><td>Accounts (Netlify, Supabase, Resend) op een gedeeld bedrijfsadres; toegang tot EasyHost-DNS; mailbox hello@montisoro.com.</td><td class="num"><span class="mono">—</span></td></tr>
+        <tr><td>1 · Supabase</td><td>EU-project; 3 migraties + private bucket draaien; RLS aan.</td><td class="num"><span class="mono">DB</span></td></tr>
+        <tr><td>2 · Resend</td><td>Domein toevoegen; SPF/DKIM/DMARC in DNS; verifiëren; API-key.</td><td class="num"><span class="mono">Mail</span></td></tr>
+        <tr><td>3 · Netlify env</td><td>Alle variabelen zetten (Supabase, Resend, origins, admin-secret).</td><td class="num"><span class="mono">K1</span></td></tr>
+        <tr><td>4 · Deploy + domein</td><td>Code naar productie; montisoro.com koppelen; SSL; één canonieke variant.</td><td class="num"><span class="mono">DNS</span></td></tr>
+        <tr><td>5 · Admin afschermen</td><td>Admin achter Cloudflare Access (laag 1) — verplicht vóór publieke URL.</td><td class="num"><span class="mono">K2</span></td></tr>
+        <tr><td>6 · End-to-end test</td><td>Calculator + contact + fit-check invullen; mail, DB-rij en PDF controleren.</td><td class="num"><span class="mono">Test</span></td></tr>
+        <tr><td>7 · Smoke-tests</td><td>Statuscodes, taalwissel, mobiel-menu, sitemap, rate-limit (429).</td><td class="num"><span class="mono">QA</span></td></tr>
+        <tr><td>8 · Na go-live</td><td>Uptime-monitor; function-logs nakijken; vervolgpunten oppakken.</td><td class="num"><span class="mono">Ops</span></td></tr>
+      </tbody>
+    </table>
+
+    <p class="note"><strong>Sleutelvariabelen (K1):</strong> <span style="font-family:var(--mono);font-size:9.5px;">SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY · PDF_BUCKET · RESEND_API_KEY · MAIL_FROM · INTERNAL_NOTIFY_EMAIL · SITE_BASE_URL · ADMIN_BASE_URL · ALLOWED_ORIGIN · ADMIN_PASSWORD · ADMIN_SESSION_SECRET.</span> Ontbreekt er één, dan blijven de functies inert (mailto-fallback). <strong>Rollback</strong> is atomair: een vorige Netlify-deploy opnieuw publiceren zet in seconden terug.</p>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Go-live runbook</span><span class="pf-no">09</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — NA DE LANCERING ═══════════ -->
+<section class="page page--dark" data-screen-label="10 Groei">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Na de lancering</span></div>
+
+    <span class="eyebrow">Na de lancering</span>
+    <h2 class="sec-title">Pilot, bewijs <em>en groei.</em></h2>
+    <p class="sec-lead">Zodra de basis live en stabiel is, verschuift de focus van bouwen naar bewijzen en schalen — met Casey AI als motor.</p>
+
+    <div class="hl-grid cols-2" style="border-color:var(--line-d);">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Casey AI · pilot</h3><p>Vanaf september 2026 starten pilootprogramma's met early adopters: early previews, product updates, feature voting en Casey Community Events. Zij bepalen mee hoe Casey evolueert.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Bewijs verstevigen</h3><p>Geverifieerde testimonials, een methodologie-pagina achter de resultaatcijfers en minstens één gepubliceerde case-PDF. Sterker maken wat al sterk is.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Security <span class="amp">&amp;</span> compliance</h3><p>Een security/DPA-pagina die de Storm-claims onderbouwt (GDPR, EU-hosting, rolgebaseerde toegang, audit logs).</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Product-verdieping</h3><p>Per-sector benchmark in de calculator, admin write-brug (notities/leadstatus terug naar DB) en een PDF-historie-view.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p class="co-q">De volgorde blijft bewust: <em>eerst live en bewijsbaar,</em> dan pas groter.</p>
+      <p class="co-cite">Montisoro — Roadmap &amp; Status · versie juni 2026</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Roadmap &amp; Status</span><span>Na de lancering</span><span class="pf-no">10</span></div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

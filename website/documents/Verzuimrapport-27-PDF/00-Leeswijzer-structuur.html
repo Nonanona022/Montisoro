@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Verzuimrapport — Leeswijzer &amp; structuur</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D;--page:#FBFAF8;--ink:#1a1512;--ink-soft:#5c534b;--ink-mute:#8a8078;
+  --off:#F0EDE8;--off-mute:rgba(240,237,232,.6);--off-dim:rgba(240,237,232,.4);
+  --orange:#E8592B;--orange-soft:#FAE8E1;--orange-deep:#a8431f;
+  --good:#3F8F6B;--warn:#C8824A;
+  --line:rgba(26,21,18,.10);--line-2:rgba(26,21,18,.06);--line-d:rgba(240,237,232,.12);
+  --serif:Georgia,'Times New Roman',serif;--sans:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+}
+html,body{background:#3a3631;font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;-webkit-font-smoothing:antialiased;}
+.page{position:relative;width:210mm;min-height:297mm;background:var(--page);overflow:hidden;display:flex;flex-direction:column;margin:0 auto;}
+.page--dark{background:var(--bg);color:var(--off);}
+.pad{flex:1;display:flex;flex-direction:column;padding:20mm 19mm 14mm;}
+@media screen{body{padding:0;}.page{box-shadow:0 18px 50px -18px rgba(0,0,0,.5);}}
+@media print{html,body{background:#fff;}.page{box-shadow:none;width:210mm;height:297mm;min-height:0;overflow:hidden;}@page{size:A4;margin:0;}}
+.ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:20px;}
+.page--dark .ph{border-color:var(--line-d);}
+.ph .logo{font-family:var(--serif);font-weight:700;font-style:italic;font-size:17px;}
+.page--dark .ph .logo{color:#fff;}
+.ph .tag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
+.page--dark .ph .tag{color:var(--off-mute);}
+.pf{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--line);margin-top:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);}
+.page--dark .pf{border-color:var(--line-d);color:var(--off-dim);}
+.pf .no{color:var(--orange);}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--orange);}
+h2.t{font-family:var(--serif);font-weight:700;font-size:25px;line-height:1.14;letter-spacing:-.02em;margin:11px 0 8px;}
+.page--dark h2.t{color:#fff;}
+h2.t em{font-style:italic;color:var(--orange);}
+.lead{font-size:12px;line-height:1.65;color:var(--ink-soft);max-width:66ch;}
+.page--dark .lead{color:var(--off-mute);}
+.p{font-size:11px;line-height:1.68;color:var(--ink-soft);margin-bottom:9px;}
+.page--dark .p{color:var(--off-mute);}
+.p strong{color:var(--ink);font-weight:600;}.page--dark .p strong{color:#fff;}
+.divlabel{display:flex;align-items:center;gap:12px;margin:16px 0 8px;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);}
+.divlabel::after{content:'';flex:1;height:1px;background:var(--line);}
+.page--dark .divlabel::after{background:var(--line-d);}
+
+/* cover */
+.title-wrap{flex:1;display:flex;flex-direction:column;}
+.tt-mid{margin-top:auto;}
+.tt-rule{width:46px;height:2px;background:var(--orange);margin-bottom:24px;}
+.tt-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+.tt-h{font-family:var(--serif);font-weight:700;font-size:50px;line-height:1.03;letter-spacing:-.03em;color:#fff;}
+.tt-h em{font-style:italic;color:var(--orange);}
+.tt-sub{font-size:13px;line-height:1.7;color:var(--off-mute);max-width:54ch;margin-top:20px;}
+.tt-foot{margin-top:auto;display:flex;justify-content:space-between;padding-top:22px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--off-dim);}
+
+/* anatomy rows */
+.anat{display:flex;flex-direction:column;border-top:1px solid var(--line);margin-top:4px;}
+.anat .row{display:flex;gap:14px;padding:8px 0;border-bottom:1px solid var(--line-2);align-items:baseline;}
+.anat .row .n{flex:0 0 32px;font-family:var(--serif);font-weight:700;font-style:italic;font-size:15px;color:var(--orange);}
+.anat .row .body{flex:1;}
+.anat .row .ti{font-size:11.5px;font-weight:600;color:var(--ink);}
+.anat .row .ds{font-size:10px;color:var(--ink-soft);line-height:1.45;margin-top:2px;}
+.tagm{display:inline-block;font-family:var(--mono);font-size:7.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:4px;margin-left:8px;vertical-align:middle;}
+.tagm.fix{background:var(--line-2);color:var(--ink-mute);}
+.tagm.dyn{background:var(--orange-soft);color:var(--orange-deep);}
+.legend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:10px;color:var(--ink-soft);}
+
+/* why columns */
+.why{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+.why .c{border:1px solid var(--line);border-radius:11px;padding:15px 17px;}
+.why .c .h{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--ink);margin-bottom:5px;}
+.why .c .h em{font-style:italic;color:var(--orange);}
+.why .c p{font-size:10.5px;line-height:1.55;color:var(--ink-soft);}
+
+/* matrix */
+.mx{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px;}
+.mx .c{border:1px solid var(--line);border-radius:10px;padding:13px 15px;}
+.mx .c .h{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.mx .c ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.mx .c li{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--ink-soft);}
+.dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+.dot.u{background:var(--good);}.dot.e{background:var(--warn);}.dot.a{background:var(--orange);}
+.callout{background:var(--bg);border-radius:12px;border-left:2px solid var(--orange);padding:16px 20px;margin-top:14px;color:var(--off);}
+.callout .q{font-family:var(--serif);font-weight:700;font-size:15px;line-height:1.35;color:#fff;}
+.callout .q em{font-style:italic;color:var(--orange);}
+.callout .c{font-size:10.5px;color:var(--off-mute);margin-top:8px;line-height:1.55;}
+
+/* steps — robust flex, content in ONE wrapper */
+.steps{display:flex;flex-direction:column;gap:10px;margin-top:6px;counter-reset:s;}
+.steps .st{display:flex;gap:13px;align-items:flex-start;}
+.steps .st .sn{flex:0 0 26px;height:26px;border-radius:50%;background:var(--orange);color:#fff;font-family:var(--mono);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.steps .st .sc{flex:1;font-size:11px;line-height:1.55;color:var(--ink-soft);}
+.steps .st .sc b{color:var(--ink);font-weight:600;}
+.steps .st .sc code{font-family:var(--mono);font-size:10px;background:var(--line-2);padding:1px 6px;border-radius:4px;color:var(--orange-deep);}
+.note{font-size:9.5px;line-height:1.5;color:var(--ink-mute);border-top:1px solid var(--line);padding-top:11px;margin-top:14px;}
+.note strong{color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="page page--dark">
+  <div class="pad title-wrap">
+    <span class="logo" style="font-family:var(--serif);font-weight:700;font-style:italic;font-size:20px;color:#fff;">Montisoro</span>
+    <div class="tt-mid">
+      <div class="tt-rule"></div>
+      <div class="tt-kicker">Verzuimrapport · Leeswijzer</div>
+      <h1 class="tt-h">Hoe we het rapport<br>maken — en <em>waarom.</em></h1>
+      <p class="tt-sub">Een korte gids bij de 27 voorbeeldrapporten: de gedachte erachter, hoe elke pagina is opgebouwd, welke tekst meebeweegt met de cijfers, en hoe u de varianten bekijkt.</p>
+    </div>
+    <div class="tt-foot"><span>Re-integrate What Matters</span><span>Leeswijzer · 27 voorbeeldrapporten</span></div>
+  </div>
+</section>
+
+<!-- PAGE 1 — DE GEDACHTE + ANATOMIE -->
+<section class="page">
+  <div class="pad">
+    <div class="ph"><span class="logo">Montisoro</span><span class="tag">Leeswijzer · 01</span></div>
+    <span class="eyebrow">De gedachte</span>
+    <h2 class="t">Eén rapport dat zich aanpast aan <em>uw cijfers.</em></h2>
+    <p class="lead">Het verzuimrapport is geen vaste brochure. Het wordt opgebouwd uit de gegevens die een organisatie ingeeft in de calculator, en vertaalt die naar een leesbaar verhaal van tien pagina's: wat verzuim kost, hoe het zich verhoudt tot de sector, en welke stappen het meest opleveren.</p>
+
+    <div class="why">
+      <div class="c"><div class="h">Wat is <em>vast</em></div><p>De opbouw, de volgorde en de huisstijl van de tien pagina's liggen vast. Zo herkent elke lezer dezelfde structuur en blijft het rapport professioneel en consistent.</p></div>
+      <div class="c"><div class="h">Wat <em>meebeweegt</em></div><p>De cijfers (kost, besparing, FTE) worden per organisatie berekend. De analyse­teksten op pagina 6–10 passen zich aan: ze veranderen mee met hoe de cijfers zich tot de benchmark verhouden.</p></div>
+    </div>
+
+    <div class="divlabel">De tien pagina's — en wat erop staat</div>
+    <div class="anat">
+      <div class="row"><span class="n">1</span><div class="body"><span class="ti">Titelblad<span class="tagm fix">vast</span></span><div class="ds">Organisatie, datum en taal — de identificatie van het rapport.</div></div></div>
+      <div class="row"><span class="n">2</span><div class="body"><span class="ti">Executive summary<span class="tagm fix">vast</span></span><div class="ds">Korte samenvatting en de inhoudsopgave van de zeven onderdelen.</div></div></div>
+      <div class="row"><span class="n">3</span><div class="body"><span class="ti">Overzicht ingevoerde gegevens<span class="tagm dyn">cijfers</span></span><div class="ds">Alle invoer overzichtelijk terug, met doorlopende kosten per Arbeiders / Bedienden / Beide.</div></div></div>
+      <div class="row"><span class="n">4</span><div class="body"><span class="ti">Directe &amp; totale verzuimkost<span class="tagm dyn">cijfers</span></span><div class="ds">Beide kostbegrippen, telkens ook omgerekend per kalenderdag én per werkdag.</div></div></div>
+      <div class="row"><span class="n">5</span><div class="body"><span class="ti">Financiële impact simulator<span class="tagm dyn">cijfers</span></span><div class="ds">Drie besparingsscenario's: Casey AI (vroege inschatting), week 8, en de combinatie.</div></div></div>
+      <div class="row"><span class="n">6–8</span><div class="body"><span class="ti">Detailanalyse per verzuimtype<span class="tagm dyn">tekst beweegt</span></span><div class="ds">Kort · middellang · langdurig — per type één analyse, gekozen op basis van uw cijfer t.o.v. de benchmark.</div></div></div>
+      <div class="row"><span class="n">9</span><div class="body"><span class="ti">Strategische inzichten<span class="tagm dyn">tekst beweegt</span></span><div class="ds">FTE-equivalent, positie t.o.v. de sector, cascade-risico en besparingsscenario's.</div></div></div>
+      <div class="row"><span class="n">10</span><div class="body"><span class="ti">Aanbevelingen &amp; plan van aanpak<span class="tagm dyn">tekst beweegt</span></span><div class="ds">Conclusie waarvan de toon het risiconiveau volgt, plus het diagnosegesprek en contact.</div></div></div>
+    </div>
+
+    <div class="legend">
+      <span><span class="tagm fix" style="margin:0;">vast</span> Structuur ligt vast</span>
+      <span><span class="tagm dyn" style="margin:0;">cijfers</span> Per organisatie berekend</span>
+      <span><span class="tagm dyn" style="margin:0;">tekst beweegt</span> Tekst volgt de cijfers</span>
+    </div>
+
+    <div class="pf"><span>Montisoro — Verzuimrapport</span><span>De gedachte &amp; de opbouw</span><span class="no">01</span></div>
+  </div>
+</section>
+
+<!-- PAGE 2 — WAAROM 27 + HOE BEKIJKEN -->
+<section class="page">
+  <div class="pad">
+    <div class="ph"><span class="logo">Montisoro</span><span class="tag">Leeswijzer · 02</span></div>
+    <span class="eyebrow">De varianten</span>
+    <h2 class="t">Waarom dit pakket <em>27</em> rapporten bevat.</h2>
+    <p class="lead">Op pagina 6, 7 en 8 toont het rapport per verzuimtype één van drie analyses — afhankelijk van of uw cijfer onder, op of boven de benchmark ligt. Drie types × drie statussen geeft 27 mogelijke uitkomsten. Dit pakket bevat ze allemaal, zodat u precies ziet welke tekst een klant in elk geval krijgt.</p>
+
+    <div class="mx">
+      <div class="c"><div class="h">Kort verzuim</div><ul><li><span class="dot u"></span>Beter dan benchmark</li><li><span class="dot e"></span>Gelijk</li><li><span class="dot a"></span>Boven benchmark</li></ul></div>
+      <div class="c"><div class="h">Middellang</div><ul><li><span class="dot u"></span>Beter dan benchmark</li><li><span class="dot e"></span>Gelijk</li><li><span class="dot a"></span>Boven benchmark</li></ul></div>
+      <div class="c"><div class="h">Langdurig</div><ul><li><span class="dot u"></span>Beter dan benchmark</li><li><span class="dot e"></span>Gelijk</li><li><span class="dot a"></span>Boven benchmark</li></ul></div>
+    </div>
+
+    <div class="callout">
+      <p class="q">3 × 3 × 3 = <em>27</em> combinaties.</p>
+      <p class="c">De rekenmotor kiest automatisch de juiste combinatie op basis van de ingegeven cijfers. In de echte calculator krijgt een klant dus altijd precies één van deze 27 rapporten — op maat van zijn situatie.</p>
+    </div>
+
+    <div class="divlabel">Hoe bekijkt u de 27?</div>
+    <div class="steps">
+      <div class="st"><div class="sn">1</div><div class="sc"><b>Open <code>index.html</code></b> in het pakket. U ziet een klikbare lijst van alle 27, met per regel de status van kort, middellang en langdurig — kleurgecodeerd.</div></div>
+      <div class="st"><div class="sn">2</div><div class="sc"><b>Klik een combinatie</b> om dat volledige rapport van tien pagina's te openen. Elk bestand werkt zelfstandig — geen internet of extra bestanden nodig.</div></div>
+      <div class="st"><div class="sn">3</div><div class="sc"><b>Opslaan als PDF:</b> open een rapport en kies Afdrukken (Cmd/Ctrl + P) → “Opslaan als PDF”.</div></div>
+    </div>
+
+    <p class="note"><strong>Over de bedragen in deze set:</strong> bij alle 27 voorbeelden staan de bedragen op dezelfde voorbeeldorganisatie (250 medewerkers, €45.000 gemiddeld brutoloon). Zo zijn de teksten zuiver met elkaar te vergelijken — alleen het verzuimprofiel verschilt, en dat bepaalt welke van de 27 verschijnt. <strong>Benchmarkbron:</strong> SD Worx 2024 en “Ziekteverzuim in België 2025” — kort 3,3% · middellang 1,9% · langdurig 1,4%.</p>
+
+    <div class="pf"><span>Montisoro — Verzuimrapport</span><span>De varianten &amp; hoe te bekijken</span><span class="no">02</span></div>
+  </div>
+</section>
+
+</body>
+</html>

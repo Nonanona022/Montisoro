@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Montisoro — Evidence Demo (concept)</title>
+<style>
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-900.woff2') format('woff2');font-weight:900;font-display:swap;}
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-700.woff2') format('woff2');font-weight:700;font-display:swap;}
+@font-face{font-family:'Playfair Display';src:url('assets/fonts/playfair-italic-700.woff2') format('woff2');font-weight:700;font-style:italic;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-400.woff2') format('woff2');font-weight:400;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+@font-face{font-family:'DM Sans';src:url('assets/fonts/dmsans-600.woff2') format('woff2');font-weight:600;font-display:swap;}
+:root{--bg:#13100d;--surface:#1b1714;--line:rgba(240,237,232,.12);--white:#F0EDE8;--off:#D8D3CC;--muted:#9a938b;--muted2:#736d65;--orange:#E8592B;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--off);font-family:var(--sans);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:clamp(40px,6vw,90px) clamp(20px,5vw,48px);}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(34px,5.5vw,60px);line-height:1.02;letter-spacing:-.02em;color:var(--white);margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(16px,1.8vw,20px);line-height:1.7;color:var(--off);max-width:60ch;}
+.note{font-size:13px;color:var(--muted2);margin-top:22px;padding-top:18px;border-top:1px solid var(--line);max-width:70ch;}
+.block{margin-top:clamp(48px,7vw,80px);}
+.block-head{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3vw,30px);color:var(--white);margin-bottom:6px;letter-spacing:-.01em;}
+.block-head .no{font-style:italic;color:var(--orange);margin-right:10px;}
+.block-why{font-size:14px;color:var(--muted);max-width:64ch;margin-bottom:8px;}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;}
+@media(max-width:760px){.ba{grid-template-columns:1fr;}}
+.col{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--surface);}
+.col .lbl{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;}
+.col.before .lbl{color:var(--muted2);} .col.after .lbl{color:var(--orange);}
+/* CTA mock */
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:100px;padding:11px 22px;font-size:14px;font-weight:600;text-decoration:none;}
+.btn-primary{background:var(--orange);color:#fff;} .btn-ghost{border:1.5px solid rgba(240,237,232,.35);color:var(--off);}
+.host{display:flex;align-items:center;gap:14px;margin-top:18px;}
+.host img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:1px solid var(--line);}
+.host .nm{font-family:var(--serif);font-weight:700;color:var(--white);font-size:15px;}
+.host .rl{font-size:12.5px;color:var(--muted);}
+/* team strip */
+.team{display:flex;gap:-10px;margin-top:6px;}
+.team img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--bg);margin-right:-14px;box-shadow:0 0 0 1px var(--line);}
+.team-cap{margin-top:18px;font-size:13px;color:var(--muted);}
+/* report preview */
+.rep{display:flex;align-items:center;gap:16px;border:1px solid var(--line);border-radius:12px;padding:16px;background:rgba(240,237,232,.03);margin-top:8px;}
+.rep .thumb{width:62px;height:80px;border-radius:6px;background:linear-gradient(160deg,#1b1714,#0d0b09);border:1px solid var(--line);flex:none;position:relative;overflow:hidden;}
+.rep .thumb::before{content:"";position:absolute;left:8px;right:8px;top:10px;height:3px;background:var(--orange);border-radius:2px;box-shadow:0 8px 0 rgba(240,237,232,.18),0 16px 0 rgba(240,237,232,.12),0 24px 0 rgba(240,237,232,.12);}
+.rep .rt{font-family:var(--serif);font-weight:700;color:var(--white);font-size:15px;}
+.rep .rs{font-size:12.5px;color:var(--muted);}
+.rep a{color:var(--orange);font-size:13px;font-weight:600;text-decoration:none;}
+/* storm placeholder */
+.storm{margin-top:8px;border:1.5px dashed rgba(232,89,43,.5);border-radius:14px;padding:34px 24px;text-align:center;background:rgba(232,89,43,.04);}
+.storm .pi{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+.storm .pt{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--off);}
+.storm .ps{font-size:12.5px;color:var(--muted2);margin-top:6px;}
+.miss{font-size:13px;color:var(--off);}
+.eff{font-size:12.5px;color:var(--muted);margin-top:14px;}
+.eff b{color:var(--off);font-weight:500;}
+.dim{color:var(--muted2);font-size:13.5px;}
+.logos{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:8px;opacity:.8;}
+.logos img{height:22px;width:auto;filter:brightness(0) invert(1);opacity:.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="tag">Concept · raakt de echte site niet</span>
+  <h1>Evidence <em>Demo</em></h1>
+  <p class="lead">Niet mooier — <strong>overtuigender</strong>. Per ingreep tonen we het bewijs dat een koper onbewust zoekt, met materiaal dat <em>vandaag al in het project bestaat</em>. Enkel Storm (Product Proof) is gesimuleerd, want dat ontbreekt echt.</p>
+  <div class="note">Bestaand materiaal gebruikt: 11 echte teamfoto's, 21 klantlogo's, het verzuim- en fit-check-rapport. Geen stock, geen AI-mensen.</div>
+
+  <!-- 1 · CONTACT -->
+  <div class="block">
+    <div class="block-head"><span class="no">01</span>Contact — Human Proof</div>
+    <div class="block-why"><b style="color:var(--off)">Twijfel:</b> "Praat ik straks met een echt mens, of stuur ik een formulier het niets in?" — die aarzeling staat exact op het conversiemoment.</div>
+    <div class="ba">
+      <div class="col before"><div class="lbl">Voor</div>
+        <div class="cta-row"><a class="btn btn-primary">Plan een gesprek →</a></div>
+        <p class="dim" style="margin-top:16px;">Anonieme organisatie. Geen gezicht, geen geruststelling wie je te woord staat.</p>
+      </div>
+      <div class="col after"><div class="lbl">Na · bestaand materiaal</div>
+        <div class="cta-row"><a class="btn btn-primary">Plan een gesprek →</a></div>
+        <div class="host"><img src="assets/team/laurence.jpg" alt="Laurence"><div><div class="nm">Laurence Van den Bergh</div><div class="rl">Founder · u spreekt rechtstreeks met Laurence</div></div></div>
+      </div>
+    </div>
+    <div class="eff"><b>Effect:</b> vertrouwen ↑↑ op het beslismoment · conversie ↑↑ (gezicht op CTA) · branding onaangeroerd.</div>
+  </div>
+
+  <!-- 2 · CALCULATOR / FIT CHECK -->
+  <div class="block">
+    <div class="block-head"><span class="no">02</span>Calculator &amp; Fit Check — Result Proof</div>
+    <div class="block-why"><b style="color:var(--off)">Twijfel:</b> "Wat krijg ik eigenlijk als ik mijn gegevens invul?" — de bezoeker geeft data zonder te weten welk eindproduct hij terugkrijgt.</div>
+    <div class="ba">
+      <div class="col before"><div class="lbl">Voor</div>
+        <p class="dim">Formulier → "Ontvang rapport". Het rapport zelf is onzichtbaar tot ná het invullen.</p>
+      </div>
+      <div class="col after"><div class="lbl">Na · bestaand materiaal (rapport-template)</div>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:4px;">Dit ontvangt u:</p>
+        <div class="rep"><div class="thumb"></div><div><div class="rt">Uw verzuimrapport</div><div class="rs">10 pagina's · gepersonaliseerd · PDF</div><a href="documents/verzuimrapport-test-report.html" target="_blank">Bekijk een voorbeeld →</a></div></div>
+      </div>
+    </div>
+    <div class="eff"><b>Effect:</b> tastbaar eindproduct vóór de invoer · conversie ↑↑ (minder afhaak) · resultaatbewijs ↑↑.</div>
+  </div>
+
+  <!-- 3 · ABOUT -->
+  <div class="block">
+    <div class="block-head"><span class="no">03</span>About — Human Proof</div>
+    <div class="block-why"><b style="color:var(--off)">Twijfel:</b> "Wie zit hier achter?" — een verhaal over mensen zonder gezichten voelt afstandelijk.</div>
+    <div class="ba">
+      <div class="col before"><div class="lbl">Voor</div>
+        <p class="dim">Sterk founder-verhaal in tekst — maar geen enkel gezicht. Je hébt 11 echte foto's; ze staan er niet.</p>
+      </div>
+      <div class="col after"><div class="lbl">Na · bestaand materiaal (echte teamfoto's)</div>
+        <div class="team">
+          <img src="assets/team/laurence.jpg" alt=""><img src="assets/team/jeroen.jpg" alt=""><img src="assets/team/glenn.jpg" alt=""><img src="assets/team/astrid.jpg" alt=""><img src="assets/team/edith.jpg" alt=""><img src="assets/team/rico.jpg" alt="">
+        </div>
+        <div class="team-cap">Het team achter Montisoro — echte mensen, geen merk.</div>
+      </div>
+    </div>
+    <div class="eff"><b>Effect:</b> menselijkheid ↑↑ · vertrouwen ↑ · "bedrijf van mensen" i.p.v. abstract merk.</div>
+  </div>
+
+  <!-- 4 · TECHNOLOGIE -->
+  <div class="block">
+    <div class="block-head"><span class="no">04</span>Technologie — Product Proof <span style="font-size:.5em;color:var(--orange);font-style:normal;">(enige echte leemte)</span></div>
+    <div class="block-why"><b style="color:var(--off)">Twijfel:</b> "Laat het product zien." — Storm/Casey zijn nu pure tekst. Een niet-technische beslisser ziet nooit wat het ís.</div>
+    <div class="ba">
+      <div class="col before"><div class="lbl">Voor</div>
+        <p class="dim">Abstracte tekst (Agentic AI, Human-in-the-Loop). Het product blijft een belofte.</p>
+      </div>
+      <div class="col after"><div class="lbl">Na · GESIMULEERD (nieuw materiaal nodig)</div>
+        <div class="storm"><div class="pi">Hier hoort een Storm-screenshot</div><div class="pt">"Belofte" → "Product"</div><div class="ps">Een echte UI-opname van Storm/Casey maakt dit het sterkste bewijs op de site.</div></div>
+      </div>
+    </div>
+    <div class="eff"><b>Effect:</b> geloofwaardigheid ↑↑↑ — maar <b>vereist één echt beeld van jou</b>. Dit is het enige dat we niet uit bestaand materiaal kunnen halen.</div>
+  </div>
+
+  <!-- TRUST (al live, ter referentie) -->
+  <div class="block">
+    <div class="block-head"><span class="no">05</span>Trust Proof — al sterk &amp; live</div>
+    <div class="block-why">Ter referentie: 21 echte klantlogo's draaien al in de "Vertrouwd door"-marquee. Geen ingreep nodig.</div>
+    <div class="logos">
+      <img src="assets/logos/volvo.png" alt="Volvo"><img src="assets/logos/axa.png" alt="AXA"><img src="assets/logos/novartis.png" alt="Novartis"><img src="assets/logos/securitas.png" alt="Securitas"><img src="assets/logos/vaillant.png" alt="Vaillant">
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:64px;">Demo-bestand · <code>website/demo-evidence.html</code> — niet gelinkt vanaf de echte site, niet in de navigatie. De productie-site is volledig onaangeroerd.</div>
+
+</div>
+</body>
+</html>

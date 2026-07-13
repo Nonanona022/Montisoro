@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montisoro — Gebruikerspanel & Awwwards-jury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  :root{
+    --orange:#E8592B; --ink:#1a1a1a; --muted:#6b7280; --line:#e4e0d9; --tint:#faf6f2; --dark:#13100D;
+    --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,sans-serif;
+    --good:#1F8A5B; --warn:#B45309; --crit:#B42318;
+  }
+  *{box-sizing:border-box;}
+  doc-page{font-family:var(--sans);color:var(--ink);font-weight:300;font-size:13.5px;line-height:1.72;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.12;margin:0;color:var(--ink);}
+  em{font-style:italic;color:var(--orange);}
+  .eyebrow{font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--orange);display:inline-block;}
+  .cover{border-bottom:1.5px solid var(--ink);padding-bottom:26px;margin-bottom:30px;}
+  .cover h1{font-size:39px;font-weight:900;letter-spacing:-.01em;margin-bottom:10px;}
+  .cover .lead{font-size:15px;color:var(--muted);max-width:58ch;margin-top:14px;line-height:1.7;}
+  .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:22px;font-size:11px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
+  .meta b{display:block;color:var(--ink);font-weight:600;font-size:12.5px;letter-spacing:0;text-transform:none;margin-top:3px;}
+
+  .group{margin-top:36px;}
+  .group > h2{font-size:23px;font-weight:900;letter-spacing:-.01em;padding-bottom:8px;border-bottom:1.5px solid var(--ink);margin-bottom:4px;}
+  .group .sub{font-size:12px;color:var(--muted);margin:8px 0 20px;max-width:64ch;}
+
+  /* persona card */
+  .persona{break-inside:avoid;margin:0 0 16px;border:1px solid var(--line);border-radius:2px;padding:15px 18px;}
+  .persona .top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:6px;}
+  .persona .who{font-weight:700;font-size:14px;font-family:var(--serif);}
+  .persona .who span{font-family:var(--sans);font-weight:400;font-size:11px;color:var(--muted);display:block;letter-spacing:.02em;}
+  .persona .sc{font-family:var(--serif);font-weight:900;font-size:20px;color:var(--orange);white-space:nowrap;}
+  .persona p{margin:5px 0 0;font-size:12.5px;max-width:70ch;}
+  .persona .q{color:var(--muted);}
+  .persona .q b{color:var(--ink);font-weight:600;}
+
+  /* score table (jury) */
+  .scorecard{margin:6px 0;}
+  .scorerow{display:flex;align-items:baseline;gap:14px;padding:7px 0;border-bottom:1px solid var(--line);}
+  .scorerow:first-of-type{border-top:1px solid var(--line);}
+  .scorerow .pg{flex:1 1 auto;font-weight:500;font-size:13px;}
+  .scorerow .bar{flex:0 0 120px;height:5px;background:#eceae5;border-radius:3px;position:relative;overflow:hidden;}
+  .scorerow .bar i{position:absolute;inset:0 auto 0 0;background:var(--orange);border-radius:3px;}
+  .scorerow .sc{flex:0 0 52px;text-align:right;font-family:var(--serif);font-weight:700;font-size:15px;}
+  .scorerow.total{border-bottom:2px solid var(--ink);border-top:2px solid var(--ink);margin-top:6px;padding:12px 0;}
+  .scorerow.total .pg{font-weight:700;font-size:14px;}.scorerow.total .sc{font-size:19px;color:var(--orange);}
+
+  .finding{break-inside:avoid;margin:0 0 20px;padding-left:46px;position:relative;}
+  .finding .num{position:absolute;left:0;top:-3px;font-family:var(--serif);font-weight:900;font-style:italic;font-size:26px;color:var(--orange);line-height:1;}
+  .finding .head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px;}
+  .finding h3{font-size:15.5px;font-weight:700;line-height:1.2;}
+  .badge{font-weight:700;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:2px 9px;white-space:nowrap;}
+  .b-crit{background:#fbeae8;color:var(--crit);border:1px solid #f3c9c4;}
+  .b-hoog{background:#fdf0e6;color:var(--warn);border:1px solid #f5d9bd;}
+  .b-mid{background:#f1f0ee;color:#5c574f;border:1px solid #e0ddd6;}
+  .finding .row{margin:0 0 6px;font-size:12.5px;max-width:66ch;}
+  .finding .row .lab{font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+  .finding .fix{border-left:2px solid var(--orange);padding:6px 0 6px 14px;background:var(--tint);border-radius:0 2px 2px 0;margin:8px 0 0;}
+  .finding .fix .lab{color:var(--orange);}.finding .fix p{margin:0;font-size:12.5px;color:var(--ink);}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;background:#f1efec;padding:1px 5px;border-radius:3px;color:#5a352a;}
+
+  .debate{background:var(--dark);color:#e6e1da;border-radius:2px;padding:22px 26px;margin:22px 0;}
+  .debate .eyebrow{color:#F0A488;}.debate .eyebrow::before{background:#F0A488;}
+  .debate h2{color:#fff;font-size:19px;margin-bottom:12px;}
+  .debate p{color:#cfc9c0;font-size:12.5px;margin:0 0 10px;max-width:66ch;}
+  .debate p b{color:#fff;font-weight:600;}
+  .debate .vs{color:#F0A488;font-weight:600;}
+
+  .foot-note{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);}
+  p.body{max-width:66ch;}
+  .disc{display:flex;gap:10px;align-items:baseline;margin:0 0 7px;font-size:12.5px;}
+  .disc b{font-family:var(--serif);font-style:italic;color:var(--orange);flex:0 0 auto;font-weight:700;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#13100D"/>
+  <g fill="none" stroke="#E8592B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="50,22 60,42 82,45 66,61 70,82 50,72 30,82 34,61 18,45 40,42"/>
+  </g>
+</svg>
+</template>
+<doc-page size="a4" margin="0.7in">
+
+  <div class="cover">
+    <p class="eyebrow">Onafhankelijk gebruikerspanel · Awwwards-jury</p>
+    <h1>Zou <em>ik</em> deze site vertrouwen?</h1>
+    <p class="lead">Tien realistische bezoekers doorlopen Montisoro voor het eerst — CEO's, HR, preventie, operations, marketing, IT en een koude prospect — gevolgd door een Awwwards-jury van tien specialisten. Per persona een eerlijk oordeel, per jurylid een score op elk criterium, dan een panelbespreking en een verbeterplan. Er zijn géén sitewijzigingen gedaan: dit is de beoordeling die daaraan voorafgaat.</p>
+    <div class="meta">
+      <div>Datum<b>7 juli 2026</b></div>
+      <div>Gebruikers<b>10 personas</b></div>
+      <div>Jury<b>10 specialisten</b></div>
+      <div>Gemiddeld<b>8,7 / 10</b></div>
+    </div>
+  </div>
+
+  <!-- DEEL 1 — GEBRUIKERS -->
+  <div class="group">
+    <h2>Deel 1 — Onafhankelijke gebruikers</h2>
+    <p class="sub">Elke persona bezocht de site koud, op de eerste indruk (10 sec), vertrouwen, vindbaarheid, twijfel, frustratie, en of ze hun gegevens zouden achterlaten. Meningsverschillen staan expliciet.</p>
+
+    <div class="persona">
+      <div class="top"><div class="who">1 · CEO — ±50 medewerkers<span>Kostenbewust, weinig HR-capaciteit</span></div><div class="sc">8,5</div></div>
+      <p class="q"><b>Eerste indruk:</b> "Meteen duidelijk dat verzuim geld kost — de €266/dag pakt me." <b>Twijfel:</b> "Is dit voor een bedrijf van mijn grootte, of alleen voor multinationals als Volvo/Alcon?" <b>Zou gegevens achterlaten:</b> ja, via de calculator — die voelt vrijblijvend. <b>Zwak:</b> geen prijsindicatie of "hoe start ik"-drempel.</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">2 · CEO — ±100 medewerkers<span>Groeiend, professionaliseert HR</span></div><div class="sc">9,0</div></div>
+      <p class="q"><b>Eerste indruk:</b> "Premium, rustig, geen goedkope trucs." <b>Begrijpt Montisoro:</b> ja — externe regie + platform + AI. <b>Zou contact opnemen:</b> ja, na de calculator. <b>Zwak:</b> "Storm en Casey worden verteld, niet getoond — ik wil een scherm zien."</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">3 · CEO — ±250 medewerkers<span>Meerdere sites, bestuurlijk</span></div><div class="sc">8,5</div></div>
+      <p class="q"><b>Vertrouwen:</b> hoog door de cases en cijfers. <b>Twijfel:</b> "De resultaatcijfers (−32%) — zijn die per klant onderbouwd of algemeen?" <b>Ontbreekt:</b> een bestuurlijk one-pager/PDF om intern te delen.</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">4 · HR Director<span>Eindverantwoordelijk verzuimbeleid</span></div><div class="sc">9,0</div></div>
+      <p class="q"><b>Eerste indruk:</b> "Dit is duidelijk voor mij gemaakt." <b>Vindbaarheid:</b> Aanpak + Fit Check zijn precies wat ik zoek. <b>Zou gegevens achterlaten:</b> ja. <b>Zwak:</b> "De Fit Check is sterk; ik miste even hoe lang hij duurt vóór ik start."</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">5 · HR Business Partner<span>Uitvoerend, dossiergericht</span></div><div class="sc">8,0</div></div>
+      <p class="q"><b>Frustratie:</b> "Ik wilde één concrete case volledig lezen — de foto's ogen soms nog als placeholder." <b>Ontbreekt:</b> een portret bij de quote maakt 'm menselijker. <b>Sterk:</b> de KB RIT 3.0-context wekt expertise.</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">6 · Preventieadviseur<span>Wettelijk kader, wil correctheid</span></div><div class="sc">8,5</div></div>
+      <p class="q"><b>Vertrouwen:</b> hoog — juiste terminologie, geen overpromissen. <b>Twijfel:</b> "Waar houdt Montisoro op en begint de arbeidsarts? Dat mag scherper." <b>Zwak:</b> rolafbakening ontbreekt.</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">7 · Operations Manager<span>Praktisch, tijd = geld</span></div><div class="sc">8,0</div></div>
+      <p class="q"><b>Eerste indruk:</b> "Mooi, maar ik wil sneller naar 'wat kost het mij / wat levert het op'." <b>Sterk:</b> calculator lost dat op. <b>Zwak:</b> "Iets te veel scrollen op sommige pagina's vóór de kern."</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">8 · Marketing Manager<span>Beoordeelt merk & afwerking</span></div><div class="sc">9,3</div></div>
+      <p class="q"><b>Eerste indruk:</b> "Dit is het meest verzorgde merk in deze niche dat ik ken." <b>Sterk:</b> typografie, rust, editorial hero. <b>Zwak:</b> "OG-deelbeeld en een enkele micro-interactie kunnen nog scherper voor social."</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">9 · IT Manager<span>Let op privacy, techniek, snelheid</span></div><div class="sc">8,8</div></div>
+      <p class="q"><b>Vertrouwen:</b> hoog — cookieloze meting, geen tracking-banner-rommel. <b>Twijfel:</b> "Laadsnelheid op 4G wil ik bevestigd zien (Lighthouse)." <b>Sterk:</b> geen console-fouten, nette techniek.</p>
+    </div>
+    <div class="persona">
+      <div class="top"><div class="who">10 · Koude prospect<span>Kent Montisoro niet</span></div><div class="sc">7,8</div></div>
+      <p class="q"><b>Eerste 10 sec:</b> "Mooi — maar wát is Montisoro precies? Adviesbureau, software, of verzekeraar?" <b>Twijfel:</b> de categorie is niet in één zin duidelijk boven de vouw. <b>Zou aanbevelen:</b> pas na de calculator, die overtuigt. <b>Grootste kloof van alle personas.</b></p>
+    </div>
+
+    <p class="body" style="margin-top:16px;"><b>Meningsverschil (expliciet):</b> de <span style="color:var(--warn)">koude prospect (7,8)</span> en <span style="color:var(--warn)">HR Business Partner (8,0)</span> vinden de eerste-indruk-duidelijkheid en de case-foto's een reëel bezwaar; de <span style="color:var(--good)">Marketing Manager (9,3)</span> en CEO-100 (9,0) vinden de rust en het merk net de kracht. De rode draad: <b>het merk oogt af, maar de allereerste zin "wat is dit en is het voor mij" en de laatste 10% bewijsmateriaal (foto's, onderbouwde cijfers, Storm/Casey tonen) kunnen sterker.</b> Gemiddelde gebruikersscore: <b>8,54/10</b>.</p>
+  </div>
+
+  <!-- DEEL 2 — AWWWARDS JURY -->
+  <div class="group">
+    <h2>Deel 2 — Awwwards-jury</h2>
+    <p class="sub">Tien specialisten scoorden elk criterium volgens Awwwards-normen (design, creativiteit, UX, motion, performance, …). Gemiddelde per criterium:</p>
+    <div class="scorecard">
+      <div class="scorerow"><span class="pg">Design</span><span class="bar"><i style="width:92%"></i></span><span class="sc">9,2</span></div>
+      <div class="scorerow"><span class="pg">Creativiteit</span><span class="bar"><i style="width:82%"></i></span><span class="sc">8,2</span></div>
+      <div class="scorerow"><span class="pg">Originaliteit</span><span class="bar"><i style="width:80%"></i></span><span class="sc">8,0</span></div>
+      <div class="scorerow"><span class="pg">Visuele hiërarchie</span><span class="bar"><i style="width:91%"></i></span><span class="sc">9,1</span></div>
+      <div class="scorerow"><span class="pg">Typografie</span><span class="bar"><i style="width:94%"></i></span><span class="sc">9,4</span></div>
+      <div class="scorerow"><span class="pg">Kleurgebruik</span><span class="bar"><i style="width:91%"></i></span><span class="sc">9,1</span></div>
+      <div class="scorerow"><span class="pg">Consistentie</span><span class="bar"><i style="width:93%"></i></span><span class="sc">9,3</span></div>
+      <div class="scorerow"><span class="pg">Micro-interacties</span><span class="bar"><i style="width:82%"></i></span><span class="sc">8,2</span></div>
+      <div class="scorerow"><span class="pg">Motion</span><span class="bar"><i style="width:84%"></i></span><span class="sc">8,4</span></div>
+      <div class="scorerow"><span class="pg">Storytelling</span><span class="bar"><i style="width:86%"></i></span><span class="sc">8,6</span></div>
+      <div class="scorerow"><span class="pg">Navigatie</span><span class="bar"><i style="width:90%"></i></span><span class="sc">9,0</span></div>
+      <div class="scorerow"><span class="pg">UX</span><span class="bar"><i style="width:89%"></i></span><span class="sc">8,9</span></div>
+      <div class="scorerow"><span class="pg">Mobile UX</span><span class="bar"><i style="width:94%"></i></span><span class="sc">9,4</span></div>
+      <div class="scorerow"><span class="pg">Responsive design</span><span class="bar"><i style="width:93%"></i></span><span class="sc">9,3</span></div>
+      <div class="scorerow"><span class="pg">Performance</span><span class="bar"><i style="width:88%"></i></span><span class="sc">8,8*</span></div>
+      <div class="scorerow"><span class="pg">Accessibility</span><span class="bar"><i style="width:95%"></i></span><span class="sc">9,5</span></div>
+      <div class="scorerow"><span class="pg">Conversie</span><span class="bar"><i style="width:86%"></i></span><span class="sc">8,6</span></div>
+      <div class="scorerow"><span class="pg">Vertrouwen</span><span class="bar"><i style="width:86%"></i></span><span class="sc">8,6</span></div>
+      <div class="scorerow"><span class="pg">Professionaliteit</span><span class="bar"><i style="width:94%"></i></span><span class="sc">9,4</span></div>
+      <div class="scorerow"><span class="pg">Premium-uitstraling</span><span class="bar"><i style="width:93%"></i></span><span class="sc">9,3</span></div>
+      <div class="scorerow total"><span class="pg">Algemene Awwwards-score</span><span class="bar"><i style="width:89%"></i></span><span class="sc">8,9</span></div>
+    </div>
+    <p class="body" style="font-size:11.5px;color:var(--muted);margin-top:8px;">*Performance = code-inschatting (self-hosted fonts + preload, gedeferde scripts, lazy-load, <code>decoding=async</code>, <code>fetchpriority</code> op LCP-logo); definitief cijfer na Lighthouse op productie. Awwwards' typische drempel voor een nominatie/SOTD ligt rond 6,5–8,0 — deze site zit daar comfortabel boven; de laagste subscores (creativiteit/originaliteit/micro-interacties) zijn waar een "Site of the Day"-jury het onderscheid maakt.</p>
+  </div>
+
+  <!-- DEEL 3 — OVERLEG -->
+  <div class="debate">
+    <p class="eyebrow">Deel 3 — Panelbespreking</p>
+    <h2>Waar het panel botst — en waar het uitkomt</h2>
+    <p><b>Creative Director</b> <span class="vs">vs</span> <b>CRO-specialist:</b> de CD wil méér durf (een signature-moment, een grotere motion-ingreep) om Awwwards-originaliteit te halen; de CRO waarschuwt dat extra spektakel de conversie kan schaden en de rust — het sterkste merkactivum — verstoort. <b>Uitkomst:</b> geen algemene "wow", maar één beheerst signature-moment op een strategische plek (de Storm/Casey-onthulling), dat tegelijk het #1 vertrouwensgat dicht.</p>
+    <p><b>Branding Expert</b> <span class="vs">vs</span> <b>koude prospect:</b> het merk gaat uit van bekendheid met de categorie ("externe regie bij verzuim"); de prospect verdwaalt in de eerste 10 seconden. <b>Uitkomst:</b> één categorie-verhelderende zin boven de vouw lost het grootste gebruikersbezwaar op zonder de hero te herontwerpen.</p>
+    <p><b>Art Director</b> <span class="vs">vs</span> <b>Front-end Architect:</b> de AD wil echte case-fotografie + portretten (nu deels placeholder); de FE bevestigt dat de infrastructuur er al is (image-slots, <code>cases.js</code>) — het is een <b>materiaal</b>-kwestie, geen bouwkwestie. <b>Uitkomst:</b> foto's aanleveren is de hoogste niet-technische hefboom voor "vertrouwen".</p>
+    <p><b>Performance Expert:</b> de code is schoon, maar niemand mag 9+ op performance claimen zonder Lighthouse op het live domein. <b>Consensus:</b> meten hoort in de launch-checklist, niet in een aanname.</p>
+    <p><b>Motion Designer:</b> de scroll-reveals zijn smaakvol maar voorspelbaar; één betekenisvolle micro-interactie (bv. de calculator-uitkomst die "landt") tilt de motion-score zonder de rust te breken.</p>
+  </div>
+
+  <!-- DEEL 4 — VERBETERPLAN -->
+  <div class="group">
+    <h2>Deel 4 — Verbeterplan</h2>
+    <p class="sub">De beste, meest onderhoudbare oplossing per punt — niet de eerste de beste. Gerangschikt naar impact.</p>
+
+    <h3 style="font-size:15px;margin:14px 0 10px;color:var(--crit);">Kritiek — vóór livegang</h3>
+
+    <div class="finding">
+      <span class="num">01</span>
+      <div class="head"><h3>Categorie niet duidelijk in de eerste 10 seconden</h3><span class="badge b-crit">Kritiek</span></div>
+      <p class="row"><span class="lab">Waarom belangrijk</span>De koude prospect (de belangrijkste bezoeker voor groei) weet niet meteen óf Montisoro een adviesbureau, software of verzekeraar is. Dat kost de eerste, duurste bezoekers.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Eén korte, categorie-verhelderende regel boven of direct onder de hero-titel ("Externe regie bij langdurig verzuim — mens, expertise én technologie in één"). Geen herontwerp; één zin. <b>Impact:</b> tilt de zwakste persona (7,8) richting 8,5+ en verhoogt de conversie van nieuw verkeer.</p></div>
+    </div>
+    <div class="finding">
+      <span class="num">02</span>
+      <div class="head"><h3>Backend-config + formulier-rooktest (uit launch-audit)</h3><span class="badge b-crit">Kritiek</span></div>
+      <p class="row"><span class="lab">Waarom belangrijk</span>Zonder env-vars + migraties komen leads stil niet aan. Blokkeert een betrouwbare livegang.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Env-vars + migraties 0018–0022 zetten, dan één echte test-inzending per formulier + één Calculator-rapport (zie <code>DEPLOY-README.md</code>).</p></div>
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 10px;color:var(--warn);">Belangrijke verbeteringen</h3>
+
+    <div class="finding">
+      <span class="num">03</span>
+      <div class="head"><h3>Storm & Casey worden verteld, niet getoond</h3><span class="badge b-hoog">Belangrijk</span></div>
+      <p class="row"><span class="lab">Probleem</span>Twee CEO's, de jury en jouw eigen eerdere observatie: de technologie blijft abstract zonder productbeeld.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Het reeds voorbereide beeld/video-frame op technologie.html activeren zodra je de twee clips (Storm-demo, Casey-preview) aanlevert. Dit is tegelijk het "signature-moment" dat de jury voor originaliteit wil. <b>Verwachte verbetering:</b> vertrouwen +0,4, originaliteit +0,5.</p></div>
+    </div>
+    <div class="finding">
+      <span class="num">04</span>
+      <div class="head"><h3>Case-fotografie + portretten nog deels placeholder</h3><span class="badge b-hoog">Belangrijk</span></div>
+      <p class="row"><span class="lab">Probleem</span>HR Business Partner en Art Director: cases oogen onaf zonder echte sfeerfoto's en een portret bij de quote.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Echte foto's + portretten aanleveren en via het dashboard/<code>cases.js</code> koppelen (infra bestaat al). <b>Verwachte verbetering:</b> vertrouwen +0,3.</p></div>
+    </div>
+    <div class="finding">
+      <span class="num">05</span>
+      <div class="head"><h3>Onderbouwing van de resultaatcijfers</h3><span class="badge b-hoog">Belangrijk</span></div>
+      <p class="row"><span class="lab">Probleem</span>CEO-250 twijfelt of −32% per klant onderbouwd is of algemeen; sommige cijfers zijn nog illustratief.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Per case een bronregel/voetnoot ("gemeten over 12 maanden, klantdata") of het cijfer vervangen door een geverifieerd getal. <b>Verwachte verbetering:</b> vertrouwen +0,3.</p></div>
+    </div>
+    <div class="finding">
+      <span class="num">06</span>
+      <div class="head"><h3>Lighthouse/performance bevestigen op productie</h3><span class="badge b-hoog">Belangrijk</span></div>
+      <p class="row"><span class="lab">Probleem</span>IT Manager + Performance Expert: snelheid op 4G is nu een code-inschatting, geen meting.</p>
+      <div class="fix"><span class="lab">Beste oplossing</span><p>Na de eerste deploy Lighthouse (mobiel, 4G) draaien; trage assets (og-image, case-foto's) desnoods comprimeren/omzetten naar responsive formaten.</p></div>
+    </div>
+
+    <h3 style="font-size:15px;margin:22px 0 10px;color:var(--muted);">Kleine optimalisaties</h3>
+    <div class="finding" style="padding-left:46px;">
+      <span class="num">07</span>
+      <div class="head"><h3>Verfijningen</h3><span class="badge b-mid">Klein</span></div>
+      <p class="row" style="margin-bottom:3px;">• <b>Fit Check / Calculator:</b> duur + stappenaantal tonen vóór de start ("6 stappen · ± 2 min") — verlaagt de instapdrempel (Op. Manager, HR Director).</p>
+      <p class="row" style="margin-bottom:3px;">• <b>Rolafbakening</b> Montisoro ↔ arbeidsarts kort benoemen (Preventieadviseur).</p>
+      <p class="row" style="margin-bottom:3px;">• <b>Eén betekenisvolle micro-interactie</b> op de calculator-uitkomst (het cijfer dat "landt") — motion-score omhoog zonder rust te breken.</p>
+      <p class="row" style="margin-bottom:3px;">• <b>OG-deelbeeld</b> aanscherpen voor social (Marketing Manager).</p>
+      <p class="row" style="margin-bottom:0;">• <b>Bestuurlijke one-pager/PDF</b> om intern te delen (CEO-250).</p>
+    </div>
+  </div>
+
+  <!-- DEEL 5 — DOELSTELLING -->
+  <div class="group">
+    <h2>Deel 5 — Doelstelling & conclusie</h2>
+    <p class="body">De doelstelling — gemiddeld minstens <b>9/10</b> over gebruikerspanel én jury — is <b>bijna</b> bereikt: gebruikers <b>8,54</b>, jury <b>8,9</b>, gecombineerd <b>~8,7</b>. De site is nu al professioneel, gebruiksvriendelijk, technisch robuust en premium. Wat de 9,0-grens verhindert is <b>geen ontwerp- of bouwprobleem</b> maar een combinatie van drie afrondingen die grotendeels van materiaal en één zin afhangen:</p>
+    <p class="body" style="margin-top:8px;">① de categorie-verhelderende zin (kritiek, 1 zin) · ② Storm/Casey tonen (wacht op jouw 2 clips) · ③ echte case-foto's + onderbouwde cijfers (wacht op materiaal). Met die drie ingrepen tilt het panel de verwachte gemiddelde score naar <b>9,1–9,3</b> — ruim boven de doelstelling en in Awwwards-nominatiebereik.</p>
+    <p class="body" style="margin-top:8px;"><b>Aanbeveling:</b> punt 1 en 2 (categorie-zin + backend-rooktest) zijn de enige echte livegang-blockers; punten 3–6 zijn hoogwaardige verbeteringen die parallel of net na livegang kunnen. Geen enkel punt vraagt een herontwerp.</p>
+  </div>
+
+  <p class="foot-note">Gebruikerspanel + Awwwards-jury · Montisoro · 7 juli 2026. Gemiddelde 8,7/10 (gebruikers 8,54 · jury 8,9). Dit is een beoordeling vóór wijziging — er is niets aan de live site aangepast. De grootste hefbomen (categorie-zin, Storm/Casey tonen, echte case-foto's) sluiten aan op reeds geregistreerde actiepunten.</p>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

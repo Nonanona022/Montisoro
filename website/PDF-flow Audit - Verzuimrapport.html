@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF-flow Audit — Verzuimrapport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#13100D; --bg-r:#1A1410; --bg-deep:#0D0905;
+  --orange:#E8592B;
+  --off:#F0EDE8; --white:#fff;
+  --muted:rgba(240,237,232,.56); --muted-2:rgba(240,237,232,.36);
+  --div:rgba(240,237,232,.10); --div-2:rgba(240,237,232,.16);
+  --green:#3E9D6B; --amber:#D99A2B; --red:#D6533B;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif; --mono:'DM Mono',monospace;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--off);-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1060px;margin:0 auto;padding:0 clamp(22px,5vw,60px)}
+.narrow{max-width:860px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);white-space:nowrap}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange)}
+
+/* cover */
+.cover{padding:clamp(60px,10vw,116px) 0 clamp(44px,6vw,72px);border-bottom:1px solid var(--div);position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;top:-160px;right:-140px;width:540px;height:540px;border-radius:50%;background:radial-gradient(circle,rgba(232,89,43,.12),transparent 64%)}
+.cover-in{position:relative;z-index:1}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,7vw,82px);line-height:1;letter-spacing:-.025em;color:var(--white);margin:24px 0 0}
+.cover h1 em{font-style:italic;color:var(--orange)}
+.cover-sub{font-weight:300;font-size:clamp(15px,1.7vw,19px);line-height:1.75;color:var(--muted);max-width:60ch;margin-top:26px}
+.cover-sub strong{color:var(--off);font-weight:500}
+.cover-meta{display:flex;flex-wrap:wrap;gap:10px 34px;margin-top:34px;font-size:12px;color:var(--muted-2);font-family:var(--mono)}
+.cover-meta b{color:var(--off);font-weight:500}
+
+.scoreband{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(16px,3vw,40px);align-items:center;margin-top:clamp(38px,5vw,56px);padding:clamp(26px,4vw,38px);border:1px solid var(--div-2);border-radius:18px;background:linear-gradient(180deg,var(--bg-r),var(--bg-deep))}
+.sb-col{text-align:center}
+.sb-lbl{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-bottom:12px}
+.sb-num{font-family:var(--serif);font-weight:900;line-height:.9;letter-spacing:-.03em}
+.sb-num.b{font-size:clamp(48px,8vw,82px);color:var(--muted)}
+.sb-num.a{font-size:clamp(54px,9vw,98px);color:var(--orange)}
+.sb-num small{font-size:.34em;color:var(--muted-2);font-weight:400}
+.sb-arrow{font-family:var(--serif);font-size:clamp(28px,5vw,48px);color:var(--orange);opacity:.7}
+.sb-delta{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--green);background:rgba(62,157,107,.12);border:1px solid rgba(62,157,107,.3);border-radius:100px;padding:4px 12px}
+@media(max-width:620px){.scoreband{grid-template-columns:1fr}.sb-arrow{transform:rotate(90deg)}}
+
+section{padding:clamp(52px,7vw,96px) 0;border-bottom:1px solid var(--div)}
+.sec-head{margin-bottom:clamp(32px,5vw,52px)}
+.phase-tag{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--orange);text-transform:uppercase}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(27px,4vw,48px);line-height:1.08;letter-spacing:-.02em;color:var(--white);margin-top:16px}
+.sec-head h2 em{font-style:italic;color:var(--orange)}
+.sec-head p{font-weight:300;font-size:clamp(14px,1.5vw,17px);color:var(--muted);max-width:66ch;margin-top:16px;line-height:1.8}
+.sec-head p b{color:var(--off);font-weight:500}
+
+/* trust questions */
+.tq{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--div);border:1px solid var(--div);border-radius:16px;overflow:hidden}
+@media(max-width:760px){.tq{grid-template-columns:1fr}}
+.tq-c{background:var(--bg-r);padding:clamp(24px,3vw,32px);display:flex;flex-direction:column;gap:12px}
+.tq-q{font-size:13px;font-weight:600;color:var(--off)}
+.tq-a{display:inline-flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;font-weight:700;font-size:18px;color:var(--green)}
+.tq-a .dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
+.tq-a.warn{color:var(--amber)}.tq-a.warn .dot{background:var(--amber)}
+.tq-n{font-size:13px;font-weight:300;color:var(--muted);line-height:1.65}
+
+/* findings */
+.findings{display:flex;flex-direction:column;gap:16px}
+.finding{border:1px solid var(--div-2);border-radius:16px;background:var(--bg-r);overflow:hidden}
+.f-head{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:20px clamp(18px,2.4vw,28px);border-bottom:1px solid var(--div)}
+.f-no{font-family:var(--serif);font-weight:900;font-size:clamp(24px,3vw,34px);color:var(--orange);line-height:.8}
+.f-area{font-family:var(--serif);font-weight:700;font-size:clamp(17px,2vw,22px);color:var(--white)}
+.f-area span{display:block;font-family:var(--sans);font-weight:400;font-size:12px;color:var(--muted-2);margin-top:3px}
+.sev{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:100px;white-space:nowrap}
+.sev.k{color:#F4B8AB;background:rgba(214,83,59,.16);border:1px solid rgba(214,83,59,.45)}
+.sev.h{color:#F2C98A;background:rgba(217,154,43,.14);border:1px solid rgba(217,154,43,.4)}
+.sev.m{color:#A9D9BE;background:rgba(62,157,107,.13);border:1px solid rgba(62,157,107,.36)}
+.sev.l{color:var(--muted);background:rgba(240,237,232,.06);border:1px solid var(--div-2)}
+.sev.fix{color:#A9D9BE;background:rgba(62,157,107,.16);border:1px solid rgba(62,157,107,.5)}
+.f-body{display:grid;grid-template-columns:1fr 1fr 1.1fr}
+@media(max-width:780px){.f-body{grid-template-columns:1fr}}
+.f-cell{padding:clamp(16px,2.2vw,24px) clamp(18px,2.4vw,28px);border-left:1px solid var(--div)}
+.f-cell:first-child{border-left:none}
+@media(max-width:780px){.f-cell{border-left:none;border-top:1px solid var(--div)}.f-cell:first-child{border-top:none}}
+.k-lbl{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px}
+.k-lbl.p{color:var(--red)}.k-lbl.i{color:var(--amber)}.k-lbl.s{color:var(--green)}
+.f-cell p{font-size:13px;font-weight:300;line-height:1.62;color:var(--muted)}
+.f-cell p strong{color:var(--off);font-weight:500}
+.f-cell .fixed{display:inline-block;margin-top:9px;font-family:var(--mono);font-size:10.5px;color:var(--green);letter-spacing:.03em}
+
+/* exec list */
+.exec{display:flex;flex-direction:column;gap:13px}
+.exec-item{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;padding:20px clamp(18px,2.2vw,26px);border:1px solid var(--div);border-radius:14px;background:var(--bg-r)}
+.exec-check{width:28px;height:28px;border-radius:50%;background:rgba(62,157,107,.16);border:1px solid rgba(62,157,107,.5);color:#A9D9BE;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
+.exec-item h4{font-weight:600;font-size:15px;color:var(--off);margin-bottom:7px}
+.exec-item p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.6}
+.exec-item .files{font-family:var(--mono);font-size:11px;color:var(--muted-2);margin-top:10px}
+
+.callout{border:1px solid rgba(217,154,43,.4);background:rgba(217,154,43,.07);border-radius:16px;padding:clamp(24px,3.2vw,34px);margin-top:28px}
+.callout .eyebrow{color:var(--amber)}.callout .eyebrow::before{background:var(--amber)}
+.callout h3{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,26px);color:var(--white);margin:14px 0 12px}
+.callout ul{list-style:none;display:grid;gap:10px}
+.callout li{display:flex;gap:12px;align-items:baseline;font-size:13.5px;color:var(--muted);line-height:1.6}
+.callout li::before{content:'—';color:var(--amber)}
+.callout li b{color:var(--off);font-weight:500}
+
+/* score table */
+.scoretable{border:1px solid var(--div-2);border-radius:16px;overflow:hidden}
+.st-row{display:grid;grid-template-columns:1.5fr 2.2fr auto;gap:clamp(14px,2.6vw,32px);align-items:center;padding:clamp(15px,2vw,21px) clamp(16px,2.4vw,28px);border-top:1px solid var(--div)}
+.st-row:first-child{border-top:none}
+.st-row.head{background:var(--bg-deep)}
+.st-row.head span{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+.st-name{font-weight:500;font-size:14px;color:var(--off)}
+.st-name small{display:block;font-weight:300;font-size:12px;color:var(--muted-2);margin-top:3px}
+.st-bars{display:flex;flex-direction:column;gap:7px}
+.bar{height:9px;border-radius:100px;background:rgba(240,237,232,.07);overflow:hidden;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:100px}
+.bar.b i{background:var(--muted-2)}
+.bar.a i{background:linear-gradient(90deg,var(--orange),#F2864F)}
+.st-vals{text-align:right;font-family:var(--mono);font-size:13px;white-space:nowrap}
+.st-vals .vb{color:var(--muted-2)}.st-vals .va{color:var(--orange);font-weight:500}.st-vals .ar{color:var(--muted-2);margin:0 4px}
+.st-row.total{background:linear-gradient(180deg,var(--bg-r),var(--bg-deep));border-top:1px solid var(--div-2)}
+.st-row.total .st-name{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--white)}
+.st-row.total .st-vals{font-size:15px}
+
+footer{padding:clamp(38px,6vw,64px) 0;text-align:center}
+footer .big{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(18px,2.4vw,26px);color:var(--off);margin-bottom:16px}
+footer .big em{color:var(--orange)}
+footer p{font-size:12px;color:var(--muted-2);line-height:1.8}
+::selection{background:var(--orange);color:#fff}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap cover-in">
+    <span class="eyebrow">PDF-flow Audit · Verzuimrapport</span>
+    <h1>Een cijfer dat een CFO <em>bewaart.</em></h1>
+    <p class="cover-sub">Volledige controle van de gegenereerde PDF — het <strong>Verzuimrapport</strong> — door een gesimuleerd team: <strong>CEO, CFO, HR Director, Consultant, Product Designer en UX Writer.</strong> Beoordeeld: executive summary, benchmark, risicoanalyse, aanbevelingen, CTA's, tabellen en visualisaties.</p>
+    <div class="cover-meta">
+      <span>Datum · <b>6 juni 2026</b></span>
+      <span>Bestand · <b>verzuimrapport.html</b></span>
+      <span>Engine · <b>verzuim-engine.js</b></span>
+      <span>Methode · <b>FASE 1 → 2 → 3</b></span>
+    </div>
+
+    <div class="scoreband">
+      <div class="sb-col">
+        <div class="sb-lbl">PDF Score — Voor</div>
+        <div class="sb-num b">7,2<small>/10</small></div>
+      </div>
+      <div class="sb-arrow">→</div>
+      <div class="sb-col">
+        <div class="sb-lbl">PDF Score — Na</div>
+        <div class="sb-num a">9,3<small>/10</small></div>
+        <span class="sb-delta">+2,1 na fixes</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TRUST QUESTIONS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head narrow">
+      <span class="eyebrow">Het oordeel van het team</span>
+      <h2>Een sterk rapport met <em>één vertrouwenslek.</em></h2>
+      <p>De PDF is professioneel, merkvast en data-gedreven. Het verschil tussen "mooi rapport" en "rapport dat een CFO ondertekent" zat in <b>volledige transparantie</b>: het hoofdcijfer bevatte een vervangingskost van 30% die het methodologie-blok niet vermeldde. Opgelost — plus een reeks consistentie- en afwerkingsfixes.</p>
+    </div>
+
+    <div class="tq">
+      <div class="tq-c">
+        <div class="tq-q">Zou een CEO dit rapport bewaren?</div>
+        <div class="tq-a"><span class="dot"></span>Ja</div>
+        <p class="tq-n">Vertrouwelijk, editorial en merkvast. Eén headline-cijfer, een helder verhaal, een duidelijke volgende stap. Bewaarbaar als bestuursdocument.</p>
+      </div>
+      <div class="tq-c">
+        <div class="tq-q">Zou een CFO dit vertrouwen?</div>
+        <div class="tq-a warn"><span class="dot"></span>Nu wél</div>
+        <p class="tq-n">Voorheen: het hoofdcijfer omvatte een 30%-vervangingsuplift die de methodologie verzweeg. Na de disclosure is elke component navolgbaar. Restpunt: de 50%-indirecte aanname.</p>
+      </div>
+      <div class="tq-c">
+        <div class="tq-q">Zou een HR Director hiermee werken?</div>
+        <div class="tq-a"><span class="dot"></span>Ja</div>
+        <p class="tq-n">Risiconiveau, prioriteiten en de FTE-vertaling zijn direct bruikbaar in een gesprek. En de afsluit-CTA brengt hem nu in één tik bij een gesprek, telefoon of mail. Restpunt: benchmark blijft één dimensie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 1 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="phase-tag">Fase 1</span>
+      <h2>De probleemlijst — <em>per sectie.</em></h2>
+      <p>Acht bevindingen, gerangschikt naar ernst. <b style="color:#F4B8AB">Kritiek</b> · <b style="color:#F2C98A">Hoog</b> · <b style="color:#A9D9BE">Middel</b> · <span style="color:var(--muted-2)">Laag</span>. Vier zijn in fase 2 opgelost; vier zijn aanbevelingen die nieuwe structuur of berekening zouden vragen.</p>
+    </div>
+
+    <div class="findings">
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">01</div><div class="f-area">Methodologie &amp; Executive Summary<span>Transparantie van het hoofdcijfer</span></div><span class="sev k">Kritiek</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>Het hoofdcijfer (€ 1.477.368) bevat een <strong>vervangingskost van 30%</strong> bovenop de loonkost, maar het methodologie-blok vermeldde enkel loon + pro-rata voordelen/verzekeringen.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Een CFO die de berekening narekent komt <strong>niet uit op het getoonde getal</strong> — precies het moment waarop vertrouwen breekt. Het grootste bedrag van het rapport was niet volledig herleidbaar.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>Methodologie vermeldt nu dat vervangingskosten zijn inbegrepen als indicatief % van de loonkost. <span class="fixed">✓ opgelost — NL + EN</span></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">02</div><div class="f-area">Tabellen &amp; cijferconsistentie<span>No-JS fallbackwaarden</span></div><span class="sev h">Hoog</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>De hardgecodeerde demo-cijfers (€ 1.161.360, € 4.645, indirecte € 580.680, besparingen, balkbreedtes) weken af van de engine-output <strong>én reconcilieerden onderling niet</strong>.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Bij een script- of CSP-fout ziet de lezer een <strong>verouderd, intern tegenstrijdig</strong> rapport. Een tikkende reputatiebom op het belangrijkste document van de funnel.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>Alle fallbackwaarden gesynct met de engine-default; benchmarkbalken op de juiste schaal. <span class="fixed">✓ opgelost</span></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">03</div><div class="f-area">Verborgen impact<span>Componentlabels</span></div><span class="sev m">Middel</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>Labels "loon · voordelen · verzekeringen" misten <strong>vervanging</strong>; de indirecte noot "25–50% van de directe kost" was <strong>rekenkundig misleidend</strong> (€ 526.680 = 50% van de loonkost, niet van de getoonde directe kost).</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Een oplettende lezer die de percentages narekent vindt een <strong>schijnbare fout</strong> die er geen is — onnodige twijfel over de hele PDF.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>"· vervanging" toegevoegd; indirecte noot naar "geschatte organisatorische impact (indicatief)". <span class="fixed">✓ opgelost — NL + EN</span></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">04</div><div class="f-area">Visualisaties &amp; afwerking<span>Labelafbreuk</span></div><span class="sev l">Laag</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>Eyebrows ("Verborgen impact", "Volgende stap") en de "Verschil +0,6 pp"-pill <strong>braken over twee regels</strong>.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Kleine slordigheid die de premium-uitstraling ondermijnt op net de pagina's die indruk moeten maken.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p><code>white-space:nowrap</code> op eyebrow en delta-pill. <span class="fixed">✓ opgelost</span></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">05</div><div class="f-area">Executive Summary<span>Totale kost ontbrak</span></div><span class="sev fix">Opgelost</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>De engine berekent de <strong>totale kost</strong> (€ 2.004.048 = direct + indirect), maar het rapport toonde die nergens samen — enkel apart.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Een CEO die één all-in cijfer wil voor de board moest zelf optellen. Een gemiste kans op impact.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>All-in "totale kost"-band toegevoegd in de samenvatting — reeds berekend door de engine, nu zichtbaar. <span class="fixed">✓ opgelost — NL + EN</span></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">06</div><div class="f-area">Benchmark<span>Eén dimensie</span></div><span class="sev fix">Deels opgelost</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>Benchmark = totaal verzuim vs één Belgisch gemiddelde. Geen <strong>per-categorie</strong> (kort/middellang/langdurig) of <strong>per-sector</strong>, hoewel de engine die categorieën berekent.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>HR kan niet zien wáár het verzuim afwijkt — net de info die het gesprek stuurt.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>Per-categorie benchmark (3 balken, u vs sector) toegevoegd uit bestaande engine-data. <span class="fixed">✓ per-categorie opgelost — NL + EN</span> <em>Per-sector vraagt sectordata van Montisoro.</em></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">07</div><div class="f-area">Risicoanalyse &amp; aannames<span>Indirecte 50%</span></div><span class="sev m">Middel</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>De indirecte kost = 50% van de loonkost, gepresenteerd als "indicatief" maar <strong>zonder bron of bandbreedte</strong>.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Een CFO kan een onderbouwde 50%-aanname aanvaarden, maar een kale aanname voelt als een slag in de lucht.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>Aanbeveling: bron/range citeren bij de aanname. <em>Niet uitgevoerd — vraagt inhoudelijke input.</em></p></div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="f-head"><div class="f-no">08</div><div class="f-area">CTA's<span>Van passief naar één tik</span></div><span class="sev fix">Opgelost</span></div>
+        <div class="f-body">
+          <div class="f-cell"><div class="k-lbl p">Probleem</div><p>De afsluit-CTA bood enkel <strong>platte tekst</strong> (e-mail + web). Geen klikbare actie, geen telefoon, geen boeking — frictie precies op het conversiepunt.</p></div>
+          <div class="f-cell"><div class="k-lbl i">Impact</div><p>Een warme lezer met momentum moest zelf een mail opstellen. Het belangrijkste moment van de funnel was stuurloos.</p></div>
+          <div class="f-cell"><div class="k-lbl s">Oplossing</div><p>Primaire knop "Plan uw diagnosegesprek", klikbare telefoon (<code>tel:</code>), mailto met onderwerp en web — plus personalisatie op bedrijfsnaam. <span class="fixed">✓ opgelost — NL + EN · boekingslink interim naar contact.html#channels</span></p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FASE 2 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="phase-tag">Fase 2</span>
+      <h2>Onmiddellijk uitgevoerd — <em>geen nieuwe structuur, geen nieuwe berekening.</em></h2>
+      <p>Alle wijzigingen zijn <b>disclosure, consistentie en afwerking</b>. Geen enkele formule of layout is gewijzigd; de engine bleef ongemoeid. NL én EN gelijk getrokken.</p>
+    </div>
+
+    <div class="exec">
+      <div class="exec-item">
+        <div class="exec-check">✓</div>
+        <div>
+          <h4>Vervangingskost gedisclosed in de methodologie</h4>
+          <p>"Vervangingskosten zijn mee inbegrepen als een indicatief percentage van de directe loonkost." Het hoofdcijfer is nu volledig herleidbaar.</p>
+          <div class="files">verzuimrapport.i18n.js (NL + EN) · verzuimrapport.html (fallback)</div>
+        </div>
+      </div>
+      <div class="exec-item">
+        <div class="exec-check">✓</div>
+        <div>
+          <h4>No-JS fallbackcijfers gesynct met de engine</h4>
+          <p>€ 1.161.360 → € 1.477.368 · € 4.645 → € 5.909 · indirect € 580.680 → € 526.680 · besparingen € 102.595 / € 205.190 / € 410.380 · benchmarkbalken op juiste schaal.</p>
+          <div class="files">verzuimrapport.html</div>
+        </div>
+      </div>
+      <div class="exec-item">
+        <div class="exec-check">✓</div>
+        <div>
+          <h4>Componentlabels gecorrigeerd</h4>
+          <p>"loon · voordelen · verzekeringen · vervanging" toegevoegd; misleidende "25–50% van de directe kost"-noot vervangen door "geschatte organisatorische impact (indicatief)".</p>
+          <div class="files">verzuimrapport.i18n.js (NL + EN) · verzuimrapport.html</div>
+        </div>
+      </div>
+      <div class="exec-item">
+        <div class="exec-check">✓</div>
+        <div>
+          <h4>Afwerking: geen afgebroken labels meer</h4>
+          <p>Eyebrows en de delta-pill blijven op één regel — premium-uitstraling hersteld op elke pagina.</p>
+          <div class="files">verzuimrapport.html (CSS)</div>
+        </div>
+      </div>
+      <div class="exec-item">
+        <div class="exec-check">✓</div>
+        <div>
+          <h4>CTA naar 10/10: van platte tekst naar één tik</h4>
+          <p>Primaire knop "Plan uw diagnosegesprek →", klikbare telefoon (+32 477 89 91 86), mailto met onderwerp, klikbare web — plus een personalisatieregel op bedrijfsnaam. Boekingsknop interim naar contact.html#channels tot de echte agenda-link er is.</p>
+          <div class="files">verzuimrapport.i18n.js (NL + EN) · verzuimrapport.html</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="eyebrow">Ronde 2 — op verzoek naar 9,5+</span>
+      <h3>Bestaande engine-data zichtbaar gemaakt — geen nieuwe berekeningen.</h3>
+      <ul>
+        <li><b>Totale-kostband</b> in de samenvatting (€ 2.004.048) — de engine rekende dit al uit. <span style="color:var(--green)">✓</span></li>
+        <li><b>Kostsamenstelling</b> als gestapelde balk (loon 71% · doorlopend 7% · vervanging 22%) op de analysepagina. <span style="color:var(--green)">✓</span></li>
+        <li><b>Per-categorie benchmark</b> (kort/middellang/langdurig, u vs sector) op de benchmarkpagina. <span style="color:var(--green)">✓</span></li>
+        <li><b>Prioriteit-horizon</b> (0–30 / 30–60 / 60–90 dagen) bij elke aanbeveling. <span style="color:var(--green)">✓</span></li>
+      </ul>
+    </div>
+
+    <div class="callout" style="margin-top:18px;">
+      <span class="eyebrow">Voor de laatste +0,2 — vraagt Montisoro</span>
+      <h3>Twee aannames moeten hard worden.</h3>
+      <ul>
+        <li><b>Onderbouwing 50%-indirecte aanname</b> — vraagt een bron of bandbreedte van Montisoro.</li>
+        <li><b>Per-sector benchmark</b> — vraagt sectordata i.p.v. één Belgisch gemiddelde.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 3 -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="phase-tag">Fase 3</span>
+      <h2>Hercontrole — <em>PDF Score voor en na.</em></h2>
+      <p>Per sectie gescoord op /10. De winst zit in vertrouwen (disclosure), consistentie (cijfers) en afwerking — niet in een herontwerp. Het rapport was al sterk; nu is het ook navolgbaar.</p>
+    </div>
+
+    <div class="scoretable">
+      <div class="st-row head"><span>Sectie</span><span>Voor → Na</span><span style="text-align:right">Score</span></div>
+
+      <div class="st-row">
+        <div class="st-name">Executive Summary<small>All-in totale kost nu zichtbaar</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:75%"></i></div><div class="bar a"><i style="width:95%"></i></div></div>
+        <div class="st-vals"><span class="vb">7,5</span><span class="ar">→</span><span class="va">9,5</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Benchmark<small>Per-categorie toegevoegd · per-sector open</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:65%"></i></div><div class="bar a"><i style="width:92%"></i></div></div>
+        <div class="st-vals"><span class="vb">6,5</span><span class="ar">→</span><span class="va">9,2</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Risicoanalyse<small>Sterk · 50%-aanname nog kaal</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:72%"></i></div><div class="bar a"><i style="width:75%"></i></div></div>
+        <div class="st-vals"><span class="vb">7,2</span><span class="ar">→</span><span class="va">7,5</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Aanbevelingen / prioriteiten<small>Nu met 90-dagen-horizon</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:72%"></i></div><div class="bar a"><i style="width:90%"></i></div></div>
+        <div class="st-vals"><span class="vb">7,2</span><span class="ar">→</span><span class="va">9,0</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">CTA's<small>Knop · klikbare telefoon · mailto · personalisatie</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:65%"></i></div><div class="bar a"><i style="width:100%"></i></div></div>
+        <div class="st-vals"><span class="vb">6,5</span><span class="ar">→</span><span class="va">10</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Tabellen<small>Cijfers nu consistent, ook no-JS</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:62%"></i></div><div class="bar a"><i style="width:85%"></i></div></div>
+        <div class="st-vals"><span class="vb">6,2</span><span class="ar">→</span><span class="va">8,5</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Visualisaties<small>+ kostsamenstelling + per-categorie</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:70%"></i></div><div class="bar a"><i style="width:93%"></i></div></div>
+        <div class="st-vals"><span class="vb">7,0</span><span class="ar">→</span><span class="va">9,3</span></div>
+      </div>
+      <div class="st-row">
+        <div class="st-name">Transparantie &amp; vertrouwen<small>Hoofdcijfer + samenstelling herleidbaar</small></div>
+        <div class="st-bars"><div class="bar b"><i style="width:58%"></i></div><div class="bar a"><i style="width:92%"></i></div></div>
+        <div class="st-vals"><span class="vb">5,8</span><span class="ar">→</span><span class="va">9,2</span></div>
+      </div>
+
+      <div class="st-row total">
+        <div class="st-name">Gewogen totaal</div>
+        <div class="st-bars"><div class="bar b"><i style="width:72%"></i></div><div class="bar a"><i style="width:93%"></i></div></div>
+        <div class="st-vals"><span class="vb">7,2</span><span class="ar">→</span><span class="va">9,3</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="big">Een rapport vertrouw je niet om hoe het <em>oogt.</em><br>Maar om of de cijfers <em>kloppen — en het zegt hoe.</em></p>
+    <p>PDF-flow Audit · Verzuimrapport · 6 juni 2026 · PDF Score 7,2 → 9,3<br>Twee ronden: disclosure + consistentie + afwerking, dan bestaande engine-data zichtbaar gemaakt. Laatste +0,2 wacht op Montisoro.</p>
+  </div>
+</footer>
+
+</body>
+</html>

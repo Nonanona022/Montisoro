@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montisoro — De 30 grootste minpunten · Expertpanel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#E8592B; --orange-cta:#CC4A1E; --orange-dim:rgba(232,89,43,.12); --orange-tint:rgba(232,89,43,.06);
+    --bg:#13100D; --bg-2:#1a1512; --bg-page:#f9f8f6;
+    --off:#F0EDE8; --muted-d:#b8afa6; --muted-d-2:#8f867d;
+    --ink:#1a1a1a; --ink-mute:#6b7280; --border-l:#e5e0d8; --border-l-2:#d8d2c8;
+    --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+    --p0:#c0392b; --p1:#E8592B; --p2:#b8860b; --p3:#6b7280;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--bg-page);color:var(--ink);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  a{color:var(--orange-cta);text-decoration:none;}
+  a:hover{color:var(--orange);}
+  em{font-style:italic;color:var(--orange);}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:0 clamp(22px,4vw,48px);}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);}
+  .eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--orange);}
+
+  /* ── COVER ── */
+  .cover{background:var(--bg);color:var(--off);padding:clamp(70px,11vh,130px) 0 clamp(56px,8vh,96px);position:relative;overflow:hidden;}
+  .cover::after{content:'';position:absolute;top:-30%;right:-10%;width:60%;height:120%;background:radial-gradient(ellipse at center,rgba(232,89,43,.10),transparent 62%);pointer-events:none;}
+  .cover .wrap{position:relative;z-index:1;}
+  .cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,7vw,80px);line-height:1.02;letter-spacing:-.02em;margin:26px 0 0;}
+  .cover h1 em{color:var(--orange);}
+  .cover .lede{font-size:clamp(16px,1.7vw,20px);font-weight:300;color:var(--muted-d);max-width:620px;margin-top:26px;line-height:1.65;}
+  .cover-meta{display:flex;flex-wrap:wrap;gap:14px 40px;margin-top:44px;padding-top:30px;border-top:1px solid rgba(240,237,232,.12);}
+  .cover-meta .item{display:flex;flex-direction:column;gap:5px;}
+  .cover-meta .k{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d-2);}
+  .cover-meta .v{font-size:14px;font-weight:500;color:var(--off);}
+  .score-chip{display:inline-flex;align-items:baseline;gap:10px;margin-top:40px;background:rgba(240,237,232,.05);border:1px solid rgba(240,237,232,.14);border-radius:16px;padding:20px 28px;}
+  .score-chip .big{font-family:var(--serif);font-weight:900;font-size:44px;color:var(--orange);line-height:1;}
+  .score-chip .lbl{font-size:12.5px;color:var(--muted-d);max-width:260px;line-height:1.5;}
+
+  /* ── INTRO / ROSTER ── */
+  .section{padding:clamp(56px,8vh,96px) 0;}
+  .section.dark{background:var(--bg);color:var(--off);}
+  .section h2{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,40px);line-height:1.12;letter-spacing:-.015em;margin:16px 0 0;}
+  .section h2 em{color:var(--orange);}
+  .section .sub{font-size:15px;font-weight:300;color:var(--ink-mute);max-width:640px;margin-top:16px;line-height:1.75;}
+  .section.dark .sub{color:var(--muted-d);}
+
+  .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1px;background:rgba(240,237,232,.12);border:1px solid rgba(240,237,232,.12);margin-top:36px;border-radius:12px;overflow:hidden;}
+  .roster .r{background:var(--bg);padding:16px 18px;font-size:13px;font-weight:400;color:var(--off);}
+  .roster .r span{display:block;font-size:11px;color:var(--muted-d-2);font-weight:500;margin-top:2px;}
+
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;}
+  .legend .lg{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:500;color:var(--ink-mute);background:#fff;border:1px solid var(--border-l);border-radius:100px;padding:9px 16px;}
+  .legend .dot{width:9px;height:9px;border-radius:50%;}
+
+  /* ── GROUP HEADERS ── */
+  .grp{padding:clamp(40px,6vh,72px) 0 8px;}
+  .grp-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-top:2px solid var(--ink);padding-top:22px;}
+  .grp-tag{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:5px 12px;border-radius:100px;}
+  .grp-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(23px,3vw,34px);letter-spacing:-.015em;}
+  .grp-head .cnt{margin-left:auto;font-size:13px;color:var(--ink-mute);font-weight:500;}
+  .grp-desc{font-size:14.5px;color:var(--ink-mute);max-width:680px;margin-top:12px;line-height:1.7;}
+
+  /* ── WEAKNESS CARD ── */
+  .wk{border-top:1px solid var(--border-l);padding:clamp(30px,4vw,46px) 0;display:grid;grid-template-columns:76px 1fr;gap:clamp(18px,3vw,40px);}
+  @media(max-width:680px){.wk{grid-template-columns:1fr;gap:14px;}}
+  .wk-num{font-family:var(--serif);font-style:italic;font-weight:700;font-size:40px;color:var(--orange);line-height:1;}
+  .wk-body{min-width:0;}
+  .wk-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+  .wk-phase{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:100px;color:#fff;}
+  .wk-page{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);}
+  .wk-status{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1f8a5b;background:rgba(31,138,91,.1);border:1px solid rgba(31,138,91,.28);border-radius:100px;padding:4px 11px;}
+  .wk-title{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.4vw,27px);line-height:1.16;letter-spacing:-.01em;color:var(--ink);}
+  .wk-title em{color:var(--orange);}
+  .wk-problem{font-size:15px;color:#3a3532;line-height:1.72;margin-top:12px;}
+
+  .wk-panel{margin-top:22px;display:flex;flex-direction:column;gap:0;border-left:2px solid var(--orange-dim);padding-left:20px;}
+  .voice{padding:11px 0;}
+  .voice + .voice{border-top:1px dashed var(--border-l-2);}
+  .voice .role{display:block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--orange);margin-bottom:4px;}
+  .voice p{font-size:14px;color:#4a443f;line-height:1.62;font-weight:300;}
+
+  .wk-decision{margin-top:22px;background:var(--bg);color:var(--off);border-radius:14px;padding:22px 26px;}
+  .wk-decision .lbl{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+  .wk-decision .lbl::before{content:'';width:20px;height:1.5px;background:var(--orange);}
+  .wk-decision p{font-size:14.5px;line-height:1.65;color:var(--off);font-weight:300;}
+  .wk-decision p em{color:var(--orange);font-weight:400;}
+  .wk-action{margin-top:16px;font-size:14px;color:#3a3532;line-height:1.65;}
+  .wk-action .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-right:8px;}
+
+  /* ── CLOSE ── */
+  .close-band{background:var(--bg);color:var(--off);padding:clamp(60px,9vh,110px) 0;text-align:left;}
+  .close-band h2{font-family:var(--serif);font-weight:900;font-size:clamp(30px,4.6vw,54px);line-height:1.08;letter-spacing:-.02em;}
+  .close-band h2 em{color:var(--orange);}
+  .close-band .sub{color:var(--muted-d);max-width:620px;margin-top:22px;font-size:16px;line-height:1.7;}
+  .lift{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(240,237,232,.12);border:1px solid rgba(240,237,232,.12);border-radius:12px;overflow:hidden;margin-top:44px;}
+  .lift .l{background:var(--bg);padding:24px 22px;}
+  .lift .l .n{font-family:var(--serif);font-weight:900;font-size:30px;color:var(--orange);line-height:1;}
+  .lift .l .t{font-size:12.5px;color:var(--muted-d);margin-top:10px;line-height:1.5;}
+  .foot{font-size:12px;color:var(--muted-d-2);padding:30px 0 46px;border-top:1px solid rgba(240,237,232,.1);margin-top:56px;}
+  @media print{.cover,.section.dark,.wk-decision,.close-band{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <span class="eyebrow">Volledig reviewpanel · Website-audit</span>
+    <h1>De 30 grootste <em>minpunten.</em></h1>
+    <p class="lede">Alle bevindingen uit de audit, gewogen en gerangschikt tot de dertig die het meest kosten. Elk probleem is besproken door een expertpanel, met telkens één besliste beste keuze — één voor één.</p>
+    <div class="score-chip">
+      <span class="big">5,8</span>
+      <span class="lbl">Gewogen eindscore als B2B-conversiesite vandaag. Design 8 · Conversie 5 — het verschil ís de opdracht.</span>
+    </div>
+    <div class="cover-meta">
+      <div class="item"><span class="k">Onderwerp</span><span class="v">mmontisoro.netlify.app</span></div>
+      <div class="item"><span class="k">Panel</span><span class="v">21 rollen aan tafel</span></div>
+      <div class="item"><span class="k">Bereik</span><span class="v">9 pagina's · desktop + interactie</span></div>
+      <div class="item"><span class="k">Datum</span><span class="v">7 juli 2026</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- METHOD / ROSTER -->
+<section class="section dark">
+  <div class="wrap">
+    <span class="eyebrow">Hoe we beslissen</span>
+    <h2>Eén tafel, <em>één</em> beste keuze per probleem.</h2>
+    <p class="sub">We hebben de volledige audit teruggebracht tot de dertig zwaarste minpunten. Voor elk daarvan zet het panel de belangrijkste stemmen tegenover elkaar — soms zijn ze het oneens — en formuleren we daarna dé aanbevolen keuze, plus een concrete actie. Geen meningen zonder besluit.</p>
+    <div class="roster" id="roster"></div>
+  </div>
+</section>
+
+<!-- LEGEND + LIST -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">De rangschikking</span>
+    <h2>Bovenaan begint het — de <em>P0's</em> kosten vandaag geld.</h2>
+    <div class="legend">
+      <span class="lg"><span class="dot" style="background:var(--p0)"></span>P0 · Nu · conversie-kritiek</span>
+      <span class="lg"><span class="dot" style="background:var(--p1)"></span>P1 · Zeer belangrijk</span>
+      <span class="lg"><span class="dot" style="background:var(--p2)"></span>P2 · Belangrijk</span>
+      <span class="lg"><span class="dot" style="background:var(--p3)"></span>P3 · Kan later</span>
+    </div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="close-band">
+  <div class="wrap">
+    <span class="eyebrow">Wat het oplevert</span>
+    <h2>Minder, maar scherper. En een knop die <em>doet wat ze belooft.</em></h2>
+    <p class="sub">De site ziet er al uitzonderlijk uit. Deze dertig ingrepen gaan niet over mooier maken — ze gaan over sneller begrepen worden, drempels wegnemen en de bezoeker naar een aanvraag leiden. Het panel schatte het effect op gekwalificeerde aanvragen zo in:</p>
+    <div class="lift">
+      <div class="l"><div class="n">+25–45%</div><div class="t">Enkel de P0's: werkende boeking, fit-check ontgaten, heldere hero.</div></div>
+      <div class="l"><div class="n">+45–80%</div><div class="t">P0 + P1: kortere pagina's, NL-taal, echte cases, één CTA-lijn.</div></div>
+      <div class="l"><div class="n">+70–100%</div><div class="t">Alles, inclusief mobiele optimalisatie.</div></div>
+    </div>
+    <p class="foot">Grootste enkele hefboom: de boekingsflow. Een primaire CTA die niet voltooit, zet een plafond op álle andere inspanningen. — Reviewpanel Website-audit, 7 juli 2026.</p>
+  </div>
+</section>
+
+<script>
+/* ── Panel roster ── */
+var ROSTER = [
+  ['CEO','±50 medewerkers'],['CEO','±100 medewerkers'],['CEO','±200 medewerkers'],
+  ['HR Director',''],['HR Business Partner',''],['Preventieadviseur',''],['Operations Manager',''],
+  ['CFO',''],['Sales Director',''],['Marketing Director',''],
+  ['Senior B2B Copywriter',''],['Senior UX Designer',''],['Senior UI Designer',''],
+  ['CRO-specialist',''],['Storytelling Expert',''],['Employer Branding',''],
+  ['Gedragspsycholoog',''],['Customer Journey',''],['SEO-specialist',''],
+  ['Accessibility',''],['Web Performance','']
+];
+
+/* ── De 30 minpunten ── */
+var PHASE = {
+  P0:{label:'P0 · Nu',color:'var(--p0)'},
+  P1:{label:'P1 · Zeer belangrijk',color:'var(--p1)'},
+  P2:{label:'P2 · Belangrijk',color:'var(--p2)'},
+  P3:{label:'P3 · Later',color:'var(--p3)'}
+};
+
+var ITEMS = [
+  { phase:'P0', page:'Contact · globaal', status:'Aangepakt',
+    title:'De hoofd-CTA loopt dood: “Plan een gesprek” voltooit niet',
+    problem:'De hele site stuurt met “Plan een gesprek →” naar de Contact-pagina, maar op de geteste live versie staat daar geen werkende agenda of boekingsformulier — enkel drie kaartjes. De belangrijkste actie van de site kan niet voltooid worden.',
+    panel:[
+      {role:'CRO-specialist', quote:'Een primaire CTA die niet afrondt, zet een plafond op álle andere inspanningen. Repareer dit eerst, dan pas telt de rest mee.'},
+      {role:'CEO ±200', quote:'Een drukke beslisser die wíl boeken en niet kan, boekt niet later. Hij is gewoon weg.'},
+      {role:'Web Performance', quote:'De boekingsflow zit wél in de broncode — dit is een deploy-/rendering-kwestie, geen ontwerpprobleem.'}
+    ],
+    decision:'De boekingsmodal live zetten én de flagship-CTA de agenda <em>direct</em> laten openen, niet enkel naar de kaartjes scrollen. Eén klik = boeken.',
+    action:'Gedaan: hero- en nav-CTA openen nu meteen de agenda (NL+EN). Nog te doen bij livegang: de echte Outlook/Graph-beschikbaarheid koppelen (nu gesimuleerd).' },
+
+  { phase:'P0', page:'Fit Check', status:'Aangepakt',
+    title:'Het fit-checkresultaat zit achter een harde leadmuur',
+    problem:'Na vier vragen krijgt de bezoeker geen antwoord maar een verplicht formulier (“Ontgrendel uw fit check”). Dat botst frontaal met de belofte “geen verkooppraat” — het scherpste vertrouwensverlies van de site.',
+    panel:[
+      {role:'Gedragspsycholoog', quote:'Wie net twee minuten investeerde en dan een muur krijgt, voelt zich gefopt en vertrekt met een slechte smaak.'},
+      {role:'CRO-specialist', quote:'Je vangt zo enkele e-mails, maar verliest véél meer mensen én goodwill dan je wint.'},
+      {role:'Sales Director', quote:'We hébben leads nodig — maar niet ten koste van het vertrouwen. Maak de e-mail een aanbod, geen tol.'}
+    ],
+    decision:'Soft gate: toon het <em>volledige</em> kernresultaat en de aanbeveling gratis; bied de PDF + e-mail aan als optie, met een even zichtbaar “Plan een gesprek”-pad ernaast.',
+    action:'Gedaan (NL+EN): resultaat + aanbeveling + traject staan gratis in beeld; formulier is nu een optioneel “Volledig rapport”-paneel. En passant een bug gefixt waarbij de aanbeveling na invoer niet verscheen.' },
+
+  { phase:'P0', page:'Home', status:'',
+    title:'De hero is Engelse merkpoëzie zonder waardepropositie',
+    problem:'Het eerste scherm toont “Reintegrate What Matters” — mooi, maar leeg van betekenis. Na 10 seconden weet de bezoeker nog niet wát je doet en voor wíe. Drie van de vier kernvragen blijven open.',
+    panel:[
+      {role:'CEO ±50', quote:'Oogt duur en verzorgd — maar wát doen jullie? Ik moet scrollen voor het antwoord, en die tijd heb ik niet.'},
+      {role:'B2B Copywriter', quote:'Een Vlaamse HR-directeur in verzuimnood wil zich begrepen voelen in zijn eigen taal, niet in start-up-Engels.'},
+      {role:'Storytelling Expert', quote:'De slogan is sterk als signatuur — maar niet als de hele hero. Zet hem klein, boven of onder een heldere titel.'}
+    ],
+    decision:'Herschrijf de hero met een concrete NL-waardepropositie: <em>wat + voor wie + resultaat</em>. Bv. “Minder lange uitval. Sneller terug aan het werk.” + “Verzuimbegeleiding & re-integratie voor Belgische werkgevers · gemiddeld 30–35% kortere verzuimduur.” De merkslogan blijft als kleine signatuur.',
+    action:'Wacht op uw copy-akkoord (raakt de merkstem). Zodra u groen licht geeft, voer ik hero-bovenkop, titel, subtekst en knoppen NL+EN door.' },
+
+  { phase:'P0', page:'Calculator', status:'Bevestigd ok',
+    title:'Risico dat het calculator-eindcijfer gegate wordt',
+    problem:'De kracht van de tool is: eerst waarde geven. Als het eindcijfer achter een e-mailmuur zou zitten (zoals bij de fit-check), breekt dat het hele principe — de CFO wil het kale getal zien vóór hij zijn e-mail geeft.',
+    panel:[
+      {role:'CFO', quote:'Toon het totaal onvoorwaardelijk. Gate hooguit de gedetailleerde PDF — niet het cijfer zelf.'},
+      {role:'CRO-specialist', quote:'Waarde geven vóór je iets vraagt is precies waarom deze tool converteert. Niet aankomen.'}
+    ],
+    decision:'Het eindcijfer <em>nooit</em> gaten; het totaal volledig tonen, met het PDF-rapportformulier als optionele stap ernaast.',
+    action:'Bevestigd in de huidige code: het totaal (“Geschatte totale verzuimkost”) toont volledig naast het optionele PDF-formulier. Geen wijziging nodig.' },
+
+  { phase:'P0', page:'Aanpak · Technologie · About', status:'',
+    title:'Lege hero’s: het eerste scherm laadt (half) leeg in',
+    problem:'Op Aanpak, Technologie, Fit Check en About is het eerste scherm bij het laden zo goed als leeg — de titel verschijnt pas via scroll-animatie. De eerste indruk is net het moment waarop je vertrouwen moet winnen.',
+    panel:[
+      {role:'Accessibility', quote:'Content die pas met JavaScript en scroll verschijnt is slecht voor toegankelijkheid en faalt als JS hapert.'},
+      {role:'Web Performance', quote:'Een lege eerste indruk is het slechtst denkbare startpunt — zeker op de beslissende pagina’s.'},
+      {role:'UX Designer', quote:'Behoud subtiele animatie, maar toon de hero-inhoud altijd meteen, zonder scroll.'}
+    ],
+    decision:'Maak de zichtbare eindstaat de basisstijl en animeer alleen <em>vanuit</em> verborgen — zodat de hero-inhoud direct zichtbaar is, ook zonder scroll of JS.',
+    action:'Voorstel: de reveal-animaties gaten op “eerste scherm altijd zichtbaar”. Kleine, veilige CSS-ingreep per pagina — kan ik doorvoeren zodra u de andere hero-copy vrijgeeft (samen testen).' },
+
+  { phase:'P1', page:'Overkoepelend', status:'',
+    title:'De displaytypografie is 20–30% te groot',
+    problem:'Koppen van 40–60 px vullen op elke pagina één tot twee volledige schermen. Daardoor past er per scherm maar één gedachte en wordt elke pagina 12–15 schermen lang. Het “te veel”-gevoel komt door té weinig woorden per scherm, niet té veel.',
+    panel:[
+      {role:'UX Designer', quote:'Zet 2–3 gedachten per scherm i.p.v. één. Alleen dit al maakt elke pagina 30–50% korter zonder één argument te schrappen.'},
+      {role:'UI Designer', quote:'De typografie is prachtig — ze mag blijven, alleen kleiner en strakker. De sfeer verdwijnt niet.'}
+    ],
+    decision:'Verklein de displayschaal ~25% en verhoog de informatiedichtheid per scherm. Premium blijft, lengte halveert.',
+    action:'Voorstel: de clamp-schalen in de gedeelde stylesheet één stap terugbrengen. Site-breed effect — even samen ijken op één pagina, dan uitrollen.' },
+
+  { phase:'P1', page:'Overkoepelend', status:'',
+    title:'Nederlands en Engels lopen door elkaar',
+    problem:'Titels en labels mengen talen: “Operational intelligence”, “Human in the Loop”, “GDPR compliant”, “Adopted by corporates”… Het Engelse jargon creëert afstand en laat de site klinken als een tech-start-up i.p.v. een betrouwbare partner in een menselijk, juridisch dossier.',
+    panel:[
+      {role:'B2B Copywriter', quote:'Kies één taal per taalversie. Op de NL-site: NL. De EN-versie bestaat al voor internationale prospects.'},
+      {role:'Marketing Director', quote:'Kernbegrippen mogen internationaal blijven, maar niet als de dragende koppen. Nabijheid wint hier van klasse.'}
+    ],
+    decision:'Vertaal het Engels/jargon in de dragende teksten naar helder B2B-Nederlands; behoud Engels enkel waar het echt een eigennaam is (Storm, Casey).',
+    action:'Onderdeel van de copy-audit die op uw selectie wacht. Zeg welke koppen/labels mee mogen, dan doe ik ze gebundeld NL+EN.' },
+
+  { phase:'P1', page:'Overkoepelend', status:'',
+    title:'Abstractie in plaats van concreetheid',
+    problem:'Een heel eigen vocabulaire dat de lezer moet leren: care, capability, vier bewegingen, zes routes, vijf gedragslagen, “contextual intelligence layer”. Mensen kopen geen abstracties — ze kopen oplossingen voor een pijn die ze herkennen.',
+    panel:[
+      {role:'Gedragspsycholoog', quote:'“Care wordt systeem. Systeem wordt capability.” klinkt mooi maar zegt een gehaaste CEO niets.'},
+      {role:'CEO ±100', quote:'Ik zoek bewijs en ROI en krijg een filosofie. Zet bij elke abstractie één concreet voorbeeld of cijfer.'}
+    ],
+    decision:'Overal waar een abstractie staat, een concreet voorbeeld, scenario of cijfer toevoegen — of de abstractie schrappen.',
+    action:'Copy-werk, gekoppeld aan de audit-selectie. Ik kan per sectie een concreet alternatief voorstellen zodra u de richting bevestigt.' },
+
+  { phase:'P1', page:'Referenties', status:'',
+    title:'De cases zijn leeg vanbinnen — geen cijfers, geen citaten',
+    problem:'“We brachten structuur, maakten de kosten zichtbaar…” kan over elke klant gaan. Er zijn geen cijfers (terwijl de site elders met 30–35% en €14,7M zwaait), geen namen, geen voor/na. Sociaal bewijs is de sterkste conversiehefboom — en hier het zwakst uitgewerkt.',
+    panel:[
+      {role:'CFO', quote:'Grote namen — maar waar is het bewijs? Eén vage zin per klant is geen case.'},
+      {role:'CRO-specialist', quote:'Eén échte case met cijfer en citaat is meer waard dan tien logo’s zonder inhoud.'},
+      {role:'HR Director', quote:'Ik wil het verhaal van een collega-HR in een vergelijkbare organisatie. Dat ontbreekt volledig.'}
+    ],
+    decision:'Maak minstens <em>3 échte cases</em> volgens het model uitdaging → aanpak → cijfer → citaat. Begin met de drie die u mág publiceren en volledig kunt onderbouwen.',
+    action:'Vraagt echt klantmateriaal (cijfers + toestemming). Zodra u dat aanlevert, bouw ik de cases in het bestaande case-sjabloon (data-gedreven, dus snel).' },
+
+  { phase:'P1', page:'Navigatie', status:'',
+    title:'Referenties en FAQ ontbreken in de hoofdnavigatie',
+    problem:'Je twee belangrijkste overtuigers — bewijs (Referenties) en bezwaren-wegnemers (FAQ) — staan enkel in de footer. Je verstopt net datgene wat twijfelaars over de streep trekt.',
+    panel:[
+      {role:'Customer Journey', quote:'Een twijfelaar zoekt bewijs en antwoorden — en vindt ze niet waar hij kijkt: in de hoofdnav.'},
+      {role:'SEO-specialist', quote:'Deze pagina’s krijgen nu nauwelijks intern verkeer; footer-only is verspilling van sterke content.'}
+    ],
+    decision:'Zet minstens <em>Referenties</em> in de hoofdnavigatie (en overweeg FAQ). Groepeer desnoods Calculator + Fit-check onder “Tools” om ruimte te maken.',
+    action:'Kleine, veilige navigatie-ingreep site-breed. Kan ik doorvoeren op uw teken — raakt wel elke pagina, dus ik stem het even af met de nav-herontwerp-keuze.' },
+
+  { phase:'P1', page:'Home · Referenties', status:'',
+    title:'De logobalk belooft meer dan de cases bewijzen',
+    problem:'Een bewegende balk toont ~12 grote namen (Volvo, Novartis, Alcon, Lonza…), maar slechts vier krijgen een dunne case. Dit wekt de indruk dat al die concerns klant zijn — een geloofwaardigheids- én juridisch risico als er geen toestemming is.',
+    panel:[
+      {role:'CFO', quote:'Kun je dit hardmaken en heb je toestemming om die logo’s te voeren? Zo niet, is dit een groot risico.'},
+      {role:'Sales Director', quote:'Zo ja, dan onderbenut je goud: maak van drie van die namen een écht verhaal met cijfers.'}
+    ],
+    decision:'Verifieer per logo de toestemming én de klantstatus; breng logobalk en caselijst met elkaar in overeenstemming. Wat je toont, moet je kunnen hardmaken.',
+    action:'Beslissing + juridische check aan uw kant. Ik kan de balk daarna filteren tot de toegestane namen en aan echte cases koppelen.' },
+
+  { phase:'P1', page:'About', status:'',
+    title:'Het team wordt getoond met enkel voornamen',
+    problem:'Bijna het hele team staat met enkel een voornaam (Els, Edith, Rico, Astrid…), zonder achternaam of LinkedIn. In B2B, waar je met directies over gevoelige dossiers praat, verlaagt dat de geloofwaardigheid. De portretstijlen ogen bovendien ongelijk.',
+    panel:[
+      {role:'Employer Branding', quote:'Achternaam + LinkedIn + één expertise-regel per persoon maakt van dit blok een vertrouwensmachine.'},
+      {role:'CEO ±100', quote:'“Wie zijn deze mensen, wat is hun staat van dienst?” Zonder dat blijft die vraag open — net cruciaal voor een grotere opdracht.'}
+    ],
+    decision:'Voeg achternamen, LinkedIn en één expertise-regel per teamlid toe; harmoniseer de portretstijl.',
+    action:'Vraagt teamgegevens + consistente foto’s van uw kant. Levering → ik verwerk het in het bestaande teamblok.' },
+
+  { phase:'P1', page:'Overkoepelend', status:'',
+    title:'Te veel concurrerende CTA’s met gelijk gewicht',
+    problem:'“Zijn we een match?”, “Ontdek de technologie”, “Plan een gesprek” (2×)… De bezoeker weet niet welke de hoofdactie is. Te veel gelijke knoppen verlammen de keuze.',
+    panel:[
+      {role:'CRO-specialist', quote:'Eén primair, één secundair per scherm. Niet meer.'},
+      {role:'UX Designer', quote:'Geef de knoppen visuele hiërarchie: gevuld = primair, ghost = secundair, micro-link = de twijfelaar.'}
+    ],
+    decision:'Eén CTA-hiërarchie site-breed: primair “Plan een gratis verzuimgesprek”, secundair “Bereken uw verzuimkost”, micro “Doe de fit-check (2 min)”.',
+    action:'Deels merk/copy, deels layout. Ik kan de hiërarchie technisch uitrollen zodra de labels vaststaan (hangt aan de hero-copybeslissing).' },
+
+  { phase:'P1', page:'Overkoepelend', status:'',
+    title:'Dubbelingen: FAQ, cijferblokken en slot-CTA’s',
+    problem:'Dezelfde slot-CTA staat onderaan élke pagina, vaak gevolgd door nóg een “Klaar om te starten?”-blok — twee tot drie gestapeld. De FAQ staat dubbel (Aanpak + eigen pagina). De cijfers (2.500/€14,7M/30–35%) komen overal identiek terug.',
+    panel:[
+      {role:'B2B Copywriter', quote:'De belofte “geen verkoopdruk” wordt zó vaak herhaald dat ze onzeker begint te klinken.'},
+      {role:'Customer Journey', quote:'Kies één thuis per stuk content: home = teaser, detailpagina = het volledige verhaal.'}
+    ],
+    decision:'Schrap de dubbele slot-CTA’s (één krachtige volstaat), kies één thuis voor de FAQ, en laat cijfers niet woordelijk identiek terugkomen.',
+    action:'Grotendeels veilige opschoning. Ik kan de gestapelde slot-CTA’s en de dubbele FAQ opruimen op uw teken (raakt meerdere pagina’s).' },
+
+  { phase:'P1', page:'Technologie', status:'',
+    title:'De Storm-video is een lege placeholder',
+    problem:'De Storm-“video” is een leeg, licht vlak zonder thumbnail — oogt onaf op een verder gepolijste pagina. HR wil de tool net zíen; nu blijft de pagina op principe-niveau (GDPR, rollen) zonder Storm te tonen.',
+    panel:[
+      {role:'HR Business Partner', quote:'Toon me een dossieroverzicht, een echte flow. Ik koop een tool die ik kan zien werken.'},
+      {role:'UI Designer', quote:'Een echte screenshot of korte demo-loop is sterker dan de beste beschrijving.'}
+    ],
+    decision:'Vervang de placeholder door een <em>echte Storm-demo of screenshots</em>. Storm is beschikbaar — maak het de held.',
+    action:'Vraagt de clips/screenshots (u zou storm-demo.mp4 + casey-preview.mp4 aanleveren). De videovlakken staan klaar; bij levering koppel ik ze.' },
+
+  { phase:'P1', page:'Calculator', status:'Bevestigd ok',
+    title:'De invoerbug: “200” sprong naar “2.000”',
+    problem:'Bij het typen van “200” sprong het veld naar “2.000” en de slider naar max. Zulke haperingen ondermijnen net het vertrouwen in een rekentool.',
+    panel:[
+      {role:'CFO', quote:'Als de invoer al niet klopt, waarom zou ik het eindcijfer geloven?'},
+      {role:'Web Performance', quote:'Belgisch-bewuste invoer (komma = decimaal, punt = duizendtal) lost dit structureel op.'}
+    ],
+    decision:'Robuuste, Belgisch-bewuste getalinvoer met clamping op de slider-range.',
+    action:'Bevestigd opgelost in de huidige code: “200” blijft “200”, “50000” wordt “50.000”. Geen wijziging nodig.' },
+
+  { phase:'P1', page:'Home · Aanpak', status:'',
+    title:'De grote cijfers staan telkens “op aanvraag”',
+    problem:'2.500+ dossiers, €14,7M, 30–35%, 92–100K ziektedagen — krachtig, maar telkens zonder bron. Een CFO gelooft pas wat hij kan narekenen; “onderbouwing op aanvraag” parkeert hij als marketing.',
+    panel:[
+      {role:'CFO', quote:'Geef me de bron en de rekenlogica binnen één klik, anders is het een slogan.'},
+      {role:'SEO-specialist', quote:'Eén bronregel verhoogt ook de betrouwbaarheid richting zoekmachines en pers.'}
+    ],
+    decision:'Zet één bronregel direct bij de cijfers, bv. “o.b.v. SD Worx Verzuimbarometer 2025 + geaggregeerde Montisoro-data”.',
+    action:'Kleine copy-toevoeging. Kan ik doorvoeren zodra u de exacte bronformulering bevestigt (NL+EN).' },
+
+  { phase:'P1', page:'Contact', status:'Deels',
+    title:'“Geen verkoopdruk” wordt 3–4× herhaald',
+    problem:'“Geen verkoopgesprek”, “geen pitch”, “vrijblijvend”, “geen druk” — op de contactpagina staat dit vier keer. Over-geruststelling die net het tegenovergestelde gevoel wekt (protesteert te veel).',
+    panel:[
+      {role:'B2B Copywriter', quote:'Houd één krachtige formulering, schrap de rest. Vier keer “geen druk” voelt onzeker.'},
+      {role:'Gedragspsycholoog', quote:'Eén keer overtuigend gezegd is sterker dan vier keer verdedigend.'}
+    ],
+    decision:'Behoud één set geruststellingen; schrap de herhaalde reassurance-blokken en de meervoudige “geen druk”-zinnen.',
+    action:'Copy-opschoning op Contact (NL+EN). Klein en veilig; kan mee met de contact-wijzigingen op uw teken.' },
+
+  { phase:'P1', page:'Home · Technologie', status:'',
+    title:'Casey (nog niet live) krijgt te veel gewicht',
+    problem:'Casey (AI, piloot vanaf sept 2026) wordt al op de home en prominent op Technologie geïntroduceerd, naast Storm. Een prospect met een acuut verzuimprobleem vraagt zich af of hij op vaporware wacht — afleiding van de kerndienst.',
+    panel:[
+      {role:'CEO ±200', quote:'Laat me eerst zien wat vandaag werkt. Toekomstmuziek is leuk, maar ik heb nú een probleem.'},
+      {role:'Marketing Director', quote:'Storm = held (beschikbaar); Casey = duidelijk gelabelde preview met kleinere CTA.'}
+    ],
+    decision:'Verklein Casey’s gewicht t.o.v. Storm; maak Storm de held en label Casey helder als piloot/preview.',
+    action:'Copy + accent-herschikking op Home/Technologie. Voer ik door in lijn met de bredere copybeslissing.' },
+
+  { phase:'P1', page:'Fit Check', status:'Deels',
+    title:'6–8 schermen intro vóór een quiz van 2 minuten',
+    problem:'Onder de hero begint een zeer lange uitleg — waarom, vier dimensies, hoe de matching werkt, zes routes, wat je ontvangt — voor een tool die “2 minuten” duurt. Wie wil starten, klikt meteen; de uitleg kost momentum.',
+    panel:[
+      {role:'CRO-specialist', quote:'Zet de startknop bovenaan en knip de intro tot één scherm. De winst zit in de quiz, niet in de uitleg.'},
+      {role:'UX Designer', quote:'Vertrouwen in de tool zelf volstaat; “Hoe de matching werkt” is procesnavelstaren.'}
+    ],
+    decision:'Knip de intro tot <em>één scherm</em>, zet de startknop bovenaan, schrap “Hoe de matching werkt” en de losse zes-routes-opsomming.',
+    action:'De gate is al gefixt; deze inkorting is de volgende stap. Grotendeels copy/layout — kan ik voorstellen zodra de bredere copyrichting vaststaat.' },
+
+  { phase:'P2', page:'Calculator', status:'',
+    title:'6 stappen is zwaar voor “±2 minuten”',
+    problem:'De belofte “±2 min” botst met zes stappen (arbeider/bediende-split, groepsverzekering, firmawagen, vervangings-%…). Voor een eerste bezoeker die snel een indicatie wil, is dat veel.',
+    panel:[
+      {role:'CEO ±50', quote:'Ik wilde gewoon een richtcijfer en haak af bij het detail.'},
+      {role:'CEO ±200', quote:'Ik waardeer net de diepte — voor mij is dit een plus. Dus verwijder het niet, faseer het.'}
+    ],
+    decision:'Faseer: een snel basiscijfer met 2 velden (FTE + brutoloon), daarna optioneel “verfijn je cijfer”.',
+    action:'⚠️ U weigerde eerder bewust het compacter maken van de stappen. Deze fasering blijft dus een open voorstel — enkel op uw uitdrukkelijk teken.' },
+
+  { phase:'P2', page:'Aanpak', status:'',
+    title:'De 10-signalen-check is statische tekst, geen tool',
+    problem:'De 10-signalen-check is een uitstekend idee (zelfherkenning creëert urgentie), maar het is nu statische tekst. Het “eerlijk afvinken” wordt niet ondersteund.',
+    panel:[
+      {role:'Gedragspsycholoog', quote:'Laten aanvinken → een score → “3× ja? Plan een gesprek” maakt de urgentie voelbaar.'},
+      {role:'CRO-specialist', quote:'Interactie hier is een tweede micro-conversie, net als de fit-check.'}
+    ],
+    decision:'Maak de check interactief: aanvinken → score → passende CTA.',
+    action:'Bouwbaar (JS-component in huisstijl). Voorstel — kan ik oppakken zodra de Aanpak-copyrichting bevestigd is.' },
+
+  { phase:'P2', page:'Overkoepelend', status:'',
+    title:'Poëtische tussenzinnen die niets uitleggen',
+    problem:'“Vertrouwen is geen soft skill. Het is infrastructuur.”, “Menselijk waar het moet…”, “Care wordt systeem…” — ritmisch maar hol. Ze rekken de pagina zonder informatie toe te voegen.',
+    panel:[
+      {role:'B2B Copywriter', quote:'Klinkt als LinkedIn-quotes; vervang ze door een concreet voorbeeld van hoe een dossier verloopt.'},
+      {role:'UX Designer', quote:'Deze tussenblokken worden gescand, niet gelezen. Pure scroll-vulling.'}
+    ],
+    decision:'Schrap of vervang de poëtische bruggen door concrete voorbeelden.',
+    action:'Copy-selectie. Ik kan een lijst van de te schrappen zinnen aanleveren ter goedkeuring, dan doorvoeren.' },
+
+  { phase:'P2', page:'FAQ', status:'',
+    title:'De FAQ is te dun en mist de échte koopvragen',
+    problem:'Vier goede vragen, maar als losse pagina te dun én volledig dubbel met Aanpak. De vragen die kopers écht tegenhouden ontbreken: prijsindicatie, wie voert het uit, GDPR, “wat verwachten jullie van ons”, zit Storm in de prijs.',
+    panel:[
+      {role:'CFO', quote:'“Hangt af” frustreert. Geef een orde van grootte of een “vanaf”-indicatie.'},
+      {role:'HR Director', quote:'“Wat verwachten jullie van ons?” is net de vraag die ik voor het gesprek beantwoord wil zien.'}
+    ],
+    decision:'Los de dubbeling op (één thuis) en breid uit met de 5 ontbrekende vragen, vooral een prijsindicatie.',
+    action:'Copy-uitbreiding (vraagt beslissingen over prijs-communicatie). Ik kan de nieuwe vragen invullen zodra u de lijnen bepaalt.' },
+
+  { phase:'P2', page:'Fit Check', status:'',
+    title:'De route-namen zijn Engels en abstract',
+    problem:'De zes routes heten “Operating System”, “Exploratory Direction”… — abstract en Engels, en het echte advies zat achter de gate. De bezoeker weet niet of dit goed of slecht nieuws is.',
+    panel:[
+      {role:'B2B Copywriter', quote:'Vertaal de route-namen naar begrijpelijke NL-labels.'},
+      {role:'CFO', quote:'Ik wil een richting, geen “Exploratory Direction”.'}
+    ],
+    decision:'Vertaal de route-namen naar heldere NL-labels.',
+    action:'Copy-selectie. Nu de gate weg is, is dit een nette afwerking — kan mee met de fit-check-copyronde.' },
+
+  { phase:'P2', page:'Fit Check', status:'',
+    title:'“Hoe de matching werkt” en “Geen black box”',
+    problem:'Meta-uitleg over een proces dat niemand vroeg (“Antwoorden → Scoring → Route → Inzicht”), en “geen black box” roept net het beeld op dat je wil vermijden.',
+    panel:[
+      {role:'UX Designer', quote:'Procesnavelstaren. Vertrouwen in de tool zelf volstaat.'},
+      {role:'Copywriter', quote:'Door “geen black box” te zeggen, introduceer je het woord black box.'}
+    ],
+    decision:'Schrap de meta-uitleg en de “geen black box”-formulering.',
+    action:'Copy-opschoning op Fit Check. Klein en veilig; mee met de fit-check-copyronde.' },
+
+  { phase:'P2', page:'Overkoepelend', status:'',
+    title:'Plaatselijk lage tekstcontrast (grijs op zwart)',
+    problem:'De prachtige typografie kent op de donkere secties plaatselijk grijs-op-zwart met te laag contrast — een leesbaarheids- en toegankelijkheidsrisico.',
+    panel:[
+      {role:'Accessibility', quote:'Mik op minstens AA (4,5:1) voor lopende tekst; enkele muted-tinten zitten daar nu onder.'},
+      {role:'UI Designer', quote:'Een tikje lichter grijs behoudt de sfeer én haalt de norm.'}
+    ],
+    decision:'Til de muted-tekstkleuren op donkere secties naar minstens AA-contrast.',
+    action:'Veilige, meetbare tokenwijziging. Kan ik doorvoeren (met contrastmeting) op uw teken.' },
+
+  { phase:'P2', page:'Technologie', status:'',
+    title:'Geen enkel signaal over prijs of prijsmodel',
+    problem:'Nergens een woord over of Storm een aparte licentiekost is bovenop de dienst, of over de terugverdientijd. Onzekerheid = uitstel, zeker bij de CFO.',
+    panel:[
+      {role:'CFO', quote:'Zit Storm in de prijs of is het apart? Zonder dat parkeer ik de beslissing.'},
+      {role:'Sales Director', quote:'Eén geruststellende regel volstaat — geen volledige prijslijst nodig.'}
+    ],
+    decision:'Voeg één helder signaal toe (bv. “Storm is inbegrepen in het traject”) — ook in de FAQ.',
+    action:'Vraagt een commerciële beslissing van uw kant. Levering van de lijn → ik plaats ze (NL+EN).' },
+
+  { phase:'P3', page:'Navigatie', status:'',
+    title:'Zeven nav-items + inconsistente NL/EN-labels',
+    problem:'Zeven items plus twee knoppen is veel, en “About” / “Fit check” (Engels) staan naast “Aanpak”, “Technologie”, “Contact” (NL). Poetswerk, maar het verhoogt de focus op “Plan een gesprek”.',
+    panel:[
+      {role:'UX Designer', quote:'Groepeer Calculator + Fit-check onder “Tools”, zodat de hoofdactie meer opvalt.'},
+      {role:'B2B Copywriter', quote:'Harmoniseer de labels: “Over ons”, “Fit-check”.'}
+    ],
+    decision:'Groepeer nav-items en harmoniseer de NL-labels — samen met de Referenties-in-nav-ingreep.',
+    action:'Sluit aan bij het nav-herontwerp (Concept 02 · zwevende capsule). Meenemen wanneer we die verder afwerken.' },
+
+  { phase:'P3', page:'Overkoepelend', status:'',
+    title:'Mobiel is nog niet nagemeten',
+    problem:'De audit rendert op desktopbreedte; échte mobiele screenshots waren niet betrouwbaar. Op zo’n lange, groot gezette site zit daar net veel winst én de meeste risico’s — het is de grootste blinde vlek.',
+    panel:[
+      {role:'Web Performance', quote:'Laat mobiel apart nameten; de reuzentypografie en paginalengte wegen daar het zwaarst.'},
+      {role:'Customer Journey', quote:'Een groot deel van B2B-oriëntatie gebeurt mobiel — dit mag geen aanname blijven.'}
+    ],
+    decision:'Voer een aparte mobiele audit uit (echte toestellen) na de typografie- en lengte-ingrepen.',
+    action:'Aanbevolen als vervolgtraject. Ik kan een mobiele nameting doen zodra de P0/P1-ingrepen live staan.' }
+];
+
+/* ── Render ── */
+(function(){
+  var roster = document.getElementById('roster');
+  roster.innerHTML = ROSTER.map(function(r){
+    return '<div class="r">'+r[0]+(r[1]?'<span>'+r[1]+'</span>':'<span>&nbsp;</span>')+'</div>';
+  }).join('');
+
+  var list = document.getElementById('list');
+  var groups = ['P0','P1','P2','P3'];
+  var gDesc = {
+    P0:'Vijf minpunten die vandaag rechtstreeks aanvragen kosten. Hier begint alles.',
+    P1:'Vijftien ingrepen die de site sneller begrijpelijk en geloofwaardiger maken — de grootste opwaartse ruimte.',
+    P2:'Acht verfijningen die de laatste twijfels wegnemen en de tools scherper zetten.',
+    P3:'Twee zaken voor later: poetswerk en de mobiele nameting.'
+  };
+  var n = 0, html = '';
+  groups.forEach(function(g){
+    var items = ITEMS.filter(function(i){return i.phase===g;});
+    var ph = PHASE[g];
+    html += '<div class="grp"><div class="grp-head">'+
+      '<span class="grp-tag" style="background:'+ph.color+'">'+ph.label+'</span>'+
+      '<h2>'+({P0:'Onmiddellijk',P1:'Zeer belangrijk',P2:'Belangrijk',P3:'Kan later'}[g])+'</h2>'+
+      '<span class="cnt">'+items.length+' minpunten</span>'+
+      '</div><p class="grp-desc">'+gDesc[g]+'</p></div>';
+    items.forEach(function(it){
+      n++;
+      var num = (n<10?'0':'')+n;
+      var status = it.status ? '<span class="wk-status">'+it.status+'</span>' : '';
+      var voices = it.panel.map(function(v){
+        return '<div class="voice"><span class="role">'+v.role+'</span><p>“'+v.quote+'”</p></div>';
+      }).join('');
+      html += '<article class="wk">'+
+        '<div class="wk-num">'+num+'</div>'+
+        '<div class="wk-body">'+
+          '<div class="wk-meta">'+
+            '<span class="wk-phase" style="background:'+ph.color+'">'+it.phase+'</span>'+
+            '<span class="wk-page">'+it.page+'</span>'+ status +
+          '</div>'+
+          '<h3 class="wk-title">'+it.title+'</h3>'+
+          '<p class="wk-problem">'+it.problem+'</p>'+
+          '<div class="wk-panel">'+voices+'</div>'+
+          '<div class="wk-decision"><span class="lbl">De beslissing</span><p>'+it.decision+'</p></div>'+
+          '<p class="wk-action"><span class="k">Concreet</span>'+it.action+'</p>'+
+        '</div>'+
+      '</article>';
+    });
+  });
+  list.innerHTML = html;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montisoro — Brand &amp; Content Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  :root{
+    --orange:#E8592B; --orange-cta:#CC4A1E; --ink:#1a1a1a; --muted:#6b7280;
+    --line:#e4e0d9; --tint:#faf6f2; --dark:#13100D; --off:#F0EDE8;
+    --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  doc-page{font-family:var(--sans);color:var(--ink);font-weight:300;font-size:13px;line-height:1.68;}
+  h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.1;margin:0;}
+  em{font-style:italic;color:var(--orange);}
+  .eyebrow{font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#F0A488;display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+  .eyebrow::before{content:"";width:24px;height:1.5px;background:#F0A488;display:inline-block;}
+
+  .cover{background:var(--dark);color:var(--off);border-radius:2px;padding:44px 38px;margin-bottom:30px;}
+  .cover h1{font-size:44px;font-weight:900;color:#fff;letter-spacing:-.01em;margin-bottom:12px;}
+  .cover h1 em{color:var(--orange);}
+  .cover .lead{font-size:14px;color:#cfc9c0;max-width:60ch;}
+  .cover .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:24px;font-size:10.5px;letter-spacing:.04em;color:#a9a29a;text-transform:uppercase;}
+  .cover .meta b{display:block;color:#fff;font-weight:600;font-size:12px;letter-spacing:0;text-transform:none;margin-top:3px;}
+
+  .intro{font-size:13.5px;color:#413d38;max-width:68ch;margin-bottom:26px;}
+  .intro b{color:var(--ink);font-weight:600;}
+
+  .toc{border-top:1.5px solid var(--ink);}
+  .item{display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line);break-inside:avoid;}
+  .item .no{font-family:var(--serif);font-weight:900;font-style:italic;font-size:26px;color:var(--orange);line-height:1;flex:0 0 38px;}
+  .item .body{flex:1 1 auto;}
+  .item h3{font-size:16px;margin-bottom:4px;}
+  .item p{font-size:12px;color:#413d38;margin:0;max-width:64ch;}
+  .item .file{font-size:10.5px;color:var(--muted);margin-top:5px;font-family:var(--sans);}
+  .item .tag{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--orange-cta);border:1px solid var(--line);border-radius:100px;padding:3px 11px;align-self:center;}
+
+  .use{background:var(--tint);border:1px solid var(--line);border-radius:2px;padding:20px 24px;margin-top:28px;break-inside:avoid;}
+  .use h2{font-size:18px;margin-bottom:8px;}
+  .use ol{margin:8px 0 0;padding-left:20px;}
+  .use li{font-size:12px;color:#413d38;margin-bottom:6px;}
+  .use li b{color:var(--ink);font-weight:600;}
+  .foot-note{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-size:10.5px;color:var(--muted);}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#13100D"/><text x="50" y="46" font-family="'Playfair Display',Georgia,serif" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">Brand</text><text x="50" y="70" font-family="'Playfair Display',Georgia,serif" font-size="20" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">Kit</text></svg>
+</template>
+<doc-page size="a4" margin="0.6in">
+
+  <div class="cover">
+    <p class="eyebrow">Montisoro · merk- &amp; contentpakket</p>
+    <h1>Brand &amp; Content <em>Kit</em>.</h1>
+    <p class="lead">Alles wat nodig is om Montisoro consistent te laten klinken en ogen — op de site, in documenten en in elke nieuwe uiting. Eén pakket, zeven onderdelen, in het Nederlands en Engels.</p>
+    <div class="meta">
+      <div>Samengesteld<b>13 juli 2026</b></div>
+      <div>Versie<b>1.0</b></div>
+      <div>Onderdelen<b>7 documenten</b></div>
+    </div>
+  </div>
+
+  <p class="intro">Dit pakket bundelt de <b>visuele</b> en de <b>verbale</b> identiteit van Montisoro. De visuele kant (kleur, typografie, componenten, spacing) staat in het Design System; de verbale kant (stem, woordenlijst, formats) in de Copywriting Stijlgids. De één-pager vat beide samen op één blad. Gebruik dit als de bron van waarheid — voor intern werk, freelancers én AI-hulpmiddelen.</p>
+
+  <div class="toc">
+    <div class="item">
+      <span class="no">01</span>
+      <div class="body"><h3>Merk-één-pager</h3><p>Logo, kleuren, fonts en tone-of-voice op één blad. De snelste kennismaking met het merk.</p><p class="file">Montisoro - Merk-een-pager</p></div>
+      <span class="tag">Start hier</span>
+    </div>
+    <div class="item">
+      <span class="no">02</span>
+      <div class="body"><h3>Copywriting Stijlgids</h3><p>De stem in detail: 5 schrijfregels, do's &amp; don'ts, woordenlijst NL/EN en kant-en-klare formats voor koppen, CTA's en cases.</p><p class="file">Montisoro - Copywriting Stijlgids</p></div>
+      <span class="tag">Tekst</span>
+    </div>
+    <div class="item">
+      <span class="no">03</span>
+      <div class="body"><h3>Design System — Aanpak</h3><p>De canonieke visuele referentie: kleur, fonts, typeschaal, sectie-anatomie, componenten, CTA's en spacing.</p><p class="file">Design System - Aanpak</p></div>
+      <span class="tag">Visueel</span>
+    </div>
+    <div class="item">
+      <span class="no">04</span>
+      <div class="body"><h3>Design System</h3><p>De uitgebreide systeemdocumentatie met tokens en toepassing, print-geoptimaliseerd.</p><p class="file">Montisoro - Design System</p></div>
+      <span class="tag">Visueel</span>
+    </div>
+    <div class="item">
+      <span class="no">05</span>
+      <div class="body"><h3>Componentbibliotheek</h3><p>De herbruikbare UI-componenten met hun states en gebruiksregels.</p><p class="file">Design System Component Library</p></div>
+      <span class="tag">Componenten</span>
+    </div>
+    <div class="item">
+      <span class="no">06</span>
+      <div class="body"><h3>Formulieren — consistentiegids</h3><p>Regels voor formulieren, invoervelden, foutstaten en knoppen — zodat elk formulier hetzelfde aanvoelt.</p><p class="file">Formulieren - Consistency Audit</p></div>
+      <span class="tag">Componenten</span>
+    </div>
+    <div class="item">
+      <span class="no">07</span>
+      <div class="body"><h3>Copy-audit klantgerichtheid</h3><p>De pagina-per-pagina analyse (wij → u) die aan de basis ligt van de stijlgids — met voor/na-voorbeelden.</p><p class="file">Copy-audit klantgerichtheid</p></div>
+      <span class="tag">Analyse</span>
+    </div>
+  </div>
+
+  <div class="use">
+    <h2>Zo gebruik je dit pakket</h2>
+    <ol>
+      <li>Nieuw bij Montisoro? Lees eerst de <b>Merk-één-pager (01)</b>.</li>
+      <li>Schrijf je tekst? Werk met de <b>Copywriting Stijlgids (02)</b> naast je.</li>
+      <li>Ontwerp of bouw je? Volg <b>Design System (03/04)</b> en de <b>Componentbibliotheek (05)</b>.</li>
+      <li>Maak je een formulier? Toets aan de <b>consistentiegids (06)</b>.</li>
+      <li>Elk onderdeel is een los A4-document: open → <b>Cmd/Ctrl+P → Bewaar als PDF</b>.</li>
+    </ol>
+  </div>
+
+  <p class="foot-note">Montisoro — Brand &amp; Content Kit · v1.0 · 13 juli 2026. Levend pakket: werk de onderdelen bij naarmate merk en site evolueren.</p>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

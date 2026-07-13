@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harnas — Boekingsschema override</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;margin:0;background:#fff;color:#13100d;}
+  .head{background:#13100d;color:#f0ede8;padding:20px 28px;}
+  .head h1{margin:0 0 4px;font-size:19px;} .head p{margin:0;font-size:13px;color:#b7aea3;}
+  #results{padding:18px 28px;}
+  .r{display:flex;gap:10px;align-items:baseline;padding:5px 0;font-size:13.5px;font-family:ui-monospace,Menlo,Consolas,monospace;}
+  .r .ic{font-weight:700;width:22px;flex-shrink:0;}
+  .r.pass .ic{color:#1F8A5B;} .r.fail .ic{color:#c0392b;} .r.fail{color:#c0392b;font-weight:600;}
+  #summary{padding:12px 28px 30px;font-weight:700;font-size:15px;}
+</style>
+</head>
+<body>
+<div class="head">
+  <h1>Harnas — Boekingsschema override (Audit P11)</h1>
+  <p>Verifieert de exacte frontend-logica van <code>tmplFor()</code> uit contact.html: gepubliceerd schema (<code>window.MONTISORO_BOOKING_SCHEDULE</code>) verkiezen, anders terugvallen op de hardcoded defaults.</p>
+</div>
+<div id="results"></div>
+<div id="summary"></div>
+
+<script>
+  /* ── Exacte kopie van de contact.html-bouwstenen ── */
+  var state = { type: 'online' };
+  // hardcoded default (zoals var TEMPLATES in contact.html)
+  var TEMPLATES = {
+    onsite: { 2:['9:30'], 4:['13:00'] },
+    online: { 1:['13:00','14:00','15:00','16:00'], 3:['11:00','12:00','13:00'], 5:['11:00','12:00','13:00'] }
+  };
+  // ← exact zoals na de wijziging in contact.html:
+  function tmplFor(d){ var src=(window.MONTISORO_BOOKING_SCHEDULE&&typeof window.MONTISORO_BOOKING_SCHEDULE==='object')?window.MONTISORO_BOOKING_SCHEDULE:TEMPLATES; var t=src[state.type]||{}; return t[d.getDay()]||[]; }
+  function isBookable(d){ return tmplFor(d).length>0; }
+
+  // helper: een datum met een bepaalde weekdag (0=zo..6=za)
+  function dayOfWeek(wd){ var d=new Date(2026,6,6); /* ma 6 jul 2026 */ while(d.getDay()!==wd) d.setDate(d.getDate()+1); return d; }
+  var MON=dayOfWeek(1), TUE=dayOfWeek(2), WED=dayOfWeek(3), THU=dayOfWeek(4), FRI=dayOfWeek(5);
+
+  var checks=[];
+  function ck(l,c){ checks.push({l:l,ok:!!c}); }
+
+  /* 1) Geen gepubliceerd schema → exact de defaults (additief, geen gedragswijziging) */
+  delete window.MONTISORO_BOOKING_SCHEDULE;
+  state.type='online';
+  ck('default online maandag = 4 slots', tmplFor(MON).join(',')==='13:00,14:00,15:00,16:00');
+  ck('default online dinsdag = geen (niet boekbaar)', !isBookable(TUE));
+  state.type='onsite';
+  ck('default onsite dinsdag = 9:30', tmplFor(TUE).join(',')==='9:30');
+  ck('default onsite maandag = niet boekbaar', !isBookable(MON));
+
+  /* 2) Gepubliceerd schema (zoals uit admin → /api/site-content → site-content.js) overrulet */
+  window.MONTISORO_BOOKING_SCHEDULE = {
+    online: { '2':['10:00','11:00'], '4':['15:30'] },   // di + do i.p.v. ma/wo/vr
+    onsite: { '3':['9:00'] }                            // enkel woensdag
+  };
+  state.type='online';
+  ck('gepubliceerd online dinsdag = 10:00,11:00', tmplFor(TUE).join(',')==='10:00,11:00');
+  ck('gepubliceerd online donderdag = 15:30', tmplFor(THU).join(',')==='15:30');
+  ck('gepubliceerd: online maandag nu NIET meer boekbaar', !isBookable(MON));
+  ck('gepubliceerd: online vrijdag nu NIET meer boekbaar', !isBookable(FRI));
+  state.type='onsite';
+  ck('gepubliceerd onsite woensdag = 9:00', tmplFor(WED).join(',')==='9:00');
+  ck('gepubliceerd: onsite dinsdag nu NIET meer boekbaar', !isBookable(TUE));
+
+  /* 3) Kapot/leeg gepubliceerd object → veilige terugval op defaults */
+  window.MONTISORO_BOOKING_SCHEDULE = null;
+  state.type='online';
+  ck('null-schema → terugval op defaults', tmplFor(MON).join(',')==='13:00,14:00,15:00,16:00');
+
+  /* render */
+  var out=document.getElementById('results'), pass=0;
+  out.innerHTML = checks.map(function(c){ if(c.ok) pass++; return '<div class="r '+(c.ok?'pass':'fail')+'"><span class="ic">'+(c.ok?'✓':'✕')+'</span><span>'+c.l+'</span></div>'; }).join('');
+  var s=document.getElementById('summary'), all=pass===checks.length;
+  s.textContent=(all?'✓ ALLE ':'✕ ')+pass+'/'+checks.length+' checks geslaagd';
+  s.style.color=all?'#1F8A5B':'#c0392b';
+</script>
+</body>
+</html>

@@ -79,7 +79,10 @@
           note:'Wilt u sneller schakelen? Plan gerust een vrijblijvend gesprek.', cta_url:'https://montisoro.com/contact.html#channels', cta_btn:'Plan een gesprek' },
         casey:{ subject:'U staat op de Casey-wachtlijst', pre:'U staat op de wachtlijst voor Casey AI.', title:'Welkom op de wachtlijst',
           intro:'Bedankt voor uw interesse in Casey AI. U staat op de wachtlijst — we houden u op de hoogte zodra de pilot opengaat (najaar 2026).',
-          note:'We delen enkel relevante updates over Casey. Geen spam.', cta_url:'https://montisoro.com/technologie.html', cta_btn:'Meer over Casey' }
+          note:'We delen enkel relevante updates over Casey. Geen spam.', cta_url:'https://montisoro.com/technologie.html', cta_btn:'Meer over Casey' },
+        gids:{ subject:'Uw RIT 3.0-werkgeversgids staat klaar', pre:'Uw download staat klaar — en komt ook per e-mail.', title:'Gids ontvangen',
+          intro:'Bedankt voor uw interesse. Uw RIT 3.0-werkgeversgids is gedownload; bewaar deze e-mail zodat u de gids later opnieuw vindt.',
+          note:'Vragen over re-integratie in uw organisatie? U mag gerust op deze e-mail antwoorden.', cta_url:'https://montisoro.com/calculator', cta_btn:'Bereken uw verzuimkost' }
       },
       bk:{
         subject: function(d){ return 'Uw afspraak is bevestigd \u2014 ' + d; },
@@ -144,7 +147,10 @@
           note:'Want to move faster? Feel free to schedule a no-obligation call.', cta_url:'https://montisoro.com/contact-en.html#channels', cta_btn:'Schedule a call' },
         casey:{ subject:'You’re on the Casey waitlist', pre:'You’re on the Casey AI waitlist.', title:'Welcome to the waitlist',
           intro:'Thank you for your interest in Casey AI. You’re on the waitlist — we’ll let you know as soon as the pilot opens (autumn 2026).',
-          note:'We only share relevant Casey updates. No spam.', cta_url:'https://montisoro.com/technologie-en.html', cta_btn:'More about Casey' }
+          note:'We only share relevant Casey updates. No spam.', cta_url:'https://montisoro.com/technologie-en.html', cta_btn:'More about Casey' },
+        gids:{ subject:'Your RIT 3.0 employer guide is ready', pre:'Your download is ready — and is on its way by email too.', title:'Guide received',
+          intro:'Thank you for your interest. Your RIT 3.0 employer guide has been downloaded; keep this email so you can find the guide again later.',
+          note:'Questions about reintegration in your organisation? Feel free to reply to this email.', cta_url:'https://montisoro.com/calculator', cta_btn:'Calculate your absence cost' }
       },
       bk:{
         subject: function(d){ return 'Your appointment is confirmed \u2014 ' + d; },
@@ -374,7 +380,7 @@ footer(L, lang, o.assetBase);
   function customerConfirm(o){
     var lang = (o.lang === 'en') ? 'en' : 'nl';
     var L = T[lang]; var m = o.meta || {};
-    var type = (['contact','fitcheck','casey'].indexOf(o.type) >= 0) ? o.type : 'contact';
+    var type = (['contact','fitcheck','casey','gids'].indexOf(o.type) >= 0) ? o.type : 'contact';
     var t = L.cc[type];
     var fc = o.fitcheck || null;
 

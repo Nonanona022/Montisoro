@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RIT 3.0 — Werkgeversgids (design-preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  :root{
+    --orange:#E8592B; --orange-cta:#CC4A1E; --ink:#1a1a1a; --muted:#6b7280;
+    --line:#e4e0d9; --tint:#faf6f2; --dark:#13100D; --off:#F0EDE8;
+    --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,sans-serif; --mono:"DM Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  doc-page{font-family:var(--sans);color:var(--ink);font-weight:300;font-size:15px;line-height:1.72;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.14;margin:0;}
+  em{font-style:italic;color:var(--orange);}
+  p{margin:0 0 12px;}
+  strong{font-weight:600;color:var(--ink);}
+  .eyebrow{font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--orange);display:inline-block;}
+
+  /* ── COVER (donker, hele eerste pagina) ── */
+  .cover{background:var(--dark);color:var(--off);border-radius:2px;padding:56px 44px;margin-bottom:34px;break-after:page;}
+  .cover .kicker{font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#F0A488;margin-bottom:auto;}
+  .cover h1{font-size:62px;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:.98;margin:22px 0 0;}
+  .cover h1 .v{color:var(--orange);}
+  .cover .sub{font-family:var(--serif);font-size:20px;font-style:italic;color:#e9c9bd;margin-top:18px;max-width:34ch;line-height:1.3;}
+  .cover .by{margin-top:34px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a9a29a;}
+  .cover .disc{margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.16);font-size:11.5px;color:#9a938b;font-style:italic;max-width:60ch;}
+
+  /* ── secties ── */
+  .sec{margin-top:40px;}
+  .sec-head{margin-bottom:16px;}
+  .sec-head .lbl{font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .sec-head h2{font-size:30px;font-weight:900;letter-spacing:-.01em;line-height:1.05;}
+  .sec-head .pg{font-size:11px;color:var(--muted);font-style:italic;margin-top:4px;}
+  h3.blk{font-size:18px;margin:22px 0 8px;}
+  h4.blk{font-size:14px;font-weight:700;margin:16px 0 4px;}
+  .note{font-style:italic;color:#6d675f;font-size:12.5px;}
+  .maxw{max-width:66ch;}
+
+  /* lijst */
+  ul.clean{margin:0 0 12px;padding-left:18px;} ul.clean li{font-size:12.8px;margin-bottom:5px;color:#37332e;}
+
+  /* key change items */
+  .kc{break-inside:avoid;margin:0 0 12px;padding-left:40px;position:relative;}
+  .kc .num{position:absolute;left:0;top:-2px;font-family:var(--serif);font-weight:900;font-style:italic;font-size:22px;color:var(--orange);line-height:1;}
+  .kc h4{font-size:14px;font-weight:700;margin-bottom:3px;}
+  .kc p{font-size:12.5px;color:#37332e;margin:0;max-width:64ch;}
+
+  /* tabel */
+  table{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:12px;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  tr.hi td{background:var(--tint);}
+  td b{color:var(--ink);font-weight:600;}
+
+  /* quote / statement */
+  .state{border-left:3px solid var(--orange);padding:6px 0 6px 18px;margin:16px 0;font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.28;color:var(--ink);}
+  .state.big{font-size:23px;}
+
+  /* callout / waarschuwing */
+  .warn{background:#fbf0ea;border:1px solid #f0cdbd;border-radius:2px;padding:16px 20px;margin:16px 0;break-inside:avoid;}
+  .warn .w-lbl{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#b23a1c;margin-bottom:6px;}
+  .warn p{font-size:12.5px;color:#5c4a42;margin:0 0 6px;}
+  .callout{background:var(--tint);border:1px solid var(--line);border-radius:2px;padding:18px 22px;margin:18px 0;break-inside:avoid;}
+  .callout p{font-size:12.8px;color:#37332e;margin:0 0 6px;}
+
+  /* drempel-boom */
+  .thr{border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:12px 0;}
+  .thr .lvl{padding:12px 18px;border-bottom:1px solid var(--line);}
+  .thr .lvl:last-child{border-bottom:none;}
+  .thr .l0{background:#fff;}
+  .thr .l1{background:#fdf6f2;padding-left:34px;}
+  .thr .l2{background:#fbede4;padding-left:54px;}
+  .thr .t{font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--ink);}
+  .thr .t .n{color:var(--orange);}
+  .thr .d{font-size:12px;color:#5c534b;margin-top:2px;}
+
+  /* tijdlijn */
+  .tl{margin:12px 0;}
+  .tl .row{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid #f0ece5;break-inside:avoid;}
+  .tl .row:last-child{border-bottom:none;}
+  .tl .date{flex:0 0 96px;font-family:var(--mono);font-size:11px;color:var(--orange-cta);font-weight:500;padding-top:1px;}
+  .tl .ev b{font-weight:600;color:var(--ink);font-size:12.5px;}
+  .tl .ev span{display:block;font-size:11.5px;color:#6d675f;}
+
+  /* checklist stap */
+  .step{break-inside:avoid;margin:14px 0;padding:12px 16px;border:1px solid var(--line);border-radius:2px;}
+  .step .when{font-weight:700;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--orange);margin-bottom:5px;}
+  .step h4{font-size:14px;margin-bottom:5px;}
+  .step p{font-size:12.3px;color:#37332e;margin:0 0 8px;}
+  .step .doc{font-style:italic;font-size:11.5px;color:#8a8279;}
+  .step .ask{background:var(--tint);border-radius:2px;padding:8px 12px;margin-top:8px;}
+  .step .ask div{font-size:11.8px;color:#4a443d;padding:2px 0;}
+
+  /* scenario / vergelijking (donker) */
+  .scen{background:var(--dark);color:var(--off);border-radius:2px;padding:22px 26px;margin:18px 0;break-inside:avoid;}
+  .scen .s-lbl{font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#F0A488;margin-bottom:10px;}
+  .scen .line{font-size:12.5px;color:#cfc9c0;margin-bottom:4px;}
+  .scen .big{font-family:var(--serif);font-size:26px;font-weight:900;color:#fff;margin:6px 0;}
+  .scen .calc{font-family:var(--mono);font-size:12px;color:#e9c9bd;line-height:1.7;margin-top:8px;}
+  .scen .tot{color:var(--orange);font-weight:600;}
+
+  /* to-fill (in te vullen) */
+  .fill{border:1px dashed #c9b6ab;border-radius:2px;background:#fdf8f5;padding:16px 20px;margin:16px 0;break-inside:avoid;}
+  .fill .f-lbl{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-cta);margin-bottom:8px;}
+  .fill .f-lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange-cta);}
+  .fill h4{font-size:14px;margin-bottom:6px;}
+  .fill p{font-size:12.3px;color:#5c534b;margin:0 0 6px;}
+  .fill ol{margin:6px 0 0;padding-left:18px;} .fill ol li{font-size:12px;color:#5c534b;margin-bottom:4px;}
+  .fill .placeholder{border:1px dashed #d9c8bd;border-radius:2px;background:#fff;min-height:38px;margin-top:8px;}
+
+  /* compare grid */
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:14px 0;}
+  .cmp .c{padding:14px 16px;} .cmp .c+.c{border-left:1px solid var(--line);}
+  .cmp .c.bad{background:#fbf0ea;} .cmp .c.good{background:#f2f7f3;}
+  .cmp h5{font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--sans);font-weight:700;margin:0 0 8px;}
+  .cmp .c.bad h5{color:#b23a1c;} .cmp .c.good h5{color:#2f6b4c;}
+  .cmp .r{font-size:11.8px;color:#4a443d;padding:3px 0;border-bottom:1px solid rgba(0,0,0,.05);}
+  .cmp .r:last-child{border-bottom:none;}
+
+  /* CTA blok */
+  .cta{background:var(--dark);color:var(--off);border-radius:2px;padding:28px 30px;margin:22px 0;break-inside:avoid;}
+  .cta .eyebrow{color:#F0A488;} .cta .eyebrow::before{background:#F0A488;}
+  .cta h2{color:#fff;font-size:24px;margin-bottom:14px;}
+  .cta .opt{border-top:1px solid rgba(255,255,255,.16);padding:12px 0;}
+  .cta .opt h4{color:#fff;font-size:15px;margin-bottom:3px;}
+  .cta .opt p{color:#bdb6ad;font-size:12px;margin:0 0 6px;}
+  .cta .opt a{color:var(--orange);font-weight:600;font-size:12px;text-decoration:none;}
+  .cta a{color:var(--orange);}
+
+  .sources{font-size:11.5px;color:#4a443d;}
+  .sources h4{font-size:13px;margin:14px 0 6px;}
+  .sources a{color:var(--orange-cta);word-break:break-word;}
+  .foot-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);}
+  a{color:var(--orange-cta);}
+
+  /* preview-lint bovenaan */
+  .ribbon{background:#1a1a1a;color:#fff;font-size:11px;letter-spacing:.04em;padding:9px 16px;border-radius:2px;margin-bottom:20px;display:flex;gap:10px;align-items:center;}
+  .ribbon b{color:#F0A488;font-weight:600;}
+  .sample{border:1px dashed #b9b2a8;background:#f2f0ec;border-radius:2px;padding:14px 16px 6px;margin:16px 0;}
+  .sample .stamp{display:inline-block;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7d766d;background:#e6e2db;border-radius:100px;padding:3px 11px;margin-bottom:10px;}
+  .sample *{color:#726b62 !important;}
+  .sample .step{border-color:#d8d3ca;} .sample table td b{color:#726b62 !important;} .sample .hi td{background:#eae6df !important;}
+  /* PATCH 3 — type-vloer: subkoppen en kleine tekst opgetrokken */
+  .step .doc,.tl .ev span,.step .ask div,.cmp .r,table,.cta .opt p,.fill ol li,.thr .t,.thr .d,.step p,.kc p,.note,.warn p,.tl .ev b,ul.clean li,.callout p{font-size:13px;}
+  .tl .ev b{font-weight:600;}
+  h4.blk,.step h4,.kc h4,.fill h4{font-size:16px;}
+  h3.blk{font-size:20px;}
+  .lead-xl{font-size:17px;line-height:1.55;color:#2a2620;margin-bottom:14px;}
+  .opener{break-after:page;}
+  .sample-empty{border:1px dashed #c9c2b8;background:#fbfaf8;border-radius:2px;padding:14px 16px;margin:16px 0;}
+  .sample-empty .stamp{display:inline-block;font-family:var(--sans);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a8279;background:#eae6df;border-radius:100px;padding:3px 11px;margin-bottom:6px;}
+  .sample-empty .slot{display:flex;gap:12px;align-items:flex-start;margin:10px 0;}
+  .sample-empty .n{font-family:var(--serif);font-weight:900;font-style:italic;font-size:18px;color:#c9c2b8;flex:0 0 62px;}
+  .sample-empty .ph{flex:1;border:1px dashed #ddd6cc;background:#fff;border-radius:2px;min-height:44px;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#13100D"/><text x="50" y="45" font-family="'Playfair Display',Georgia,serif" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">RIT</text><text x="50" y="72" font-family="'Playfair Display',Georgia,serif" font-size="22" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">3.0</text></svg>
+</template>
+<doc-page size="a4" margin="0.7in">
+
+  <div class="ribbon">⚠ <b>Voorbeeld — niet publiceren</b> — zo leest de gids zodra Laurence' input verwerkt is. De grijs gemarkeerde blokken (bedragentabel + veelgemaakte fouten) bevatten <b>voorbeelddata</b>, niet gecontroleerd. Definitieve cijfers: sociaal secretariaat + Storm + juridische toetsing.</div>
+
+  <!-- ══ COVER ══ -->
+  <div class="cover">
+    <div class="kicker">Een gids voor werkgevers · Montisoro · 2026</div>
+    <h1>RIT <span class="v">3.0</span></h1>
+    <p class="sub">Wat er sinds 1 januari 2026 van u verwacht wordt — en wat het kost als u het niet doet.</p>
+    <div class="by">Montisoro · verzuimbegeleiding &amp; re-integratie</div>
+    <p class="disc">Deze gids bevat geen juridisch advies. Hij bevat wat er in het Staatsblad staat, wat er nog niet in staat, en wat dat u kost. Voor uw concrete situatie: uw sociaal secretariaat of uw externe dienst.</p>
+  </div>
+
+  <!-- ══ OPENER ══ -->
+  <section class="sec opener">
+    <div class="sec-head"><div class="lbl">Vooraf</div><h2>De rekening die eraan komt</h2></div>
+    <p class="maxw lead-xl">In het vierde kwartaal van 2026 stuurt de RSZ u een debetbericht dat u nog nooit gezien hebt.</p>
+    <p class="maxw">Het is de solidariteitsbijdrage: <strong>30% van de ziekte-uitkering</strong> van elke langdurig zieke medewerker, tijdens de tweede en derde maand van zijn arbeidsongeschiktheid. Ze geldt vanaf 50 medewerkers, ze loopt sinds 1 januari, en ze wordt dag per dag berekend.</p>
+    <div class="state">Maar de bijdrage is niet het duurste aan RIT 3.0.</div>
+    <p class="maxw"><strong>Het duurste is de boete.</strong> Vanaf 20 medewerkers bent u sinds dit jaar verplícht om een re-integratietraject op te starten binnen zes maanden. Doet u dat niet, dan volgt een sanctie van niveau 2 — <strong>vermenigvuldigd met het aantal betrokken werknemers.</strong></p>
+    <p class="maxw">Acht dossiers waarin niets gebeurde, kunnen zo oplopen tot tienduizenden euro's. Plus de bijdrage die intussen doorliep. Plus de verzuimkost die niemand geteld heeft.</p>
+    <div class="scen">
+      <div class="s-lbl">De uitweg</div>
+      <div class="big">De bijdrage vervalt volledig zodra uw medewerker deeltijds hervat.</div>
+      <div class="line">Tijdens een erkende progressieve werkhervatting is de bijdrage niet verschuldigd. Niet verminderd — weg. Dat is geen achterpoortje; dat is de bedoeling van de hele maatregel.</div>
+    </div>
+    <p class="maxw note">Deze gids legt uit wat er van u verwacht wordt, wanneer, vanaf welke drempel, en wat het kost als u het niet doet. Twaalf bladzijden. U kunt ze afvinken.</p>
+  </section>
+
+  <!-- ══ SECTIE 1 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 1</div><h2>Het re-integratietraject in het kort</h2></div>
+    <h3 class="blk">Wat het is</h3>
+    <p class="maxw">Het re-integratietraject (RIT) is de wettelijke procedure waarmee onderzocht wordt of een arbeidsongeschikte medewerker het werk kan hervatten — het eigen werk, aangepast werk, of ander werk. Het is <strong>geen</strong> medische procedure en <strong>geen</strong> ontslagprocedure. Het is een onderzoek naar mogelijkheden.</p>
+    <h3 class="blk">Het doel</h3>
+    <p class="maxw">Zo veel mogelijk mensen terugbrengen naar werk, zo vroeg mogelijk. De wetgever ziet langdurige arbeidsongeschiktheid als een uitkomst die vaak vermijdbaar is, en verwacht sinds 2026 dat de werkgever daar actief aan meewerkt.</p>
+    <h3 class="blk">Wie erbij betrokken is</h3>
+    <table>
+      <tr><th>Rol</th><th>Wat die doet</th></tr>
+      <tr><td><b>De medewerker</b></td><td>Kan het traject zelf opstarten. Moet sinds 2026 actief meewerken zodra het loopt.</td></tr>
+      <tr><td><b>De werkgever</b></td><td>Kan het traject sinds 2026 vanaf dag één opstarten (mits akkoord). <b>Móét</b> het opstarten vanaf 20 werknemers, binnen 6 maanden, bij vastgesteld arbeidspotentieel.</td></tr>
+      <tr><td><b>Preventieadviseur-arbeidsarts</b></td><td>Voert de beoordeling uit. Stelt het arbeidspotentieel vast en bepaalt de uitkomst.</td></tr>
+      <tr><td><b>Behandelend arts</b></td><td>Levert medische informatie aan.</td></tr>
+      <tr><td><b>Adviserend arts</b> (ziekenfonds)</td><td>Beoordeelt de arbeidsongeschiktheid langs de kant van de sociale zekerheid.</td></tr>
+      <tr><td><b>Terug Naar Werk-coördinator</b></td><td>Begeleidt de medewerker richting werk. Niet-opdagen wordt sinds 2026 zwaarder gesanctioneerd.</td></tr>
+    </table>
+    <p class="note maxw">Sinds 2026 verloopt de communicatie tussen arbeidsarts, behandelend arts en adviserend arts via het TRIO-platform.</p>
+    <div class="state">Het RIT is de procedure. RIT 3.0 is wat er sinds 1 januari 2026 van u verwacht wordt — en voor het eerst is er een boete als u het niet doet.</div>
+  </div>
+
+  <!-- ══ SECTIE 2 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 2 · het hart van de gids</div><h2>Wat verandert er in 3.0?</h2></div>
+    <h4 class="blk">De rechtsgrond</h4>
+    <p class="maxw">Twee teksten, beide in het Belgisch Staatsblad op <strong>30 december 2025</strong>: de <strong>Wet van 19 december 2025</strong> tot uitvoering van een versterkt terug-naar-werk-beleid, en het <strong>KB van 17 december 2025</strong> tot wijziging van de codex welzijn op het werk. Het KB trad in werking op <strong>1 januari 2026</strong>.</p>
+    <div class="warn">
+      <div class="w-lbl">⚠ Belangrijke overgangsregel</div>
+      <p>De nieuwe regels gelden voor arbeidsongeschiktheden die <strong>starten vanaf 1 januari 2026</strong>. Trajecten die vóór die datum al liepen, blijven voor hun volledige duur onder de oude regels (RIT 2.0).</p>
+      <p>U werkt dus voorlopig met twee regimes naast elkaar. Weet van elk lopend dossier onder welk regime het valt.</p>
+    </div>
+    <h3 class="blk">De zeven kernwijzigingen</h3>
+    <div class="kc"><span class="num">1</span><h4>De werkgever kan het traject nu vanaf dag één opstarten</h4><p>Vroeger pas na drie maanden. Nu vanaf de eerste dag, mits akkoord van de medewerker. <em>De belangrijkste wijziging die niemand bespreekt — ze verandert re-integratie van iets wat je ondergaat in iets wat je stuurt.</em></p></div>
+    <div class="kc"><span class="num">2</span><h4>Er bestaat nu een preventief traject — zonder ziekte</h4><p>Een medewerker die dreigt uit te vallen kan vragen om werkpostaanpassing of aangepast werk te onderzoeken. Hij hoeft daarvoor niet arbeidsongeschikt te zijn.</p></div>
+    <div class="kc"><span class="num">3</span><h4>Vanaf 20 werknemers: opstarten is verplicht</h4><p>Is het arbeidspotentieel vastgesteld, dan moet de werkgever binnen zes maanden na aanvang van de arbeidsongeschiktheid een RIT opstarten.</p></div>
+    <div class="kc"><span class="num">4</span><h4>Er zijn nu sancties. Aan beide kanten.</h4><p>Voor het eerst. Zie sectie 4.</p></div>
+    <div class="kc"><span class="num">5</span><h4>De medewerker moet meewerken</h4><p>Oproepingen gebeuren per aangetekende brief. Twee gemiste oproepingen zonder geldige reden worden gemeld aan de adviserend arts; het traject kan beëindigd worden, met gevolgen voor het uitkeringsrecht.</p></div>
+    <div class="kc"><span class="num">6</span><h4>Medische overmacht: van 9 naar 6 maanden</h4><p>De minimumperiode om de procedure tot vaststelling van definitieve ongeschiktheid te starten, is verkort van negen naar zes maanden.</p></div>
+    <div class="kc"><span class="num">7</span><h4>Communicatie via TRIO</h4><p>Uitwisseling tussen arbeidsarts, behandelend arts en adviserend arts verloopt via het TRIO-platform. De arbeidsarts weegt een door de medewerker ingevulde vragenlijst mee.</p></div>
+
+    <h3 class="blk">Wat NIET verandert</h3>
+    <p class="maxw">De grote lijnen van RIT 2.0 blijven. De ontkoppeling tussen re-integratietraject en beëindiging wegens medische overmacht — de kernwijziging van 2022 — blijft. <strong>Een RIT is nog steeds geen ontslagprocedure.</strong> Dat is belangrijk om intern te herhalen: de grootste weerstand komt van medewerkers die denken dat het traject een voorbode van ontslag is. Dat is het niet, en sinds 2022 niet meer.</p>
+
+    <h3 class="blk">Twee dingen die in uw voordeel veranderen</h3>
+    <p class="maxw">Niet alles wordt duurder. Twee wijzigingen aan het <strong>gewaarborgd loon</strong>, sinds 1 januari 2026:</p>
+    <h4 class="blk">De hervaltermijn gaat van 14 dagen naar 8 weken.</h4>
+    <p class="maxw">Hervalt een medewerker binnen acht weken door dezelfde ziekte of hetzelfde ongeval, dan bent u geen nieuw gewaarborgd loon verschuldigd. (Het saldo van het eerdere gewaarborgd loon blijft lopen; bij een aantoonbaar andere aandoening blijft het verschuldigd.)</p>
+    <h4 class="blk">Neutralisatie tijdens progressieve werkhervatting wordt volledig.</h4>
+    <p class="maxw">Valt een medewerker volledig uit tijdens een progressieve werkhervatting, dan is er geen gewaarborgd loon verschuldigd — ongeacht hoe lang de deeltijdse hervatting al liep. <span class="note">Beide regels gelden voor ongeschiktheden die starten vanaf 1 januari 2026.</span></p>
+
+    <h3 class="blk">De tijdlijn 2026–2027</h3>
+    <div class="tl">
+      <div class="row"><div class="date">1 JAN 2026</div><div class="ev"><b>RIT 3.0 in werking</b><span>Solidariteitsbijdrage van start (50+) · nieuwe regels gewaarborgd loon · verplicht RIT binnen 6 maanden (20+)</span></div></div>
+      <div class="row"><div class="date">1 FEB 2026</div><div class="ev"><b>Opdeciemen sociaal strafrecht: ×8 → ×10</b><span>Alle boetes 25% duurder.</span></div></div>
+      <div class="row"><div class="date">Q4 2026</div><div class="ev"><b>Eerste debetbericht solidariteitsbijdrage</b><span>Voor veel werkgevers: de eerste echte rekening.</span></div></div>
+      <div class="row"><div class="date">1 JAN 2027</div><div class="ev"><b>Aangekondigd: uitbreiding bijdrage naar maand 4 en 5</b><span>⚠ De wetteksten zijn nog niet gepubliceerd.</span></div></div>
+    </div>
+    <div class="callout">
+      <p><strong>Over 2027.</strong> De uitbreiding naar de vierde en vijfde maand staat in het begrotingsakkoord, maar de wetteksten en modaliteiten zijn op het moment van schrijven nog niet gepubliceerd. Begroot met marge; leg geen definitieve cijfers vast tot de tekst er is.</p>
+      <p><strong>Wij volgen dit.</strong> Zodra de wettekst verschijnt, sturen we uit wat hij concreet verandert. <a href="#">→ Blijf op de hoogte</a></p>
+    </div>
+  </div>
+
+  <!-- ══ SECTIE 3 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 3 · afvinkbaar</div><h2>Uw verplichtingen, stap voor stap</h2></div>
+    <h3 class="blk">Eerst: welke drempel geldt voor u?</h3>
+    <p class="maxw">Dit is waar de meeste organisaties de mist in gaan. Er zijn <strong>drie</strong> drempels, en ze zijn niet dezelfde.</p>
+    <div class="thr">
+      <div class="lvl l0"><div class="t">ELKE WERKGEVER</div><div class="d">→ Contactprocedure verplicht in het arbeidsreglement</div></div>
+      <div class="lvl l1"><div class="t"><span class="n">Vanaf 20 werknemers</span></div><div class="d">→ Verplicht een RIT opstarten binnen 6 maanden bij vastgesteld arbeidspotentieel · sanctie niveau 2 bij niet-naleving</div></div>
+      <div class="lvl l2"><div class="t"><span class="n">Vanaf 50 werknemers</span></div><div class="d">→ Solidariteitsbijdrage: 30% van de ziekte-uitkering, maand 2 en 3</div></div>
+    </div>
+    <div class="state">Een organisatie van 30 mensen betaalt geen solidariteitsbijdrage — maar riskeert wel een boete als ze geen re-integratietraject opstart.</div>
+    <p class="note maxw">Dat onderscheid wordt structureel over het hoofd gezien. Het is ook waarom "wij zijn te klein voor dit verhaal" bijna altijd een verkeerde conclusie is.</p>
+
+    <h3 class="blk">De chronologische checklist</h3>
+    <div class="step"><div class="when">Nu — vóór er iets gebeurt</div><h4>Contactprocedure in het arbeidsreglement</h4><p>Elke werkgever neemt een procedure voor contact met zieke medewerkers op in het arbeidsreglement, met minstens de contactfrequentie.</p><div class="doc">Document: aangepast arbeidsreglement (vergeet de wijzigingsprocedure niet).</div><div class="ask"><div>☐ Staat de contactprocedure in ons arbeidsreglement?</div><div>☐ Is de contactfrequentie expliciet opgenomen?</div><div>☐ Weten leidinggevenden dat ze contact mógen — en moeten — houden?</div></div></div>
+    <div class="step"><div class="when">Dag 1 — de arbeidsongeschiktheid start</div><h4>RIT kán opgestart worden</h4><p>Sinds 2026 vanaf de eerste dag, mits akkoord van de medewerker. U hoeft niet te wachten — dat is nieuw, en uw sterkste hefboom.</p><div class="ask"><div>☐ Is er een intern moment waarop we beslissen of we vroeg opstarten?</div></div></div>
+    <div class="step"><div class="when">Week 4</div><h4>Contactgegevens naar de arbeidsarts</h4><p>Na vier weken arbeidsongeschiktheid gaan de contactgegevens naar de preventieadviseur-arbeidsarts.</p><div class="doc">Document: melding aan de externe dienst.</div><div class="ask"><div>☐ Triggert er iets automatisch op dag 28?</div><div>☐ Wie is de eigenaar van die stap?</div></div></div>
+    <div class="step"><div class="when">Week 8 · nieuwe kernverplichting</div><h4>Inschatting van het arbeidspotentieel</h4><p>Vanaf acht weken laat de werkgever het arbeidspotentieel inschatten. De preventieadviseur-arbeidsarts maakt die inschatting.</p><div class="doc">Document: aanvraag inschatting arbeidspotentieel bij de externe dienst.</div><div class="ask"><div>☐ Vragen wij dit systematisch aan?</div><div>☐ Weten wij van al onze langdurig zieken of dit gevraagd is?</div></div></div>
+    <div class="step"><div class="when">Binnen 6 maanden · 20+ werknemers</div><h4>Het RIT opstarten</h4><p>Bij vastgesteld arbeidspotentieel <strong>moet</strong> u binnen zes maanden opstarten. Doet u dat niet, dan riskeert u een sanctie van niveau 2 — vermenigvuldigd met het aantal betrokken werknemers.</p><div class="doc">Document: aanvraag opstart re-integratietraject bij de arbeidsarts.</div><div class="ask"><div>☐ Hebben wij een lijst van elke medewerker die >8 weken ziek is?</div><div>☐ Van wie is het arbeidspotentieel vastgesteld?</div><div>☐ Voor wie loopt de klok van zes maanden — en wanneer verstrijkt hij?</div></div></div>
+    <p class="maxw"><strong>Als u op die drie vragen geen antwoord hebt, is dat uw grootste risico. Niet de bijdrage.</strong></p>
+
+    <h4 class="blk">De tabel om af te drukken</h4>
+    <table>
+      <tr><th>Termijn</th><th>Wat</th><th>Voor wie</th></tr>
+      <tr><td>Vooraf</td><td>Contactprocedure in arbeidsreglement</td><td>Elke werkgever</td></tr>
+      <tr><td>Dag 1</td><td>RIT kán opgestart worden</td><td>Elke werkgever</td></tr>
+      <tr><td>Week 4</td><td>Contactgegevens naar arbeidsarts</td><td>Elke werkgever</td></tr>
+      <tr class="hi"><td><b>Week 8</b></td><td><b>Inschatting arbeidspotentieel aanvragen</b></td><td>Elke werkgever</td></tr>
+      <tr><td>Dag 31 → maand 3</td><td>Solidariteitsbijdrage loopt</td><td>50+ werknemers</td></tr>
+      <tr class="hi"><td><b>Binnen 6 maanden</b></td><td><b>RIT opstarten bij arbeidspotentieel</b></td><td>20+ werknemers</td></tr>
+      <tr><td>Vanaf 6 maanden</td><td>Medische overmacht mogelijk</td><td>Elke werkgever</td></tr>
+    </table>
+  </div>
+
+  <!-- ══ SECTIE 4 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 4 · voor de CEO en de CFO</div><h2>Wat kost het, en wat kost niets doen?</h2></div>
+    <h3 class="blk">Deel A — Wat het u kost</h3>
+    <h4 class="blk">1. De solidariteitsbijdrage <span class="note">(50+ werknemers)</span></h4>
+    <p class="maxw"><strong>De formule:</strong> 30% van de ziekte-uitkering die uw medewerker van het ziekenfonds ontvangt, tijdens de tweede en derde maand van de arbeidsongeschiktheid. Dag per dag vanaf dag 31.</p>
+    <ul class="clean">
+      <li>Gemiddeld 50+ werknemers</li>
+      <li>Medewerker langer dan 30 dagen arbeidsongeschikt</li>
+      <li>Tussen 18 en 54 jaar bij aanvang van de ongeschiktheid</li>
+      <li>Minstens één maand in dienst</li>
+    </ul>
+    <p class="maxw">De inning verloopt via de RSZ, in het derde kwartaal na het kwartaal waarin de ziekte begon. <strong>Het eerste debetbericht komt in Q4 2026.</strong></p>
+    <div class="sample"><span class="stamp">Voorbeelddata · te bevestigen door sociaal secretariaat</span>
+    <p class="maxw">Wat dat concreet betekent, voor drie loonprofielen — de bijdrage over de tweede en derde maand samen:</p>
+    <table>
+      <tr><th>Brutoloon / jaar</th><th>Ziekte-uitkering (± /maand)</th><th>Solidariteitsbijdrage (maand 2 + 3)</th></tr>
+      <tr><td>€35.000</td><td>± €1.550</td><td><b>± €930</b></td></tr>
+      <tr><td>€50.000</td><td>± €1.850</td><td><b>± €1.110</b></td></tr>
+      <tr class="hi"><td>€70.000 <span class="note">(aan het plafond)</span></td><td>± €1.950</td><td><b>± €1.170</b></td></tr>
+    </table>
+    <p class="note maxw">Illustratieve bedragen — de ziekte-uitkering is geplafonneerd, dus boven een bepaald loon stijgt de bijdrage niet meer. ⚠ Deze cijfers botsen met de vakpers (± €1.700 p.p.) en moeten door het sociaal secretariaat berekend worden vóór publicatie.</p>
+    </div>
+    <h4 class="blk">2. Het gewaarborgd loon</h4>
+    <p class="maxw">Maand 1 blijft volledig voor uw rekening. Dat verandert niet.</p>
+    <h4 class="blk">3. Alles wat niet op een afrekening staat</h4>
+    <p class="maxw">De solidariteitsbijdrage is de zichtbaarste kost van langdurig verzuim. Ze is ook de kleinste. Wat er verder doorloopt terwijl uw medewerker thuis zit:</p>
+    <ul class="clean">
+      <li>Groepsverzekering, hospitalisatieverzekering, firmawagen, voordelen alle aard</li>
+      <li>Vervangingskosten: interim, overuren, tijdelijke aanwerving</li>
+      <li>Productiviteitsverlies bij de collega's die het opvangen</li>
+      <li>Managementtijd · kennisverlies · planning-, kwaliteits- en leveringsverlies</li>
+    </ul>
+    <p class="maxw">Bij elkaar loopt de werkelijke kost van één verzuimdag op tot <strong>€266</strong>.</p>
+    <div class="callout"><p><strong>De solidariteitsbijdrage maakt zichtbaar wat u al betaalde.</strong> Dat is, hoe vervelend ook, de grootste dienst die de wetgever u bewezen heeft.</p><p><a href="#">→ Bereken uw eigen verzuimkost</a></p></div>
+
+    <h3 class="blk">Deel B — Wat niets doen u kost</h3>
+    <p class="maxw">Een werkgever met <strong>20 of meer werknemers</strong> die niet aan de arbeidsarts vraagt om een RIT op te starten voor een arbeidsongeschikte medewerker met vastgesteld arbeidspotentieel, binnen zes maanden, riskeert een <strong>sanctie van niveau 2</strong> onder het Sociaal Strafwetboek.</p>
+    <table>
+      <tr><th></th><th>Basisbedrag</th><th>× opdeciemen (×10 sinds 1 feb 2026)</th></tr>
+      <tr><td>Strafrechtelijke geldboete</td><td>€50 – €500</td><td><b>€500 – €5.000</b></td></tr>
+      <tr><td>Administratieve geldboete</td><td>€25 – €250</td><td><b>€250 – €2.500</b></td></tr>
+    </table>
+    <p class="note">Bij strafrechtelijke vervolging vervalt de administratieve boete. Het is het één of het ander.</p>
+    <div class="state big">De boete wordt vermenigvuldigd met het aantal betrokken werknemers. Niet per inbreuk — per medewerker.</div>
+    <div class="scen">
+      <div class="s-lbl">Rekenvoorbeeld</div>
+      <div class="line">Een organisatie van 200 mensen. 8 langdurig zieken met vastgesteld arbeidspotentieel. Geen enkel re-integratietraject opgestart.</div>
+      <div class="calc">Administratief:&nbsp;&nbsp;8 × tot €2.500&nbsp;&nbsp;=&nbsp;&nbsp;<span class="tot">tot €20.000</span><br>Strafrechtelijk:&nbsp;&nbsp;8 × tot €5.000&nbsp;&nbsp;=&nbsp;&nbsp;<span class="tot">tot €40.000</span><br><br>+ de solidariteitsbijdrage die intussen doorliep<br>+ de verzuimkost die niemand geteld heeft</div>
+    </div>
+    <div class="warn"><div class="w-lbl">Let op de datum</div><p>Op 1 februari 2026 zijn de opdeciemen verhoogd van ×8 naar ×10. Alle boetes in het Sociaal Strafwetboek zijn in de loop van hetzelfde jaar 25% duurder geworden.</p></div>
+    <h4 class="blk">Aan de kant van de medewerker</h4>
+    <ul class="clean">
+      <li>De sanctie bij niet-opdagen bij de Terug Naar Werk-coördinator ging van 2,5% naar <strong>10%</strong> van de uitkering.</li>
+      <li>Ongewettigd afwezig op fysieke contactmomenten → risico op stopzetting van de uitkering.</li>
+      <li>Twee gemiste oproepingen van de arbeidsarts → melding aan de adviserend arts.</li>
+    </ul>
+    <p class="note maxw">Dat ontslaat u niet van uw eigen verplichting. De sanctie op de medewerker is geen verdediging voor de werkgever.</p>
+
+    <h3 class="blk">De uitweg die in de wet staat</h3>
+    <div class="state">De solidariteitsbijdrage vervalt volledig zodra uw medewerker het werk deeltijds hervat.</div>
+    <p class="maxw">Tijdens een periode van progressieve werkhervatting, erkend door de adviserend arts, is de bijdrage <strong>niet verschuldigd</strong>. Niet verminderd — weg. Dat is geen achterpoortje; dat is de bedoeling van de hele maatregel.</p>
+    <div class="cmp">
+      <div class="c bad"><h5>Zonder re-integratie</h5><div class="r">Maand 1 — gewaarborgd loon</div><div class="r">Maand 2 — ██ bijdrage</div><div class="r">Maand 3 — ██ bijdrage</div><div class="r">Maand 4–5 — (2027: ██ bijdrage)</div><div class="r">+ risico op sanctie</div></div>
+      <div class="c good"><h5>Met progressieve werkhervatting</h5><div class="r">Maand 1 — gewaarborgd loon</div><div class="r">Hervatting → geen bijdrage</div><div class="r">Geen bijdrage</div><div class="r">Geen bijdrage</div><div class="r">+ geen sanctierisico · uw medewerker werkt weer</div></div>
+    </div>
+    <div class="state">Elke maand dat u de bijdrage betaalt, is een maand waarin re-integratie niet gelukt is.</div>
+  </div>
+
+  <!-- ══ SECTIE 5 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 5</div><h2>Veelgemaakte fouten</h2></div>
+    <div class="sample"><span class="stamp">Voorbeelddata · nog te schrijven uit Storm + Laurence</span>
+    <p class="maxw">Zo leest deze sectie zodra de dossierdata verwerkt is — onderstaande fouten en cijfers zijn een voorbeeld, geen gecontroleerde bevinding.</p>
+    <div class="step"><div class="when">Fout 1</div><h4>Wachten tot de drie maanden “vol” zijn</h4><p>De oude reflex: pas actie ondernemen na drie maanden ziekte. Sinds 2026 mag u vanaf dag één — en net die eerste weken bepalen de afloop. <strong>In de dossiers waar in de eerste twee weken contact was, ligt de kans op werkhervatting merkbaar hoger dan waar het contact pas na maand twee kwam.</strong></p><div class="doc">Wat u in de plaats doet: leg één intern moment vast, in week 1, waarop u beslist of u vroeg opstart.</div></div>
+    <div class="step"><div class="when">Fout 2</div><h4>Geen contact, uit angst om “fout” te zijn</h4><p>Leidinggevenden durven niet te bellen — bang om iets verkeerds te zeggen of “te hard” over te komen. Gevolg: de medewerker voelt zich vergeten, en dat is de moeilijkste situatie om uit te re-integreren.</p><div class="doc">Wat u in de plaats doet: geef leidinggevenden een eenvoudig belkader — menselijk contact, geen medische vragen.</div></div>
+    <div class="step"><div class="when">Fout 3</div><h4>De medewerker denkt dat het traject ontslag betekent</h4><p>De meest voorkomende reden waarom een traject wordt geweigerd. Het klopt niet — een RIT is sinds 2022 losgekoppeld van medische overmacht — maar de perceptie leeft hardnekkig. Onbesproken blokkeert ze het hele traject.</p><div class="doc">Wat u in de plaats doet: benoem het expliciet, in het eerste gesprek. “Dit is geen ontslagprocedure” — en leg uit waarom.</div></div>
+    <div class="step"><div class="when">Fout 4</div><h4>Progressieve werkhervatting start, maar niemand volgt op</h4><p>De hervatting wordt afgesproken en daarna losgelaten. Ze valt stil op de eerste tegenslag — en dan komt de solidariteitsbijdrage alsnog terug. Net het instrument dat de bijdrage doet vervallen, mislukt door gebrek aan opvolging.</p><div class="doc">Wat u in de plaats doet: wijs één iemand aan die de hervatting week per week opvolgt.</div></div>
+    <p class="note maxw">Voorbeeld — de definitieve fouten, cijfers en patronen komen uit Storm en worden geanonimiseerd verwerkt. De briefing vraagt er 5 à 7.</p>
+    <div class="sample-empty">
+      <div class="stamp">Nog in te vullen — vraag 5, 6 en 7 uit de briefing</div>
+      <div class="slot"><span class="n">Fout 5</span><div class="ph"></div></div>
+      <div class="slot"><span class="n">Fout 6</span><div class="ph"></div></div>
+      <div class="slot"><span class="n">Fout 7</span><div class="ph"></div></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTIE 6 ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Sectie 6</div><h2>Hoe Montisoro dit aanpakt</h2></div>
+    <p class="maxw">Montisoro begeleidt organisaties bij langdurig verzuim en re-integratie. We nemen de regie over waar HR de tijd niet heeft en de preventiedienst de opdracht niet heeft. Sinds 2018, in meer dan 2.500 dossiers.</p>
+    <p class="maxw"><strong>De non-clinical casemanager</strong> is het aanspreekpunt dat in de meeste organisaties ontbreekt — neutraal tussen medewerker, leidinggevende, HR en arbeidsgeneeskunde. Niet medisch, niet juridisch, maar de persoon die zorgt dat het dossier vooruitgaat en de termijnen gehaald worden.</p>
+    <p class="maxw"><strong>Storm</strong> is het platform waarin het dossier leeft: rollen, communicatie, opvolging en documentatie op één plek. GDPR by design, 2FA, EU-hosting. <strong>Casey AI</strong> ondersteunt de besluitvorming met context uit jaren praktijk — Casey beslist niet, mensen beslissen.</p>
+    <h4 class="blk">Wat dat concreet betekent voor RIT 3.0</h4>
+    <ul class="clean">
+      <li>De termijn van acht weken wordt niet vergeten — het systeem bewaakt hem</li>
+      <li>De termijn van zes maanden wordt niet gemist — het systeem telt af</li>
+      <li>Progressieve werkhervatting wordt onderzocht in elk dossier waar ze realistisch is — elke geslaagde hervatting laat de bijdrage verdwijnen</li>
+      <li>En uw leidinggevenden weten wat ze mogen zeggen</li>
+    </ul>
+    <div class="state">U hoeft dit er niet bij te nemen. Dat is precies waarom wij bestaan.</div>
+    <p class="maxw">De meeste HR-teams weten wat er moet gebeuren — ze hebben alleen de tijd niet, en de preventiedienst heeft de opdracht niet. Wij nemen die rol op ons: neutraal, aanwezig in elk dossier, tot de medewerker weer aan het werk is of het traject correct is afgerond. Niet in de plaats van uw mensen, maar naast hen. Zodat u aan het eind van elke maand niet hoeft te raden waar een dossier staat — u weet het.</p>
+  </div>
+
+  <!-- ══ SECTIE 7 · CTA ══ -->
+  <div class="cta">
+    <p class="eyebrow">Sectie 7</p>
+    <h2>Wat nu?</h2>
+    <p style="color:#e9c9bd;font-family:var(--serif);font-style:italic;font-size:17px;margin-bottom:16px;">Weet u van elke langdurig zieke medewerker wanneer zijn termijn van zes maanden verstrijkt? Zo niet, dan is dat uw eerste actie — u kunt geen dossier sturen dat u niet ziet.</p>
+    <div class="opt"><h4>Doe eerst de fit check — 2 minuten</h4><p>Vier vragen over verzuimtype, behoefte, maturiteit en schaal. U ziet welke aanpak bij u past. Geen verkooppraat.</p><a href="#">→ Doe de fit check</a></div>
+    <div class="opt"><h4>Of bereken wat verzuim u werkelijk kost</h4><p>De solidariteitsbijdrage is het topje. Reken de rest erbij.</p><a href="#">→ Naar de verzuimcalculator</a></div>
+    <div class="opt"><h4>Of plan gewoon een gesprek</h4><p>30 tot 45 minuten, online of bij u. U brengt uw situatie, wij luisteren. Zijn wij niet de juiste partij, dan zeggen we dat ook.</p><a href="#">→ Plan een gesprek</a></div>
+    <div class="opt"><h4>En blijf op de hoogte</h4><p>De uitbreiding naar maand 4 en 5 is aangekondigd voor 2027; de wetteksten zijn er nog niet. Eén mail per maand, alleen als er iets verandert dat u aangaat.</p><a href="#">→ Schrijf u in</a></div>
+  </div>
+
+  <!-- ══ BIJLAGE A ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Bijlage A</div><h2>Termijnenoverzicht</h2><div class="pg">Print deze bladzijde. Hang ze op.</div></div>
+    <table>
+      <tr><th>Wanneer</th><th>Wat moet er gebeuren</th><th>Vanaf</th><th>Sanctie?</th></tr>
+      <tr><td>Vooraf</td><td>Contactprocedure in arbeidsreglement</td><td>Elke wg.</td><td>Ja</td></tr>
+      <tr><td>Dag 1</td><td>RIT kán opgestart worden (mits akkoord)</td><td>Elke wg.</td><td>—</td></tr>
+      <tr><td>Dag 28</td><td>Contactgegevens naar arbeidsarts</td><td>Elke wg.</td><td>—</td></tr>
+      <tr><td>Dag 56</td><td>Inschatting arbeidspotentieel aanvragen</td><td>Elke wg.</td><td>—</td></tr>
+      <tr><td>Dag 31 → maand 3</td><td>Solidariteitsbijdrage loopt (30%)</td><td>50+</td><td>Financieel</td></tr>
+      <tr class="hi"><td><b>Binnen 6 maanden</b></td><td><b>RIT opstarten bij arbeidspotentieel</b></td><td><b>20+</b></td><td><b>Niveau 2, × per wn.</b></td></tr>
+      <tr><td>Vanaf 6 maanden</td><td>Procedure medische overmacht (was 9 mnd)</td><td>Elke wg.</td><td>—</td></tr>
+      <tr><td>2027 (aangek.)</td><td>Uitbreiding bijdrage naar maand 4 en 5</td><td>50+</td><td>⚠ Wet nog niet gepubliceerd</td></tr>
+    </table>
+    <p class="note"><strong>Sanctie niveau 2 (opdeciemen ×10 sinds 1 feb 2026):</strong> strafrechtelijk €500–€5.000 · administratief €250–€2.500 · × het aantal betrokken werknemers.</p>
+  </div>
+
+  <!-- ══ BIJLAGE B ══ -->
+  <div class="sec">
+    <div class="sec-head"><div class="lbl">Bijlage B</div><h2>Bronnen</h2><div class="pg">Het verschil tussen een gids en een folder — en wat Google E-E-A-T noemt.</div></div>
+    <div class="sources">
+      <h4>Wetgeving</h4>
+      <ul class="clean">
+        <li>Wet van 19 december 2025 tot uitvoering van een versterkt terug-naar-werk-beleid — <em>BS 30 december 2025</em></li>
+        <li>KB van 17 december 2025 tot wijziging van de codex welzijn op het werk — <em>BS 30 december 2025</em>, in werking 1 januari 2026</li>
+        <li>Sociaal Strafwetboek, art. 101 (sanctieniveaus en opdeciemen)</li>
+      </ul>
+      <h4>Officiële bronnen</h4>
+      <ul class="clean">
+        <li>FOD Werkgelegenheid — Versterkt terug naar werk-beleid: wat verandert er vanaf 1 januari 2026?<br><a href="https://werk.belgie.be/nl/news/versterkt-terug-naar-werk-beleid-wat-verandert-er-vanaf-1-januari-2026">werk.belgie.be/nl/news/versterkt-terug-naar-werk-beleid-wat-verandert-er-vanaf-1-januari-2026</a></li>
+        <li>FOD Werkgelegenheid — Re-integratietraject voor werknemers (formeel traject)<br><a href="https://werk.belgie.be/nl/themas/welzijn-op-het-werk/re-integratie-van-arbeidsongeschikte-werknemers-en-preventie-van-6">werk.belgie.be/nl/themas/welzijn-op-het-werk/re-integratie-van-arbeidsongeschikte-werknemers-en-preventie-van-6</a></li>
+        <li>FOD Werkgelegenheid — Wijzigingen aan het Sociaal Strafwetboek<br><a href="https://werk.belgie.be/nl/news/wijzigingen-aan-het-sociaal-strafwetboek">werk.belgie.be/nl/news/wijzigingen-aan-het-sociaal-strafwetboek</a></li>
+      </ul>
+      <h4>Toelichting — sociale secretariaten en advocatenkantoren</h4>
+      <ul class="clean">
+        <li>Securex — Re-integratietraject 3.0: wat verandert er op 1 januari 2026<br><a href="https://www.securex.be/nl/lex4you/werkgever/nieuws/re-integratietraject_3-0_-_wat_verandert_er_op_1_januari_2026">securex.be/…/re-integratietraject_3-0</a></li>
+        <li>Securex — Werkgever betaalt solidariteitsbijdrage voor langdurig arbeidsongeschikte werknemers<br><a href="https://www.securex.be/nl/lex4you/werkgever/nieuws/werkgever-betaalt-solidariteitsbijdrage-voor-langdurig-arbeidsongeschikte-werknemers">securex.be/…/werkgever-betaalt-solidariteitsbijdrage</a></li>
+        <li>Securex — Hogere geldboetes in sociaal strafrecht vanaf 2026<br><a href="https://www.securex.be/nl/lex4you/werkgever/nieuws/hogere-geldboetes-in-sociaal-strafrecht-vanaf-2026">securex.be/…/hogere-geldboetes-in-sociaal-strafrecht-vanaf-2026</a></li>
+        <li>Securex — Herval en gewaarborgd loon: nieuwe regels 2026<br><a href="https://www.securex.be/nl/lex4you/werkgever/nieuws/arbeidsongeschiktheid-nieuwe-regels-inzake-herval-van-toepassing-in-2026">securex.be/…/nieuwe-regels-inzake-herval</a></li>
+        <li>Acerta — Nieuwe solidariteitsbijdrage voor langdurig zieke werknemers<br><a href="https://www.acerta.be/nl/inspiratie/terug-naar-werk-nieuwe-solidariteitsbijdrage-voor-langdurig-zieke-werknemers-vanaf-2026">acerta.be/…/nieuwe-solidariteitsbijdrage</a></li>
+        <li>Liantis — Arbeidsongeschiktheid in 2026: terug-naar-werktraject aanzienlijk strenger<br><a href="https://www.liantis.be/nl/nieuws/arbeidsongeschiktheid-2026-terug-naar-werktraject-aanzienlijk-strenger">liantis.be/…/terug-naar-werktraject-aanzienlijk-strenger</a></li>
+        <li>Liantis — Ziek tijdens progressieve werkhervatting: vanaf 2026 geen gewaarborgd loon meer<br><a href="https://www.liantis.be/nl/kennis-en-inspiratienieuws/ziek-tijdens-progressieve-werkhervatting-vanaf-2026-geen-gewaarborgd">liantis.be/…/ziek-tijdens-progressieve-werkhervatting</a></li>
+        <li>SD Worx — Arbeidsongeschiktheid en re-integratie langdurig zieken in 2026<br><a href="https://www.sdworx.be/nl-be/nieuws-inspiratie/afwezigheden/arbeidsongeschiktheid">sdworx.be/nl-be/nieuws-inspiratie/afwezigheden/arbeidsongeschiktheid</a></li>
+        <li>Eubelius — Zieke werknemers: verstrengd terug-naar-werk-beleid met nieuwe verplichtingen<br><a href="https://www.eubelius.com/nl/nieuws/zieke-werknemers-verstrengd-terug-naar-werk-beleid-met-nieuwe-verplichtingen-voor-werkgevers">eubelius.com/…/verstrengd-terug-naar-werk-beleid</a></li>
+        <li>Lydian — New rules for reintegration pathway 3.0<br><a href="https://www.lydian.be/en/news-insights/new-rules-reintegration-pathway-30">lydian.be/en/news-insights/new-rules-reintegration-pathway-30</a></li>
+        <li>Partena Professional — Bijkomende situatie waarin de solidariteitsbijdrage niet verschuldigd is<br><a href="https://www.partena-professional.be/nl/bijkomende-situatie-waarin-solidariteitsbijdrage-werkgever-primaire-arbeidsongeschiktheid-niet">partena-professional.be/…/solidariteitsbijdrage-niet-verschuldigd</a></li>
+        <li>Sociare — Het re-integratietraject 3.0 (RIT 3.0)<br><a href="https://www.sociare.be/nl/kennisbank/re-integratietraject-3-0">sociare.be/nl/kennisbank/re-integratietraject-3-0</a></li>
+        <li>Prevent — Re-integratie 3.0<br><a href="https://www.prevent.be/nl/kennisbank/re-integratie-30">prevent.be/nl/kennisbank/re-integratie-30</a></li>
+        <li>Commit — Stap voor stap terug naar het werk: het re-integratietraject 3.0<br><a href="https://www.commitlaw.be/blog/stapvoorstapterugnaarhetwerk-hetreintegratietrajectvanaf1januari2026">commitlaw.be/blog/…-het-reintegratietraject-vanaf-1-januari-2026</a></li>
+      </ul>
+      <div class="warn" style="margin-top:12px;"><div class="w-lbl">Voorbehoud</div><p>Deze gids is bijgewerkt tot [DATUM] en bevat geen juridisch advies. De uitbreiding van de solidariteitsbijdrage naar maand 4 en 5 vanaf 2027 is aangekondigd, maar de wetteksten en modaliteiten zijn op dat moment nog niet gepubliceerd. Voor uw concrete situatie: uw sociaal secretariaat of externe dienst.</p></div>
+    </div>
+  </div>
+
+  <p class="foot-note">Montisoro — RIT 3.0-werkgeversgids · <strong>ingevuld voorbeeld</strong> · 13 juli 2026. Cijfers en praktijkvoorbeelden zijn illustratief tot de definitieve data (sociaal secretariaat + Storm) en de juridische toetsing verwerkt zijn.</p>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

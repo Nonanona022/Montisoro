@@ -21,7 +21,7 @@ window.MONTISORO_TESTIMONIALS = [
     quote_nl: 'We brachten structuur, maakten de kosten zichtbaar en grepen sneller in waar het telde.',
     quote_en: 'We brought structure, made the costs visible and intervened sooner where it counted.',
     link_nl: 'referentie-case.html',
-    link_en: 'referentie-case-en.html',
+    link_en: 'reference-case-en.html',
     pdf: '',
     order: 1,
     active: true
@@ -38,7 +38,7 @@ window.MONTISORO_TESTIMONIALS = [
     quote_nl: 'Duurzame inzetbaarheid, verankerd in de hele organisatie.',
     quote_en: 'Sustainable employability, embedded across the whole organisation.',
     link_nl: 'referentie-case-alcon.html',
-    link_en: 'referentie-case-alcon-en.html',
+    link_en: 'reference-case-alcon-en.html',
     pdf: '',
     order: 2,
     active: true
@@ -55,7 +55,7 @@ window.MONTISORO_TESTIMONIALS = [
     quote_nl: 'Elke stap uitlegbaar, naar de leiding én naar de medewerker, met een meetbaar resultaat.',
     quote_en: 'Every step explainable, to management and to the employee alike, with a measurable result.',
     link_nl: 'referentie-case-lonza.html',
-    link_en: 'referentie-case-lonza-en.html',
+    link_en: 'reference-case-lonza-en.html',
     pdf: '',
     order: 5,
     active: false
@@ -72,7 +72,7 @@ window.MONTISORO_TESTIMONIALS = [
     quote_nl: 'Een gezondheidsbeleid op maat, ergonomische coaching op de werkvloer en gerichte re-integratie.',
     quote_en: 'A tailored health policy, ergonomic coaching on the floor and targeted re-integration.',
     link_nl: 'referentie-case-feneko.html',
-    link_en: 'referentie-case-feneko-en.html',
+    link_en: 'reference-case-feneko-en.html',
     pdf: '',
     order: 4,
     active: true
@@ -89,7 +89,7 @@ window.MONTISORO_TESTIMONIALS = [
     quote_nl: 'Van vastgelopen dossiers naar trajecten die vooruitgaan: heldere afspraken tussen non-clinical casemanager, HR, leidinggevenden en arbeidsarts.',
     quote_en: 'From stalled cases to journeys that move forward: clear agreements between the non-clinical case manager, HR, managers and the occupational physician.',
     link_nl: 'referentie-case-novartis.html',
-    link_en: 'referentie-case-novartis-en.html',
+    link_en: 'reference-case-novartis-en.html',
     pdf: '',
     order: 3,
     active: true

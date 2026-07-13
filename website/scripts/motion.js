@@ -198,14 +198,14 @@
   function localizeNavLinks(){
     var path = location.pathname.split('/').pop() || '';
     if (!/-en(?:\.html)?$/i.test(path)) return;                 // alleen EN-pagina's
-    var EN_BASES = ['Home','about','aanpak','technologie','calculator','fit-check','contact','privacy','disclaimer'];
+    var NL2EN = {'Home':'home-en','about':'about-en','aanpak':'approach-en','technologie':'technology-en','calculator':'calculator-en','fit-check':'fit-check-en','contact':'contact-en','privacy':'privacy-en','disclaimer':'disclaimer-en','FAQ':'faq-en','Referentie':'references-en','referentie-case':'reference-case-en','referentie-case-alcon':'reference-case-alcon-en','referentie-case-feneko':'reference-case-feneko-en','referentie-case-lonza':'reference-case-lonza-en','referentie-case-novartis':'reference-case-novartis-en'};
     document.querySelectorAll('.m-nav-links a, a.m-nav-logo, .m-footer a, .ms-footer a').forEach(function(a){
       if (a.classList.contains('m-lang-btn') || a.classList.contains('m-lang-opt') || (a.closest && a.closest('.m-lang'))) return;
       var href = a.getAttribute('href');
       if (!href) return;
       var m = href.match(/^([A-Za-z-]+)\.html(#.*)?$/);     // kale paginalink, bv about.html#x
-      if (!m || EN_BASES.indexOf(m[1]) === -1) return;      // geen bekende NL-paginalink
-      a.setAttribute('href', m[1] + '-en.html' + (m[2] || ''));
+      if (!m || !NL2EN[m[1]]) return;                       // geen bekende NL-paginalink
+      a.setAttribute('href', NL2EN[m[1]] + '.html' + (m[2] || ''));
     });
   }
 
@@ -400,35 +400,48 @@
     var labelShort = isEN ? 'NL' : 'EN';
     var labelLong  = isEN ? 'Nederlands' : 'English';
 
-    // Bidirectionele NL ↔ EN paginakaart (case-insensitief, ook pretty URLs)
-    var PAGE_MAP = {
-      'home':'Home', 'home-en':'Home',
-      'about':'about', 'about-en':'about',
-      'aanpak':'aanpak', 'aanpak-en':'aanpak', 'approach':'aanpak',
-      'technologie':'technologie', 'technologie-en':'technologie', 'technology':'technologie',
-      'calculator':'calculator', 'calculator-en':'calculator',
-      'fit-check':'fit-check', 'fit-check-en':'fit-check',
-      'contact':'contact', 'contact-en':'contact',
-      'privacy':'privacy', 'privacy-en':'privacy',
-      'disclaimer':'disclaimer', 'disclaimer-en':'disclaimer',
-      'referentie':'Referentie', 'referentie-en':'Referentie', 'references':'Referentie',
-      'referentie-case':'referentie-case', 'referentie-case-en':'referentie-case',
-      'referentie-case-alcon':'referentie-case-alcon', 'referentie-case-alcon-en':'referentie-case-alcon',
-      'referentie-case-lonza':'referentie-case-lonza', 'referentie-case-lonza-en':'referentie-case-lonza',
-      'referentie-case-feneko':'referentie-case-feneko', 'referentie-case-feneko-en':'referentie-case-feneko',
-      'referentie-case-novartis':'referentie-case-novartis', 'referentie-case-novartis-en':'referentie-case-novartis'
+    // Canonieke basis per pagina + het NL/EN schone-URL-paar (EN-slugs zijn Engels).
+    var PAIRS = {
+      'home':{nl:'/',en:'/home-en'},
+      'about':{nl:'/about',en:'/about-en'},
+      'aanpak':{nl:'/aanpak',en:'/approach-en'},
+      'technologie':{nl:'/technologie',en:'/technology-en'},
+      'calculator':{nl:'/calculator',en:'/calculator-en'},
+      'fit-check':{nl:'/fit-check',en:'/fit-check-en'},
+      'contact':{nl:'/contact',en:'/contact-en'},
+      'privacy':{nl:'/privacy',en:'/privacy-en'},
+      'disclaimer':{nl:'/disclaimer',en:'/disclaimer-en'},
+      'faq':{nl:'/faq',en:'/faq-en'},
+      'referentie':{nl:'/referentie',en:'/references-en'},
+      'referentie-case':{nl:'/referentie-case',en:'/reference-case-en'},
+      'referentie-case-alcon':{nl:'/referentie-case-alcon',en:'/reference-case-alcon-en'},
+      'referentie-case-feneko':{nl:'/referentie-case-feneko',en:'/reference-case-feneko-en'},
+      'referentie-case-lonza':{nl:'/referentie-case-lonza',en:'/reference-case-lonza-en'},
+      'referentie-case-novartis':{nl:'/referentie-case-novartis',en:'/reference-case-novartis-en'}
     };
-    // huidige pagina-sleutel (zonder .html, lowercase, zonder -en)
+    // elke mogelijke slug (NL, oud-EN, nieuw-EN) → canonieke basis
+    var KEYMAP = {
+      'home':'home','home-en':'home','index':'home',
+      'about':'about','about-en':'about',
+      'aanpak':'aanpak','aanpak-en':'aanpak','approach-en':'aanpak','approach':'aanpak',
+      'technologie':'technologie','technologie-en':'technologie','technology-en':'technologie','technology':'technologie',
+      'calculator':'calculator','calculator-en':'calculator',
+      'fit-check':'fit-check','fit-check-en':'fit-check',
+      'contact':'contact','contact-en':'contact',
+      'privacy':'privacy','privacy-en':'privacy',
+      'disclaimer':'disclaimer','disclaimer-en':'disclaimer',
+      'faq':'faq','faq-en':'faq',
+      'referentie':'referentie','referentie-en':'referentie','references-en':'referentie','references':'referentie',
+      'referentie-case':'referentie-case','referentie-case-en':'referentie-case','reference-case-en':'referentie-case',
+      'referentie-case-alcon':'referentie-case-alcon','referentie-case-alcon-en':'referentie-case-alcon','reference-case-alcon-en':'referentie-case-alcon',
+      'referentie-case-feneko':'referentie-case-feneko','referentie-case-feneko-en':'referentie-case-feneko','reference-case-feneko-en':'referentie-case-feneko',
+      'referentie-case-lonza':'referentie-case-lonza','referentie-case-lonza-en':'referentie-case-lonza','reference-case-lonza-en':'referentie-case-lonza',
+      'referentie-case-novartis':'referentie-case-novartis','referentie-case-novartis-en':'referentie-case-novartis','reference-case-novartis-en':'referentie-case-novartis'
+    };
     var key = path.replace(/\.html$/i, '').toLowerCase();
-    var baseKey = PAGE_MAP[key] || PAGE_MAP[key.replace(/-en$/, '')] || 'Home';
-
-    // doel = equivalente pagina in de ANDERE taal
-    var target;
-    if (isEN){
-      target = (baseKey === 'Home') ? '/' : '/' + baseKey.toLowerCase();
-    } else {
-      target = (baseKey === 'Home') ? '/home-en' : '/' + baseKey.toLowerCase() + '-en';
-    }
+    var baseKey = KEYMAP[key] || 'home';
+    var pair = PAIRS[baseKey] || PAIRS['home'];
+    var target = isEN ? pair.nl : pair.en;
 
     // 1) Home — first item (mobile overlay only; hidden on desktop via CSS).
     //    activeNav() runs next and marks it .m-active on the Home page.

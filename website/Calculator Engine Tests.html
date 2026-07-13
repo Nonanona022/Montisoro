@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator Engine Tests — Montisoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D;--paper:#F4F2EF;--card:#fff;
+  --orange:#E8592B;--off:#F0EDE8;
+  --ink:#1A1512;--ink-soft:#52493F;--ink-mute:#6E6359;
+  --border-l:rgba(26,21,18,.12);--line-soft:rgba(26,21,18,.07);
+  --good:#1F7A4D;--good-bg:rgba(31,122,77,.10);--good-bd:rgba(31,122,77,.30);
+  --bad:#A12C2C;--bad-bg:rgba(161,44,44,.09);--bad-bd:rgba(161,44,44,.30);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 0 60px;}
+.head{background:var(--bg);color:var(--off);padding:54px 28px 46px;}
+.head-in{max-width:880px;margin:0 auto;}
+.head .rule{width:42px;height:2px;background:var(--orange);margin-bottom:22px;}
+.head .kick{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.head h1{font-family:var(--serif);font-weight:900;font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:14px;}
+.head p{font-size:15px;font-weight:300;color:rgba(240,237,232,.8);max-width:600px;line-height:1.65;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;}
+
+.summary{display:flex;flex-wrap:wrap;gap:14px;margin:-28px auto 0;max-width:880px;padding:0 28px;position:relative;z-index:2;}
+.scard{flex:1;min-width:150px;background:var(--card);border:1px solid var(--border-l);border-radius:14px;padding:20px 22px;box-shadow:0 6px 24px rgba(26,21,18,.06);}
+.scard .n{font-family:var(--serif);font-weight:900;font-size:38px;line-height:1;letter-spacing:-.02em;}
+.scard .l{font-size:12px;font-weight:600;color:var(--ink-mute);margin-top:7px;letter-spacing:.02em;}
+.scard.pass .n{color:var(--good);}
+.scard.fail .n{color:var(--bad);}
+.scard.total .n{color:var(--ink);}
+.scard.verdict{display:flex;flex-direction:column;justify-content:center;}
+.scard.verdict .v{font-family:var(--serif);font-weight:900;font-size:22px;letter-spacing:-.01em;}
+.scard.verdict.ok .v{color:var(--good);}
+.scard.verdict.no .v{color:var(--bad);}
+.scard.verdict .sub{font-size:11.5px;color:var(--ink-mute);margin-top:4px;}
+
+.bar{height:8px;border-radius:100px;background:var(--line-soft);overflow:hidden;margin:24px auto 6px;max-width:880px;}
+.bar i{display:block;height:100%;background:var(--good);border-radius:100px;width:0;transition:width .6s cubic-bezier(.16,1,.3,1);}
+.meta{max-width:880px;margin:0 auto;padding:0 28px;font-size:12px;color:var(--ink-mute);}
+
+.section-lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin:34px 0 12px;display:flex;align-items:center;gap:10px;}
+.section-lbl::before{content:'';width:22px;height:1.5px;background:var(--orange);}
+
+.rows{display:flex;flex-direction:column;border:1px solid var(--border-l);border-radius:14px;overflow:hidden;background:var(--card);}
+.row{display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line-soft);}
+.row:last-child{border-bottom:0;}
+.row .ic{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;}
+.row.ok .ic{background:var(--good-bg);color:var(--good);}
+.row.no .ic{background:var(--bad-bg);color:var(--bad);}
+.row .nm{font-size:14px;color:var(--ink);font-weight:500;}
+.row.no .nm{color:var(--bad);font-weight:600;}
+.row .err{grid-column:2 / -1;font-size:12.5px;color:var(--bad);font-family:ui-monospace,Menlo,monospace;background:var(--bad-bg);border:1px solid var(--bad-bd);border-radius:8px;padding:8px 10px;margin-top:2px;line-height:1.5;white-space:pre-wrap;}
+.row .tag{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:100px;}
+.row.ok .tag{background:var(--good-bg);color:var(--good);}
+.row.no .tag{background:var(--bad-bg);color:var(--bad);}
+.foot{max-width:880px;margin:40px auto 0;padding:0 28px;font-size:12px;color:var(--ink-mute);text-align:center;}
+.foot b{color:var(--ink);}
+</style>
+</head>
+<body>
+<header class="head">
+  <div class="head-in">
+    <div class="rule"></div>
+    <div class="kick">Montisoro · QA · Verzuim-engine</div>
+    <h1>Engine-tests</h1>
+    <p>Geautomatiseerde golden-master- en invariant-tests op het rekenmodel. Groen = het CFO-cijfer rekent zoals vastgelegd. Draait volledig in de browser, zonder installatie.</p>
+  </div>
+</header>
+
+<div class="summary" id="summary"></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="meta" id="meta"></div>
+
+<div class="wrap" id="results"></div>
+
+<div class="foot">
+  <b>Montisoro</b> · verzuim-engine.spec.js · golden master vastgelegd 14 juni 2026
+</div>
+
+<!-- Engine ONLY (built-in SD Worx 2025 defaults) + spec -->
+<script src="services/verzuim-engine.js"></script>
+<script src="services/verzuim-engine.spec.js"></script>
+<script>
+(function(){
+  'use strict';
+  function fmt(v){
+    if(typeof v==='number') return String(v);
+    if(typeof v==='string') return '"'+v+'"';
+    return String(v);
+  }
+  function expect(a){
+    return {
+      toBe:function(b){ if(a!==b) throw new Error('verwacht '+fmt(a)+' === '+fmt(b)); },
+      close:function(b,tol){ tol=(tol==null)?0.01:tol; if(Math.abs(a-b)>tol) throw new Error('verwacht '+fmt(a)+' ≈ '+fmt(b)+' (±'+tol+')'); },
+      truthy:function(){ if(!a) throw new Error('verwacht waarheidswaarde, kreeg '+fmt(a)); },
+      match:function(re){ if(!re.test(String(a))) throw new Error('verwacht dat '+fmt(a)+' voldoet aan '+re); },
+      less:function(b){ if(!(a<b)) throw new Error('verwacht '+fmt(a)+' < '+fmt(b)); },
+      greater:function(b){ if(!(a>b)) throw new Error('verwacht '+fmt(a)+' > '+fmt(b)); },
+      notNaN:function(){ if(typeof a==='number' && isNaN(a)) throw new Error('waarde is NaN'); }
+    };
+  }
+
+  var results=document.getElementById('results');
+  var pass=0, fail=0;
+  var groups=[];
+
+  try{
+    var tests = window.VerzuimEngineSpec(window.VerzuimEngine, expect);
+    var rowsEl=document.createElement('div'); rowsEl.className='rows';
+    tests.forEach(function(pair){
+      var name=pair[0], fn=pair[1];
+      var row=document.createElement('div'); row.className='row';
+      var ok=true, msg='';
+      try{ fn(); }catch(e){ ok=false; msg=e.message||String(e); }
+      if(ok) pass++; else fail++;
+      row.classList.add(ok?'ok':'no');
+      row.innerHTML='<span class="ic">'+(ok?'✓':'✕')+'</span>'+
+        '<span class="nm">'+name+'</span>'+
+        '<span class="tag">'+(ok?'geslaagd':'gefaald')+'</span>'+
+        (ok?'':'<span class="err">'+msg.replace(/</g,'&lt;')+'</span>');
+      rowsEl.appendChild(row);
+    });
+    var lbl=document.createElement('div'); lbl.className='section-lbl'; lbl.textContent=tests.length+' testgevallen';
+    results.appendChild(lbl);
+    results.appendChild(rowsEl);
+  }catch(err){
+    results.innerHTML='<div class="rows"><div class="row no"><span class="ic">✕</span><span class="nm">Spec kon niet laden</span><span class="err">'+String(err).replace(/</g,'&lt;')+'</span></div></div>';
+    fail++;
+  }
+
+  var total=pass+fail;
+  var allOk = fail===0 && total>0;
+  document.getElementById('summary').innerHTML=
+    '<div class="scard total"><div class="n">'+total+'</div><div class="l">Testgevallen</div></div>'+
+    '<div class="scard pass"><div class="n">'+pass+'</div><div class="l">Geslaagd</div></div>'+
+    '<div class="scard fail"><div class="n">'+fail+'</div><div class="l">Gefaald</div></div>'+
+    '<div class="scard verdict '+(allOk?'ok':'no')+'"><div class="v">'+(allOk?'✓ Alles groen':'✕ Aandacht nodig')+'</div><div class="sub">'+(allOk?'engine rekent zoals vastgelegd':'een cijfer is verschoven')+'</div></div>';
+  document.getElementById('bar').style.background = allOk ? 'var(--good)' : 'var(--bad)';
+  requestAnimationFrame(function(){ document.getElementById('bar').style.width = total? Math.round(pass/total*100)+'%' : '0'; });
+  document.getElementById('meta').textContent =
+    'Engine-defaults: SD Worx 2025 · sector 10,14% · ' + (allOk ? 'geen drift gedetecteerd' : 'controleer de rode regels');
+})();
+</script>
+</body>
+</html>

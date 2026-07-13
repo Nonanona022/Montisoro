@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montisoro — Navigatie · 5 premium concepten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#13100D; --bg-2:#1A1410; --bg-deep:#0D0905; --bg-card:#1C1814;
+  --page:#F5F3EF; --page-2:#EDEAE3;
+  --off:#F0EDE8; --off-2:#CFC9C0;
+  --ink:#1A1512; --ink-2:#4A433C; --ink-mute:#6B6259;
+  --orange:#E8592B; --orange-cta:#CC4A1E; --orange-soft:rgba(232,89,43,.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --line-d:rgba(240,237,232,.12);
+  --line-l:rgba(26,21,18,.12);
+  --maxw:1120px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);font-weight:300;background:var(--page);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+img{max-width:100%;display:block;}
+a{color:var(--orange-cta);text-decoration:none;}
+a:hover{color:var(--orange);}
+
+/* ── layout shells ── */
+.section{padding:clamp(64px,9vw,120px) 24px;}
+.inner{max-width:var(--maxw);margin:0 auto;}
+.narrow{max-width:820px;margin:0 auto;}
+.dark{background:var(--bg);color:var(--off);}
+.deep{background:var(--bg-deep);color:var(--off);}
+.light{background:var(--page);color:var(--ink);}
+.light-2{background:var(--page-2);color:var(--ink);}
+
+/* ── type system ── */
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.eyebrow::before{content:'';width:26px;height:1px;background:var(--orange);display:inline-block;}
+.dark .eyebrow,.deep .eyebrow{color:var(--orange);}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.08;letter-spacing:-.01em;}
+h1{font-size:clamp(38px,6vw,74px);font-weight:900;}
+h2{font-size:clamp(28px,4vw,46px);}
+h3{font-size:clamp(21px,2.4vw,30px);}
+h4{font-size:clamp(17px,1.6vw,21px);}
+em{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(17px,1.7vw,20px);line-height:1.75;color:var(--ink-2);font-weight:300;max-width:64ch;}
+.dark .lead,.deep .lead{color:var(--off-2);}
+p{margin-bottom:16px;max-width:68ch;}
+.sub{font-size:14px;letter-spacing:.02em;color:var(--ink-mute);}
+.dark .sub{color:var(--off-2);}
+strong{font-weight:600;color:inherit;}
+.dark strong,.deep strong{color:#fff;}
+
+/* ── cover ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--bg-deep);}
+.cover::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 82% 8%,rgba(232,89,43,.16),transparent 55%);pointer-events:none;}
+.cover .inner{position:relative;z-index:1;}
+.cover-kicker{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:28px;}
+.cover h1{color:var(--off);max-width:16ch;margin-bottom:26px;}
+.cover .lead{color:var(--off-2);font-size:clamp(17px,1.9vw,21px);}
+.cover-meta{margin-top:56px;display:flex;flex-wrap:wrap;gap:36px 64px;border-top:1px solid var(--line-d);padding-top:36px;}
+.cover-meta div{min-width:120px;}
+.cover-meta dt{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--off-2);margin-bottom:6px;}
+.cover-meta dd{font-family:var(--serif);font-size:19px;color:var(--off);}
+
+/* ── panel roster ── */
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;background:var(--line-d);border:1px solid var(--line-d);margin-top:40px;}
+.roster div{background:var(--bg);padding:18px 20px;}
+.roster b{display:block;font-family:var(--serif);font-size:16px;color:var(--off);font-weight:700;margin-bottom:3px;}
+.roster span{font-size:12px;color:var(--off-2);letter-spacing:.02em;}
+
+/* ── generic cards / grids ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:820px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.card{background:#fff;border:1px solid var(--line-l);border-radius:16px;padding:28px 30px;}
+.dark .card,.deep .card{background:var(--bg-card);border-color:var(--line-d);}
+
+/* ── principles list ── */
+.principles{list-style:none;counter-reset:p;display:grid;gap:2px;margin-top:8px;}
+.principles li{counter-increment:p;display:grid;grid-template-columns:auto 1fr;gap:22px;padding:22px 0;border-top:1px solid var(--line-l);align-items:baseline;}
+.principles li::before{content:counter(p,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:22px;color:var(--orange);}
+.principles h4{margin-bottom:4px;}
+.principles p{margin:0;color:var(--ink-2);font-size:15px;}
+
+/* ═══════════════ NAV MOCKUP STAGE ═══════════════ */
+.concept{padding:clamp(56px,7vw,96px) 24px;border-top:1px solid var(--line-l);}
+.concept:nth-of-type(even){background:var(--page-2);}
+.concept-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:8px;}
+.concept-idx{font-family:var(--serif);font-style:italic;font-weight:900;font-size:clamp(46px,7vw,84px);line-height:.8;color:var(--orange);opacity:.9;}
+.concept-name h3{font-size:clamp(24px,3vw,38px);}
+.concept-tag{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;}
+
+/* the device stage that holds a live nav */
+.stage{margin:30px 0 8px;border-radius:18px;overflow:hidden;border:1px solid var(--line-l);box-shadow:0 30px 70px -40px rgba(0,0,0,.5);background:#000;position:relative;}
+.stage-bar{position:relative;height:clamp(360px,42vw,520px);background:
+    radial-gradient(120% 130% at 78% -10%,rgba(232,89,43,.18),transparent 52%),
+    linear-gradient(180deg,#181310 0%,#0d0a07 100%);
+  overflow:hidden;}
+/* faux hero content sitting UNDER the nav so transparency reads */
+.stage-hero{position:absolute;left:clamp(24px,5vw,64px);right:clamp(24px,5vw,64px);bottom:clamp(30px,5vw,56px);z-index:1;}
+.stage-hero .eb{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+.stage-hero h4{font-family:var(--serif);font-weight:900;font-size:clamp(26px,4.4vw,52px);color:#fff;line-height:1.03;max-width:14ch;letter-spacing:-.015em;}
+.stage-hero h4 em{color:var(--orange);}
+.stage-scrollhint{position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.35));z-index:0;}
+
+/* state toggle */
+.statebar{display:flex;align-items:center;gap:14px;margin:16px 0 26px;flex-wrap:wrap;}
+.statebar .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--line-l);border-radius:100px;padding:4px;gap:2px;}
+.dark .seg{background:var(--bg-card);border-color:var(--line-d);}
+.seg button{font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.02em;color:var(--ink-mute);background:none;border:none;padding:7px 18px;border-radius:100px;cursor:pointer;transition:all .25s var(--ease);}
+.seg button.on{background:var(--ink);color:#fff;}
+.concept:nth-of-type(even) .seg{background:#fff;}
+
+/* ── shared nav-mockup primitives (scoped to .nav-mock) ── */
+.nav-mock{position:absolute;top:0;left:0;right:0;z-index:3;font-family:var(--sans);}
+.nav-mock .logo{display:flex;align-items:center;gap:11px;flex-shrink:0;}
+.nav-mock .mark{width:34px;height:26px;position:relative;flex-shrink:0;}
+.nav-mock .mark svg{width:100%;height:100%;display:block;}
+.nav-mock .wordmark{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.16em;color:#fff;text-transform:uppercase;}
+.nav-mock .links{display:flex;align-items:center;gap:clamp(14px,2vw,30px);list-style:none;}
+.nav-mock .links a{font-size:13.5px;font-weight:400;letter-spacing:.02em;color:rgba(240,237,232,.62);position:relative;padding:6px 0;transition:color .25s var(--ease);}
+.nav-mock .links a:hover{color:#fff;}
+.nav-mock .links a.active{color:#fff;}
+.nav-mock .cta{font-size:13px;font-weight:600;letter-spacing:.02em;padding:11px 22px;border-radius:100px;white-space:nowrap;transition:all .3s var(--ease);}
+.nav-mock .lang{font-size:12px;font-weight:600;letter-spacing:.08em;color:rgba(240,237,232,.7);display:flex;align-items:center;gap:6px;}
+.nav-mock .lang .cur{color:#fff;}
+.nav-mock .lang .sep{opacity:.4;}
+
+/* caption under stage */
+.stage-note{font-size:13.5px;color:var(--ink-mute);margin-top:2px;display:flex;gap:10px;align-items:baseline;}
+.stage-note b{color:var(--ink);font-weight:600;}
+
+/* pros / cons / scores */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line-l);border:1px solid var(--line-l);border-radius:14px;overflow:hidden;margin-top:8px;}
+@media(max-width:640px){.pc{grid-template-columns:1fr;}}
+.pc div{background:#fff;padding:22px 24px;}
+.concept:nth-of-type(even) .pc div{background:var(--page);}
+.pc h5{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px;}
+.pc .pro h5{color:#1F8A5B;}
+.pc .con h5{color:var(--orange-cta);}
+.pc ul{list-style:none;display:grid;gap:10px;}
+.pc li{font-size:14px;line-height:1.55;color:var(--ink-2);padding-left:18px;position:relative;}
+.pc li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:1.5px;background:var(--ink-mute);}
+.pc .pro li::before{background:#1F8A5B;}
+.pc .con li::before{background:var(--orange-cta);}
+
+/* scorecard */
+.scores{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line-l);border:1px solid var(--line-l);border-radius:14px;overflow:hidden;margin-top:22px;}
+@media(max-width:640px){.scores{grid-template-columns:repeat(2,1fr);}}
+.scores div{background:#fff;padding:16px 14px;text-align:center;}
+.concept:nth-of-type(even) .scores div{background:var(--page);}
+.scores .k{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:8px;}
+.scores .v{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink);}
+.scores .v small{font-size:13px;color:var(--ink-mute);font-weight:400;}
+
+.philo{font-size:15.5px;line-height:1.72;color:var(--ink-2);}
+.philo strong{color:var(--ink);}
+
+/* ── deliberation / matrix ── */
+.matrix{width:100%;border-collapse:collapse;margin-top:28px;font-size:14px;}
+.matrix th,.matrix td{padding:14px 12px;text-align:center;border-bottom:1px solid var(--line-d);}
+.matrix th:first-child,.matrix td:first-child{text-align:left;font-weight:500;color:var(--off);}
+.matrix thead th{font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--off-2);border-bottom:1px solid var(--line-d);}
+.matrix td{color:var(--off-2);font-variant-numeric:tabular-nums;}
+.matrix .win{background:rgba(232,89,43,.1);}
+.matrix .win td{color:#fff;font-weight:600;}
+.matrix .total td{font-family:var(--serif);font-size:17px;color:#fff;border-top:1px solid var(--line-d);}
+.matrix .total .win td{color:var(--orange);}
+
+.quotes{display:grid;gap:14px;margin-top:24px;}
+.quotes blockquote{background:var(--bg-card);border-left:2px solid var(--orange);border-radius:0 12px 12px 0;padding:18px 24px;font-size:15px;color:var(--off-2);line-height:1.65;}
+.quotes blockquote b{color:#fff;font-family:var(--serif);font-weight:700;font-style:normal;display:block;font-size:13px;letter-spacing:.04em;margin-top:10px;color:var(--orange);}
+
+/* winner banner */
+.winner-flag{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:8px 18px;margin-bottom:22px;}
+
+/* spec bits */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line-l);border:1px solid var(--line-l);border-radius:14px;overflow:hidden;margin-top:8px;}
+.spec-grid div{background:#fff;padding:20px 22px;}
+.spec-grid .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:8px;}
+.spec-grid .v{font-size:14px;color:var(--ink-2);line-height:1.55;}
+.spec-grid .v b{color:var(--ink);font-family:var(--serif);font-weight:700;}
+.tokrow{font-family:'DM Sans',monospace;font-size:13px;}
+.swatch{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;border:1px solid var(--line-l);}
+
+.states-demo{display:grid;gap:14px;margin-top:8px;}
+.state-line{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:16px 0;border-top:1px solid var(--line-l);align-items:baseline;}
+.state-line b{font-family:var(--serif);font-size:16px;}
+.state-line span{font-size:14px;color:var(--ink-2);}
+@media(max-width:640px){.state-line{grid-template-columns:1fr;gap:4px;}}
+
+/* timeline / plan */
+.plan{list-style:none;counter-reset:ph;display:grid;gap:2px;}
+.plan li{counter-increment:ph;display:grid;grid-template-columns:auto 1fr;gap:24px;padding:24px 0;border-top:1px solid var(--line-d);}
+.plan li::before{content:'F' counter(ph);font-family:var(--serif);font-weight:900;font-size:22px;color:var(--orange);}
+.plan h4{color:var(--off);margin-bottom:6px;}
+.plan p{color:var(--off-2);font-size:14.5px;margin:0;}
+.plan code{background:rgba(240,237,232,.08);padding:1px 7px;border-radius:5px;font-size:12.5px;color:var(--off);}
+
+.callout{background:var(--orange-soft);border:1px solid rgba(232,89,43,.28);border-radius:14px;padding:22px 26px;margin-top:36px;}
+.callout p{margin:0;color:var(--ink-2);font-size:14.5px;}
+.callout b{color:var(--orange-cta);}
+
+footer.doc{background:var(--bg-deep);color:var(--off-2);padding:50px 24px;text-align:center;font-size:13px;letter-spacing:.03em;}
+footer.doc b{color:var(--off);font-family:var(--serif);}
+
+/* mobile-menu mini demo (winner) */
+.mm-demo{position:relative;height:clamp(420px,60vw,560px);width:min(340px,100%);margin:24px auto 0;border-radius:34px;overflow:hidden;border:1px solid var(--line-d);background:linear-gradient(180deg,#181310,#0d0a07);box-shadow:0 40px 90px -50px rgba(0,0,0,.7);}
+.mm-top{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;}
+.mm-burger{width:30px;height:16px;position:relative;cursor:pointer;background:none;border:none;}
+.mm-burger span{position:absolute;left:0;right:0;height:1.5px;background:#fff;transition:transform .4s var(--ease),opacity .3s var(--ease);}
+.mm-burger span:nth-child(1){top:2px;}
+.mm-burger span:nth-child(2){top:8px;}
+.mm-burger span:nth-child(3){top:14px;}
+.mm-demo.open .mm-burger span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.mm-demo.open .mm-burger span:nth-child(2){opacity:0;}
+.mm-demo.open .mm-burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+.mm-sheet{position:absolute;inset:0;z-index:1;background:rgba(13,10,7,.86);-webkit-backdrop-filter:blur(24px) saturate(1.3);backdrop-filter:blur(24px) saturate(1.3);padding:96px 32px 32px;display:flex;flex-direction:column;gap:4px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s;}
+.mm-demo.open .mm-sheet{opacity:1;visibility:visible;}
+.mm-sheet a{font-family:var(--serif);font-weight:700;font-size:26px;color:rgba(255,255,255,.92);padding:9px 0;border-bottom:1px solid rgba(240,237,232,.08);transform:translateY(14px);opacity:0;transition:transform .6s var(--ease),opacity .6s var(--ease);}
+.mm-demo.open .mm-sheet a{transform:none;opacity:1;}
+.mm-demo.open .mm-sheet a:nth-child(1){transition-delay:.12s;}
+.mm-demo.open .mm-sheet a:nth-child(2){transition-delay:.18s;}
+.mm-demo.open .mm-sheet a:nth-child(3){transition-delay:.24s;}
+.mm-demo.open .mm-sheet a:nth-child(4){transition-delay:.30s;}
+.mm-demo.open .mm-sheet a:nth-child(5){transition-delay:.36s;}
+.mm-demo.open .mm-sheet a:nth-child(6){transition-delay:.42s;}
+.mm-sheet .mm-cta{font-family:var(--sans);font-weight:600;font-size:15px;color:#fff;background:var(--orange-cta);border:none;border-radius:100px;padding:15px;text-align:center;margin-top:auto;border-bottom:none;transform:translateY(14px);opacity:0;transition:transform .6s var(--ease) .48s,opacity .6s var(--ease) .48s;}
+.mm-demo.open .mm-sheet .mm-cta{transform:none;opacity:1;}
+.mm-hint{text-align:center;font-size:13px;color:var(--ink-mute);margin-top:14px;}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<header class="cover section">
+  <div class="inner">
+    <div class="cover-kicker">Montisoro · Design-onderzoek</div>
+    <h1>De navigatie als <em>merkbeleving</em>.</h1>
+    <p class="lead">Vijf premium concepten voor de hoofdnavigatie van Montisoro — onderzocht, bediscussieerd en beoordeeld door een internationaal designpanel. Dit document levert uitsluitend de concepten en het gekozen ontwerp. Er is niets aan de live website gewijzigd.</p>
+    <dl class="cover-meta">
+      <div><dt>Opdracht</dt><dd>Navigatie-herontwerp</dd></div>
+      <div><dt>Scope</dt><dd>Desktop · Tablet · Mobiel</dd></div>
+      <div><dt>Talen</dt><dd>NL &amp; EN</dd></div>
+      <div><dt>Ambitie</dt><dd>Awwwards-niveau</dd></div>
+      <div><dt>Status</dt><dd>Concepten — ter goedkeuring</dd></div>
+    </dl>
+
+    <div class="roster">
+      <div><b>Creative Director</b><span>Awwwards-winnaar · eindregie</span></div>
+      <div><b>Senior UI Designer</b><span>Visueel systeem &amp; detail</span></div>
+      <div><b>Senior UX Designer</b><span>Structuur &amp; gedrag</span></div>
+      <div><b>Product Designer</b><span>Systeemdenken</span></div>
+      <div><b>Motion Designer</b><span>Timing &amp; transities</span></div>
+      <div><b>Interaction Designer</b><span>States &amp; feedback</span></div>
+      <div><b>Brand Designer</b><span>Merkconsistentie</span></div>
+      <div><b>Apple HI Designer</b><span>Optische balans</span></div>
+      <div><b>Stripe Design Lead</b><span>Informatie-architectuur</span></div>
+      <div><b>Linear Product Designer</b><span>Precisie &amp; rust</span></div>
+      <div><b>Framer Expert</b><span>Beweging in de browser</span></div>
+      <div><b>Front-end Animation Eng.</b><span>Haalbaarheid &amp; performance</span></div>
+      <div><b>CRO-specialist</b><span>Conversie &amp; CTA</span></div>
+      <div><b>Accessibility Expert</b><span>WCAG · focus · toetsenbord</span></div>
+      <div><b>Typography Specialist</b><span>Playfair &amp; DM Sans</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════ 1 · BEGRIP ══════════════ -->
+<section class="section light">
+  <div class="inner">
+    <div class="eyebrow">01 — Eerst begrijpen</div>
+    <h2>Wie Montisoro is,<br>voordat één pixel valt.</h2>
+    <p class="lead" style="margin-top:22px;">We hebben de site doorlopen als een CEO die verzuim wil terugdringen: Home, Aanpak, Technologie, Fit Check, Calculator, About en Contact. Dit is wat het merk vertelt — en wat de navigatie dus moet dragen.</p>
+
+    <div class="grid-2" style="margin-top:52px;">
+      <div>
+        <h4>Positionering</h4>
+        <p class="philo">Montisoro is een <strong>premium verzuim­consultancy met een eigen technologieplatform</strong> (Storm &amp; Casey). Geen HR-tool, geen callcenter: een gids die zorg, kennis en data samenbrengt zodat organisaties zelf grip krijgen. De belofte is <strong>onafhankelijkheid</strong> — "we meten ons succes niet aan uw afhankelijkheid, maar aan uw zelfstandigheid".</p>
+      </div>
+      <div>
+        <h4>Doelgroep</h4>
+        <p class="philo">CEO's, directie en HR-leiders van middelgrote tot grote organisaties. Ze scannen, ze wegen vertrouwen in seconden af, ze verwachten rust en autoriteit — geen marketinglawaai. De navigatie is hun eerste indruk van professionaliteit.</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:36px;">
+      <div class="card">
+        <h4>Kleur</h4>
+        <p class="philo" style="margin-top:8px;"><span class="swatch" style="background:#E8592B"></span>Oranje #E8592B — één accent, spaarzaam.<br><span class="swatch" style="background:#13100D"></span>Warm-donker #13100D — gezag.<br><span class="swatch" style="background:#F0EDE8;border-color:#ccc"></span>Off-white #F0EDE8 — rust.</p>
+      </div>
+      <div class="card">
+        <h4>Typografie</h4>
+        <p class="philo" style="margin-top:8px;"><strong>Playfair Display</strong> voor titels &amp; het cursieve oranje accent — de stem van het merk. <strong>DM Sans</strong> voor UI, labels en tekst — helder en modern. Die spanning tussen serif-autoriteit en sans-helderheid ís Montisoro.</p>
+      </div>
+      <div class="card">
+        <h4>Stijl &amp; motion</h4>
+        <p class="philo" style="margin-top:8px;">Editorial, veel witruimte, haarlijnen in plaats van kaders, subtiele reveals. Bewuste merkregel: <strong>geen decoratieve iconen</strong> — "dat maakt er een goedkope AI-website van". Beweging is ingehouden, nooit een truc.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:44px;">
+      <p><b>Consequentie voor de navigatie:</b> concepten die leunen op icoon-rijen (Raycast, Linear-command-stijl) vallen af — die botsen met de merkregel. De winnaar moet autoriteit uitstralen door <b>typografie, ruimte en timing</b>, niet door iconografie. Tweetaligheid (NL/EN) en een groeiende site (Tools, Referenties, FAQ) zijn harde randvoorwaarden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 1b · HUIDIGE NAV TEARDOWN ══════════════ -->
+<section class="section dark">
+  <div class="inner narrow">
+    <div class="eyebrow">02 — De huidige balk, eerlijk bekeken</div>
+    <h2 style="color:var(--off)">Wat werkt, en waar het<br>net geen <em>9,5</em> haalt.</h2>
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4 style="color:#1F8A5B">Sterk</h4>
+        <p class="philo" style="color:var(--off-2)">Transparant over de hero, frosted bij scroll. Serif-woordmerk met de bergbeeldmerk-lijnen. Onderstreping-active en een rustige outline-CTA. Al zeer net — een goede basis.</p>
+      </div>
+      <div>
+        <h4 style="color:var(--orange)">Net te kort</h4>
+        <p class="philo" style="color:var(--off-2)">Zeven losse links + CTA + taal maken de balk vol bij smallere breedtes. De hiërarchie tussen "gewone" links en de CTA kan scherper. Geen ruimte om de groeiende site (Tools/Referenties) rustig te ordenen. De materialisatie bij scroll mag verfijnder — één samenhangend moment i.p.v. een kleurwissel.</p>
+      </div>
+    </div>
+    <p class="lead" style="color:var(--off-2);margin-top:32px;">De opdracht is dus geen reparatie maar een <em>herdenking</em>: dezelfde rust en autoriteit, maar tot in de timing en de ruimte doordacht — en klaar om mee te groeien.</p>
+  </div>
+</section>
+
+<!-- ══════════════ 3 · PRINCIPES ══════════════ -->
+<section class="section light-2">
+  <div class="inner narrow">
+    <div class="eyebrow">03 — Ontwerpprincipes</div>
+    <h2>Zes regels waaraan<br>elk concept moet voldoen.</h2>
+    <ol class="principles">
+      <li><div><h4>Rust boven ruis</h4><p>De balk is nooit de luidste stem op het scherm. Autoriteit ontstaat door weglaten.</p></div></li>
+      <li><div><h4>Eén moment van materialisatie</h4><p>Over de hero onzichtbaar; bij scroll verschijnt hij als één samenhangende, verfijnde beweging — glas, geen kleurwissel.</p></div></li>
+      <li><div><h4>De CTA is de enige kleur</h4><p>Oranje is gereserveerd voor "Plan een gesprek". Alle overige elementen zijn ink/off-white. Zo blijft de conversie-ankerpunt onmiskenbaar.</p></div></li>
+      <li><div><h4>Typografie draagt, iconen niet</h4><p>Hiërarchie via Playfair/DM Sans, gewicht en ruimte. Geen decoratieve iconografie.</p></div></li>
+      <li><div><h4>Tweetalig en schaalbaar by design</h4><p>NL/EN wisselt zonder de layout te breken; er is een rustige plek voor toekomstige secties.</p></div></li>
+      <li><div><h4>Toegankelijk als fundament</h4><p>Zichtbare focus, volledige toetsenbordbediening, 44px-touchdoelen, <code style="font-size:12px">prefers-reduced-motion</code> gerespecteerd.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════ 4 · DE CONCEPTEN ══════════════ -->
+<section class="section light" style="padding-bottom:0;">
+  <div class="inner">
+    <div class="eyebrow">04 — Vijf concepten</div>
+    <h2>Vijf richtingen.<br>Eén wordt Montisoro.</h2>
+    <p class="lead" style="margin-top:20px;">Elk concept is een levende mockup — wissel tussen <b>Rust</b> (over de hero) en <b>Gescrolld</b> om het gedrag te zien. Beweeg over de links voor de hover-state.</p>
+  </div>
+</section>
+
+<!-- ---------- CONCEPT 1 ---------- -->
+<article class="concept" id="c1">
+  <div class="inner">
+    <div class="concept-head">
+      <div style="display:flex;align-items:flex-end;gap:22px;">
+        <span class="concept-idx">01</span>
+        <div class="concept-name"><div class="concept-tag">De stille lijn</div><h3>Editorial Hairline</h3></div>
+      </div>
+    </div>
+
+    <div class="statebar">
+      <span class="lbl">Toestand</span>
+      <div class="seg" data-seg="s1"><button class="on" data-state="rest">Rust</button><button data-state="scrolled">Gescrolld</button></div>
+    </div>
+
+    <div class="stage" data-stage="s1">
+      <div class="stage-bar">
+        <div class="stage-scrollhint"></div>
+        <!-- NAV -->
+        <div class="nav-mock nm1">
+          <div class="nm-in">
+            <div class="logo">
+              <span class="mark">__MARK__</span>
+              <span class="wordmark">Montisoro</span>
+            </div>
+            <ul class="links">
+              <li><a href="#c1" class="active">Home</a></li>
+              <li><a href="#c1">Aanpak</a></li>
+              <li><a href="#c1">Technologie</a></li>
+              <li><a href="#c1">Fit&nbsp;check</a></li>
+              <li><a href="#c1">Calculator</a></li>
+              <li><a href="#c1">About</a></li>
+              <li><a href="#c1">Contact</a></li>
+            </ul>
+            <div class="nm-right">
+              <span class="lang"><span class="cur">NL</span><span class="sep">·</span>EN</span>
+              <a href="#c1" class="cta">Plan een gesprek →</a>
+            </div>
+          </div>
+        </div>
+        <div class="stage-hero">
+          <div class="eb">Verzuim onder controle</div>
+          <h4>Wat kost verzuim <em>écht</em>?</h4>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><b>Gedrag:</b><span>Volle breedte, transparant. Bij scroll verschijnt alléén een 1px-haarlijn onderaan + een fluweelzachte warme frost; de balk krimpt van 92→64px. De CTA is over de hero een tekstlink met pijl, en wordt pas bij scroll een gevulde pill — de kleur "landt" precies wanneer de context erom vraagt.</span></div>
+
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4>Filosofie</h4>
+        <p class="philo">Autoriteit door restrictie. Dit is de taal van Apple's marketingsite en van hoogwaardige redactie: de navigatie stapt terug zodat de inhoud spreekt. Geen kader, geen doos — alleen typografie op een haarlijn.</p>
+        <h4 style="margin-top:22px;">Waarom Montisoro</h4>
+        <p class="philo">Sluit naadloos aan bij de bestaande editorial stijl (haarlijnen, witruimte, serif-accenten). Voelt volwassen en tijdloos — precies wat een CEO als "professioneel" leest. Laagste risico, hoogste rust.</p>
+      </div>
+      <div>
+        <div class="pc">
+          <div class="pro"><h5>Voordelen</h5><ul>
+            <li>Tijdloos en kalm; veroudert nauwelijks</li>
+            <li>Snelst te bouwen op de huidige architectuur</li>
+            <li>Uitstekende leesbaarheid &amp; toegankelijkheid</li>
+            <li>CTA-kleur "landt" betekenisvol bij scroll</li>
+          </ul></div>
+          <div class="con"><h5>Aandachtspunten</h5><ul>
+            <li>Minst spectaculair — lagere "wow" voor een jury</li>
+            <li>Zeven links blijven vol op smalle desktop</li>
+            <li>Geen native plek voor groei (Tools/Referenties)</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div><div class="k">UX</div><div class="v">9,3<small>/10</small></div></div>
+      <div><div class="k">UI</div><div class="v">9,0<small>/10</small></div></div>
+      <div><div class="k">Premium</div><div class="v">9,4<small>/10</small></div></div>
+      <div><div class="k">Vertrouwen</div><div class="v">9,5<small>/10</small></div></div>
+      <div><div class="k">Awwwards</div><div class="v">8,4<small>/10</small></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ---------- CONCEPT 2 ---------- -->
+<article class="concept" id="c2">
+  <div class="inner">
+    <div class="concept-head">
+      <div style="display:flex;align-items:flex-end;gap:22px;">
+        <span class="concept-idx">02</span>
+        <div class="concept-name"><div class="concept-tag">Het zwevende kader</div><h3>Floating Glass Capsule</h3></div>
+      </div>
+    </div>
+
+    <div class="statebar">
+      <span class="lbl">Toestand</span>
+      <div class="seg" data-seg="s2"><button class="on" data-state="rest">Rust</button><button data-state="scrolled">Gescrolld</button></div>
+    </div>
+
+    <div class="stage" data-stage="s2">
+      <div class="stage-bar">
+        <div class="stage-scrollhint"></div>
+        <div class="nav-mock nm2">
+          <div class="nm-in">
+            <div class="logo">
+              <span class="mark">__MARK__</span>
+              <span class="wordmark">Montisoro</span>
+            </div>
+            <div class="capsule">
+              <ul class="links">
+                <li><a href="#c2" class="active">Home</a></li>
+                <li><a href="#c2">Aanpak</a></li>
+                <li><a href="#c2">Technologie</a></li>
+                <li><a href="#c2">Fit&nbsp;check</a></li>
+                <li><a href="#c2">Calculator</a></li>
+                <li><a href="#c2">About</a></li>
+              </ul>
+            </div>
+            <div class="nm-right">
+              <span class="lang"><span class="cur">NL</span><span class="sep">·</span>EN</span>
+              <a href="#c2" class="cta">Plan een gesprek →</a>
+            </div>
+          </div>
+        </div>
+        <div class="stage-hero">
+          <div class="eb">Verzuim onder controle</div>
+          <h4>Wat kost verzuim <em>écht</em>?</h4>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><b>Gedrag:</b><span>De links leven in een losse, frosted glas-capsule met marge tot de schermranden; logo links en CTA/taal rechts blijven vrij. Bij scroll trekt de capsule iets samen, licht op en verdiept zijn schaduw — hij "zweeft" een fractie hoger. Product-grade precisie, warm gehouden.</span></div>
+
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4>Filosofie</h4>
+        <p class="philo">De taal van moderne product-merken: Linear, Vercel, Framer. Een gedetacheerde capsule signaleert software-precisie en zelfvertrouwen. Wij verwarmen het met de Montisoro-palette zodat het premium blijft in plaats van koel-technisch.</p>
+        <h4 style="margin-top:22px;">Waarom Montisoro</h4>
+        <p class="philo">Brengt de technologie-kant (Storm &amp; Casey) visueel tot leven zonder één icoon. Onderscheidend en eigentijds; sterk motion-moment bij scroll. De capsule ordent de links optisch — rustiger dan zeven losse items.</p>
+      </div>
+      <div>
+        <div class="pc">
+          <div class="pro"><h5>Voordelen</h5><ul>
+            <li>Modern, premium en direct herkenbaar</li>
+            <li>Capsule groepeert links → rustiger ritme</li>
+            <li>Prachtig, subtiel scroll-moment</li>
+            <li>Hoog Awwwards-potentieel</li>
+          </ul></div>
+          <div class="con"><h5>Aandachtspunten</h5><ul>
+            <li>Zwevende navs zijn "van nu" — kunnen dateren</li>
+            <li>Iets minder consultancy-gravitas dan serif-lijn</li>
+            <li>Randmarges vragen zorg op tablet</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div><div class="k">UX</div><div class="v">9,2<small>/10</small></div></div>
+      <div><div class="k">UI</div><div class="v">9,6<small>/10</small></div></div>
+      <div><div class="k">Premium</div><div class="v">9,5<small>/10</small></div></div>
+      <div><div class="k">Vertrouwen</div><div class="v">9,1<small>/10</small></div></div>
+      <div><div class="k">Awwwards</div><div class="v">9,4<small>/10</small></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ---------- CONCEPT 3 ---------- -->
+<article class="concept" id="c3">
+  <div class="inner">
+    <div class="concept-head">
+      <div style="display:flex;align-items:flex-end;gap:22px;">
+        <span class="concept-idx">03</span>
+        <div class="concept-name"><div class="concept-tag">De masthead</div><h3>Editorial Serif Masthead</h3></div>
+      </div>
+    </div>
+
+    <div class="statebar">
+      <span class="lbl">Toestand</span>
+      <div class="seg" data-seg="s3"><button class="on" data-state="rest">Rust</button><button data-state="scrolled">Gescrolld</button></div>
+    </div>
+
+    <div class="stage" data-stage="s3">
+      <div class="stage-bar">
+        <div class="stage-scrollhint"></div>
+        <div class="nav-mock nm3">
+          <div class="micro">
+            <span>Verzuimconsultancy &amp; technologie</span>
+            <span class="lang"><span class="cur">NL</span><span class="sep">·</span>EN</span>
+          </div>
+          <div class="nm-in">
+            <div class="logo">
+              <span class="mark">__MARK__</span>
+              <span class="wordmark">Montisoro</span>
+            </div>
+            <ul class="links">
+              <li><a href="#c3" class="active">Home</a></li>
+              <li><a href="#c3">Aanpak</a></li>
+              <li><a href="#c3">Technologie</a></li>
+              <li><a href="#c3">Fit&nbsp;check</a></li>
+              <li><a href="#c3">Calculator</a></li>
+              <li><a href="#c3">About</a></li>
+              <li><a href="#c3">Contact</a></li>
+            </ul>
+            <a href="#c3" class="cta">Plan een gesprek →</a>
+          </div>
+        </div>
+        <div class="stage-hero">
+          <div class="eb">Verzuim onder controle</div>
+          <h4>Wat kost verzuim <em>écht</em>?</h4>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><b>Gedrag:</b><span>Een tweeregelige masthead: een micro-rail bovenaan (positionering + taal) en daaronder het woordmerk met de navigatie onder een dunne redactionele regel. Bij scroll vouwt de micro-rail weg en blijft één slanke lijn over. Onmiskenbaar Montisoro — het merk spreekt letterlijk.</span></div>
+
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4>Filosofie</h4>
+        <p class="philo">Consultancy als auteurschap. Door Playfair naar de balk te tillen wordt de navigatie zelf een merkuiting — als de kop van een gezaghebbend magazine. De micro-rail geeft context zonder te schreeuwen.</p>
+        <h4 style="margin-top:22px;">Waarom Montisoro</h4>
+        <p class="philo">Maximale merkherkenning en gravitas — precies het "dit bedrijf is serieus"-signaal voor directie. Gebruikt de bestaande serif-identiteit voller dan welk ander concept.</p>
+      </div>
+      <div>
+        <div class="pc">
+          <div class="pro"><h5>Voordelen</h5><ul>
+            <li>Onmiskenbaar eigen — sterkste branding</li>
+            <li>Hoogste gezag/vertrouwen voor CEO-publiek</li>
+            <li>Micro-rail biedt plek voor taal &amp; context</li>
+          </ul></div>
+          <div class="con"><h5>Aandachtspunten</h5><ul>
+            <li>Standaard hoger → minder hero-ruimte</li>
+            <li>Kan "editorial" i.p.v. "tech" aanvoelen</li>
+            <li>Tweeregelig gedrag vraagt zorgvuldige mobiel-vertaling</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div><div class="k">UX</div><div class="v">8,9<small>/10</small></div></div>
+      <div><div class="k">UI</div><div class="v">9,2<small>/10</small></div></div>
+      <div><div class="k">Premium</div><div class="v">9,3<small>/10</small></div></div>
+      <div><div class="k">Vertrouwen</div><div class="v">9,6<small>/10</small></div></div>
+      <div><div class="k">Awwwards</div><div class="v">9,0<small>/10</small></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ---------- CONCEPT 4 ---------- -->
+<article class="concept" id="c4">
+  <div class="inner">
+    <div class="concept-head">
+      <div style="display:flex;align-items:flex-end;gap:22px;">
+        <span class="concept-idx">04</span>
+        <div class="concept-name"><div class="concept-tag">Het kalme canvas</div><h3>Progressive Canvas Menu</h3></div>
+      </div>
+    </div>
+
+    <div class="statebar">
+      <span class="lbl">Toestand</span>
+      <div class="seg" data-seg="s4"><button class="on" data-state="rest">Gesloten</button><button data-state="scrolled">Canvas open</button></div>
+    </div>
+
+    <div class="stage" data-stage="s4">
+      <div class="stage-bar">
+        <div class="stage-scrollhint"></div>
+        <div class="nav-mock nm4">
+          <div class="nm-in">
+            <div class="logo">
+              <span class="mark">__MARK__</span>
+              <span class="wordmark">Montisoro</span>
+            </div>
+            <ul class="links">
+              <li><a href="#c4" class="active">Aanpak</a></li>
+              <li><a href="#c4" class="has-panel">Oplossingen</a></li>
+              <li><a href="#c4">About</a></li>
+            </ul>
+            <div class="nm-right">
+              <span class="lang"><span class="cur">NL</span><span class="sep">·</span>EN</span>
+              <a href="#c4" class="cta">Plan een gesprek →</a>
+            </div>
+          </div>
+          <!-- the calm canvas -->
+          <div class="canvas">
+            <div class="canvas-in">
+              <div class="canvas-col">
+                <span class="canvas-lbl">Oplossingen</span>
+                <a href="#c4"><b>Technologie</b><span>Storm &amp; Casey — inzicht en begeleiding</span></a>
+                <a href="#c4"><b>Fit Check</b><span>Ontdek in 2 minuten waar u staat</span></a>
+                <a href="#c4"><b>Calculator</b><span>Bereken de werkelijke kost van verzuim</span></a>
+              </div>
+              <div class="canvas-col">
+                <span class="canvas-lbl">Bewijs</span>
+                <a href="#c4"><b>Referenties</b><span>Resultaten bij Volvo, Alcon, Lonza</span></a>
+                <a href="#c4"><b>FAQ</b><span>De meest gestelde vragen</span></a>
+              </div>
+              <div class="canvas-feat">
+                <span class="canvas-lbl">Uitgelicht</span>
+                <div class="feat-quote">"<em>−32%</em> verzuim in twaalf maanden."</div>
+                <p>Bekijk hoe organisaties met Montisoro duurzame grip kregen.</p>
+                <a href="#c4" class="feat-link">Lees de referenties →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="stage-hero canvas-dim">
+          <div class="eb">Verzuim onder controle</div>
+          <h4>Wat kost verzuim <em>écht</em>?</h4>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><b>Gedrag:</b><span>Slanke balk met slechts enkele toplinks. Eén link ("Oplossingen") opent een kalm, breed canvas: secties met één regel uitleg + een uitgelicht bewijs-paneel. De hero dimt zacht eronder. Progressieve onthulling — intelligentie zonder rommel, en klaar voor een groeiende site.</span></div>
+
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4>Filosofie</h4>
+        <p class="philo">Intelligentie, navigeerbaar gemaakt — de taal van Stripe en Notion, maar ingehouden. De balk blijft minimaal; diepte verschijnt alleen op verzoek. Perfect voor een CEO die scant en dan gericht doorklikt.</p>
+        <h4 style="margin-top:22px;">Waarom Montisoro</h4>
+        <p class="philo">Lost het "zeven losse links"-probleem structureel op en geeft de groeiende site (Tools, Referenties, FAQ) een rustige thuis. Signaleert sophistication en tech-vermogen. Sterkste UX voor complexiteit.</p>
+      </div>
+      <div>
+        <div class="pc">
+          <div class="pro"><h5>Voordelen</h5><ul>
+            <li>Schaalt moeiteloos met nieuwe content</li>
+            <li>Balk zelf blijft ultra-rustig</li>
+            <li>Krachtig, elegant motion-moment</li>
+            <li>Ruimte voor bewijs/CTA in het canvas → conversie</li>
+          </ul></div>
+          <div class="con"><h5>Aandachtspunten</h5><ul>
+            <li>Meeste bouw- en contentwerk</li>
+            <li>Mega-menu's kunnen "corporate" voelen bij te veel inhoud</li>
+            <li>Vraagt strakke redactie om kalm te blijven</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div><div class="k">UX</div><div class="v">9,6<small>/10</small></div></div>
+      <div><div class="k">UI</div><div class="v">9,4<small>/10</small></div></div>
+      <div><div class="k">Premium</div><div class="v">9,3<small>/10</small></div></div>
+      <div><div class="k">Vertrouwen</div><div class="v">9,2<small>/10</small></div></div>
+      <div><div class="k">Awwwards</div><div class="v">9,2<small>/10</small></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ---------- CONCEPT 5 ---------- -->
+<article class="concept" id="c5">
+  <div class="inner">
+    <div class="concept-head">
+      <div style="display:flex;align-items:flex-end;gap:22px;">
+        <span class="concept-idx">05</span>
+        <div class="concept-name"><div class="concept-tag">De verankerde rail</div><h3>Vertical Anchored Rail</h3></div>
+      </div>
+    </div>
+
+    <div class="statebar">
+      <span class="lbl">Toestand</span>
+      <div class="seg" data-seg="s5"><button class="on" data-state="rest">Rust</button><button data-state="scrolled">Gescrolld</button></div>
+    </div>
+
+    <div class="stage" data-stage="s5">
+      <div class="stage-bar">
+        <div class="stage-scrollhint"></div>
+        <div class="nav-mock nm5">
+          <div class="rail">
+            <div class="logo">
+              <span class="mark">__MARK__</span>
+            </div>
+            <ul class="links">
+              <li><a href="#c5" class="active">Home</a></li>
+              <li><a href="#c5">Aanpak</a></li>
+              <li><a href="#c5">Technologie</a></li>
+              <li><a href="#c5">Fit&nbsp;check</a></li>
+              <li><a href="#c5">Calculator</a></li>
+              <li><a href="#c5">About</a></li>
+              <li><a href="#c5">Contact</a></li>
+            </ul>
+            <div class="rail-foot">
+              <span class="lang"><span class="cur">NL</span><span class="sep">·</span>EN</span>
+              <a href="#c5" class="cta">Gesprek →</a>
+            </div>
+          </div>
+        </div>
+        <div class="stage-hero rail-hero">
+          <div class="eb">Verzuim onder controle</div>
+          <h4>Wat kost verzuim <em>écht</em>?</h4>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><b>Gedrag:</b><span>Een slanke, permanente verticale rail links: beeldmerk boven, links verticaal, taal + CTA verankerd onderaan. De volledige bovenrand komt vrij voor een ononderbroken hero. Op mobiel wordt de rail een gedokte pill onderaan. Maximaal onderscheidend, ruimtelijk zelfverzekerd.</span></div>
+
+    <div class="grid-2" style="margin-top:40px;">
+      <div>
+        <h4>Filosofie</h4>
+        <p class="philo">Ruimtelijk zelfvertrouwen — breek bewust met het sjabloon. Een verticale rail geeft de hero volledige vrijheid en is direct memorabel. Dit is het meest "gedurfde" concept, bedoeld om de grens te verkennen.</p>
+        <h4 style="margin-top:22px;">Waarom Montisoro</h4>
+        <p class="philo">Zou Montisoro losweken van elke concurrent. Maximale hero-impact. Maar: het vraagt van een CEO een leermoment, en dat staat op gespannen voet met de kernwaarde <em>rust &amp; vertrouwen</em>.</p>
+      </div>
+      <div>
+        <div class="pc">
+          <div class="pro"><h5>Voordelen</h5><ul>
+            <li>Zeer onderscheidend en memorabel</li>
+            <li>Maximale, ononderbroken hero-ruimte</li>
+            <li>Hoogste "durf" voor een jury</li>
+          </ul></div>
+          <div class="con"><h5>Aandachtspunten</h5><ul>
+            <li>Onconventioneel → risico voor vertrouwen/gebruiksgemak</li>
+            <li>Labels + NL/EN lastig verticaal uit te lijnen</li>
+            <li>Leercurve; zwaarste toegankelijkheidszorg</li>
+            <li>Botst met de "rust"-kernwaarde</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scores">
+      <div><div class="k">UX</div><div class="v">8,1<small>/10</small></div></div>
+      <div><div class="k">UI</div><div class="v">9,0<small>/10</small></div></div>
+      <div><div class="k">Premium</div><div class="v">8,8<small>/10</small></div></div>
+      <div><div class="k">Vertrouwen</div><div class="v">7,9<small>/10</small></div></div>
+      <div><div class="k">Awwwards</div><div class="v">9,3<small>/10</small></div></div>
+    </div>
+  </div>
+</article>
+
+<!-- ══════════════ 5 · DELIBERATIE ══════════════ -->
+<section class="section deep">
+  <div class="inner">
+    <div class="eyebrow">05 — Het panel beslist</div>
+    <h2 style="color:var(--off)">De discussie,<br>en de <em>winnaar</em>.</h2>
+
+    <table class="matrix">
+      <thead>
+        <tr><th>Criterium (weging)</th><th>01 Hairline</th><th>02 Capsule</th><th>03 Masthead</th><th>04 Canvas</th><th>05 Rail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Premium uitstraling ×1.5</td><td>9,4</td><td class="win">9,5</td><td>9,3</td><td>9,3</td><td>8,8</td></tr>
+        <tr><td>Gebruiksvriendelijkheid ×1.5</td><td>9,3</td><td class="win">9,2</td><td>8,9</td><td>9,6</td><td>8,1</td></tr>
+        <tr><td>Vertrouwen ×1.5</td><td>9,5</td><td class="win">9,1</td><td>9,6</td><td>9,2</td><td>7,9</td></tr>
+        <tr><td>Branding ×1.2</td><td>9,0</td><td class="win">9,3</td><td>9,6</td><td>9,1</td><td>9,0</td></tr>
+        <tr><td>UI ×1.2</td><td>9,0</td><td class="win">9,6</td><td>9,2</td><td>9,4</td><td>9,0</td></tr>
+        <tr><td>Motion ×1.0</td><td>8,6</td><td class="win">9,5</td><td>8,8</td><td>9,3</td><td>9,1</td></tr>
+        <tr><td>Consistentie ×1.0</td><td>9,4</td><td class="win">9,3</td><td>9,2</td><td>9,0</td><td>8,6</td></tr>
+        <tr><td>Toegankelijkheid ×1.2</td><td>9,5</td><td class="win">9,2</td><td>9,1</td><td>8,9</td><td>8,2</td></tr>
+        <tr><td>Conversie ×1.3</td><td>9,0</td><td class="win">9,3</td><td>9,0</td><td>9,4</td><td>8,7</td></tr>
+        <tr><td>Awwwards-potentieel ×1.1</td><td>8,4</td><td class="win">9,4</td><td>9,0</td><td>9,2</td><td>9,3</td></tr>
+        <tr class="total"><td>Gewogen totaal</td><td>9,10</td><td class="win">9,34</td><td>9,19</td><td>9,26</td><td>8,58</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quotes">
+      <blockquote>De Rail is de mooiste losse vondst, maar hij vecht met onze kernwaarde. Een CEO wil geen puzzel; hij wil rust. Awwwards-jury's belonen durf, maar niet ten koste van geloofwaardigheid.<b>— Creative Director</b></blockquote>
+      <blockquote>Canvas heeft de beste UX en lost het groei-probleem op. Maar als standaardbalk voelt hij pas af mét de dropdown; de rustmoment-balk zelf moet nog steeds ergens vandaan komen.<b>— Senior UX Designer &amp; Stripe Design Lead</b></blockquote>
+      <blockquote>De Masthead heeft het meeste merkgezag — maar hij kost hero-hoogte en neigt naar "tijdschrift" in plaats van "technologie". Voor een bedrijf mét een platform is dat een gemiste kans.<b>— Brand &amp; Typography Specialist</b></blockquote>
+      <blockquote>De Capsule scoort over de hele linie hoog, heeft het beste scroll-moment en groepeert de links optisch tot rust. Hij voelt als software én als premium. Dít is de basis.<b>— Senior UI Designer, Linear &amp; Framer</b></blockquote>
+      <blockquote>Akkoord — maar we adopteren niet blind. We nemen de <em>restraint</em> van de Hairline (CTA-kleur die pas bij scroll landt) en houden het <em>Canvas</em> als optionele module achter één link voor als de site groeit. Zo wint Capsule zonder de rest te verliezen.<b>— Panel, unaniem</b></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 6 · WINNAAR ══════════════ -->
+<section class="section light">
+  <div class="inner">
+    <span class="winner-flag">● Winnend concept</span>
+    <h2>02 · <em>Het Stille Kader</em></h2>
+    <p class="lead" style="margin-top:20px;">De Floating Glass Capsule als fundament, verfijnd met de restraint van de Hairline en voorbereid op het Canvas. Een navigatie die over de hero vrijwel verdwijnt, en bij scroll als één rustig glas-moment materialiseert — premium, betrouwbaar en onmiskenbaar Montisoro.</p>
+
+    <div class="grid-2" style="margin-top:44px;align-items:start;">
+      <div>
+        <h4>Anatomie</h4>
+        <p class="philo">Links het serif-woordmerk met het lijnen-beeldmerk. Midden een frosted capsule met de primaire links, optisch gecentreerd. Rechts een tekst-taalwissel <b>NL · EN</b> en de enige kleur op het scherm: de oranje pill <b>"Plan een gesprek →"</b>. Eén link ("Oplossingen") kan later het kalme Canvas openen.</p>
+      </div>
+      <div>
+        <h4>Het scroll-moment</h4>
+        <p class="philo">Over de hero: capsule vrijwel transparant, geen schaduw, CTA als tekstlink. Voorbij de hero, in één beweging van 420ms: de capsule krijgt <b>frosted glas</b> (blur 20px), een haarlijn-rand en een zachte schaduw, licht 2px op, en de CTA wordt een <b>gevulde pill</b>. Kleur landt precies wanneer de context erom vraagt.</p>
+      </div>
+    </div>
+
+    <h4 style="margin-top:48px;">States &amp; motion</h4>
+    <div class="states-demo">
+      <div class="state-line"><b>Hover (link)</b><span>Kleur van 62%→100% off-white in 250ms; een 1,5px oranje onderlijn groeit van links naar rechts (<code style="font-size:12px">cubic-bezier(.16,1,.3,1)</code>). Geen sprong, geen schaal.</span></div>
+      <div class="state-line"><b>Active (pagina)</b><span>Onderlijn permanent zichtbaar, tekst in oranje. Eén actieve staat tegelijk.</span></div>
+      <div class="state-line"><b>Focus (toetsenbord)</b><span>2px oranje focus-ring met 2px offset, zelfde radius als het element. Altijd zichtbaar — nooit <code style="font-size:12px">outline:none</code> zonder vervanging.</span></div>
+      <div class="state-line"><b>CTA hover</b><span>Vulling verdiept (#CC4A1E→#B33F17), pijl schuift 3px naar rechts, schaduw zwelt subtiel. 300ms.</span></div>
+      <div class="state-line"><b>Scroll-transitie</b><span>Eén samenhangende 420ms-transitie op opacity/blur/schaduw/schaal. Gedempt via <code style="font-size:12px">prefers-reduced-motion</code>.</span></div>
+      <div class="state-line"><b>Taalwissel</b><span>NL·EN als tekst; actieve taal 100% wit, andere 55%. Klik → 200ms crossfade van de labels, geen layout-sprong.</span></div>
+    </div>
+
+    <h4 style="margin-top:48px;">Tokens (op de bestaande huisstijl)</h4>
+    <div class="spec-grid">
+      <div><div class="k">Hoogte</div><div class="v"><b>72px</b> rust · <b>60px</b> gescrolld</div></div>
+      <div><div class="k">Capsule</div><div class="v">radius <b>100px</b> · padding 8/10px · blur 20px</div></div>
+      <div><div class="k">Glas (scrolled)</div><div class="v"><span class="swatch" style="background:#1A1512"></span>rgba(26,21,18,.72) + saturate 1.3</div></div>
+      <div><div class="k">Rand</div><div class="v">1px rgba(240,237,232,.10)</div></div>
+      <div><div class="k">Link</div><div class="v">DM Sans 13,5px · 400 · off-white 62→100%</div></div>
+      <div><div class="k">CTA</div><div class="v"><span class="swatch" style="background:#CC4A1E"></span>#CC4A1E · wit · pill 100px</div></div>
+      <div><div class="k">Accent</div><div class="v"><span class="swatch" style="background:#E8592B"></span>#E8592B — enkel CTA &amp; active</div></div>
+      <div><div class="k">Easing</div><div class="v">cubic-bezier(.16,1,.3,1)</div></div>
+    </div>
+
+    <h4 style="margin-top:48px;">Responsief gedrag</h4>
+    <div class="grid-3" style="margin-top:14px;">
+      <div class="card"><h4>Desktop ≥1181px</h4><p class="philo" style="margin-top:8px;">Volledige capsule met alle primaire links, optisch gecentreerd. Logo links, taal + CTA rechts. 72→60px bij scroll.</p></div>
+      <div class="card"><h4>Tablet 768–1180px</h4><p class="philo" style="margin-top:8px;">Capsule vouwt in tot logo + CTA + "Menu"-tekst; links verhuizen naar het canvas/paneel. Marges 28px, safe-area gerespecteerd.</p></div>
+      <div class="card"><h4>Mobiel ≤767px</h4><p class="philo" style="margin-top:8px;">Slanke balk (safe-area-top). Tik op "Menu" → full-screen frosted sheet met Playfair-links die zacht instaggeren; CTA verankerd onderaan. Demo hiernaast.</p></div>
+    </div>
+
+    <div style="max-width:380px;margin:36px auto 0;">
+      <div class="mm-demo" id="mmDemo">
+        <div class="mm-top">
+          <span class="wordmark" style="font-family:var(--serif);font-weight:700;letter-spacing:.16em;color:#fff;font-size:14px;text-transform:uppercase;">Montisoro</span>
+          <button class="mm-burger" id="mmBurger" aria-label="Menu openen"><span></span><span></span><span></span></button>
+        </div>
+        <nav class="mm-sheet">
+          <a href="#c2">Home</a>
+          <a href="#c2">Aanpak</a>
+          <a href="#c2">Technologie</a>
+          <a href="#c2">Fit check</a>
+          <a href="#c2">Calculator</a>
+          <a href="#c2">About</a>
+          <span class="mm-cta">Plan een gesprek →</span>
+        </nav>
+      </div>
+      <p class="mm-hint">Tik op het menu-icoon — mobiele sheet met staggered reveal.</p>
+    </div>
+
+    <h4 style="margin-top:52px;">Tweetaligheid &amp; toegankelijkheid</h4>
+    <div class="grid-2" style="margin-top:14px;">
+      <div><p class="philo"><strong>NL / EN:</strong> labels wisselen via de bestaande taal-logica; de capsule is breedte-flexibel (<code style="font-size:12px">flex</code> met gap) zodat langere EN-labels ("Approach", "Contact") niet breken. Eén bron, twee talen — pariteit gegarandeerd.</p></div>
+      <div><p class="philo"><strong>WCAG:</strong> <code style="font-size:12px">&lt;nav aria-label&gt;</code>, volledige toetsenbord-tab-volgorde, zichtbare focus, 44px-touchdoelen, contrast ≥ 4,5:1 op alle tekst, en gedempte beweging bij <code style="font-size:12px">prefers-reduced-motion</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 7 · IMPLEMENTATIEPLAN ══════════════ -->
+<section class="section dark">
+  <div class="inner narrow">
+    <div class="eyebrow">06 — Implementatieplan</div>
+    <h2 style="color:var(--off)">Van concept naar<br>live — <em>zonder</em> breuk.</h2>
+    <p class="lead" style="color:var(--off-2);margin-top:20px;">Uitvoering pas na jouw goedkeuring. Alles bouwt voort op de bestaande architectuur (<code>montisoro-v2.css</code>, <code>shell.css</code>, de <code>#mNav</code>-markup) en gaat per fase, met NL/EN-pariteit en synchronisatie naar de deploy-bundle.</p>
+
+    <ol class="plan">
+      <li><div><h4>Fundament &amp; tokens</h4><p>Nav-variabelen vastleggen (hoogtes, glas, easing) in de gedeelde CSS. Capsule-structuur toevoegen zonder de bestaande balk te verwijderen — achter een <code>body</code>-vlag, zodat we veilig kunnen A/B-vergelijken.</p></div></li>
+      <li><div><h4>Desktop-capsule + scroll-moment</h4><p>De frosted capsule, de link-hover/active-onderlijn en de 420ms-materialisatie bij scroll. CTA die van tekstlink naar pill "landt". Eerst op één pagina (Home), dan uitrollen.</p></div></li>
+      <li><div><h4>Tablet &amp; mobiel</h4><p>Ingevouwen capsule + full-screen frosted sheet met staggered Playfair-links en verankerde CTA. Safe-area, 44px-doelen, reduced-motion.</p></div></li>
+      <li><div><h4>NL/EN &amp; toegankelijkheid</h4><p>Beide talen gelijktrekken, aria-labels, focus-ring, toetsenbord-volgorde en contrast valideren. Regressiecheck op alle pagina's.</p></div></li>
+      <li><div><h4>Optioneel: het Canvas</h4><p>Wanneer de site verder groeit, activeren we het kalme dropdown-canvas achter één link ("Oplossingen") voor Technologie/Tools/Referenties/FAQ — zonder de balk zwaarder te maken.</p></div></li>
+      <li><div><h4>QA &amp; uitrol</h4><p>Cross-browser (Safari/Firefox/Edge), Lighthouse, en sync naar de deploy-bundle. Live zetten in één keer, met de oude balk als directe terugvaloptie.</p></div></li>
+    </ol>
+
+    <div class="callout" style="background:rgba(240,237,232,.05);border-color:var(--line-d);">
+      <p style="color:var(--off-2)"><b style="color:var(--orange)">Ter goedkeuring.</b> Dit document bevat uitsluitend de concepten en het gekozen ontwerp. Zeg welk concept je wilt (het panel adviseert <b style="color:#fff">02 · Het Stille Kader</b>) — of vraag om aanpassingen — en ik werk het uit en implementeer het, NL + EN, met sync naar de deploy-bundle. Tot dan blijft de live navigatie ongewijzigd.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="doc">
+  <b>Montisoro</b> — Navigatie · 5 premium concepten · Design-onderzoek, ter goedkeuring
+</footer>
+
+<!-- thumbnail for bundling -->
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#13100D"/>
+    <rect x="18" y="42" width="64" height="16" rx="8" fill="none" stroke="#E8592B" stroke-width="1.6"/>
+    <circle cx="30" cy="50" r="2.2" fill="#F0EDE8"/>
+    <rect x="40" y="49" width="20" height="2" rx="1" fill="#CFC9C0"/>
+    <rect x="66" y="46" width="10" height="8" rx="4" fill="#E8592B"/>
+  </svg>
+</template>
+
+<script>
+// SVG mark injected into every mockup logo
+(function(){
+  var mark='<svg viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
+    '<path d="M2 27 L14 8 L20 16 L26 5 L38 27" stroke="#fff" stroke-width="1.3" fill="none" stroke-linejoin="round" opacity=".95"/>'+
+    '<path d="M2 24 L13 11 L19 18 L27 9 L38 24" stroke="#fff" stroke-width="1.1" fill="none" stroke-linejoin="round" opacity=".55"/>'+
+    '<path d="M2 21 L12 13 L19 20 L28 12 L38 21" stroke="#fff" stroke-width="1" fill="none" stroke-linejoin="round" opacity=".3"/>'+
+    '</svg>';
+  document.querySelectorAll('.nav-mock .mark').forEach(function(m){ m.innerHTML=mark; });
+
+  // state toggles
+  document.querySelectorAll('.seg').forEach(function(seg){
+    var target=document.querySelector('.stage[data-stage="'+seg.dataset.seg+'"]');
+    seg.querySelectorAll('button').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        seg.querySelectorAll('button').forEach(function(b){b.classList.remove('on');});
+        btn.classList.add('on');
+        if(target) target.classList.toggle('is-scrolled', btn.dataset.state==='scrolled');
+      });
+    });
+  });
+
+  // mobile menu demo
+  var demo=document.getElementById('mmDemo'), burger=document.getElementById('mmBurger');
+  if(burger){ burger.addEventListener('click',function(){ demo.classList.toggle('open'); burger.setAttribute('aria-label', demo.classList.contains('open')?'Menu sluiten':'Menu openen'); }); }
+})();
+</script>
+
+<style id="nav-mock-styles">
+/* ============ per-concept nav layouts (kept separate for clarity) ============ */
+
+/* shared inner wrapper */
+.nm-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px clamp(24px,5vw,56px);transition:padding .42s var(--ease),background .42s var(--ease),backdrop-filter .42s var(--ease),box-shadow .42s var(--ease);}
+.nm-right{display:flex;align-items:center;gap:clamp(14px,2vw,24px);flex-shrink:0;}
+
+/* CONCEPT 1 — hairline */
+.nm1 .cta{background:transparent;border:1px solid rgba(232,89,43,.55);color:var(--orange);}
+.stage[data-stage="s1"].is-scrolled .nm1 .nm-in{padding-top:13px;padding-bottom:13px;background:rgba(26,21,18,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);box-shadow:0 1px 0 rgba(240,237,232,.10);}
+.stage[data-stage="s1"].is-scrolled .nm1 .cta{background:var(--orange-cta);border-color:var(--orange-cta);color:#fff;}
+
+/* CONCEPT 2 — floating capsule */
+.nm2 .nm-in{padding:20px clamp(20px,4vw,40px);}
+.nm2 .capsule{padding:7px 8px 7px 22px;border-radius:100px;border:1px solid transparent;transition:all .42s var(--ease);}
+.nm2 .capsule .links{gap:clamp(12px,1.6vw,24px);}
+.nm2 .cta{background:var(--orange-cta);color:#fff;}
+.stage[data-stage="s2"].is-scrolled .nm2 .nm-in{padding-top:14px;}
+.stage[data-stage="s2"].is-scrolled .nm2 .capsule{background:rgba(26,21,18,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border-color:rgba(240,237,232,.12);box-shadow:0 18px 44px -22px rgba(0,0,0,.8);}
+
+/* CONCEPT 3 — masthead */
+.nm3 .micro{display:flex;align-items:center;justify-content:space-between;padding:11px clamp(24px,5vw,56px);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,.5);border-bottom:1px solid rgba(240,237,232,.08);overflow:hidden;transition:all .42s var(--ease);max-height:44px;}
+.nm3 .nm-in{padding:20px clamp(24px,5vw,56px);border-bottom:1px solid rgba(240,237,232,.10);}
+.nm3 .wordmark{font-size:19px;}
+.nm3 .links{gap:clamp(14px,1.8vw,28px);}
+.nm3 .cta{background:transparent;border:1px solid rgba(232,89,43,.55);color:var(--orange);}
+.stage[data-stage="s3"].is-scrolled .nm3 .micro{max-height:0;padding-top:0;padding-bottom:0;opacity:0;border-color:transparent;}
+.stage[data-stage="s3"].is-scrolled .nm3{background:rgba(26,21,18,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);}
+.stage[data-stage="s3"].is-scrolled .nm3 .nm-in{padding-top:13px;padding-bottom:13px;border-color:rgba(240,237,232,.08);}
+
+/* CONCEPT 4 — canvas */
+.nm4 .cta{background:var(--orange-cta);color:#fff;}
+.nm4 .links a.has-panel::after{content:'';display:inline-block;width:5px;height:5px;border-right:1.4px solid currentColor;border-bottom:1.4px solid currentColor;transform:rotate(45deg) translateY(-2px);margin-left:7px;opacity:.7;transition:transform .3s var(--ease);}
+.nm4 .canvas{position:absolute;top:100%;left:0;right:0;background:rgba(20,16,13,.94);-webkit-backdrop-filter:blur(24px) saturate(1.3);backdrop-filter:blur(24px) saturate(1.3);border-top:1px solid rgba(240,237,232,.10);border-bottom:1px solid rgba(240,237,232,.10);overflow:hidden;max-height:0;opacity:0;transition:max-height .5s var(--ease),opacity .4s var(--ease);}
+.nm4 .canvas-in{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:32px;padding:34px clamp(24px,5vw,56px) 38px;}
+.canvas-lbl{display:block;font-family:var(--sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.nm4 .canvas-col a{display:block;padding:9px 0;border-bottom:1px solid rgba(240,237,232,.07);}
+.nm4 .canvas-col a b{display:block;font-family:var(--serif);font-size:16px;color:#fff;font-weight:700;margin-bottom:2px;}
+.nm4 .canvas-col a span{font-size:12.5px;color:rgba(240,237,232,.55);}
+.nm4 .canvas-col a:hover b{color:var(--orange);}
+.nm4 .canvas-feat{background:rgba(240,237,232,.04);border-radius:14px;padding:22px 24px;}
+.feat-quote{font-family:var(--serif);font-size:22px;color:#fff;line-height:1.2;margin-bottom:12px;}
+.nm4 .canvas-feat p{font-size:13px;color:rgba(240,237,232,.6);margin-bottom:14px;}
+.feat-link{font-size:13px;font-weight:600;color:var(--orange);}
+.stage[data-stage="s4"] .stage-hero{transition:opacity .5s var(--ease),filter .5s var(--ease);}
+.stage[data-stage="s4"].is-scrolled .nm4 .canvas{max-height:340px;opacity:1;}
+.stage[data-stage="s4"].is-scrolled .nm4 .links a.has-panel::after{transform:rotate(225deg) translateY(-2px);}
+.stage[data-stage="s4"].is-scrolled .stage-hero.canvas-dim{opacity:.35;filter:blur(1px);}
+
+/* CONCEPT 5 — vertical rail */
+.nm5{position:absolute;top:0;bottom:0;left:0;right:auto;width:auto;z-index:3;}
+.nm5 .rail{height:100%;width:clamp(150px,17vw,190px);display:flex;flex-direction:column;padding:26px 22px;background:linear-gradient(90deg,rgba(13,10,7,.55),transparent);transition:background .42s var(--ease),backdrop-filter .42s var(--ease),border-color .42s var(--ease);border-right:1px solid transparent;}
+.nm5 .rail .logo{margin-bottom:40px;}
+.nm5 .rail .mark{width:38px;height:29px;}
+.nm5 .rail .links{flex-direction:column;align-items:flex-start;gap:15px;}
+.nm5 .rail .links a{font-size:14px;}
+.nm5 .rail-foot{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:16px;}
+.nm5 .rail .cta{background:var(--orange-cta);color:#fff;}
+.nm5 .rail .lang{flex-direction:row;}
+.stage[data-stage="s5"] .stage-hero.rail-hero{left:clamp(170px,18vw,210px);}
+.stage[data-stage="s5"].is-scrolled .nm5 .rail{background:rgba(20,16,13,.72);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border-right-color:rgba(240,237,232,.10);}
+
+/* keep mockups from breaking on small screens */
+@media(max-width:720px){
+  .nav-mock .links{display:none;}
+  .nm2 .capsule{display:none;}
+  .nm3 .links{display:none;}
+  .nm4 .links{display:none;}
+  .nm5 .rail .links{display:flex;}
+  .stage-hero h4{font-size:26px;}
+}
+</style>
+
+</body>
+</html>

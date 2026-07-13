@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Formulieren — Consistency-audit · Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E8592B; --orange-hover:#d04d22; --orange-dim:rgba(232,89,43,0.10); --orange-tint:#FAE8E1;
+  --ink:#1a1512; --soft:#5c534b; --mute:#8a8078; --line:#e7e2db; --line2:#efeae3;
+  --page:#f4f1ec; --card:#ffffff; --bg:#13100D;
+  --green:#1f7a4d; --amber:#b9791f; --red:#c0392b;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
+}
+html{background:var(--page);}
+body{font-family:var(--sans);color:var(--ink);line-height:1.6;padding:48px 20px 80px;-webkit-font-smoothing:antialiased;}
+.doc{max-width:880px;margin:0 auto;}
+
+/* header */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange);}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,46px);letter-spacing:-.02em;line-height:1.08;margin-bottom:14px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:15.5px;font-weight:300;color:var(--soft);max-width:620px;line-height:1.75;}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--mute);}
+.meta b{color:var(--ink);font-weight:600;}
+
+.divider{height:1px;background:var(--line);margin:40px 0;}
+
+/* verdict band */
+.verdict{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:var(--bg);border-radius:16px;padding:28px 30px;color:#F0EDE8;margin-top:34px;}
+.verdict .score{font-family:var(--serif);font-weight:700;font-size:40px;color:#fff;line-height:1;white-space:nowrap;}
+.verdict .score span{font-size:18px;color:var(--orange);}
+.verdict .vtxt h3{font-family:var(--serif);font-weight:700;font-size:19px;color:#fff;margin-bottom:5px;}
+.verdict .vtxt p{font-size:13.5px;font-weight:300;color:rgba(240,237,232,0.62);line-height:1.6;}
+
+/* section */
+section{margin-top:46px;}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+.snum{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--orange);}
+h2{font-family:var(--serif);font-weight:700;font-size:25px;letter-spacing:-.015em;}
+.sintro{font-size:14px;color:var(--soft);font-weight:300;margin:8px 0 22px;max-width:660px;line-height:1.7;}
+
+/* form list */
+.forms{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:640px){.forms{grid-template-columns:1fr;}}
+.fcard{border:1px solid var(--line);border-radius:13px;padding:18px 20px;background:var(--card);}
+.fcard h4{font-family:var(--serif);font-weight:700;font-size:16px;margin-bottom:4px;}
+.fcard .loc{font-size:11px;color:var(--mute);font-family:var(--sans);word-break:break-all;margin-bottom:9px;}
+.fcard p{font-size:12.5px;color:var(--soft);font-weight:300;line-height:1.6;}
+
+/* comparison table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px;}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:12.5px;}
+thead th{background:#faf8f5;text-align:left;padding:13px 14px;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);}
+thead th:first-child{color:var(--ink);}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:top;color:var(--soft);}
+tbody tr:last-child td{border-bottom:none;}
+tbody td:first-child{font-weight:600;color:var(--ink);white-space:nowrap;}
+.ok{color:var(--green);font-weight:600;}
+.warn-c{color:var(--amber);font-weight:600;}
+.bad-c{color:var(--red);font-weight:600;}
+
+/* findings */
+.find{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);}
+.find:last-child{border-bottom:none;}
+.sev{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:100px;white-space:nowrap;height:fit-content;}
+.sev.g{background:rgba(31,122,77,0.10);color:var(--green);}
+.sev.a{background:rgba(185,121,31,0.12);color:var(--amber);}
+.sev.r{background:rgba(192,57,43,0.10);color:var(--red);}
+.find h4{font-size:14.5px;font-weight:600;margin-bottom:5px;}
+.find p{font-size:13px;color:var(--soft);font-weight:300;line-height:1.65;}
+.find p b{color:var(--ink);font-weight:600;}
+.find .fix{font-size:12.5px;color:var(--ink);margin-top:7px;}
+.find .fix::before{content:'→ Aanbeveling: ';color:var(--orange);font-weight:600;}
+
+/* canon spec */
+.canon{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 26px;}
+.canon .crow{display:grid;grid-template-columns:170px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line2);font-size:13px;}
+.canon .crow:last-child{border-bottom:none;}
+.canon .crow .ck{font-weight:600;color:var(--ink);}
+.canon .crow .cv{color:var(--soft);}
+.canon .crow .cv code{font-family:ui-monospace,Menlo,monospace;font-size:12px;background:#f4f1ec;padding:1px 6px;border-radius:5px;color:var(--ink);}
+
+.callout{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--orange-dim);border:1px solid rgba(232,89,43,0.24);border-radius:13px;padding:18px 20px;margin-top:18px;}
+.callout .ico{width:30px;height:30px;border-radius:8px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.callout h4{font-size:14px;font-weight:600;margin-bottom:4px;}
+.callout p{font-size:13px;color:var(--soft);font-weight:300;line-height:1.65;}
+
+/* steps */
+.plan{counter-reset:p;display:flex;flex-direction:column;gap:0;}
+.pstep{display:grid;grid-template-columns:46px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:start;}
+.pstep:last-child{border-bottom:none;}
+.pstep::before{counter-increment:p;content:counter(p);font-family:var(--serif);font-weight:700;font-size:26px;color:var(--orange);line-height:1;}
+.pstep h4{font-size:14.5px;font-weight:600;margin-bottom:3px;}
+.pstep p{font-size:13px;color:var(--soft);font-weight:300;line-height:1.6;}
+
+.foot{margin-top:54px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.foot b{color:var(--ink);font-weight:600;letter-spacing:.16em;text-transform:uppercase;}
+@media print{body{padding:0;}.verdict{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#13100D"/><text x="50" y="64" font-family="'Playfair Display',Georgia,serif" font-size="42" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">F</text></svg>
+</template>
+<div class="doc">
+
+  <span class="eyebrow">Interne audit</span>
+  <h1>Formulieren —<br><em>consistency-audit.</em></h1>
+  <p class="lead">Een vergelijking van de vier publieksformulieren van Montisoro op stijl, gedrag en branding — met de afwijkingen en hoe we ze gelijktrekken.</p>
+  <div class="meta">
+    <div>Datum · <b>22 juni 2026</b></div>
+    <div>Scope · <b>4 formulieren</b></div>
+    <div>Basis · <b>live broncode (CSS + JS)</b></div>
+  </div>
+
+  <div class="verdict">
+    <div class="score">7,5<span>/10</span></div>
+    <div class="vtxt">
+      <h3>Sterk familieverband, zes punten om gelijk te trekken.</h3>
+      <p>De vier formulieren delen dezelfde merk-DNA (kleur, type, pill-knoppen, stap-cirkels). De verschillen zitten in detail — rand, focus, foutkleur, validatie-moment — plus één inhoudelijke: de afspraakflow mist het privacy-akkoord.</p>
+    </div>
+  </div>
+
+  <!-- 1 — de formulieren -->
+  <section>
+    <div class="shead"><span class="snum">01</span><h2>De vier formulieren</h2></div>
+    <p class="sintro">Verschillende contexten, dezelfde merkwereld. Twee zitten in een lichte modal, één is een numerieke wizard, één is een donkere vragenlijst.</p>
+    <div class="forms">
+      <div class="fcard">
+        <h4>Plan een afspraak</h4>
+        <div class="loc">contact.html · #bfFlow</div>
+        <p>Nieuwe 4-staps boekingsflow in een lichte modal. Live veld-validatie, alle velden verplicht.</p>
+      </div>
+      <div class="fcard">
+        <h4>Stuur ons een bericht</h4>
+        <div class="loc">contact.html · .cf-form</div>
+        <p>Klassiek contactformulier in een lichte modal. Validatie bij verzenden, met privacy-akkoord.</p>
+      </div>
+      <div class="fcard">
+        <h4>Fit check</h4>
+        <div class="loc">fit-check.html · .fc- / .fcp-</div>
+        <p>Donkere vragenlijst met optie-kaarten + een gate-formulier dat het resultaat ontgrendelt.</p>
+      </div>
+      <div class="fcard">
+        <h4>Verzuimrapport (calculator)</h4>
+        <div class="loc">calculator.html · .b-</div>
+        <p>Numerieke wizard met sliders + bewerkbare velden, en een lead-stap om het PDF-rapport te ontvangen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 — vergelijking -->
+  <section>
+    <div class="shead"><span class="snum">02</span><h2>Vergelijking per dimensie</h2></div>
+    <p class="sintro">Kerngegevens uit de broncode. Groen = al gelijk, oranje = klein verschil, rood = belangrijk verschil.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Dimensie</th><th>Plan afspraak</th><th>Stuur bericht</th><th>Fit check</th><th>Calculator</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Thema</td><td>Licht (modal)</td><td>Licht (modal)</td><td class="warn-c">Donker</td><td>Licht</td></tr>
+          <tr><td>Inputrand</td><td class="warn-c">1,5px · zwart 8%</td><td class="warn-c">1px · zwart 14%</td><td>donkere variant</td><td class="warn-c">var(--border)</td></tr>
+          <tr><td>Input-radius</td><td class="ok">10px</td><td class="ok">10px</td><td>14px (opt)</td><td class="ok">10px</td></tr>
+          <tr><td>Focus-state</td><td class="ok">rand + oranje gloed</td><td class="warn-c">enkel rand</td><td>rand</td><td class="ok">rand + gloed</td></tr>
+          <tr><td>Label</td><td>11,5px / 600</td><td>12px / 600</td><td>—</td><td>14px / 600</td></tr>
+          <tr><td>Foutkleur</td><td class="warn-c">#c0392b</td><td class="warn-c">#d3361f + tint</td><td>—</td><td>—</td></tr>
+          <tr><td>Validatie</td><td class="bad-c">live, per veld</td><td class="bad-c">bij verzenden</td><td>stap-gating</td><td>waardes klemmen</td></tr>
+          <tr><td>Knop</td><td>pill · 12,5 / 600</td><td>pill · 13,5 / 700</td><td class="warn-c">pill · UPPERCASE</td><td>pill</td></tr>
+          <tr><td>Stap-cirkel</td><td class="ok">26px · oranje +gloed</td><td>n.v.t.</td><td class="ok">26px</td><td class="ok">26px · oranje +gloed</td></tr>
+          <tr><td>Privacy-akkoord</td><td class="bad-c">ontbreekt</td><td class="ok">verplicht</td><td>—</td><td>verplicht</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3 — bevindingen -->
+  <section>
+    <div class="shead"><span class="snum">03</span><h2>Bevindingen</h2></div>
+
+    <div class="find">
+      <span class="sev g">Consistent</span>
+      <div>
+        <h4>De merk-fundamenten zitten goed</h4>
+        <p>Alle formulieren delen dezelfde <b>oranje (#E8592B)</b>, hetzelfde type­paar (Playfair + DM Sans), <b>pill-knoppen</b> (radius 100px), de <b>eyebrow</b>-stijl en de oranje <b>verplicht-asterisk</b>. De stap-cirkels van de afspraakflow en de calculator zijn zelfs identiek (26px, actief oranje met 4px gloed-ring).</p>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="sev a">Klein</span>
+      <div>
+        <h4>Inputranden verschillen subtiel</h4>
+        <p>Drie net iets andere randen: <b>1,5px zwart-8%</b> (afspraak), <b>1px zwart-14%</b> (bericht), en een token-rand (calculator). Naast elkaar amper zichtbaar, maar niet één bron.</p>
+        <div class="fix">kies één rand-token (bv. 1px <code>var(--border-l)</code>) voor alle tekstvelden.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="sev a">Klein</span>
+      <div>
+        <h4>Focus-state niet overal gelijk</h4>
+        <p>De afspraakflow en de calculator tonen bij focus een <b>oranje rand + zachte gloed-ring</b>; het contactformulier kleurt enkel de rand oranje, zonder gloed.</p>
+        <div class="fix">de oranje gloed-ring (3px <code>--orange-dim</code>) overal toepassen — beste affordance + toegankelijkheid.</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="sev a">Klein</span>
+      <div>
+        <h4>Twee tinten "foutrood" en twee knop-formaten</h4>
+        <p>Foutmeldingen gebruiken <b>#c0392b</b> (afspraak) naast <b>#d3361f</b> met een roze veldtint (bericht). Knoppen wisselen tussen <b>12,5px/600</b> en <b>13,5px/700</b>, en de fit-check-knop is <b>UPPERCASE</b> terwijl de rest dat niet is.</p>
+        <div class="fix">één foutrood-token + één knop-recept (gewicht, grootte, hoofdletters of niet).</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="sev r">Belangrijk</span>
+      <div>
+        <h4>Validatie-gedrag loopt uiteen</h4>
+        <p>De afspraakflow valideert <b>live, terwijl je typt</b> (rode rand + melding onder het veld). Het contactformulier valideert pas <b>bij verzenden</b> (samenvattende foutregel bovenaan). Voor de bezoeker voelt dat als twee verschillende producten.</p>
+        <div class="fix">kies één model — advies: <b>live per veld</b> (vriendelijker, minder "afgewezen bij submit").</div>
+      </div>
+    </div>
+
+    <div class="find">
+      <span class="sev r">Belangrijk</span>
+      <div>
+        <h4>De afspraakflow mist een privacy-akkoord</h4>
+        <p>Het contactformulier en de calculator vragen een <b>verplicht akkoord</b> voor gegevensverwerking. De nieuwe afspraakflow verzamelt persoonsgegevens (naam, e-mail, telefoon, adres) en stuurt e-mail, maar heeft <b>geen consent-regel</b>. Voor BE/GDPR is dat een echte leemte.</p>
+        <div class="fix">dezelfde consent-regel + privacylink onderaan stap 3 van de afspraakflow toevoegen.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — canon -->
+  <section>
+    <div class="shead"><span class="snum">04</span><h2>De canon — één gedeelde formstijl</h2></div>
+    <p class="sintro">Het doel: één bron van waarheid (bv. een gedeelde <code style="font-family:ui-monospace,monospace;font-size:12px;background:#f4f1ec;padding:1px 6px;border-radius:5px;">forms.css</code>) waar elk formulier op steunt.</p>
+    <div class="canon">
+      <div class="crow"><div class="ck">Tekstveld</div><div class="cv">wit · <code>1px var(--border-l)</code> · radius <code>10px</code> · padding <code>11–12px 14px</code> · 14px tekst</div></div>
+      <div class="crow"><div class="ck">Focus</div><div class="cv">rand → oranje + <code>box-shadow 0 0 0 3px var(--orange-dim)</code></div></div>
+      <div class="crow"><div class="ck">Label</div><div class="cv">12px · 600 · oranje <code>*</code> voor verplichte velden</div></div>
+      <div class="crow"><div class="ck">Foutstaat</div><div class="cv">rand <code>#c0392b</code> + inline melding 11–12px, <b>live per veld</b></div></div>
+      <div class="crow"><div class="ck">Primaire knop</div><div class="cv">pill <code>radius 100px</code> · 13px · 700 · oranje · géén hoofdletters</div></div>
+      <div class="crow"><div class="ck">Stap-cirkel</div><div class="cv">26px · actief oranje + 4px gloed (huidige afspraak/calculator-stijl)</div></div>
+      <div class="crow"><div class="ck">Privacy</div><div class="cv">consent-regel + privacylink op élk formulier dat persoonsgegevens verzamelt</div></div>
+    </div>
+
+    <div class="callout">
+      <span class="ico">!</span>
+      <div>
+        <h4>Prioriteit: privacy-akkoord op de afspraakflow</h4>
+        <p>Dit is de enige bevinding met juridische impact (BE/GDPR). Klein werk, maar belangrijk — ik kan dit los van de rest meteen toevoegen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — aanpak -->
+  <section>
+    <div class="shead"><span class="snum">05</span><h2>Voorgestelde aanpak</h2></div>
+    <div class="plan">
+      <div class="pstep"><div><h4>Canon vastleggen</h4><p>De zeven regels hierboven in een gedeelde <code style="font-family:ui-monospace,monospace;font-size:12px;">forms.css</code> + tokens gieten.</p></div></div>
+      <div class="pstep"><div><h4>Privacy-akkoord toevoegen aan de afspraakflow</h4><p>Direct oppakbaar — sluit de GDPR-leemte (NL + EN).</p></div></div>
+      <div class="pstep"><div><h4>De vier formulieren op de canon trekken</h4><p>Rand, focus, foutkleur, knop-recept en validatie-model gelijkschakelen.</p></div></div>
+      <div class="pstep"><div><h4>Visuele check NL + EN</h4><p>Mobiel + desktop, alle vier de formulieren, geen regressies.</p></div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b>Montisoro · interne audit</b>
+    <span>Op basis van de live broncode — 22 juni 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

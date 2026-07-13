@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verzuimrapport — Voor / Na vergelijken</title>
+<link rel="stylesheet" href="../../../stylesheets/fonts.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#13100D; --orange:#E8592B; --off:#F0EDE8;
+  --muted:rgba(240,237,232,.55);
+  --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{height:100%;}
+body{font-family:var(--sans);background:#e9e5df;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+
+.bar{flex-shrink:0;background:var(--bg);color:var(--off);display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px 18px;box-shadow:0 2px 14px rgba(0,0,0,.28);z-index:5;flex-wrap:wrap;}
+.bar-l{display:flex;align-items:center;gap:16px;min-width:0;}
+.title{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);white-space:nowrap;}
+.title b{color:var(--off);font-weight:500;}
+
+/* segmented Voor/Na switch */
+.seg{display:inline-flex;background:rgba(240,237,232,.08);border:1px solid rgba(240,237,232,.14);border-radius:100px;padding:4px;gap:2px;}
+.seg button{appearance:none;border:0;background:none;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:13px;color:var(--muted);padding:9px 20px;border-radius:100px;display:inline-flex;align-items:center;gap:8px;transition:color .18s,background .18s;white-space:nowrap;}
+.seg button .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55;}
+.seg button.on{background:var(--orange);color:#fff;}
+.seg button.on .dot{opacity:1;background:#fff;}
+.seg button:not(.on):hover{color:var(--off);}
+
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:5px 11px;white-space:nowrap;}
+.hint{font-size:11.5px;color:var(--muted);white-space:nowrap;}
+
+.stage{position:relative;flex:1;min-height:0;background:#e9e5df;}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#e9e5df;}
+.stage iframe.hidden{visibility:hidden;pointer-events:none;}
+
+@media(max-width:640px){
+  .hint{display:none;}
+  .bar{padding:10px 12px;gap:10px;}
+  .title{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-l">
+    <span class="title"><b>Verzuimrapport</b> · vergelijken</span>
+    <div class="seg" role="tablist" aria-label="Voor of na">
+      <button id="bVoor" class="on" role="tab" aria-selected="true"><span class="dot"></span>Voor — huidige versie</button>
+      <button id="bNa" role="tab" aria-selected="false"><span class="dot"></span>Na — beta-voorstel</button>
+    </div>
+    <span class="tag" id="tag">Huidige versie</span>
+  </div>
+  <span class="hint">De scrollpositie blijft behouden bij het wisselen · gebruik de NL/EN-schakelaar in het rapport zelf</span>
+</div>
+
+<div class="stage">
+  <iframe id="fVoor" title="Huidige versie" src="Verzuimrapport (NL-EN).html"></iframe>
+  <iframe id="fNa" class="hidden" title="Beta-voorstel" src="Verzuimrapport (BETA NL-EN).html"></iframe>
+</div>
+
+<script>
+(function(){
+  var bVoor=document.getElementById('bVoor'), bNa=document.getElementById('bNa');
+  var fVoor=document.getElementById('fVoor'), fNa=document.getElementById('fNa');
+  var tag=document.getElementById('tag');
+  var active='voor';
+
+  function scrollOf(f){ try{ return (f.contentWindow.pageYOffset||f.contentWindow.scrollY||0); }catch(e){ return 0; } }
+  function setScroll(f, y){ try{ f.contentWindow.scrollTo(0, y); }catch(e){} }
+
+  function show(which){
+    if(which===active) return;
+    var from = which==='na' ? fVoor : fNa;
+    var to   = which==='na' ? fNa  : fVoor;
+    var y = scrollOf(from);            // keep the same vertical position
+    to.classList.remove('hidden');
+    from.classList.add('hidden');
+    // apply scroll now + once more after a tick (in case the doc was still settling)
+    setScroll(to, y);
+    setTimeout(function(){ setScroll(to, y); }, 30);
+
+    bVoor.classList.toggle('on', which==='voor');
+    bNa.classList.toggle('on', which==='na');
+    bVoor.setAttribute('aria-selected', which==='voor');
+    bNa.setAttribute('aria-selected', which==='na');
+    tag.textContent = which==='na' ? 'Beta-voorstel' : 'Huidige versie';
+    active=which;
+  }
+
+  bVoor.addEventListener('click', function(){ show('voor'); });
+  bNa.addEventListener('click', function(){ show('na'); });
+})();
+</script>
+</body>
+</html>

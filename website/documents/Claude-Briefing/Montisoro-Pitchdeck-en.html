@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Company Dossier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" href="../../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<link rel="stylesheet" href="briefing.css">
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════ 01 — COVER ═══════════ -->
+<section class="page page--dark" data-screen-label="01 Cover">
+  <svg class="cover-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cv-bg" x1="0.2" x2="0.8" y1="0" y2="1"><stop offset="0%" stop-color="#1B130C"/><stop offset="55%" stop-color="#13100D"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+      <radialGradient cx="84%" cy="10%" id="cv-gtr" r="46%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="8%" cy="92%" id="cv-gbl" r="42%"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="cv-sh" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.14"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <filter id="cv-grain"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#cv-bg)" width="794" height="1123"/>
+    <rect fill="url(#cv-gtr)" width="794" height="1123"/>
+    <rect fill="url(#cv-gbl)" width="794" height="1123"/>
+    <polygon fill="url(#cv-sh)" opacity="0.6" points="794,0 794,520 360,1123 -120,1123"/>
+    <polygon fill="url(#cv-sh)" opacity="0.3" points="794,0 560,0 794,360"/>
+    <path d="M 794 720 C 560 690, 300 880, 0 980" fill="none" stroke="#E8592B" stroke-opacity="0.16" stroke-width="1.2"/>
+    <path d="M 794 800 C 580 770, 320 940, 0 1040" fill="none" stroke="#E8592B" stroke-opacity="0.10" stroke-width="0.8"/>
+    <text x="560" y="640" font-family="Playfair Display, Georgia, serif" font-size="640" font-weight="900" font-style="italic" fill="#F0EDE8" opacity="0.035" text-anchor="middle">M</text>
+    <rect filter="url(#cv-grain)" width="794" height="1123" opacity="0.045"/>
+  </svg>
+  <div class="cover-pad cover-inner">
+    <img class="cover-logo" src="assets/montisoro-logo.png" alt="Montisoro">
+    <div class="cover-mid">
+      <div class="cover-rule"></div>
+      <div class="cover-kicker">Company dossier · Full context briefing</div>
+      <h1 class="cover-title">Who <em>Montisoro</em> is,<br>what we do<br>and <em>why.</em></h1>
+      <p class="cover-sub">One complete reference document on the origin, mission, approach, services, technology, team and clients of Montisoro — designed to give the full picture in one read.</p>
+    </div>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Subject</div><div class="m-val">Montisoro BV</div></div>
+      <div><div class="m-lbl">Sector</div><div class="m-val">Absence &amp; workability</div></div>
+      <div><div class="m-lbl">Based in</div><div class="m-val">Belgium</div></div>
+      <div><div class="m-lbl">Version</div><div class="m-val">June 2026</div></div>
+    </div>
+    <div class="cover-foot"><span>Re-integrate What Matters</span><span>montisoro.com</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — CONTENTS ═══════════ -->
+<section class="page" data-screen-label="02 Contents">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Contents</span></div>
+
+    <span class="eyebrow">About this document</span>
+    <h2 class="sec-title">The full picture,<br>in <em>one</em> dossier.</h2>
+    <p class="sec-lead">This document brings together everything needed to understand Montisoro: where the company comes from, what it does, how it works, with what technology, for which market, and with which people and clients.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="t-no">01</span><span class="t-title">At a glance<small>Who Montisoro is, in brief</small></span><span class="t-pg">03</span></div>
+      <div class="toc-row"><span class="t-no">02</span><span class="t-title">The origin<small>Four moments that shaped Montisoro</small></span><span class="t-pg">04</span></div>
+      <div class="toc-row"><span class="t-no">03</span><span class="t-title">The problem<small>Absence as a signal, not a cause</small></span><span class="t-pg">05</span></div>
+      <div class="toc-row"><span class="t-no">04</span><span class="t-title">Mission &amp; principles<small>Re-integrate What Matters + five principles</small></span><span class="t-pg">06</span></div>
+      <div class="toc-row"><span class="t-no">05</span><span class="t-title">The system<small>The four pillars of the approach</small></span><span class="t-pg">07</span></div>
+      <div class="toc-row"><span class="t-no">06</span><span class="t-title">The services<small>How an engagement works</small></span><span class="t-pg">08</span></div>
+      <div class="toc-row"><span class="t-no">07</span><span class="t-title">The fit check<small>Four dimensions into six routes</small></span><span class="t-pg">09</span></div>
+      <div class="toc-row"><span class="t-no">08</span><span class="t-title">The absence calculator<small>What absence really costs</small></span><span class="t-pg">10</span></div>
+      <div class="toc-row"><span class="t-no">09</span><span class="t-title">Culture of Care<small>Five behavioural layers</small></span><span class="t-pg">11</span></div>
+      <div class="toc-row"><span class="t-no">10</span><span class="t-title">Technology · Storm<small>The platform since 2023</small></span><span class="t-pg">12</span></div>
+      <div class="toc-row"><span class="t-no">11</span><span class="t-title">Technology · Casey AI<small>The contextual intelligence layer</small></span><span class="t-pg">13</span></div>
+      <div class="toc-row"><span class="t-no">12</span><span class="t-title">Proof &amp; clients<small>Results and references</small></span><span class="t-pg">14–15</span></div>
+      <div class="toc-row"><span class="t-no">13</span><span class="t-title">The people<small>Leadership, technology &amp; case management</small></span><span class="t-pg">16–17</span></div>
+      <div class="toc-row"><span class="t-no">14</span><span class="t-title">Market, network &amp; contact<small>Positioning, connections and facts</small></span><span class="t-pg">18–20</span></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Contents</span><span class="pf-no">02</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — AT A GLANCE ═══════════ -->
+<section class="page" data-screen-label="03 Glance">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">At a glance</span></div>
+
+    <span class="eyebrow">At a glance</span>
+    <h2 class="sec-title">Montisoro makes <em>care</em> workable<br>and <em>capability</em> scalable.</h2>
+    <p class="sec-lead">Montisoro is a Belgian company that helps organisations tackle absence and sustainable employability structurally — by bringing human expertise, clear governance and proprietary technology together in one system.</p>
+
+    <div class="callout">
+      <p class="co-q"><em>“Care</em> is not a feeling.<br>It is a <em>Capability.”</em></p>
+      <p class="co-cite">Montisoro's mission · Re-integrate What Matters</p>
+    </div>
+
+    <div class="block">
+      <p class="body-p">The premise: <strong>people rarely drop out from illness alone</strong> — they also drop out on connection, safety and perspective. And absence does not recur because no one acts, but <strong>because no one sees everything</strong>. The answer is not more effort, but a system that sees earlier, acts better and anchors knowledge.</p>
+    </div>
+
+    <div class="divlabel">Key figures</div>
+    <div class="stat-strip">
+      <div class="stat"><div class="s-v">2,500<em>+</em></div><div class="s-l">Cases in frequent and long-term absence guided.</div></div>
+      <div class="stat"><div class="s-v">30–35<em>%</em></div><div class="s-l">Shorter duration of long-term absence.</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>14.7M</div><div class="s-l">Measurable reduction in absence cost.</div></div>
+      <div class="stat"><div class="s-v">~14</div><div class="s-l">People: experts, case managers &amp; engineers.</div></div>
+    </div>
+
+    <div class="block tight">
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Legal entity</div><div class="kv-v">Montisoro BV · BE0733840137</div></div>
+        <div class="kv-row"><div class="kv-k">Platform (SaaS)</div><div class="kv-v">Storm — live since 2023</div></div>
+        <div class="kv-row"><div class="kv-k">AI layer</div><div class="kv-v">Casey AI — pilot from Sept. 2026</div></div>
+        <div class="kv-row"><div class="kv-k">Target market</div><div class="kv-v">SMEs to large organisations (sector-agnostic)</div></div>
+        <div class="kv-row"><div class="kv-k">Founder &amp; CEO</div><div class="kv-v">Laurence Van den Bergh</div></div>
+      </div>
+    </div>
+    <p class="note"><strong>Source of figures:</strong> aggregated practice data from Montisoro cases. Substantiation and methodology on request.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>At a glance</span><span class="pf-no">03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — THE ORIGIN ═══════════ -->
+<section class="page page--dark" data-screen-label="04 Origin">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">The origin</span></div>
+
+    <span class="eyebrow">The story</span>
+    <h2 class="sec-title">19 years of <em>commitment.</em><br>Five months of <em>silence.</em></h2>
+    <p class="sec-lead">Some companies are born from an opportunity. Montisoro was born from a conviction. What began as personal absence became the design principle of an organisation — four moments.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Silence</h3><p>Five months of silence. No guidance. No real landing after 19 years of commitment.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Powerlessness</h3><p>Her manager wanted to do more. He did not know how. Not from unwillingness — but because the role was missing.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Insight</h3><p>“People rarely drop out from illness alone. They also drop out on connection, safety and perspective.”</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Montisoro</h3><p>That role was missing — in too many organisations. So Laurence decided to build it herself.</p></div></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p class="co-q">What began as personal absence became the <em>design principle</em> of an organisation.</p>
+      <p class="co-cite">Laurence Van den Bergh · Founder &amp; CEO</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The origin</span><span class="pf-no">04</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — THE PROBLEM ═══════════ -->
+<section class="page" data-screen-label="05 Problem">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">The problem</span></div>
+
+    <span class="eyebrow">The problem</span>
+    <h2 class="sec-title">Absence is not the problem.<br>It is <em>the signal.</em></h2>
+    <p class="sec-lead">In most organisations everyone does something — and it still gets stuck. Not from a lack of effort, but from a lack of system.</p>
+
+    <div class="block tight">
+      <p class="body-p">HR follows up. Managers try to stay involved. Prevention services do their part. Employees wait for clarity. <strong>But no one sees everything.</strong> Absence touches people, teams, planning, legislation, communication, trust and results all at once. Once that information is scattered across mailboxes, spreadsheets and loose conversations, the organisation loses its grip.</p>
+    </div>
+
+    <div class="pull">The most expensive absence cost is the one you <em>don't see.</em></div>
+
+    <div class="block tight">
+      <div class="divlabel">Ten signals that stay out of sight</div>
+      <ul class="list-clean list-two">
+        <li>Cases only become visible once already complex.</li>
+        <li>Signals are scattered across mail, spreadsheets and notes.</li>
+        <li>HR spends too much time searching and interpreting.</li>
+        <li>Managers are unsure what they may say or ask.</li>
+        <li>Return to work does not follow one approach.</li>
+        <li>GDPR and documentation feel vulnerable.</li>
+        <li>Insufficient view of recurring patterns.</li>
+        <li>Knowledge is lost when roles change.</li>
+        <li>Alignment costs effort again every time.</li>
+        <li>Compliance risks are not always seen in time.</li>
+      </ul>
+    </div>
+
+    <p class="note"><strong>The point:</strong> recognising three or more is no coincidence — it is a pattern. More meetings will not solve it. A system will.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The problem</span><span class="pf-no">05</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — MISSION & PRINCIPLES ═══════════ -->
+<section class="page" data-screen-label="06 Mission">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Mission &amp; principles</span></div>
+
+    <span class="eyebrow">Mission</span>
+    <h2 class="sec-title"><em>Re</em>integrate <em>What</em> Matters.</h2>
+    <p class="lede">Two meanings, one phrase. <em>Bring people back.</em> And <em>restore what organisations lost:</em> connection, safety, perspective.</p>
+
+    <div class="block tight">
+      <p class="body-p">Montisoro builds the knowledge, structure and technology with which organisations <strong>see earlier what is breaking down</strong>, <strong>act better when it gets complex</strong> and <strong>anchor knowledge more sustainably</strong> — so that care and performance become one system.</p>
+    </div>
+
+    <span class="eyebrow" style="margin-top:6px;">Five principles</span>
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Visibility</h3><p>We make visible what others miss. Even when that is uncomfortable. Especially then.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Ownership</h3><p>We measure our success not by your dependence, but by your independence.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Connection</h3><p>Technology structures. People connect. Never the other way around.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Honesty</h3><p>AI supports. Our experts stay accountable. Always critical. Always explainable.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Trust</h3><p>Earned through results. Kept through transparency.</p></div></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Mission &amp; principles</span><span class="pf-no">06</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — THE SYSTEM ═══════════ -->
+<section class="page" data-screen-label="07 System">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">What we do</span></div>
+
+    <span class="eyebrow">The system</span>
+    <h2 class="sec-title">Not one person.<br>An intelligent <em>system.</em></h2>
+    <p class="sec-lead">Trust is not a soft skill — it is infrastructure. Four movements carry that system: make visible, set roles sharply, support intelligently and build capability.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card"><div class="c-num">01</div><h3>Human Reintegration</h3><p>Neutral direction between employee, HR, manager and occupational medicine. The role that is missing in too many organisations.</p></div>
+      <div class="hl-card"><div class="c-num">02</div><h3>Compliance <span class="amp">&amp;</span> Governance</h3><p>Well-being law, labour law, GDPR and compliance translated into practice — workable agreements, not theory.</p></div>
+      <div class="hl-card"><div class="c-num">03</div><h3>Capability Building</h3><p>Clear roles, internal capacity and sustainable process discipline. Knowledge stays in the organisation, not with the consultant.</p></div>
+      <div class="hl-card"><div class="c-num">04</div><h3>Technology <span class="amp">&amp;</span> Agentic AI</h3><p>Storm and Casey AI make care scalable and capability steerable. Human where it must be, structured where it counts.</p></div>
+    </div>
+
+    <div class="pull">Human where it must be. <em>Structured</em> where it counts. Scalable where it can be.</div>
+
+    <p class="note"><strong>How the question changes:</strong> once absence becomes visible in euros, time and impact, the question shifts from “how do we follow up cases better?” to “how do we build an organisation that sees earlier, acts better and loses less?”. That is where the Montisoro approach begins.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The system</span><span class="pf-no">07</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — THE SERVICES ═══════════ -->
+<section class="page" data-screen-label="08 Services">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Services</span></div>
+
+    <span class="eyebrow">How an engagement works</span>
+    <h2 class="sec-title">From first conversation<br>to lasting <em>capability.</em></h2>
+    <p class="sec-lead">Montisoro works with clear, fixed scopes — no open ends. An engagement always starts with a no-obligation diagnostic conversation and ends with capacity that stays in the organisation.</p>
+
+    <div class="steps4">
+      <div class="st"><div class="st-n">1</div><h4>Diagnosis</h4><p>No-obligation 30–45 min conversation, online or on site. We listen and sketch where the biggest levers lie.</p></div>
+      <div class="st"><div class="st-n">2</div><h4>Proposal</h4><p>Concrete proposal with fixed scope and expected payback, substantiated with your own absence figures.</p></div>
+      <div class="st"><div class="st-n">3</div><h4>Engagement</h4><p>Implementation of direction, governance and — where needed — the Storm platform. Humanly guided, structurally executed.</p></div>
+      <div class="st"><div class="st-n">4</div><h4>Capability</h4><p>Anchor knowledge, roles and discipline in the organisation so the approach does not stay person-dependent.</p></div>
+    </div>
+
+    <div class="block">
+      <div class="divlabel">Frequently asked questions</div>
+      <div class="hl-grid cols-2" style="margin-top:8px;">
+        <div class="hl-card" style="padding-top:0;"><h3 style="font-size:14px;">How does a first conversation go?</h3><p>A no-obligation diagnostic conversation of 30 to 45 minutes. You bring your situation, we listen and sketch the biggest levers. No presentation, no sales pressure.</p></div>
+        <div class="hl-card" style="padding-top:0;"><h3 style="font-size:14px;">What does an engagement cost?</h3><p>Depends on scale and ambition. Clear, fixed scopes. After the first conversation you receive a proposal with expected payback.</p></div>
+        <div class="hl-card"><h3 style="font-size:14px;">How fast do we see results?</h3><p>First insights within weeks. A structural decline usually follows within one to two quarters, as the system gains grip.</p></div>
+        <div class="hl-card"><h3 style="font-size:14px;">Does this work for our sector or SME?</h3><p>Yes. The method is sector-agnostic and scales from SME to large organisation. What differs is the context, not the system.</p></div>
+      </div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Services</span><span class="pf-no">08</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — THE FIT CHECK ═══════════ -->
+<section class="page page--dark" data-screen-label="09 Fit check">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Fit check</span></div>
+
+    <span class="eyebrow">The fit check</span>
+    <h2 class="sec-title">Four questions.<br>One strategic <em>route.</em></h2>
+    <p class="sec-lead">Not every absence approach fits every organisation. The online fit check moves a situation through four dimensions to one of six routes within the Montisoro framework — in under two minutes, no black box.</p>
+
+    <div class="divlabel" style="color:var(--orange);">The process</div>
+    <div class="steps4" style="border-color:var(--line-d);">
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">1</div><h4 style="color:#fff;">Answers</h4><p style="color:var(--off-mute);">Four short questions about your situation.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">2</div><h4 style="color:#fff;">Scoring</h4><p style="color:var(--off-mute);">Four dimensions are weighted.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">3</div><h4 style="color:#fff;">Route</h4><p style="color:var(--off-mute);">The best-fitting route surfaces.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">4</div><h4 style="color:#fff;">Insight</h4><p style="color:var(--off-mute);">Personal insight by email.</p></div>
+    </div>
+
+    <div class="divlabel" style="color:var(--orange);margin-top:22px;">The six routes</div>
+    <div class="route-list">
+      <div class="route-item"><span class="r-no">01</span><div><h4>Human Reintegration</h4><p>Neutral direction on individual cases and return to work.</p></div></div>
+      <div class="route-item"><span class="r-no">02</span><div><h4>Capability Building</h4><p>Build internal roles, capacity and process discipline.</p></div></div>
+      <div class="route-item"><span class="r-no">03</span><div><h4>Operating System</h4><p>The Storm platform as operational backbone.</p></div></div>
+      <div class="route-item"><span class="r-no">04</span><div><h4>Strategy <span class="amp">&amp;</span> Governance</h4><p>Anchor policy, roles and compliance strategically.</p></div></div>
+      <div class="route-item"><span class="r-no">05</span><div><h4>Culture of Care <span class="amp">&amp;</span> Capability</h4><p>Let behaviour and culture evolve with the approach.</p></div></div>
+      <div class="route-item"><span class="r-no">06</span><div><h4>Exploratory Direction</h4><p>An exploratory track when the direction is still open.</p></div></div>
+    </div>
+
+    <p class="note" style="color:var(--off-mute-2);border-color:var(--line-d);"><strong style="color:var(--off-mute);">What the check analyses:</strong> four dimensions together give one strategic picture — not a scorecard, but a starting point for the conversation with leadership, HR or occupational medicine.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Fit check</span><span class="pf-no">09</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — THE CALCULATOR ═══════════ -->
+<section class="page" data-screen-label="10 Calculator">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Calculator</span></div>
+
+    <span class="eyebrow">The absence calculator</span>
+    <h2 class="sec-title">What absence <em>really</em> costs.</h2>
+    <p class="sec-lead">Absence costs more than time off: capacity, planning, team energy, knowledge, speed and continuity. The online ROI calculator gives a first indication — not to capture everything exactly, but to make visible what is often underestimated.</p>
+
+    <div class="block tight">
+      <p class="body-p">In six guided steps — organisation, gross salary, recurring costs, replacement costs, organisational impact and absence profile — the calculator computes two cost concepts: the <strong>employer cost</strong> (the invoiceable cost) and the <strong>total cost</strong> (including the non-invoiced organisational impact). The result appears as a print-ready absence report, with a benchmark against the Belgian sector average, a risk level, savings scenarios and concrete priorities.</p>
+    </div>
+
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Employer social security</div><div class="kv-v">× 1.30 on gross salary</div></div>
+      <div class="kv-row"><div class="kv-k">Sector average (BE)</div><div class="kv-v">10.14% (short 3.18 · medium 3.10 · long 3.86)</div></div>
+      <div class="kv-row"><div class="kv-k">Replacement factor</div><div class="kv-v">default 30% of direct salary cost</div></div>
+      <div class="kv-row"><div class="kv-k">Organisation factor</div><div class="kv-v">default 50% of direct salary cost</div></div>
+      <div class="kv-row"><div class="kv-k">Benchmark source</div><div class="kv-v">SD Worx Absence Barometer 2025</div></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">“A first indication. Often enough to start the right <em>conversation.”</em></p>
+      <p class="co-cite">A full technical explanation is in the “Calculator Documentation”.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The absence calculator</span><span class="pf-no">10</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 11 — CULTURE OF CARE ═══════════ -->
+<section class="page" data-screen-label="11 Culture">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Culture of Care</span></div>
+
+    <span class="eyebrow">Culture of Care &amp; Capability</span>
+    <h2 class="sec-title">Technology only works when<br><em>behaviour</em> evolves with it.</h2>
+    <p class="sec-lead">Software does not change organisations. Behaviour does. That is why Montisoro combines technology with five behavioural layers that make the approach structural rather than person-dependent.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Capability Building</h3><p>So knowledge, follow-up and expertise stay in the organisation — not leave with the consultant.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Leadership</h3><p>So managers grow stronger in conversations, follow-up and support. Not harder. Better.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Psychological safety</h3><p>So signals are discussed sooner and problems become visible earlier. No taboo around workability.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Governance <span class="amp">&amp;</span> role clarity</h3><p>So responsibilities, decisions and communication stay clear — even in complex cases.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Process discipline</h3><p>So follow-up does not depend on goodwill or chance. It hangs on structure, not on individuals.</p></div></div>
+    </div>
+
+    <p class="note"><strong>The core:</strong> technology without capability creates dependence. Capability with technology creates scalable organisational strength.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Culture of Care</span><span class="pf-no">11</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 12 — TECHNOLOGY · STORM ═══════════ -->
+<section class="page page--dark" data-screen-label="12 Storm">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Technology · Storm</span></div>
+
+    <span class="eyebrow">Storm</span>
+    <h2 class="sec-title">The operating system behind<br><em>sustainable work.</em></h2>
+    <p class="sec-lead">Storm is Montisoro's SaaS platform since 2023. It structures everything that today sits scattered across mailboxes, spreadsheets, loose conversations and individual knowledge — not as an administrative layer, but as operational intelligence.</p>
+
+    <div class="pillrow">
+      <span class="pill">Cases</span><span class="pill">Roles</span><span class="pill">Communication</span>
+      <span class="pill">Follow-up</span><span class="pill">Documentation</span><span class="pill">Governance</span>
+    </div>
+
+    <div class="hl-grid cols-3" style="margin-top:8px;">
+      <div class="hl-card"><div class="c-role">01</div><h3>GDPR compliant</h3><p>In line with European privacy law. Data minimisation built in, not bolted on.</p></div>
+      <div class="hl-card"><div class="c-role">02</div><h3>Role-based</h3><p>Who sees and may do what strictly follows the role within the case.</p></div>
+      <div class="hl-card"><div class="c-role">03</div><h3>2FA secured</h3><p>Two-factor authentication as standard. Access is a decision.</p></div>
+      <div class="hl-card"><div class="c-role">04</div><h3>Enterprise-ready</h3><p>SSO, audit logs, custom roles and integrations. From day one.</p></div>
+      <div class="hl-card"><div class="c-role">05</div><h3>Active today</h3><p>Active within several corporate organisations. Not a pilot — production.</p></div>
+      <div class="hl-card"><div class="c-role">06</div><h3>EU cloud-hosted</h3><p>Fully hosted within European cloud. Data does not leave the continent.</p></div>
+    </div>
+
+    <div class="pull">Storm doesn't just make absence visible. It makes organisations <em>more consistent</em> in how they act.</div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Technology · Storm</span><span class="pf-no">12</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 13 — TECHNOLOGY · CASEY AI ═══════════ -->
+<section class="page page--dark" data-screen-label="13 Casey AI">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Technology · Casey AI</span></div>
+
+    <span class="eyebrow">Casey AI · pilot September 2026</span>
+    <h2 class="sec-title">Not a chatbot. The<br><em>contextual intelligence layer.</em></h2>
+    <p class="sec-lead">Casey combines years of practical experience, a proprietary methodology and an Agentic AI framework into one intelligent system that learns from your context, supports where needed and grows with your organisation — always with the human at the wheel.</p>
+
+    <div class="divlabel" style="color:var(--orange);">What Casey means per role</div>
+    <div class="hl-grid cols-3" style="margin-top:8px;">
+      <div class="hl-card"><div class="c-role">01</div><h3>Case managers</h3><p>Sharper preparation and more consistent case handling.</p></div>
+      <div class="hl-card"><div class="c-role">02</div><h3>HR</h3><p>More overview, stronger documentation and less knowledge loss.</p></div>
+      <div class="hl-card"><div class="c-role">03</div><h3>Managers</h3><p>More confidence in conversations and follow-up on the floor.</p></div>
+      <div class="hl-card"><div class="c-role">04</div><h3>Prevention</h3><p>Better insight into patterns, signals and workability.</p></div>
+      <div class="hl-card"><div class="c-role">05</div><h3>Organisation</h3><p>More grip on risk, capacity and sustainable employability.</p></div>
+      <div class="hl-card" style="justify-content:center;"><p style="font-family:var(--serif);font-style:italic;font-size:13px;color:#fff;line-height:1.4;">Casey doesn't think in <em style="color:var(--orange);">tickets</em> — but in context, behaviour and continuity.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:18px;">
+      <span class="eyebrow" style="color:var(--orange);">Human in the Loop</span>
+      <p class="co-q" style="margin-top:12px;">AI without context creates <em>noise.</em></p>
+      <p class="co-cite" style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:11px;color:var(--off-mute);">That is why human expertise stays essential in every decision. Human in the Loop is not a feature — it is architecture. From September 2026, pilot programmes start with a select group of early adopters who help shape how Casey evolves.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Technology · Casey AI</span><span class="pf-no">13</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 14 — PROOF ═══════════ -->
+<section class="page" data-screen-label="14 Proof">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Proof</span></div>
+
+    <span class="eyebrow">Proven in practice</span>
+    <h2 class="sec-title">No passive theory.<br>Built for <em>scale.</em></h2>
+    <p class="sec-lead">Montisoro is proven in practice and built for organisations that want to move forward — from the first day of absence to sustainable return to work.</p>
+
+    <div class="divlabel">Results in figures</div>
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat"><div class="s-v">2,500<em>+</em></div><div class="s-l">Cases guided in frequent and long-term absence.</div></div>
+      <div class="stat"><div class="s-v">30–35<em>%</em></div><div class="s-l">Shorter duration of long-term absence.</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>14.7M</div><div class="s-l">Measurable reduction in absence cost.</div></div>
+    </div>
+
+    <div class="block">
+      <p class="body-p">Those results come not from a single intervention, but from the interplay of neutral direction, clear governance, capability building and technology. The effect is measurable on three levels at once: <strong>shorter absence duration</strong>, <strong>lower cost</strong> and <strong>less knowledge loss</strong> at role changes.</p>
+    </div>
+
+    <p class="note"><strong>Transparency (important):</strong> the figures above are based on aggregated practice data from Montisoro cases. Measurement period, definition and calculation are available on request; a separate methodology substantiation is in preparation. Figures are deliberately not stated more strongly than they can be substantiated.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Proven in practice</span><span class="pf-no">14</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 15 — CLIENTS ═══════════ -->
+<section class="page" data-screen-label="15 Clients">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Clients</span></div>
+
+    <span class="eyebrow">Trusted by</span>
+    <h2 class="sec-title">Proven at <em>corporates.</em></h2>
+    <p class="sec-lead">Montisoro works today with large, well-known organisations on absence, guidance and sustainable return to work. Verified references are available on request.</p>
+
+    <div class="logo-wall">
+      <div class="logo-cell"><img src="assets/logos/volvo.svg" alt="Volvo Group"><div class="lc-role"><b>Volvo Group</b>HR director</div></div>
+      <div class="logo-cell"><img src="assets/logos/alcon.svg" alt="Alcon"><div class="lc-role"><b>Alcon Laboratories</b>People Manager</div></div>
+      <div class="logo-cell"><img src="assets/logos/novartis.png" alt="Novartis"><div class="lc-role"><b>Novartis Manufacturing</b>Operations Director</div></div>
+      <div class="logo-cell"><img src="assets/logos/axa.png" alt="AXA"><div class="lc-role"><b>AXA Belgium</b>Prevention advisor</div></div>
+      <div class="logo-cell"><img src="assets/logos/securitas.png" alt="Securitas"><div class="lc-role"><b>Securitas</b>Head of People</div></div>
+      <div class="logo-cell"><img src="assets/logos/vaillant.png" alt="Vaillant"><div class="lc-role"><b>Vaillant Group</b>HR Business Partner</div></div>
+    </div>
+
+    <div class="block tight">
+      <p class="body-p">The collaboration always centres on the same: <strong>absence, guidance and sustainable return to work.</strong> The roles working with Montisoro — from HR leadership and prevention advisors to operations and people management — show that the approach connects at multiple levels of an organisation.</p>
+    </div>
+
+    <p class="note"><strong>Client quotes:</strong> literal quotes and published cases will be added once written consent from the organisations involved is available. Until then: verified reference on request.</p>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Clients &amp; references</span><span class="pf-no">15</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 16 — THE PEOPLE I ═══════════ -->
+<section class="page" data-screen-label="16 Leadership">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">The team</span></div>
+
+    <span class="eyebrow">The people</span>
+    <h2 class="sec-title">The people behind the <em>capability.</em></h2>
+    <p class="sec-lead">Workable work does not integrate itself. It needs people who dare to look, analyse sharply, act rightly and use technology wisely — a team of strategy, case management and engineering.</p>
+
+    <div class="divlabel">Leadership &amp; technology</div>
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Founder · CEO</div><h3>Laurence Van den Bergh</h3><p>Policy-strong, analytical and tech-savvy with grit. Brings strategic insight, legal sharpness and lived experience together to make absence policy more human and more effective.</p></div>
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">CPO</div><h3>Jeroen</h3><p>Builds the technological backbone. Translates methodology into working systems — from architecture to Casey AI. Where complexity threatens to stall, he keeps it moving.</p></div>
+      <div class="hl-card"><div class="c-role">Business Development</div><h3>Glenn</h3><p>Connects strategy, market and client needs with scalable growth. 10+ years in digital solutions and business development. Sharp, pragmatic, impact-driven.</p></div>
+      <div class="hl-card"><div class="c-role">Marketing &amp; Branding</div><h3>Reza</h3><p>Translates Montisoro's identity into everything you see, read and feel — from digital design to client material, from campaign to strategy.</p></div>
+      <div class="hl-card"><div class="c-role">Lead AI Architect</div><h3>Amr</h3><p>Designs and develops the intelligence behind Casey AI. Translates vision and practical knowledge into advanced Agentic AI frameworks that learn, reason and act.</p></div>
+      <div class="hl-card"><div class="c-role">Senior Platform Engineer</div><h3>Ahmed</h3><p>Responsible for the build, security, monitoring and scalability of the AWS cloud infrastructure of Storm and Casey AI.</p></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The team · leadership</span><span class="pf-no">16</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 17 — THE PEOPLE II ═══════════ -->
+<section class="page" data-screen-label="17 Case management">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">The team</span></div>
+
+    <span class="eyebrow">Case management &amp; expertise</span>
+    <h2 class="sec-title">Non-clinical <em>case managers.</em></h2>
+    <p class="sec-lead">The case managers bring structure, calm and humanity to absence trajectories — from first follow-up to sustainable return to work, in close cooperation with occupational medicine.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Non-clinical Case Manager</div><h3>Els</h3><p>Brings structure, calm and humanity to absence trajectories. Guides employees and organisations from first follow-up to sustainable return to work.</p></div>
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Non-clinical Case Manager</div><h3>Edith</h3><p>Combines experience as stress &amp; burnout coach, career and outplacement counsellor with a warm, structured approach to reintegration.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Case Manager</div><h3>Rico</h3><p>A nurse with warmth, clinical sharpness and grit. Works closely with occupational medicine and brings a view that makes the difference on the floor.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Case Manager</div><h3>Astrid</h3><p>Occupational psychologist with solid field experience, close to both employee and organisation. Appears when it counts — and knows what is needed then.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Case Manager</div><h3>Stefi</h3><p>Experienced occupational therapist and trainer who supports organisations in implementing Culture of Care, with a focus on practical applicability and lasting behaviour change.</p></div>
+      <div class="hl-card" style="justify-content:center;"><p style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink);line-height:1.45;">A growing team of experts, clinical and non-clinical, around the <em style="color:var(--orange);">person</em> and the organisation.</p></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>The team · case management</span><span class="pf-no">17</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 18 — MARKET & POSITIONING ═══════════ -->
+<section class="page" data-screen-label="18 Market">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Market</span></div>
+
+    <span class="eyebrow">Market &amp; positioning</span>
+    <h2 class="sec-title">Where Montisoro <em>fits.</em></h2>
+    <p class="sec-lead">Montisoro positions itself at the crossroads of absence policy, well-being at work and technology — a space where consultancy, software and legal expertise often operate separately.</p>
+
+    <div class="hl-grid cols-2" style="margin-top:14px;">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Target market</h3><p>SMEs to large organisations in Belgium where absence, workability and human complexity are daily reality. Sector-agnostic — the context differs, the system does not.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Key contacts</h3><p>HR leadership, prevention advisors, managers and CFOs. The calculator and fit check are deliberately built to open that first conversation.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Distinctive</h3><p>Not one person or one tool, but a system: human direction + governance + capability + technology. Knowledge stays in the organisation.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Commercial model</h3><p>Diagnostic conversation → engagement with fixed scope → Storm platform → Casey AI. Proposals with expected payback, based on the client's own figures.</p></div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Inflow of new clients</div>
+      <ul class="list-clean list-two">
+        <li>Diagnostic conversations via the three contact channels.</li>
+        <li>The online fit check as a low-threshold starting point.</li>
+        <li>The ROI calculator that makes the cost visible.</li>
+        <li>Casey AI pilot programme (starts September 2026).</li>
+      </ul>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Market &amp; positioning</span><span class="pf-no">18</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 19 — CONNECTIONS & NETWORK ═══════════ -->
+<section class="page page--dark" data-screen-label="19 Network">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Network</span></div>
+
+    <span class="eyebrow">Connections, investors &amp; network</span>
+    <h2 class="sec-title">Who Montisoro is <em>connected</em> to.</h2>
+    <p class="sec-lead">An honest overview of Montisoro's network — including what is (not yet) public. This document lists no relationships that are not confirmed.</p>
+
+    <div class="hl-grid cols-2" style="margin-top:14px;border-color:var(--line-d);">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Client relationships</h3><p>Active collaborations with, among others, Volvo Group, Alcon, Novartis, AXA Belgium, Securitas and Vaillant Group — on absence, guidance and sustainable return to work.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Founder network</h3><p>The public point of contact runs through the founder, Laurence Van den Bergh, e.g. via LinkedIn. The company is founder-led.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Investors</h3><p>There is currently no publicly announced external investment. Should funding or a partnership be announced, it belongs here — not before.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Press &amp; publications</h3><p>There is not yet consolidated press coverage or a published case. Cases and articles will be added once they exist and are verified.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p class="co-q">What is here is <em>confirmed.</em> What is not yet confirmed is deliberately not here.</p>
+      <p class="co-cite">In line with the principle: trust earned through results, kept through transparency.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Connections &amp; network</span><span class="pf-no">19</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 20 — FACTS & CONTACT ═══════════ -->
+<section class="page page--dark" data-screen-label="20 Contact">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Facts &amp; contact</span></div>
+
+    <span class="eyebrow">Facts &amp; contact</span>
+    <h2 class="sec-title">The dossier in <em>facts.</em></h2>
+
+    <div class="divlabel" style="color:var(--orange);">Company sheet</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Company</div><div class="kv-v">Montisoro BV</div></div>
+      <div class="kv-row"><div class="kv-k">Company number</div><div class="kv-v">BE0733840137</div></div>
+      <div class="kv-row"><div class="kv-k">Based in</div><div class="kv-v">Belgium</div></div>
+      <div class="kv-row"><div class="kv-k">Domain</div><div class="kv-v">Absence · workability · reintegration</div></div>
+      <div class="kv-row"><div class="kv-k">Platform</div><div class="kv-v">Storm (SaaS, live since 2023)</div></div>
+      <div class="kv-row"><div class="kv-k">AI layer</div><div class="kv-v">Casey AI (pilot Sept. 2026)</div></div>
+    </div>
+
+    <div class="divlabel" style="color:var(--orange);margin-top:18px;">Three channels, one conversation</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Plan a conversation</div><div class="kv-v">montisoro.com/contact</div></div>
+      <div class="kv-row"><div class="kv-k">Email</div><div class="kv-v">hello@montisoro.com</div></div>
+      <div class="kv-row"><div class="kv-k">Phone</div><div class="kv-v">+32 477 89 91 86 · +32 472 38 76 35</div></div>
+      <div class="kv-row"><div class="kv-k">LinkedIn</div><div class="kv-v">linkedin.com/in/laurence-van-den-bergh</div></div>
+      <div class="kv-row"><div class="kv-k">Website</div><div class="kv-v">montisoro.com</div></div>
+    </div>
+
+    <div class="colophon">
+      <p style="font-family:var(--serif);font-style:italic;font-weight:700;font-size:22px;color:#fff;letter-spacing:-.01em;">Re-integrate <span style="color:var(--orange);">What Matters.</span></p>
+      <p style="font-size:10px;color:var(--off-mute-2);margin-top:10px;line-height:1.6;font-family:var(--mono);letter-spacing:.04em;">Montisoro company dossier · June 2026 edition · compiled from Montisoro's public website and project material. Figures and claims as communicated by Montisoro; substantiation on request. © 2026 Montisoro BV.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Company Dossier</span><span>Facts &amp; contact</span><span class="pf-no">20</span></div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

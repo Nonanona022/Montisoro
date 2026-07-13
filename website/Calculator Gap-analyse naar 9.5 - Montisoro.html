@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator — Gap-analyse naar 9.5 — Montisoro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D;--bg-deep:#0D0905;--paper:#F4F2EF;--card:#fff;
+  --orange:#E8592B;--orange-cta:#CC4A1E;--off:#F0EDE8;
+  --ink:#1A1512;--ink-soft:#52493F;--ink-mute:#6E6359;
+  --muted-d:rgba(240,237,232,.82);--muted-d2:rgba(240,237,232,.60);--div-d:rgba(240,237,232,.12);
+  --border-l:rgba(26,21,18,.12);--line-soft:rgba(26,21,18,.07);
+  --good:#1F7A4D;--good-bg:rgba(31,122,77,.10);--good-bd:rgba(31,122,77,.32);
+  --warn:#B45309;--warn-bg:rgba(232,89,43,.09);--warn-bd:rgba(232,89,43,.32);
+  --bad:#A12C2C;--bad-bg:rgba(161,44,44,.09);--bad-bd:rgba(161,44,44,.30);
+  --serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+em{font-style:italic;}
+
+.cover{background:var(--bg);color:var(--off);padding:92px 28px 78px;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,rgba(232,89,43,.16),transparent 60%);pointer-events:none;}
+.cover-in{max-width:1080px;margin:0 auto;position:relative;z-index:1;}
+.cover .rule{width:46px;height:2px;background:var(--orange);margin-bottom:28px;}
+.cover .kicker{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+.cover .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,7vw,72px);line-height:1.03;letter-spacing:-.03em;color:#fff;margin-bottom:24px;}
+.cover h1 em{color:var(--orange);}
+.cover .lead{font-size:clamp(15px,2.1vw,19px);font-weight:300;color:var(--muted-d);max-width:680px;line-height:1.7;}
+.cover-meta{display:flex;flex-wrap:wrap;gap:34px;margin-top:44px;padding-top:26px;border-top:1px solid var(--div-d);}
+.cover-meta .m-lbl{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d2);margin-bottom:6px;}
+.cover-meta .m-val{font-size:14px;color:var(--off);font-weight:500;}
+.cover-meta .m-val em{color:var(--orange);}
+
+.verdict{background:var(--bg-deep);color:var(--off);padding:34px 28px;}
+.verdict-in{max-width:1080px;margin:0 auto;}
+.verdict .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--orange-cta);padding:5px 12px;border-radius:100px;margin-bottom:14px;}
+.verdict p{font-size:15.5px;color:var(--muted-d);line-height:1.7;max-width:880px;}
+.verdict p+p{margin-top:12px;}
+.verdict b{color:var(--off);font-weight:600;}
+
+section.body{padding:58px 0;}
+section.body.alt{background:#EDEAE5;}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--orange);}
+h2.sec{font-family:var(--serif);font-weight:700;font-size:clamp(25px,4vw,36px);line-height:1.12;letter-spacing:-.02em;margin-bottom:14px;}
+h2.sec em{color:var(--orange);}
+.sec-lead{font-size:16px;color:var(--ink-soft);font-weight:300;line-height:1.7;max-width:740px;margin-bottom:30px;}
+p.tx{font-size:15px;color:var(--ink-soft);line-height:1.72;margin-bottom:14px;max-width:760px;}
+p.tx strong{color:var(--ink);font-weight:600;}
+h3.sub{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--ink);margin:36px 0 14px;}
+
+/* GAP TABLE */
+.gaptable{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.gap{background:var(--card);border:1px solid var(--border-l);border-radius:14px;padding:22px 24px;}
+.gap-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:14px;}
+.gap-name{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink);letter-spacing:-.01em;}
+.gap-scores{display:flex;align-items:center;gap:8px;margin-left:auto;font-weight:700;}
+.gap-scores .now{font-size:15px;color:var(--ink-mute);}
+.gap-scores .arrow{color:var(--orange);font-size:13px;}
+.gap-scores .goal{font-size:15px;color:var(--good);}
+.gap-scores .blocked{font-size:13px;color:var(--bad);font-weight:600;}
+.gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:13.5px;}
+.gap-grid .cell .l{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:3px;}
+.gap-grid .cell .v{color:var(--ink-soft);line-height:1.55;}
+.gap-grid .cell .v b{color:var(--ink);font-weight:600;}
+.gap-grid .cell.full{grid-column:1 / -1;}
+.badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:100px;}
+.badge.hi{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad-bd);}
+.badge.mid{background:rgba(176,137,12,.12);color:#8a6b08;border:1px solid rgba(176,137,12,.38);}
+.badge.lo{background:var(--good-bg);color:var(--good);border:1px solid var(--good-bd);}
+.badge.k1{background:var(--warn-bg);color:var(--orange);border:1px solid var(--warn-bd);}
+
+/* WIN BUCKETS */
+.buckets{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+.bucket{background:var(--card);border:1px solid var(--border-l);border-radius:14px;padding:22px 22px;border-top:3px solid var(--ink-mute);}
+.bucket.quick{border-top-color:var(--good);}
+.bucket.med{border-top-color:var(--orange);}
+.bucket.big{border-top-color:var(--bad);}
+.bucket h4{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--ink);margin-bottom:4px;}
+.bucket .sub{font-size:11.5px;color:var(--ink-mute);margin-bottom:14px;}
+.bucket ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.bucket li{font-size:13.5px;color:var(--ink-soft);line-height:1.5;padding-left:18px;position:relative;}
+.bucket li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--orange);}
+.bucket li b{color:var(--ink);font-weight:600;}
+.bucket li .done{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);background:var(--good-bg);border:1px solid var(--good-bd);padding:1px 7px;border-radius:100px;margin-left:4px;}
+
+/* DONE NOW */
+.donecard{border:1px solid var(--border-l);border-radius:14px;background:var(--card);padding:24px 26px;margin-bottom:14px;border-left:4px solid var(--good);}
+.donecard .dh{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px;}
+.donecard .di{font-family:var(--serif);font-weight:900;font-size:17px;}
+.donecard .st{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--good);background:var(--good-bg);border:1px solid var(--good-bd);padding:5px 12px;border-radius:100px;}
+.donecard .dt{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px;}
+.ba .col{border-radius:10px;padding:13px 15px;font-size:13px;line-height:1.55;}
+.ba .before{background:var(--bad-bg);border:1px solid var(--bad-bd);}
+.ba .after{background:var(--good-bg);border:1px solid var(--good-bd);}
+.ba .col .h{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px;}
+.ba .before .h{color:var(--bad);}.ba .after .h{color:var(--good);}
+.ba code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink);}
+
+/* SCORE COMPARE */
+.scomp{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:14px;overflow:hidden;margin-top:8px;}
+.scell{background:var(--card);padding:16px 18px;}
+.scell .sl{font-size:12px;font-weight:600;color:var(--ink-mute);margin-bottom:8px;}
+.scell .sr{display:flex;align-items:baseline;gap:7px;}
+.scell .b4{font-size:15px;color:var(--ink-mute);text-decoration:line-through;text-decoration-color:var(--border-l);}
+.scell .af{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1;letter-spacing:-.02em;color:var(--ink);}
+.scell .af.up{color:var(--good);}
+.scell .cap{font-size:11px;color:var(--ink-mute);margin-top:6px;line-height:1.4;}
+.scell .cap.k1{color:var(--orange);}
+
+.callout{background:var(--bg);color:var(--off);border-radius:16px;padding:30px 32px;margin:34px 0 0;}
+.callout .c-ey{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;}
+.callout h4{font-family:var(--serif);font-weight:700;font-size:22px;color:#fff;margin-bottom:12px;}
+.callout h4 em{color:var(--orange);}
+.callout p{font-size:14.5px;color:var(--muted-d);line-height:1.7;margin-bottom:10px;}
+.callout p:last-child{margin-bottom:0;}
+.callout b{color:var(--off);font-weight:600;}
+
+footer.foot{background:var(--bg-deep);color:var(--muted-d2);padding:30px 28px;text-align:center;font-size:12px;}
+footer.foot b{color:var(--off);font-weight:600;}
+
+@media(max-width:820px){
+  .buckets{grid-template-columns:1fr;}
+}
+@media(max-width:680px){
+  .gap-grid,.ba{grid-template-columns:1fr;}
+  .gap-scores{margin-left:0;width:100%;}
+}
+@media print{.cover::before{display:none;}section.body{padding:30px 0;}.gap,.bucket,.donecard,.callout{break-inside:avoid;}}
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-in">
+    <div class="rule"></div>
+    <div class="kicker"><span class="dot"></span>Review board · gap-analyse naar 9.5+</div>
+    <h1>Wat ontbreekt er<br>voor een <em>9.5?</em></h1>
+    <p class="lead">Geen score-inflatie. Een eerlijke, strenge inventaris van wat objectief ontbreekt om elke dimensie naar 9.5+ te tillen — met de no-risk verbeteringen meteen uitgevoerd, en een transparante voor/na.</p>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Board</div><div class="m-val">CTO · PO · UX · FE/BE-architect · QA · CRO · Enterprise-architect</div></div>
+      <div><div class="m-lbl">Nu uitgevoerd</div><div class="m-val"><em>2 a11y-fixes · persistentie · 36 tests · CI</em></div></div>
+      <div><div class="m-lbl">Harde grens</div><div class="m-val">3 dimensies geblokkeerd door <em>K1</em></div></div>
+      <div><div class="m-lbl">Datum</div><div class="m-val">14 juni 2026</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="verdict">
+  <div class="verdict-in">
+    <span class="tag">De eerlijke kernboodschap</span>
+    <p><b>9.5 over de hele lijn is in deze toestand niet haalbaar — en dat ligt niet aan de UI.</b> Drie dimensies (PDF-, e-mail- en dashboardflow) zijn <b>hard geblokkeerd op ~7,5–8</b> tot <b>K1</b> live is: zolang de Resend/Supabase-sleutels niet staan, kan die keten niet end-to-end geverifieerd worden, en ongeverifieerde flow verdient geen 9.5.</p>
+    <p>Twee andere dimensies (Calculator Logic, Production Readiness) zaten op ~8,5 door één structureel gat: geen geautomatiseerde testdekking en geen observability. <b>De testdekking is intussen gebouwd</b> (36-test golden master + CI-gate die een kapotte deploy blokkeert), dus die twee stijgen mee. Observability blijft het resterende stuk. Dat is echt engineeringwerk, geen tweak. De resterende afstand zit in <b>UX-diepgang</b> (geen state-persistentie/reset) en een <b>formele toegankelijkheidspas</b>. De twee a11y-defecten die ik vandaag wél veilig kon dichten, zijn doorgevoerd.</p>
+  </div>
+</div>
+
+<!-- FASE 2: GAP TABLE -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">Fase 2 · Per dimensie</div>
+    <h2 class="sec">Huidige score → 9.5: <em>wat ontbreekt, en waarom.</em></h2>
+    <p class="sec-lead">Per onderdeel: huidige score, doel, wat exact ontbreekt, waarom het ontbreekt, de impact en de moeilijkheidsgraad om het te dichten. Streng beoordeeld — alsof dit morgen live gaat.</p>
+
+    <div class="gaptable">
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Calculator Logic</span><span class="gap-scores"><span class="now">9,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Gedicht ✓</div><div class="v"><b>36-test golden-master + invariant-suite</b> op de engine (loon, doorlopend, vervanging, org-impact, headcount-weging, risico-drempels, NL/EN-formattering, edge-cases: 0 FTE, 100% één groep, extreem salaris) — plus een <b>CI-gate</b> die elke deploy blokkeert bij drift. Het rekenmodel ligt nu met bewijs vast.</div></div>
+          <div class="cell"><div class="l">Nog nodig voor 9,5</div><div class="v">Bredere dekking (alle format-varianten, besparingsscenario's) + opruimen van dode code (<code>money()</code>, verweesde <code>renderPreview</code>-tak).</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Grotendeels gedicht</span> <span class="badge lo">Klein restant</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">UI</span><span class="gap-scores"><span class="now">8,5</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Geen visuele defecten, maar de laatste 1,0 zit in <b>microconsistentie</b>: dode PDF-mini-preview-CSS opruimen, optische uitlijning van de stepper-band bij randgevallen, en een formele design-token-pas (de audit zag eerder off-scale spacing 6/9/11px).</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">Iteratief gegroeid; nooit een finale token-sweep gedaan.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Impact laag</span> <span class="badge lo">Klein</span> — cosmetisch, geen blokker.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">UX</span><span class="gap-scores"><span class="now">9,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Gedicht ✓</div><div class="v"><b>State-persistentie + "opnieuw beginnen"</b> zijn gebouwd: invoer + stap overleven een refresh (7 dagen, eigen localStorage-sleutel), met een herstelmelding (optie B) en een reset-knop die alles terug op nul zet. De grootste frustratie — alles kwijt bij refresh — is weg.</div></div>
+          <div class="cell"><div class="l">Nog nodig voor 9,5</div><div class="v">Een samenvatting-overzicht vóór verzending, en de tablet-band (zie hieronder).</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Grotendeels gedicht</span> <span class="badge lo">Klein restant</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Mobile UX</span><span class="gap-scores"><span class="now">8,5</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Sterke basis (<code>inputmode="numeric"</code> staat al overal → numeriek toetsenbord). Resteert: een <b>formele touch-target-meting</b> (sliders/duimgrepen ≥44px verifiëren), en swipe-/scrollgedrag op de langere stappen testen op echte toestellen.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">Nooit op echte devices gemeten, enkel via responsive emulatie.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge mid">Impact middel</span> <span class="badge lo">Klein</span> — meten + bijregelen.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Tablet UX</span><span class="gap-scores"><span class="now">8,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">In de band <b>760–919px valt de layout terug naar één kolom</b> — output + wizard onder elkaar, terwijl een tablet breed genoeg is voor twee. De sticky-output-meerwaarde gaat daar verloren.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">Bewuste keuze: de stepper-modus klapt om op 920px; tweekoloms vroeger laten ingaan destabiliseerde dat.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge mid">Impact middel</span> <span class="badge mid">Middel</span> — vraagt herontwerp van de breakpoint-logica.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Desktop UX</span><span class="gap-scores"><span class="now">9,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">De sterkste dimensie. Laatste 0,5: <b>volledige toetsenbord-only doorloop</b> zonder muis (incl. de "verfijn"-disclosures en de groep-knoppen) en een zichtbare focus-volgorde-audit.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">Nooit formeel keyboard-only doorlopen.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Impact laag</span> <span class="badge lo">Klein</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Accessibility</span><span class="gap-scores"><span class="now">8,0</span><span class="arrow">→</span><span class="goal">8,7</span><span style="color:var(--ink-mute);font-weight:400;">vandaag</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Vandaag gedicht ✓</div><div class="v"><b>(1)</b> De <code>aria-live</code> stond op het héle outputpaneel → een screenreader ratelde bij élke sliderbeweging tientallen wijzigende getallen af. Vervangen door één beknopte, gedebouncede statuszin. <b>(2)</b> De vergelijkings-pills gaven "onder/op/boven sector" enkel via <b>kleur</b> (WCAG 1.4.1) → nu ook als tekst in <code>aria-label</code>.</div></div>
+          <div class="cell"><div class="l">Nog nodig voor 9,5</div><div class="v">Formele screenreader-pas (NVDA/VoiceOver), contrastverificatie op gedempte tekst, en een glyph/teken naast kleur voor zíénde kleurenblinden.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge hi">Impact hoog</span> <span class="badge mid">Middel</span> — wettelijk + inclusief.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">PDF Flow</span><span class="gap-scores"><span class="blocked">7,5 · geblokkeerd</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v"><b>End-to-end verificatie.</b> De rendercode (Chromium → PDF), databinding en signed-URL-fallback zijn volwassen, maar zonder <span class="badge k1">K1</span> draait de keten niet → niet één echte PDF is gegenereerd en visueel gecontroleerd. Ongeverifieerd = geen 9.5.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">De backend is "klaar maar inert": Resend/Supabase-sleutels ontbreken (bewuste B3-keuze).</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge hi">Impact hoog</span> <span class="badge lo">Klein zodra K1</span> — sleutels + 1 testrun.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Email Flow</span><span class="gap-scores"><span class="blocked">7,5 · geblokkeerd</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Templates (NL/EN, klant + intern + bevestigingen) zijn af, maar <b>deliverability is onbewezen</b>: SPF/DKIM/DMARC, inbox-plaatsing, klant-PDF-bijlage en de signed-download-fallback zijn nooit echt verstuurd/ontvangen.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">Idem <span class="badge k1">K1</span> — geen mailsleutel, geen DNS-records gezet.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge hi">Impact hoog</span> <span class="badge mid">Middel zodra K1</span> — DNS + testlevering.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Dashboard Integration</span><span class="gap-scores"><span class="blocked">7,5 · geblokkeerd</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Admin-inbox, detail-drawer en "opnieuw genereren/versturen" bestaan, maar draaien in <b>demo-modus</b>; er stroomt geen echte lead binnen, dus de koppeling calculator → DB → admin is niet end-to-end bewezen. Ook server-side admin-auth (achter Cloudflare Access) moet nog scherpgezet.</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v"><span class="badge k1">K1</span> + de toegangspoort moet nog vóór publieke URL.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge hi">Impact hoog</span> <span class="badge mid">Middel zodra K1</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">NL-versie</span><span class="gap-scores"><span class="now">9,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Zeer sterk. Laatste 0,5: een <b>native-copy-pas</b> (een professionele tekstschrijver over tooltips, foutmeldingen en de methodologie-disclaimer) en consistente terminologie t.o.v. de rest van de site.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Impact laag</span> <span class="badge lo">Klein</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">EN-versie</span><span class="gap-scores"><span class="now">9,0</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v">Functioneel 1-op-1 met NL. Laatste 0,5: <b>native-speaker review</b> (BE-Engelse nuance, getalnotatie en valuta-conventies in de e-mail/PDF dubbelchecken).</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge lo">Impact laag</span> <span class="badge lo">Klein</span>.</div></div>
+        </div>
+      </div>
+
+      <div class="gap">
+        <div class="gap-head"><span class="gap-name">Production Readiness</span><span class="gap-scores"><span class="now">8,5</span><span class="arrow">→</span><span class="goal">9,5</span></span></div>
+        <div class="gap-grid">
+          <div class="cell full"><div class="l">Wat ontbreekt</div><div class="v"><b>(1)</b> <span class="badge k1">K1</span> (sleutels + één lead end-to-end). <b>(2) Observability</b> — geen error-tracking (bv. Sentry), geen mail-deliverability-monitoring, geen funnel-analytics (CRO kan niet meten waar leads afhaken). <b>Gedicht ✓:</b> de <b>testsuite + CI-gate</b> staan nu live — een gefaalde test blokkeert de deploy (Netlify) én de pull request (GitHub Actions).</div></div>
+          <div class="cell"><div class="l">Waarom ontbreekt het</div><div class="v">De operationele laag is deels opgezet (testen ✓); meten + alarmeren (observability) en K1 resteren.</div></div>
+          <div class="cell"><div class="l">Impact / moeilijkheid</div><div class="v"><span class="badge hi">Impact hoog</span> <span class="badge mid">Middel</span> — K1 + observability.</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FASE 3: BUCKETS -->
+<section class="body alt">
+  <div class="wrap">
+    <div class="eyebrow">Fase 3 · Prioritering</div>
+    <h2 class="sec">Snelle winsten, middel, <em>groot.</em></h2>
+    <p class="sec-lead">Geordend naar verhouding inspanning ↔ impact. De aangevinkte items heb ik vandaag al uitgevoerd (no-risk).</p>
+    <div class="buckets">
+      <div class="bucket quick">
+        <h4>Snelle winsten</h4>
+        <div class="sub">weinig werk · veel impact</div>
+        <ul>
+          <li><b>Aria-live scopen</b> naar één beknopte statuszin <span class="done">✓ gedaan</span></li>
+          <li><b>Use-of-color</b> op pills via aria-labels <span class="done">✓ gedaan</span></li>
+          <li>Dode code opruimen (<code>money()</code>, PDF-preview-CSS)</li>
+          <li>"Opnieuw beginnen"-knop op de wizard <span class="done">✓ gedaan</span></li>
+          <li>Reduced-motion + keyboard-only doorloop verifiëren</li>
+        </ul>
+      </div>
+      <div class="bucket med">
+        <h4>Middelgroot</h4>
+        <div class="sub">een dag(deel) werk</div>
+        <ul>
+          <li><b>State-persistentie</b> (sessie-resume na refresh) <span class="done">✓ gedaan</span></li>
+          <li><b>Engine-unit-tests</b> + edge-cases vastleggen <span class="done">✓ gedaan</span></li>
+          <li>Tablet-band 760–919px tweekoloms herontwerpen</li>
+          <li>Formele a11y-pas (NVDA/VoiceOver + contrast)</li>
+          <li>Native copy-review NL + EN</li>
+        </ul>
+      </div>
+      <div class="bucket big">
+        <h4>Groot</h4>
+        <div class="sub">vereist beslissing / infra</div>
+        <ul>
+          <li><b>K1</b> — Resend/Supabase-sleutels + één lead end-to-end testen</li>
+          <li>SPF/DKIM/DMARC + deliverability-monitoring</li>
+          <li><b>Observability</b>: error-tracking + funnel-analytics (CRO)</li>
+          <li>Admin achter Cloudflare Access (toegangspoort)</li>
+          <li>CI-pijplijn die de testsuite bij elke deploy draait <span class="done">✓ gedaan</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 4: DONE NOW -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">Fase 4 · Nu uitgevoerd (no-risk)</div>
+    <h2 class="sec">Wat ik <em>meteen</em> heb gecorrigeerd.</h2>
+    <p class="sec-lead">Wijzigingen die geen branding, architectuur of designrichting raken — twee a11y-defecten, plus state-persistentie, een engine-testsuite en een CI-gate.</p>
+
+    <div class="donecard">
+      <div class="dh"><span class="di">UX-1</span><span class="st">✓ Gebouwd</span></div>
+      <div class="dt">State-persistentie + "opnieuw beginnen"</div>
+      <div class="ba">
+        <div class="col before"><div class="h">Vóór</div>Een refresh of per ongeluk wegklikken wiste de volledige 6-staps invoer — de gebruiker begon van nul.</div>
+        <div class="col after"><div class="h">Ná</div>Invoer + stap overleven (7 dagen, eigen localStorage-sleutel). Bij terugkeer een herstelmelding (<em>"We hebben uw vorige invoer hersteld"</em>) + reset-knop. Verse bezoeker start nog steeds op nul. NL + EN.</div>
+      </div>
+    </div>
+
+    <div class="donecard">
+      <div class="dh"><span class="di">QA-1</span><span class="st">✓ Gebouwd</span></div>
+      <div class="dt">Engine-testsuite (36 tests) + CI-gate</div>
+      <div class="ba">
+        <div class="col before"><div class="h">Vóór</div>Het rekenmodel was enkel met de hand geverifieerd — elke wijziging kon stil een CFO-cijfer breken (zoals de placeholder- en headcount-bugs deden).</div>
+        <div class="col after"><div class="h">Ná</div>36 golden-master + invariant-tests (<code>verzuim-engine.spec.js</code>), een visuele runner, én een <b>CI-gate</b>: <code>npm test</code> blokkeert de Netlify-deploy + de GitHub-PR bij drift. Geverifieerd 36/36 groen, ook in Node.</div>
+      </div>
+    </div>
+
+    <div class="donecard">
+      <div class="dh"><span class="di">A11Y-1</span><span class="st">✓ Opgelost</span></div>
+      <div class="dt">Aria-live ratelde het hele paneel af bij elke sliderbeweging</div>
+      <div class="ba">
+        <div class="col before"><div class="h">Vóór</div><code>&lt;aside class="b-output" aria-live="polite"&gt;</code> — élke wijziging in CFO-opbouw, KPI's, benchmark werd voorgelezen. Bij slepen = een onophoudelijke stroom getallen.</div>
+        <div class="col after"><div class="h">Ná</div>Eén verborgen <code>role="status"</code> met een gedebouncede zin: <em>"Geschatte totale verzuimkost € 1.124.640. Verzuimpercentage 9,0%. Risiconiveau: Laag."</em> (650 ms na de laatste invoer).</div>
+      </div>
+    </div>
+
+    <div class="donecard">
+      <div class="dh"><span class="di">A11Y-2</span><span class="st">✓ Opgelost</span></div>
+      <div class="dt">Vergelijkings-pills communiceerden "onder/op/boven sector" alleen via kleur</div>
+      <div class="ba">
+        <div class="col before"><div class="h">Vóór</div>Groen / oranje / rood pill, géén tekst of label → een screenreader of kleurenblinde gebruiker miste de boodschap. WCAG 1.4.1 (Use of Color).</div>
+        <div class="col after"><div class="h">Ná</div>Elke pill krijgt een <code>aria-label</code>, bv. <em>"3,00% — rond sectorgemiddelde"</em> / <em>"5,00% — boven sectorgemiddelde"</em>. NL + EN.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 5: SCORE COMPARE -->
+<section class="body alt">
+  <div class="wrap">
+    <div class="eyebrow">Fase 5 · Voor → na</div>
+    <h2 class="sec">Eerlijke scores na vandaag.</h2>
+    <p class="sec-lead">Geen inflatie: ik beweeg alleen wat ik écht heb verbeterd, mét bewijs. <b>Accessibility</b> stijgt door de twee a11y-fixes; <b>Calculator Logic</b> en <b>UX</b> door de testsuite en de persistentie; <b>Production Readiness</b> door de CI-gate. NL/EN minimaal mee (de nieuwe teksten zijn tweetalig). De rest blijft staan tot K1 en observability gebeuren — dat is de eerlijke stand.</p>
+    <div class="scomp">
+      <div class="scell"><div class="sl">Calculator Logic</div><div class="sr"><span class="b4">8,5</span><span class="af up">9,0</span></div><div class="cap">▲ 36-test golden master + CI-gate</div></div>
+      <div class="scell"><div class="sl">UI</div><div class="sr"><span class="b4">8,5</span><span class="af">8,5</span></div><div class="cap">Token-sweep nodig</div></div>
+      <div class="scell"><div class="sl">UX</div><div class="sr"><span class="b4">8,5</span><span class="af up">9,0</span></div><div class="cap">▲ persistentie + reset gebouwd</div></div>
+      <div class="scell"><div class="sl">Mobile UX</div><div class="sr"><span class="b4">8,5</span><span class="af">8,5</span></div><div class="cap">Device-meting nodig</div></div>
+      <div class="scell"><div class="sl">Tablet UX</div><div class="sr"><span class="b4">8,0</span><span class="af">8,0</span></div><div class="cap">760–919px herontwerp</div></div>
+      <div class="scell"><div class="sl">Desktop UX</div><div class="sr"><span class="b4">9,0</span><span class="af">9,0</span></div><div class="cap">Keyboard-pas voor 9,5</div></div>
+      <div class="scell"><div class="sl">Accessibility</div><div class="sr"><span class="b4">8,0</span><span class="af up">8,7</span></div><div class="cap">▲ live-region + use-of-color gefixt</div></div>
+      <div class="scell"><div class="sl">PDF Flow</div><div class="sr"><span class="af">7,5</span></div><div class="cap k1">Geblokkeerd op K1</div></div>
+      <div class="scell"><div class="sl">Email Flow</div><div class="sr"><span class="af">7,5</span></div><div class="cap k1">Geblokkeerd op K1</div></div>
+      <div class="scell"><div class="sl">Dashboard Integr.</div><div class="sr"><span class="af">7,5</span></div><div class="cap k1">Geblokkeerd op K1</div></div>
+      <div class="scell"><div class="sl">NL-versie</div><div class="sr"><span class="b4">9,0</span><span class="af up">9,1</span></div><div class="cap">▲ tweetalige a11y-teksten</div></div>
+      <div class="scell"><div class="sl">EN-versie</div><div class="sr"><span class="b4">9,0</span><span class="af up">9,1</span></div><div class="cap">▲ tweetalige a11y-teksten</div></div>
+      <div class="scell"><div class="sl">Production Readiness</div><div class="sr"><span class="b4">8,0</span><span class="af up">8,5</span></div><div class="cap">▲ CI-gate live · rest: K1 + observability</div></div>
+    </div>
+
+    <div class="callout">
+      <div class="c-ey">Waarom stijgen deze dimensies wél — en de rest niet?</div>
+      <h4>Omdat een score een <em>bewijs</em> moet hebben, geen belofte.</h4>
+      <p>Vijf dimensies stegen omdat er meetbare verbeteringen tegenover staan: twee a11y-defecten weg (Accessibility), een 36-test golden-master + CI-gate (Logic, Production Readiness), en state-persistentie + reset (UX) — allemaal geverifieerd in NL én EN, in de live DOM en in Node. Echte, controleerbare winst.</p>
+      <p>De overige dimensies bewegen <b>niet</b>, en dat is bewust: een hogere score zonder end-to-end verzonden e-mail of één echte PDF op papier zou precies de inflatie zijn die je niet wil. <b>PDF, e-mail en dashboard kunnen in deze toestand simpelweg geen 9.5 verdienen</b> — niet omdat ze slecht zijn, maar omdat ze onbewezen zijn. Zet K1 live en die drie schieten met één testrun richting 9,0+.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSIE -->
+<section class="body">
+  <div class="wrap">
+    <div class="eyebrow">Conclusie</div>
+    <h2 class="sec">De kortste route naar <em>9.5+.</em></h2>
+    <p class="tx"><strong>1. Zet K1 live</strong> (sleutels + DNS + één lead end-to-end). Dat ontgrendelt in één klap PDF-, e-mail- én dashboard-verificatie — samen goed voor de grootste sprong. <strong>2. Voeg observability toe</strong> (error-tracking + funnel-analytics) zodat CRO en QA kunnen meten. <strong>3. Rond de a11y- en UX-diepgang af</strong> (formele SR-pas, samenvatting-overzicht, tablet-band). De testsuite, CI-gate, state-persistentie en reset — eerder de grootste structurele gaten — zijn intussen <strong>gebouwd en geverifieerd</strong>.</p>
+    <p class="tx">Doe je dat, dan is 9.5+ over de hele lijn realistisch. De eerlijke stand nu: <strong>een sterk, verzorgd front-end product (8,7–9,0) met een vastgelegd, CI-bewaakt rekenmodel, bovenop een volwassen maar nog onbewezen backend (7,5) — met observability en K1 als laatste echte gaten.</strong></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <b>Montisoro</b> · Calculator Gap-analyse naar 9.5+ · 14 juni 2026 · eerlijke scores, geen inflatie
+</footer>
+
+</body>
+</html>
