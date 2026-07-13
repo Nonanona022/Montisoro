@@ -92,6 +92,6 @@ window.MONTISORO_TESTIMONIALS = [
     link_en: 'reference-case-novartis-en.html',
     pdf: '',
     order: 3,
-    active: true
+    active: false
   }
 ];
