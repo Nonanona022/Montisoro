@@ -246,7 +246,7 @@
 
 [[redirects]]
   from = "/Referentie-en.html"
-  to = "/referentie-en"
+  to = "/references-en"
   status = 301
   force = true
 
@@ -310,8 +310,51 @@
 
 [[redirects]]
   from = "/referentie-en"
-  to = "/pages/Referentie-en.html"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/references-en"
+  to = "/pages/references-en.html"
   status = 200
+  force = true
+
+# ── EN-slugs verengelst (oud NL-slug + -en → Engelse slug, 301) ──
+[[redirects]]
+  from = "/aanpak-en"
+  to = "/approach-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/technologie-en"
+  to = "/technology-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/referentie-case-en"
+  to = "/reference-case-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/referentie-case-alcon-en"
+  to = "/reference-case-alcon-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/referentie-case-feneko-en"
+  to = "/reference-case-feneko-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/referentie-case-lonza-en"
+  to = "/reference-case-lonza-en"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/referentie-case-novartis-en"
+  to = "/reference-case-novartis-en"
+  status = 301
   force = true
 
 # Legacy .html blijft werken (200-serve; canonical dedupt naar extensieloos)
