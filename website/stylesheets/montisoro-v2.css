@@ -112,7 +112,7 @@ i.ti,span.ti{opacity:0;}
   body.nav-boxed2 .m-nav-links li a.m-cta{background:var(--orange-cta) !important;color:#fff !important;border-color:var(--orange-cta) !important;}
   body.nav-boxed2 .m-nav-links li a.m-cta:hover{background:var(--orange-cta-hover) !important;border-color:var(--orange-cta-hover) !important;color:#fff !important;}
   body.nav-boxed2 .m-nav-links li.m-lang{margin-left:6px;}
-  body.nav-boxed2 .m-nav-links li.m-lang .m-lang-btn{color:rgba(26,21,18,.62) !important;border-color:rgba(26,21,18,.2) !important;}
+  body.nav-boxed2 .m-nav-links li.m-lang .m-lang-btn{color:rgba(26,21,18,.85) !important;border-color:rgba(26,21,18,.34) !important;}
 }
 
 /* ─────────── BUTTONS — pil-standaard (bron = homepage), site-breed ───────────
