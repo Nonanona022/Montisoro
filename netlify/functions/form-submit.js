@@ -91,6 +91,21 @@ function build(type, lang, f) {
       ]
     };
   }
+  if (type === 'gids') {
+    return {
+      subject: (en ? 'RIT 3.0 guide \u2014 new download' : 'RIT 3.0-gids \u2014 nieuwe download') + (f.newsletter === 'ja' || f.newsletter === true ? (en ? ' (+ newsletter)' : ' (+ nieuwsbrief)') : ''),
+      title: en ? 'New RIT 3.0 guide download' : 'Nieuwe download RIT 3.0-gids',
+      intro: en ? 'A visitor downloaded the RIT 3.0 employer guide via the landing page.' : 'Een bezoeker downloadde de RIT 3.0-werkgeversgids via de landingspagina.',
+      rows: [
+        { label: en ? 'Name' : 'Naam', value: f.name },
+        { label: en ? 'Email' : 'E-mail', value: f.email },
+        { label: en ? 'Organisation' : 'Organisatie', value: f.organisatie },
+        { label: en ? 'Role' : 'Functie', value: f.functie },
+        { label: en ? 'Newsletter opt-in' : 'Nieuwsbrief', value: (f.newsletter === 'ja' || f.newsletter === true) ? (en ? 'Yes' : 'Ja') : (en ? 'No' : 'Nee') },
+        { label: en ? 'Source' : 'Bron', value: f.source || 'RIT 3.0-gids' }
+      ]
+    };
+  }
   // casey
   return {
     subject: en ? 'Casey AI \u2014 new waitlist signup' : 'Casey AI \u2014 nieuwe waitlist-aanmelding',
@@ -116,7 +131,7 @@ exports.handler = async (event) => {
   const rlHit = rl.hit('form:' + rl.clientIp(event), 8, 60 * 1000);
   if (!rlHit.ok) return res(429, { ok: false, error: 'rate_limited', retry_after: rlHit.retryAfter });
   const type = payload.type;
-  if (['contact', 'fitcheck', 'casey', 'booking'].indexOf(type) === -1) return res(400, { ok: false, error: 'bad_type' });
+  if (['contact', 'fitcheck', 'casey', 'booking', 'gids'].indexOf(type) === -1) return res(400, { ok: false, error: 'bad_type' });
   const lang = payload.lang === 'en' ? 'en' : 'nl';
   const f = payload.fields || {};
   if (!isEmail(f.email)) return res(400, { ok: false, error: 'invalid_email' });

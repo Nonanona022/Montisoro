@@ -707,15 +707,13 @@ body{padding-top:64px;}
 (function(){
   document.querySelectorAll('.check-list').forEach(function(list){
     list.setAttribute('role','list');
-    var items = list.querySelectorAll('.check-item');
-    items.forEach(function(item, i){
+    list.querySelectorAll('.check-item').forEach(function(item, i){
       item.setAttribute('role','listitem');
       var dot = item.querySelector('.check-dot');
       if(dot) dot.setAttribute('aria-hidden','true');
-      var n = String(i+1).padStart(2,'0');
       var sr = document.createElement('span');
       sr.className = 'sr-only';
-      sr.textContent = n + '. ';
+      sr.textContent = String(i+1).padStart(2,'0') + '. ';
       item.insertBefore(sr, item.firstChild);
     });
   });
