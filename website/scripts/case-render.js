@@ -76,7 +76,7 @@
   }
   function backHref(){ return lang === 'en' ? 'references-en.html' : 'Referentie.html'; }
   function photo(id, cls, shape, radius, placeholder, val){
-    if (val){ return '<div class="' + cls + '"><img src="' + esc(val) + '" alt=""></div>'; }
+    if (val){ return '<div class="' + cls + '"><img src="' + esc(val) + '" alt="' + esc(placeholder ? c.company + ' \u2014 ' + placeholder : c.company) + '"></div>'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<div class="' + cls + '"><image-slot ' + attr + '></image-slot></div>';
   }
@@ -158,7 +158,7 @@
     var qname = esc(c.quote_name || f('quote_name') || '');
     var qrole = esc(f('quote_role') || '');
     var qco = qrole ? qrole + ' \u00b7 ' + esc(c.company) : esc(c.company);
-    var qphoto = c.quote_photo ? '<div class="cs2-quote-photo"><img src="' + esc(c.quote_photo) + '" alt=""></div>' : '';
+    var qphoto = c.quote_photo ? '<div class="cs2-quote-photo"><img src="' + esc(c.quote_photo) + '" alt="' + esc((c.quote_name || f('quote_name') || c.company)) + '"></div>' : '';
     html += '<section class="chapter light" data-screen-label="' + esc(T.lbQuote) + '">' +
       '<div class="chapter-inner"><div class="cs2-quote' + (qphoto ? '' : ' cs2-quote-nophoto') + '">' +
         '<div><div class="cs2-quote-mark">\u201c</div><p class="cs2-quote-txt">' + esc(f('quote')) + '</p></div>' +
@@ -174,10 +174,10 @@
   function photoInner(id, shape, radius, placeholder, val, wrapCls){
     // returns the inner element(s) for a photo container; caller wraps except quote
     if (wrapCls){
-      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt=""></div>'; }
+      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt="' + esc(placeholder ? c.company + ' \u2014 ' + placeholder : c.company) + '"></div>'; }
       return '<div class="' + wrapCls + '"><image-slot id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '" placeholder="' + esc(placeholder) + '"></image-slot></div>';
     }
-    if (val){ return '<img src="' + esc(val) + '" alt="">'; }
+    if (val){ return '<img src="' + esc(val) + '" alt="' + esc(placeholder ? c.company + ' \u2014 ' + placeholder : c.company) + '">'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<image-slot ' + attr + '></image-slot>';
   }
