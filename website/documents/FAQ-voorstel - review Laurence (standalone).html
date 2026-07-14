@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FAQ-voorstel — Montisoro (ter review Laurence)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #faf9f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
+    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #faf9f5; z-index: 9999; }
+    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
+    #__bundler_placeholder { color: #999; font-size: 14px; }
+  </style>
+  <noscript>
+    <style>#__bundler_loading { display: none; }</style>
+    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
+      This page requires JavaScript to display.
+    </div>
+  </noscript>
+</head>
+<body>
+  <div id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#13100D"></rect><text x="50" y="44" font-family="Georgia,serif" font-size="30" fill="#E8592B" text-anchor="middle" font-style="italic">FAQ</text><text x="50" y="66" font-family="Arial,sans-serif" font-size="8" fill="#F9F8F6" text-anchor="middle" letter-spacing="2">MONTISORO</text></svg>
+</div>
+  <div id="__bundler_loading">Unpacking...</div>
+
+  <script>
+    
+document.addEventListener('DOMContentLoaded', async function() {
+  const loading = document.getElementById('__bundler_loading');
+  function setStatus(msg) { if (loading) loading.textContent = msg; }
+
+  const FONT_MIME = /^(font[/]|application[/](x-)?font-|application[/]vnd\.ms-fontobject)/i;
+  const MIME_TOKEN = /^[\w.+-]+[/][\w.+-]+$/;
+  function toBase64(bytes) {
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return btoa(bin);
+  }
+
+  // Error sink persists across replaceWith since it's on window, not the DOM.
+  window.addEventListener('error', function(e) {
+    // Failed resource loads (CSP-blocked links, scripts, images) fire plain
+    // events at the element — warn only; real JS errors carry message/error.
+    if (!e.message && !e.error && e.target && e.target !== window) {
+      console.warn('[bundle] resource failed to load:',
+        e.target.tagName, String(e.target.src || e.target.href || ''));
+      return;
+    }
+    var p = document.body || document.documentElement;
+    var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
+    d.id = '__bundler_err';
+    d.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;font:12px/1.4 ui-monospace,monospace;background:#2a1215;color:#ff8a80;padding:10px 14px;border-radius:8px;border:1px solid #5c2b2e;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
+    d.textContent = (d.textContent ? d.textContent + String.fromCharCode(10) : '') +
+      '[bundle] ' + (e.message || e.type) +
+      (e.filename ? ' (' + e.filename.slice(0, 60) + ':' + e.lineno + ')' : '');
+  }, true);
+
+  try {
+    const manifestEl = document.querySelector('script[type="__bundler/manifest"]');
+    const templateEl = document.querySelector('script[type="__bundler/template"]');
+    if (!manifestEl || !templateEl) {
+      setStatus('Error: missing bundle data');
+      console.error('[bundler] Missing script tags — manifestEl:', !!manifestEl, 'templateEl:', !!templateEl);
+      return;
+    }
+
+    const manifest = JSON.parse(manifestEl.textContent);
+    let template = JSON.parse(templateEl.textContent);
+
+    const uuids = Object.keys(manifest);
+    setStatus('Unpacking ' + uuids.length + ' assets...');
+
+    const blobUrls = {};
+    const resourceBlobs = {};
+    await Promise.all(uuids.map(async (uuid) => {
+      const entry = manifest[uuid];
+      try {
+        const binaryStr = atob(entry.data);
+        const bytes = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+
+        let finalBytes = bytes;
+        if (entry.compressed) {
+          if (typeof DecompressionStream !== 'undefined') {
+            const ds = new DecompressionStream('gzip');
+            const writer = ds.writable.getWriter();
+            const reader = ds.readable.getReader();
+            writer.write(bytes);
+            writer.close();
+            const chunks = [];
+            let totalLen = 0;
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              chunks.push(value);
+              totalLen += value.length;
+            }
+            finalBytes = new Uint8Array(totalLen);
+            let offset = 0;
+            for (const chunk of chunks) { finalBytes.set(chunk, offset); offset += chunk.length; }
+          } else {
+            console.warn('DecompressionStream not available, asset ' + uuid + ' may not render');
+          }
+        }
+
+        if (FONT_MIME.test(entry.mime) && MIME_TOKEN.test(entry.mime)) {
+          // Strict artifact hosts allow font-src data: but not blob:.
+          blobUrls[uuid] = 'data:' + entry.mime + ';base64,' +
+            (entry.compressed ? toBase64(finalBytes) : entry.data);
+        } else {
+          const blob = new Blob([finalBytes], { type: entry.mime });
+          blobUrls[uuid] = URL.createObjectURL(blob);
+          resourceBlobs[blobUrls[uuid]] = blob;
+        }
+      } catch (err) {
+        console.error('Failed to decode asset ' + uuid + ':', err);
+        const blob = new Blob([], { type: entry.mime });
+        blobUrls[uuid] = URL.createObjectURL(blob);
+        resourceBlobs[blobUrls[uuid]] = blob;
+      }
+    }));
+
+    const extResEl = document.querySelector('script[type="__bundler/ext_resources"]');
+    const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
+    const resourceMap = {};
+    for (const entry of extResources) {
+      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
+    }
+
+    // Artifact-host CSP (connect-src 'self') refuses fetch() of blob: URLs —
+    // consumers read these Blobs directly. Survives the swap like the error sink.
+    window.__resourceBlobs = resourceBlobs;
+
+    setStatus('Rendering...');
+    for (const uuid of uuids) template = template.split(uuid).join(blobUrls[uuid]);
+
+    // Strip integrity + crossorigin — blob URLs from a file:// document inherit
+    // a null origin, so crossorigin forces a CORS fetch that SRI then rejects.
+    // The manifest bytes are ours; SRI protects against CDN compromise, not this.
+    template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
+
+    const resourceScript = '<script>window.__resources = ' +
+      JSON.stringify(resourceMap).replace(/<\//g, '<\\/') +
+      ';</' + 'script>';
+    // Inject after <head> so the DOCTYPE stays first; prepending the script
+    // would push the parser into quirks mode. DOMParser always emits a <head>
+    // (synthesizing one if the source HTML omitted it) but may carry
+    // attributes through, so match the full opening tag. slice() rather than
+    // replace() keeps us clear of $-pattern substitution in resourceScript.
+    const headOpen = template.match(/<head[^>]*>/i);
+    if (headOpen) {
+      const i = headOpen.index + headOpen[0].length;
+      template = template.slice(0, i) + resourceScript + template.slice(i);
+    }
+
+    // Parse the template and swap the root element. Scripts inserted via
+    // DOMParser/replaceWith are inert per spec — re-create each with
+    // createElement so they execute, awaiting onload for src scripts to
+    // preserve ordering (React before ReactDOM before Babel before text/babel).
+    const doc = new DOMParser().parseFromString(template, 'text/html');
+    document.documentElement.replaceWith(doc.documentElement);
+    const dead = Array.from(document.scripts);
+    for (const old of dead) {
+      const s = document.createElement('script');
+      for (const a of old.attributes) s.setAttribute(a.name, a.value);
+      s.textContent = old.textContent;
+      // text/babel scripts with a src: read and inline. transformScriptTags
+      // does XHR against the src, but blob:null/ from a file:// origin is
+      // silently dropped. Inlining makes it a plain inline babel script,
+      // which transformScriptTags handles unconditionally.
+      if ((s.type === 'text/babel' || s.type === 'text/jsx') && s.src) {
+        const pre = resourceBlobs[s.src.split('#')[0]];
+        s.textContent = pre ? await pre.text() : await (await fetch(s.src)).text();
+        s.removeAttribute('src');
+      }
+      const p = s.src ? new Promise(function(r) { s.onload = s.onerror = r; }) : null;
+      old.replaceWith(s);
+      if (p) await p;
+    }
+    // Babel standalone auto-transforms type=text/babel on DOMContentLoaded,
+    // which fired before we swapped the document. Trigger manually if present.
+    if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
+      window.Babel.transformScriptTags();
+    }
+  } catch (err) {
+    setStatus('Error unpacking: ' + err.message);
+    console.error('Bundle unpack error:', err);
+  }
+});
+
+  </script>
+
+  <script type="__bundler/manifest">
+{}
+  </script>
+
+  <script type="__bundler/ext_resources">
+[]
+  </script>
+
+  <script type="__bundler/template">
+"<!DOCTYPE html>\n<html lang=\"nl\"><head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>FAQ-voorstel — Montisoro (ter review Laurence)<\u002Ftitle>\n\n<style>\n:root{--orange:#E8592B;--dark:#13100D;--ink:#1A1A1A;--mute:#5b5651;--line:#e4ded6;--verify:#b8420f;--vbg:#fbf5f1;}\n*{box-sizing:border-box;}\nhtml,body{margin:0;padding:0;background:#f0ede8;}\nbody{font-family:\"DM Sans\",-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;color:var(--ink);line-height:1.6;}\n.page{max-width:820px;margin:32px auto;background:#fff;padding:64px 68px;box-shadow:0 4px 30px rgba(0,0,0,.08);}\n.cover{background:var(--dark);color:#F9F8F6;margin:-64px -68px 44px;padding:56px 68px 48px;}\n.cover .kicker{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin:0 0 16px;}\n.cover h1{font-family:Georgia,\"Times New Roman\",serif;font-size:34px;line-height:1.15;margin:0 0 14px;font-weight:600;}\n.cover h1 em{color:var(--orange);font-style:italic;}\n.cover p{margin:0;font-size:15px;color:#cfc9c1;max-width:60ch;}\n.intro{font-size:15px;color:var(--mute);border-left:3px solid var(--orange);padding:4px 0 4px 18px;margin:0 0 40px;}\nh2{font-family:Georgia,serif;font-size:22px;color:var(--dark);margin:44px 0 6px;padding-bottom:10px;border-bottom:2px solid var(--dark);}\nh2:first-of-type{margin-top:0;}\n.cat-sub{font-size:13px;color:var(--mute);margin:0 0 22px;}\n.qa{margin:0 0 26px;padding:0 0 24px;border-bottom:1px solid var(--line);}\n.qa:last-child{border-bottom:none;}\n.q{font-weight:700;font-size:16px;color:var(--dark);margin:0 0 8px;}\n.q .n{color:var(--orange);font-family:Georgia,serif;font-style:italic;margin-right:8px;}\n.a{font-size:14.5px;color:#2a2620;margin:0;}\n.verify{margin:12px 0 0;background:var(--vbg);border:1px dashed #e0b9a6;border-radius:3px;padding:10px 14px;font-size:13px;color:var(--verify);}\n.verify b{text-transform:uppercase;letter-spacing:1px;font-size:10.5px;display:block;margin-bottom:3px;}\n.status{display:inline-block;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:2px 9px;border-radius:20px;vertical-align:middle;margin-left:8px;}\n.status.ok{background:#eef5ee;color:#3c7a3c;}\n.status.chk{background:var(--vbg);color:var(--verify);}\n.foot{margin-top:48px;padding-top:20px;border-top:2px solid var(--dark);font-size:12.5px;color:var(--mute);}\n@media print{body{background:#fff;}.page{box-shadow:none;margin:0;max-width:none;padding:40px 48px;}.cover{margin:-40px -48px 32px;}@page{margin:14mm;}}\n<\u002Fstyle>\n<\u002Fhead>\n<body>\n<div class=\"page\">\n<div class=\"cover\">\n<p class=\"kicker\">Ter review — intern<\u002Fp>\n<h1>FAQ-voorstel <em>Montisoro<\u002Fem><\u002Fh1>\n<p>Concept-vragen en -antwoorden voor de FAQ-pagina, opgesteld op basis van de bestaande website-teksten. Graag nakijken en corrigeren waar nodig — vooral de blokken met \"TE BEVESTIGEN\".<\u002Fp>\n<\u002Fdiv>\n\n<p class=\"intro\">Werkwijze: lees elk antwoord na. Groene \"OK\" = afgeleid uit bestaande site-teksten, waarschijnlijk juist — enkel bevestigen. Oranje \"CONTROLEREN\" = feit/cijfer/juridisch dat wij niet mogen verzinnen; vul aan of corrigeer. Nadien lever ik het definitieve resultaat terug in de website (NL + EN) en het dashboard.<\u002Fp>\n\n<h2>Aanpak &amp; traject<\u002Fh2>\n<p class=\"cat-sub\">Vragen die een HR-verantwoordelijke of preventieadviseur als eerste stelt.<\u002Fp>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">01<\u002Fspan>Wie is er allemaal betrokken bij een traject?<span class=\"status ok\">OK — bevestigen<\u002Fspan><\u002Fp>\n<p class=\"a\">HR, de leidinggevende, interne preventie en de arbeidsarts werken samen, onder begeleiding van een non-clinical casemanager van Montisoro. Die casemanager verbindt alle betrokkenen en bewaakt de voortgang — zonder de rol van de arbeidsarts over te nemen.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">02<\u002Fspan>Blijft de begeleiding vertrouwelijk voor de medewerker?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">Ja. De medewerker wordt vertrouwelijk begeleid; medische informatie blijft bij de arbeidsarts en wordt niet gedeeld met de werkgever.<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Klopt deze formulering exact met hoe jullie met vertrouwelijkheid en medische gegevens omgaan? Aanvullen indien nodig.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">03<\u002Fspan>Hoe lang duurt een re-integratietraject gemiddeld?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">[Gemiddelde doorlooptijd invullen — bv. \"afhankelijk van het dossier, doorgaans X tot Y maanden.\"]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Wat is een realistische, eerlijke gemiddelde duur die jullie kunnen verantwoorden?<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">04<\u002Fspan>Hoe verloopt de samenwerking met onze eigen arbeidsarts of externe preventiedienst?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">[Korte uitleg over de overdracht/afstemming met de bestaande arbeidsarts of externe dienst.]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Dit was een uitdrukkelijke vraag uit de audit (HR/preventie). Graag in eigen woorden beschrijven.<\u002Fp>\n<\u002Fdiv>\n\n<h2>Technologie — Storm &amp; Casey<\u002Fh2>\n<p class=\"cat-sub\">Vragen over de software achter de aanpak.<\u002Fp>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">05<\u002Fspan>Wat is het verschil tussen Storm en Casey?<span class=\"status ok\">OK — bevestigen<\u002Fspan><\u002Fp>\n<p class=\"a\">Storm is het verzuimdashboard: het brengt dossiers, opvolging en cijfers overzichtelijk samen. Casey is de AI-assistent die daarbinnen helpt — vragen beantwoorden, acties voorstellen en administratie versnellen.<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Klopt deze korte omschrijving van beide? Bijsturen indien te simpel/onjuist.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">06<\u002Fspan>Is de software AVG/GDPR-conform en waar worden de gegevens bewaard?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">[Statement over GDPR-conformiteit + waar/hoe de data gehost wordt en welke subverwerkers.]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Dit is juridisch — graag exact aanleveren (hosting, regio, subverwerkers, DPO). Wij verzinnen dit niet.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">07<\u002Fspan>Kan Storm koppelen met ons bestaande HR- of personeelssysteem?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">[Ja/nee + met welke systemen of via welke methode.]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Welke koppelingen zijn er vandaag mogelijk?<\u002Fp>\n<\u002Fdiv>\n\n<h2>Calculator &amp; kosten<\u002Fh2>\n<p class=\"cat-sub\">Vragen over de verzuimcalculator en de investering.<\u002Fp>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">08<\u002Fspan>Waarop zijn de berekende verzuimkosten gebaseerd?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">[Korte uitleg van de basis van de berekening — bv. gemiddelde loonkost, verzuimdagen, sectorcijfers.]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Welke bronnen/aannames zitten achter de calculator? Belangrijk voor geloofwaardigheid.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">09<\u002Fspan>Worden de gegevens die ik in de calculator invoer bewaard?<span class=\"status ok\">OK — bevestigen<\u002Fspan><\u002Fp>\n<p class=\"a\">Uw invoer dient om uw persoonlijke rapport te berekenen. U ontvangt het resultaat; wij gaan zorgvuldig en conform de privacywetgeving met uw gegevens om.<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Exacte bewaring: enkel bij aanvraag rapport (e-mail) of ook anoniem? Kort bevestigen.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">10<\u002Fspan>Wat kost een traject?<span class=\"status chk\">CONTROLEREN<\u002Fspan><\u002Fp>\n<p class=\"a\">Elk traject is maatwerk, afgestemd op uw organisatie en situatie. [Eventueel: investeringsbandbreedte of \"we bespreken dit tijdens het diagnosegesprek\".]<\u002Fp>\n<p class=\"verify\"><b>Te bevestigen door Laurence<\u002Fb>Wel of geen investeringsindicatie tonen? (De audit adviseerde een bandbreedte i.p.v. een exact tarief.)<\u002Fp>\n<\u002Fdiv>\n\n<h2>Praktisch — starten<\u002Fh2>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">11<\u002Fspan>Hoe starten we een samenwerking?<span class=\"status ok\">OK — bevestigen<\u002Fspan><\u002Fp>\n<p class=\"a\">Met een vrijblijvend diagnosegesprek van 30 à 45 minuten — online of bij u op locatie. We bekijken waar uw organisatie grip verliest, wat dat kost en welke aanpak past.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"qa\">\n<p class=\"q\"><span class=\"n\">12<\u002Fspan>Werkt dit ook voor een kmo of onze specifieke sector?<span class=\"status ok\">OK — bestaat al<\u002Fspan><\u002Fp>\n<p class=\"a\">Ja. De methode is sector-agnostisch en schaalt van kmo tot grote organisatie. Wat verschilt is de context, niet het systeem — u krijgt een aanpak afgestemd op uw realiteit.<\u002Fp>\n<\u002Fdiv>\n\n<div class=\"foot\">\n<b>Volgende stap:<\u002Fb> Laurence vult de \"CONTROLEREN\"-blokken aan en corrigeert waar nodig. Het definitieve document gaat terug naar het ontwikkelteam en wordt toegevoegd aan de FAQ-pagina (NL + EN) met bijhorende FAQ-schema. Vragen kunnen daarna ook zelf beheerd worden via het admin-dashboard (FAQ-module).\n<\u002Fdiv>\n<\u002Fdiv>\n\n\n<\u002Fbody><\u002Fhtml>"
+  </script>
+</body>
+</html>
