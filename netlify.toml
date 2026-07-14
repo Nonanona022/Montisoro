@@ -63,6 +63,12 @@
 [functions."metrics-rollup"]
   schedule = "15 3 * * *"
 
+# Favicon op site-root (Google haalt /favicon.ico standaard op)
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.png"
+  status = 200
+
 # Friendly endpoint alias
 [[redirects]]
   from = "/api/track"

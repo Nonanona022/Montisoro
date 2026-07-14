@@ -11,6 +11,9 @@ https://montisoro.be/*        https://montisoro.com/:splat    301!
 http://www.montisoro.be/*     https://montisoro.com/:splat    301!
 https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 
+# ── Favicon op site-root (Google haalt /favicon.ico standaard op) ──
+/favicon.ico    /favicon.png    200
+
 # ── API → Netlify Functions (zonder deze 404't /api/* → login + health kapot) ──
 /api/calculator-report       /.netlify/functions/calculator-report       200
 /api/track                   /.netlify/functions/track                   200
