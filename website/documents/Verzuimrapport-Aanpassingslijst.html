@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Verzuimrapport · Aanpassingslijst &amp; controle</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --panel:#1c1814; --card:#211c17; --line:rgba(240,237,232,0.10);
+  --off:#F0EDE8; --off-mute:rgba(240,237,232,0.62); --off-dim:rgba(240,237,232,0.40);
+  --orange:#E8592B; --orange-soft:rgba(232,89,43,0.12);
+  --good:#5BBE90; --good-soft:rgba(91,190,144,0.13);
+  --warn:#E0A23B; --warn-soft:rgba(224,162,59,0.13);
+  --gap:#E0A23B; --gap-soft:rgba(224,162,59,0.10); --gap-line:rgba(224,162,59,0.45);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{background:var(--bg);color:var(--off);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1020px;margin:0 auto;padding:48px 26px 90px;}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.eyebrow::before{content:'';width:22px;height:1.5px;background:var(--orange);}
+h1{font-family:var(--serif);font-weight:700;font-size:38px;letter-spacing:-.025em;margin:14px 0 10px;line-height:1.06;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:14px;line-height:1.65;color:var(--off-mute);max-width:74ch;}
+.lead b{color:var(--off);font-weight:600;}
+
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin:24px 0 8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px;color:var(--off-mute);}
+.legend .lg{display:inline-flex;align-items:center;gap:8px;}
+.pill{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid;}
+.pill.todo{color:var(--off-dim);border-color:var(--line);}
+.pill.done{color:var(--good);border-color:var(--good-soft);background:var(--good-soft);}
+.pill.gap{color:var(--gap);border-color:var(--gap-line);background:var(--gap-soft);}
+
+.grp{margin-top:40px;}
+.grp-h{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;}
+.grp-h .gn{font-family:var(--serif);font-weight:700;font-size:24px;color:var(--off);}
+.grp-h .gd{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--off-dim);}
+.grp-sub{font-size:12.5px;color:var(--off-mute);margin-bottom:14px;}
+
+.item{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;margin-top:12px;}
+.item-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.item-no{font-family:var(--mono);font-size:11px;color:var(--orange);font-weight:600;}
+.item-onderdeel{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--off);}
+.item-combos{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;}
+.cchip{font-family:var(--mono);font-size:9px;color:var(--off-dim);border:1px solid var(--line);border-radius:4px;padding:2px 6px;}
+.item-body{font-size:12.5px;line-height:1.62;color:var(--off-mute);}
+.item-body p{margin:0 0 8px;}
+.item-body p:last-child{margin-bottom:0;}
+.lbl{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);display:block;margin:4px 0 5px;}
+.txt{color:var(--off);}
+.sub-h{font-weight:600;color:var(--off);margin-top:9px;}
+ul.b{list-style:none;margin:5px 0 0;padding:0;}
+ul.b li{position:relative;padding-left:16px;margin:4px 0;color:var(--off-mute);}
+ul.b li::before{content:'';position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--orange);opacity:.7;}
+.was{color:var(--off-dim);font-size:11.5px;}
+.was s{color:var(--off-dim);}
+.gapbox{margin-top:10px;border:1px dashed var(--gap-line);background:var(--gap-soft);border-radius:9px;padding:11px 14px;font-size:12px;line-height:1.55;color:var(--off);}
+.gapbox b{color:var(--gap);}
+.status-row{margin-top:11px;padding-top:10px;border-top:1px solid var(--line);display:flex;align-items:center;gap:9px;}
+
+.qbox{margin-top:46px;border:1px solid var(--gap-line);background:var(--gap-soft);border-radius:14px;padding:24px 26px;}
+.qbox h2{font-family:var(--serif);font-size:21px;color:var(--off);margin-bottom:6px;}
+.qbox p{font-size:13px;color:var(--off-mute);line-height:1.6;margin-bottom:12px;}
+.qbox ol{margin:0;padding-left:20px;}
+.qbox li{font-size:13px;line-height:1.6;color:var(--off);margin:9px 0;}
+.qbox li b{color:var(--gap);}
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.7;color:var(--off-dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyebrow">Verzuimrapport · feedback klant</span>
+  <h1>Aanpassingslijst &amp; <em>controle</em>.</h1>
+  <p class="lead">Alle gevraagde wijzigingen op de <b>27 rapport-PDF's</b>, gegroepeerd per verzuimcategorie en benchmark-variant. Per onderdeel: de <b>nieuwe tekst</b>, de <b>PDF-combinaties</b> waarop ze geldt, en een <b>status</b>. <b>Bijgewerkt:</b> de twee afgekapte stukjes (punt 15 + 16) zijn aangevuld uit de briefing-PDF van 14/06/2026, en de open vragen onderaan zijn op basis daarvan beslist. Daarna voer ik alles uit op de bronfile en genereer ik de 27 PDF's opnieuw.</p>
+
+  <div class="legend">
+    <span class="lg"><span class="pill todo">Te doen</span> nog uit te voeren</span>
+    <span class="lg"><span class="pill done">Toegepast</span> staat in de PDF's</span>
+    <span class="lg"><span class="pill gap">Aanvullen</span> tekst onvolledig / vraag</span>
+  </div>
+
+  <div id="root"></div>
+
+  <div class="qbox">
+    <h2>Open vragen — beslist op basis van de briefing-PDF (14/06/2026)</h2>
+    <p>De briefing-PDF die je leverde is de volledige bron van waarheid: hij bevat de definitieve tekst van álle 9 varianten. De vragen zijn dus geen gok meer — het antwoord staat letterlijk in de briefing. Mijn beslissingen:</p>
+    <ol>
+      <li><b>Kenmerken-sectie bij "boven benchmark" → weg, geïntegreerd in de Analyse.</b> In de briefing eindigt de Analyse van elke boven-variant met de factoren ("…herkennen vaak één of meerdere van onderstaande factoren:"). Er is géén aparte "Wat we vaak zien"-sectie. Die factoren worden dus de bullets ónder de Analyse-intro; het losse blok vervalt bij boven-benchmark (anders dubbel). ✓</li>
+      <li><b>Monitoring bij Langdurig-boven → eigen lijst van 5, niet die van "onder".</b> De briefing geeft boven een eigen Monitoring-blok: wekelijkse opvolging via Storm · analyse doorstroom middellang→lang · monitoring dossierduur/re-integratiekansen/werkhervattingen · vroegdetectie via Casey AI · <i>periodieke case reviews en evaluatie van lopende interventies</i>. Deze exacte 5 bullets. ✓</li>
+      <li><b>Doelstellingen bij Langdurig-boven → één enkele "Doelstelling" + Risico + Prioriteit, NIET de 3 van "onder".</b> De briefing geeft boven: "Verlaag het langdurig verzuim naar het sectorgemiddelde van 1,4% binnen 6 tot 12 maanden" + een blok "Risico bij uitblijven van actie" + "Prioriteit 1 · urgent". ✓</li>
+      <li><b>Engels → nu NL toepassen; EN volgt later.</b> Briefing én de 27 PDF's zijn NL; het rapport valt voor EN automatisch terug op NL. Ik pas alles op NL toe (= de set die de klant beoordeelde). De EN-vertaling volgt zodra Montisoro de Engelse tekst aanlevert — dit blokkeert de NL-oplevering niet. ✓</li>
+    </ol>
+  </div>
+
+  <div class="foot">
+    <b>Status nu:</b> alle 16 punten zijn toegepast en de 27 PDF-rapporten opnieuw gegenereerd (18 juni 2026). Bron: (<span style="font-family:var(--mono)">verzuimrapport-test-report.html</span>) en genereer ik de 27 PDF's opnieuw. Daarna vink ik elke regel hier af op "Toegepast".
+  </div>
+</div>
+
+<script>
+var DATA = [
+  { grp:'Algemeen', def:'alle 27 PDF\u2019s', sub:'Geldt op elke combinatie, op de pagina\u2019s Kort, Middellang en Langdurig.', items:[
+    { no:'01', onderdeel:'Titel van de pagina', combos:'01\u201327', status:'done',
+      was:'Was: \u201CStap 5 \u2014 Kort\u201D / \u201CStap 5 \u2014 Middellang\u201D / \u201CStap 5 \u2014 Langdurig\u201D',
+      blocks:[ {lbl:'Nieuwe titel', txt:'STAP 5 \u2014 VERZUIMANALYSE'} ] },
+    { no:'02', onderdeel:'Plaatsing titel \u201CKort verzuim\u201D (Kort-pagina)', combos:'01\u201327', status:'done',
+      blocks:[ {lbl:'Actie', txt:'Verplaats de titel \u201CKort verzuim\u201D zodat hij \u00F3nder de volgende tekst staat:'},
+               {lbl:'Tekst erboven', txt:'De benchmark is gebaseerd op cijfers van SD Worx 2024 (LE_Verzuim_industrie) en \u201CZiekteverzuim in Belgi\u00EB 2025\u201D. Per verzuimtype wordt \u00E9\u00E9n analyse getoond, op basis van uw ingegeven cijfers.'} ] }
+  ]},
+
+  { grp:'Kort verzuim', def:'pagina Kort', sub:'', items:[
+    { no:'03', onderdeel:'COCC-afkorting \u00B7 variant: beter dan benchmark', combos:'01\u201309', status:'done',
+      blocks:[ {lbl:'Wijziging', html:'\u201CCulture of Care &amp; Capability-programma\u201D \u2192 <span class="txt">\u201CCulture of Care &amp; Capability-programma (COCC)\u201D</span>'} ] },
+    { no:'08', onderdeel:'Analyse \u00B7 variant: boven benchmark', combos:'19\u201327', status:'done',
+      blocks:[ {lbl:'Nieuwe Analyse', txt:'Het kort verzuim binnen uw organisatie ligt boven het sectorgemiddelde. Hoewel dit niet noodzakelijk wijst op een structureel probleem, vormt het wel een belangrijk signaal dat verdere aandacht verdient. Een verhoogd kort verzuim kan wijzen op onderliggende factoren die de aanwezigheid en inzetbaarheid van medewerkers be\u00EFnvloeden. Indien deze signalen onvoldoende worden opgevolgd, bestaat het risico dat kortdurende afwezigheden evolueren naar frequenter of langduriger verzuim.'} ] },
+    { no:'09', onderdeel:'Aandachtspunt \u00B7 variant: boven benchmark', combos:'19\u201327', status:'done',
+      blocks:[ {lbl:'Nieuw Aandachtspunt', txt:'Kort verzuim is vaak de eerste zichtbare indicator van bredere welzijns- of organisatievraagstukken. Een stijgende trend verdient daarom snelle analyse en gerichte opvolging, zodat onderliggende oorzaken tijdig kunnen worden aangepakt. Hoe vroeger signalen worden gedetecteerd, hoe groter de kans om verdere escalatie en bijkomende kosten te voorkomen.'} ] }
+  ]},
+
+  { grp:'Middellang verzuim', def:'pagina Middellang', sub:'', items:[
+    { no:'04', onderdeel:'Analyse \u00B7 variant: onder benchmark', combos:'1,2,3,10,11,12,19,20,21', status:'done',
+      blocks:[ {lbl:'Nieuwe Analyse', html:'Het middellang verzuim ligt onder het sectorgemiddelde. Dit wijst op een sterke capaciteit om medewerkers succesvol te begeleiden tijdens afwezigheden van \u00E9\u00E9n tot <span class="txt">twaalf</span> maanden en hen duurzaam te re-integreren. <span class="was">(was: \u201C\u2026 \u00E9\u00E9n tot zes maanden\u2026\u201D)</span>'} ] },
+    { no:'05', onderdeel:'Actie-bullet (cultuur) \u00B7 variant: onder benchmark', combos:'1,2,3,10,11,12,19,20,21', status:'done',
+      blocks:[ {lbl:'Nieuwe bullet', html:'Een cultuur waarin contact en betrokkenheid behouden blijven <span class="txt">tijdens de afwezigheidsperiode</span>.'} ] },
+    { no:'06', onderdeel:'Aandachtspunt \u00B7 variant: onder benchmark', combos:'1,2,3,10,11,12,19,20,21', status:'done',
+      blocks:[ {lbl:'Nieuw Aandachtspunt', txt:'Een sterke prestatie op middellang verzuim is vaak het resultaat van consistente processen en kwalitatieve opvolging. Om dit voordeel te behouden, is het belangrijk om succesvolle werkwijzen niet afhankelijk te maken van individuele personen, maar structureel te verankeren binnen de organisatie. Daarnaast kunnen verschillen tussen afdelingen waardevolle inzichten bieden in welke aanpakken het meest effectief zijn.'} ] },
+    { no:'14', onderdeel:'Actie-bullet (gesprekken) \u00B7 variant: gelijk aan benchmark', combos:'4,5,6,13,14,15,22,23,24', status:'done',
+      blocks:[ {lbl:'Nieuwe bullet', html:'Verhoog de kwaliteit van gesprekken rond inzetbaarheid, <span class="txt">herstel</span> en re-integratie. <span class="txt">Betrek hierbij ook de verschillende actoren.</span>'} ] },
+    { no:'15', onderdeel:'Analyse \u00B7 variant: boven benchmark', combos:'7,8,9,16,17,18,25,26,27', status:'done',
+      blocks:[ {lbl:'Nieuwe Analyse', txt:'Het middellang verzuim binnen uw organisatie ligt boven het sectorgemiddelde. Dit vormt een belangrijk aandachtspunt, aangezien deze verzuimcategorie vaak de overgang vormt tussen kortdurende afwezigheid en langdurig verzuim. Een verhoogd middellang verzuim wijst erop dat medewerkers minder snel terugkeren naar het werk dan verwacht of dat re-integratietrajecten onvoldoende effect hebben. Zonder gerichte interventies bestaat het risico dat een deel van deze dossiers evolueert naar langdurige afwezigheid, met een aanzienlijke impact op kosten, productiviteit en personeelsbeschikbaarheid. Organisaties die met verhoogd middellang verzuim geconfronteerd worden, herkennen vaak \u00E9\u00E9n of meerdere van onderstaande factoren:'},
+               {sub:'Factoren (uit briefing-PDF p.12)', bullets:[
+                  'Onvoldoende gestructureerd casemanagement.',
+                  'Onduidelijk eigenaarschap van verzuimdossiers.',
+                  'Beperkte opvolging tijdens de afwezigheidsperiode.',
+                  'Te late inschatting van arbeidspotentieel en re-integratiemogelijkheden.',
+                  'Onvoldoende gebruik van taak-, uurrooster- of werkplekaanpassingen.',
+                  'Leidinggevenden die onvoldoende ondersteund zijn in het begeleiden van afwezige medewerkers.' ]} ] },
+    { no:'16', onderdeel:'Aanbevolen acties \u00B7 variant: boven benchmark', combos:'7,8,9,16,17,18,25,26,27', status:'done',
+      blocks:[ {lbl:'Nieuwe structuur', sub:'1. Versterk de diagnosefase', bullets:[
+                  'Analyseer systematisch waarom medewerkers langer afwezig blijven dan verwacht.',
+                  'Breng drempels voor werkhervatting in kaart.',
+                  'Evalueer welke werk- en taakaanpassingen reeds werden onderzocht of toegepast.',
+                  'Identificeer terugkerende patronen per afdeling, functie of leidinggevende.' ]},
+               {sub:'2. Structureer het casemanagement', bullets:[
+                  'Wijs één duidelijke casemanager (intern of extern) toe per verzuimdossier.',
+                  'Evalueer actief het arbeidspotentieel en mogelijke terugkeerscenario’s.',
+                  'Zorg voor regelmatige contactmomenten gedurende de volledige afwezigheidsperiode.',
+                  'Maak taak-, werkplek- en uurroosteraanpassingen een vast onderdeel van elk re-integratietraject.' ]},
+               {sub:'3. Versterk leiderschap en begeleiding', bullets:[
+                  'Investeer prioritair in het Culture of Care & Capability-programma.',
+                  'Ondersteun leidinggevenden in het voeren van verbindende gesprekken rond inzetbaarheid en werkhervatting.',
+                  'Maak het onderscheid duidelijk tussen ondersteunen, begeleiden en ongewenste druk uitoefenen.' ]},
+               {sub:'4. Stuur op data en vroegdetectie', bullets:[
+                  'Monitor verzuimtrends op wekelijkse basis.',
+                  'Detecteer vroegtijdig signalen van escalatie richting langdurig verzuim.',
+                  'Evalueer de effectiviteit van interventies systematisch en stuur bij waar nodig.' ]} ] }
+  ]},
+
+  { grp:'Langdurig verzuim', def:'pagina Langdurig', sub:'Bij \u201Conder benchmark\u201D wordt het Aandachtspunt-blok vervangen door een rijker geheel (intro + Monitoring + Doelstellingen + Aandachtspunt). Bij \u201Cboven benchmark\u201D komt er een Analyse met situatie-bullets + Aanbevolen acties in routes.', items:[
+    { no:'07', onderdeel:'Herstructurering \u00B7 variant: onder benchmark', combos:'1,4,7,10,13,16,19,22,25', status:'done',
+      blocks:[ {lbl:'Intro (vervangt oud Aandachtspunt)', txt:'Een laag langdurig verzuim is vaak het resultaat van jarenlang opgebouwde processen. Het behoud vraagt blijvende aandacht voor re-integratie en werkbaar werk. De grootste kans op werkhervatting bevindt zich doorgaans in het eerste jaar van afwezigheid.'},
+               {sub:'Monitoring \u2014 \u201CDe voortgang kan structureel worden opgevolgd via:\u201D', bullets:[
+                  'Analyse van dossierduur, werkhervattingen en taakaanpassingen via het Storm-platform.',
+                  'Opvolging van individuele actieplannen en re-integratietrajecten.',
+                  'Monitoring van de doorstroom van middellang naar langdurig verzuim.',
+                  'Evaluatie van uitstroom- en exit patronen om structurele oorzaken beter te begrijpen.',
+                  'Vroegdetectie van risico\u2019s via Casey AI.' ]},
+               {sub:'Doelstellingen', bullets:[
+                  'Behoud van het langdurig verzuim onder het sectorgemiddelde van 1,4%.',
+                  'Verhoog de reactivatiegraad van bestaande langdurige dossiers.',
+                  'Voorkom dat middellang verzuim evolueert naar langdurige afwezigheid.' ]},
+               {sub:'Aandachtspunt (afsluitend)', txt:'Een laag langdurig verzuim is vaak het resultaat van jarenlang opgebouwde processen en een sterke preventieve aanpak. Het behoud van deze positie vraagt blijvende aandacht voor re-integratie, werkbaar werk en vroegtijdige interventie. Daarnaast blijft het belangrijk om medewerkers die reeds langdurig afwezig zijn actief te begeleiden. De grootste kans op succesvolle werkhervatting bevindt zich doorgaans in het eerste jaar van afwezigheid.'} ] },
+    { no:'10', onderdeel:'Analyse \u00B7 variant: boven benchmark', combos:'3,6,9,12,15,18,21,24,27', status:'done',
+      blocks:[ {lbl:'Nieuwe Analyse', txt:'Het langdurig verzuim binnen uw organisatie ligt boven het sectorgemiddelde. Dit vormt een belangrijke uitdaging, aangezien langdurige afwezigheden doorgaans de grootste impact hebben op verzuimkosten, productiviteit, personeelsplanning en operationele continu\u00EFteit. Een verhoogd langdurig verzuim ontstaat zelden plots. In de meeste gevallen is het het resultaat van onderliggende processen die onvoldoende worden onderbroken tijdens eerdere verzuimfases. Daarom is het essentieel om niet alleen de huidige langdurige dossiers te beheren, maar ook de oorzaken van de instroom grondig te analyseren. Organisaties met verhoogd langdurig verzuim worden vaak geconfronteerd met \u00E9\u00E9n of beide onderstaande situaties:'},
+               {bullets:[
+                  'Onvoldoende beheersing van middellang verzuim, waardoor medewerkers doorstromen naar langdurige afwezigheid.',
+                  'Complexe langdurige dossiers waarbij medische, psychosociale of organisatorische factoren een succesvolle terugkeer bemoeilijken.' ]} ] },
+    { no:'12', onderdeel:'Aanbevolen acties \u00B7 variant: boven benchmark', combos:'3,6,9,12,15,18,21,24,27', status:'done',
+      blocks:[ {sub:'Route 1 \u2014 Versterk de aanpak van middellang verzuim (belangrijkste prioriteit)', bullets:[
+                  'Analyseer de doorstroom van middellang naar langdurig verzuim.',
+                  'Versterk casemanagement en dossieropvolging.',
+                  'Faciliteer sneller taak-, functie- en werkplekaanpassingen.',
+                  'Detecteer dossiers met verhoogd risico op escalatie.',
+                  'Veranker eigenaarschap en opvolging binnen het volledige re-integratieproces.' ]},
+               {sub:'Route 2 \u2014 Activeer bestaande langdurige dossiers', bullets:[
+                  'Analyseer de belangrijkste oorzaken van langdurige afwezigheid.',
+                  'Prioriteer dossiers binnen het eerste jaar van afwezigheid.',
+                  'Onderzoek mogelijkheden voor job crafting en alternatieve functies.',
+                  'Faciliteer gefaseerde of deeltijdse werkhervatting waar haalbaar.',
+                  'Zet externe expertise en gespecialiseerde begeleiding gericht in.' ]} ] },
+    { no:'13', onderdeel:'Monitoring \u2014 extra bullet \u00B7 variant: boven benchmark', combos:'3,6,9,12,15,18,21,24,27', status:'done',
+      blocks:[ {lbl:'Toevoegen als 5e bullet', txt:'Periodieke case reviews en evaluatie van lopende interventies.'} ] },
+    { no:'11', onderdeel:'Aandachtspunt \u00B7 variant: boven benchmark', combos:'3,6,9,12,15,18,21,24,27', status:'done',
+      blocks:[ {lbl:'Nieuw Aandachtspunt', txt:'De sterkste voorspeller van toekomstig langdurig verzuim is een verhoogd middellang verzuim. Daarom ligt de grootste hefboom vaak niet in het beheren van bestaande langdurige dossiers, maar in het voorkomen van nieuwe instroom. Tegelijkertijd blijft snelle actie cruciaal bij medewerkers die reeds langdurig afwezig zijn. De kans op een succesvolle werkhervatting neemt doorgaans af naarmate de afwezigheidsduur toeneemt.'} ] }
+  ]}
+];
+
+function esc(s){ return s; }
+function blockHTML(b){
+  var h='';
+  if(b.lbl) h+='<span class="lbl">'+b.lbl+'</span>';
+  if(b.sub) h+='<p class="sub-h">'+b.sub+'</p>';
+  if(b.txt) h+='<p class="txt">'+b.txt+'</p>';
+  if(b.html) h+='<p>'+b.html+'</p>';
+  if(b.bullets){ h+='<ul class="b">'; b.bullets.forEach(function(li){ h+='<li>'+li+'</li>'; }); h+='</ul>'; }
+  if(b.gap) h+='<div class="gapbox"><b>\u26A0 Aanvullen \u2014</b> '+b.gap+'</div>';
+  return h;
+}
+function combosHTML(c){
+  return String(c).split(',').map(function(x){ return '<span class="cchip">'+x.trim()+'</span>'; }).join('');
+}
+function statusPill(s){
+  if(s==='done') return '<span class="pill done">Toegepast</span>';
+  if(s==='gap')  return '<span class="pill gap">Aanvullen</span>';
+  return '<span class="pill todo">Te doen</span>';
+}
+var root=document.getElementById('root');
+DATA.forEach(function(g){
+  var html='<div class="grp"><div class="grp-h"><span class="gn">'+g.grp+'</span><span class="gd">'+g.def+'</span></div>';
+  if(g.sub) html+='<div class="grp-sub">'+g.sub+'</div>';
+  g.items.forEach(function(it){
+    html+='<div class="item">';
+    html+='<div class="item-top"><span class="item-no">PUNT '+it.no+'</span><span class="item-onderdeel">'+it.onderdeel+'</span><span class="item-combos">'+combosHTML(it.combos)+'</span></div>';
+    html+='<div class="item-body">';
+    if(it.was) html+='<p class="was">'+it.was+'</p>';
+    it.blocks.forEach(function(b){ html+=blockHTML(b); });
+    html+='</div>';
+    html+='<div class="status-row">'+statusPill(it.status)+'<span style="font-size:11px;color:var(--off-dim);font-family:var(--mono)">PDF\u2019s: '+it.combos+'</span></div>';
+    html+='</div>';
+  });
+  html+='</div>';
+  root.insertAdjacentHTML('beforeend', html);
+});
+</script>
+</body>
+</html>

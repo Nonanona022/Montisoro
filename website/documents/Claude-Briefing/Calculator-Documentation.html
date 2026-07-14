@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Calculator-documentatie</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" href="../../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<link rel="stylesheet" href="briefing.css">
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════ 01 — COVER ═══════════ -->
+<section class="page page--dark" data-screen-label="01 Cover">
+  <svg class="cover-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cc-bg" x1="0.2" x2="0.8" y1="0" y2="1"><stop offset="0%" stop-color="#1B130C"/><stop offset="55%" stop-color="#13100D"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+      <radialGradient cx="50%" cy="6%" id="cc-gtr" r="50%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.16"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="10%" cy="92%" id="cc-gbl" r="42%"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="cc-sh" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.13"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <filter id="cc-grain"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#cc-bg)" width="794" height="1123"/>
+    <rect fill="url(#cc-gtr)" width="794" height="1123"/>
+    <rect fill="url(#cc-gbl)" width="794" height="1123"/>
+    <polygon fill="url(#cc-sh)" opacity="0.5" points="794,0 794,460 380,1123 -100,1123"/>
+    <path d="M 794 700 C 560 670, 300 860, 0 960" fill="none" stroke="#E8592B" stroke-opacity="0.14" stroke-width="1.2"/>
+    <text x="540" y="700" font-family="Playfair Display, Georgia, serif" font-size="640" font-weight="900" font-style="italic" fill="#F0EDE8" opacity="0.03" text-anchor="middle">€</text>
+    <rect filter="url(#cc-grain)" width="794" height="1123" opacity="0.045"/>
+  </svg>
+  <div class="cover-pad cover-inner">
+    <img class="cover-logo" src="assets/montisoro-logo.png" alt="Montisoro">
+    <div class="cover-mid">
+      <div class="cover-rule"></div>
+      <div class="cover-kicker">Verzuimcalculator · Documentatie</div>
+      <h1 class="cover-title">Wat verzuim<br><em>écht</em> kost.</h1>
+      <p class="cover-sub">Hoe de Montisoro-verzuimcalculator werkt — voor wie hem invult én voor wie het rekenmodel erachter wil begrijpen. Eén document, twee delen, met een volledig uitgewerkt voorbeeld.</p>
+    </div>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Deel A</div><div class="m-val">Voor de gebruiker</div></div>
+      <div><div class="m-lbl">Deel B</div><div class="m-val">Het rekenmodel</div></div>
+      <div><div class="m-lbl">Versie</div><div class="m-val">Juni 2026</div></div>
+    </div>
+    <div class="cover-foot"><span>Re-integrate What Matters</span><span>montisoro.com/calculator</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — LEESWIJZER ═══════════ -->
+<section class="page" data-screen-label="02 Leeswijzer">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Leeswijzer</span></div>
+
+    <span class="eyebrow">Over dit document</span>
+    <h2 class="sec-title">Twee delen,<br>één <em>rekenmodel.</em></h2>
+    <p class="sec-lead">Deel A is voor wie de calculator invult en zijn rapport wil begrijpen. Deel B legt het volledige rekenmodel bloot — formules, parameters en bronnen. De cijfers in beide delen komen uit exact dezelfde engine.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="t-no">A1</span><span class="t-title">De zes stappen<small>Wat de calculator van u vraagt</small></span><span class="t-pg">03</span></div>
+      <div class="toc-row"><span class="t-no">A2</span><span class="t-title">Uw rapport lezen<small>Zes inzichten in uw cijfer</small></span><span class="t-pg">04</span></div>
+      <div class="toc-row"><span class="t-no">A3</span><span class="t-title">Een uitgewerkt voorbeeld<small>Van invoer tot kost, met getallen</small></span><span class="t-pg">05</span></div>
+      <div class="toc-row"><span class="t-no">B1</span><span class="t-title">De invoervariabelen<small>Elk veld, bereik en standaard</small></span><span class="t-pg">06</span></div>
+      <div class="toc-row"><span class="t-no">B2</span><span class="t-title">Het rekenmodel<small>De formules, in volgorde</small></span><span class="t-pg">07</span></div>
+      <div class="toc-row"><span class="t-no">B3</span><span class="t-title">Benchmark &amp; risico<small>Vergelijking met de sector</small></span><span class="t-pg">08</span></div>
+      <div class="toc-row"><span class="t-no">B4</span><span class="t-title">Besparing &amp; prioriteiten<small>Scenario's en aanbevelingen</small></span><span class="t-pg">09</span></div>
+      <div class="toc-row"><span class="t-no">B5</span><span class="t-title">Parameters &amp; bronnen<small>Wat vastligt + de disclaimer</small></span><span class="t-pg">10</span></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">Eén bron van waarheid: dezelfde engine voedt de calculator, het <em>PDF-rapport</em> en de interne e-mails.</p>
+      <p class="co-cite">Wat u op het scherm ziet, is exact wat in uw rapport komt.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Leeswijzer</span><span class="pf-no">02</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — DEEL A: DE 6 STAPPEN ═══════════ -->
+<section class="page" data-screen-label="03 Deel A stappen">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel A · Gebruiker</span></div>
+
+    <div class="part-open"><span class="part-tag">Deel A · Voor de gebruiker</span><h2 class="part-h">Zes stappen naar<br>uw <em>kostenbeeld.</em></h2></div>
+    <p class="sec-lead" style="margin-top:12px;">De calculator is een begeleide wizard. U vult zes korte stappen in; elk veld is bewerkbaar via een slider óf door het exacte getal te typen. Het resultaat is <strong>een eerste indicatie</strong> — niet om alles exact te vatten, wel om zichtbaar te maken wat vaak onderschat wordt.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Organisatie</h3><p>Aantal medewerkers (FTE, deeltijders pro rata) en de verdeling arbeider / bediende. Dit bepaalt de hoofdtelling van het hele model.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Gemiddeld brutoloon</h3><p>Brutoloon per jaar, incl. vakantiegeld, eindejaarspremie en gemiddelde bonus — exclusief patronale RSZ (die rekent de engine apart bij).</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Doorlopende kosten</h3><p>Vaste kosten naast het gewaarborgd loon: voordelen alle aard, groeps-, hospitalisatie- en andere verzekeringen, firmawagen — per kost toewijsbaar aan arbeider, bediende of beide.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Vervangingskosten</h3><p>Het deel van de directe kosten dat bovenop komt om het werk tóch gedaan te krijgen: interim, tijdelijke vervanging, extra aanwerving of overuren. Uitgedrukt als %.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Organisatorische impact</h3><p>De niet-gefactureerde kost: productiviteits- en kwaliteitsverlies, managementtijd, kennisverlies, vertragingen, re-integratie. Als % van de directe loonkost (standaard ± 50%).</p></div></div>
+      <div class="hl-row"><div class="hl-num">06</div><div><h3>Verzuimprofiel</h3><p>Netto werkdagen per jaar (± 220) en het verzuim per categorie — kort (≤ 1 mnd), middellang (1 mnd–1 jr) en langdurig (&gt; 1 jr) — apart voor arbeiders en bedienden.</p></div></div>
+    </div>
+
+    <p class="note"><strong>Bewerkbaar &amp; transparant:</strong> elk invoerveld toont een potlood-icoon — sleep de slider of typ het exacte getal. Een lichte validatie wijst u op ontbrekende kerngegevens (aantal medewerkers en brutoloon).</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel A · De zes stappen</span><span class="pf-no">03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — DEEL A: UW RAPPORT LEZEN ═══════════ -->
+<section class="page" data-screen-label="04 Deel A rapport">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel A · Gebruiker</span></div>
+
+    <span class="eyebrow">Uw rapport lezen</span>
+    <h2 class="sec-title">Zes inzichten in <em>uw cijfer.</em></h2>
+    <p class="sec-lead">Het rapport vertaalt uw input naar zes leesbare uitkomsten. Twee kostbegrippen staan centraal — en het verschil ertussen telt.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:16px;">Werkgeverslast</h3><p>Het hoofdcijfer: de <strong>factureerbare</strong> jaarlijkse kost van verzuim — directe loonkost + doorlopende kosten + vervanging. Dit verschijnt vaak (deels) in de boekhouding.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:16px;">Totale kost</h3><p>De werkgeverslast plus de geschatte <strong>organisatorische impact</strong> — de niet-gefactureerde kost die zelden ergens zichtbaar staat. Dit is meestal het cijfer dat verrast.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Benchmark</h3><p>Uw verzuimpercentage tegenover het Belgische sectorgemiddelde, per categorie en in totaal — zo ziet u meteen waar u afwijkt.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Risiconiveau</h3><p>Laag, Gemiddeld, Verhoogd of Hoog — bepaald door hoe ver uw verzuim boven of onder het sectorgemiddelde ligt, met een korte duiding.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Besparingsscenario's</h3><p>Wat een reductie van 0,5 · 1 · 2 procentpunt verzuim u jaarlijks zou opleveren — lineair vertaald naar euro's.</p></div>
+      <div class="hl-card"><h3 style="font-size:16px;">Prioriteiten</h3><p>Drie concrete aandachtspunten, automatisch afgeleid uit de categorie waar u het sterkst afwijkt van de benchmark.</p></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">Het rapport toont ook het <em>FTE-equivalent:</em> alle verloren werkdagen samen, omgerekend naar voltijdse medewerkers. Vaak het meest tastbare getal.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel A · Uw rapport lezen</span><span class="pf-no">04</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — DEEL A: UITGEWERKT VOORBEELD ═══════════ -->
+<section class="page" data-screen-label="05 Voorbeeld">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel A · Voorbeeld</span></div>
+
+    <span class="eyebrow">Een uitgewerkt voorbeeld</span>
+    <h2 class="sec-title">Van invoer naar kost,<br>met <em>getallen.</em></h2>
+    <p class="sec-lead">Een vereenvoudigd voorbeeld voor een organisatie van 250 medewerkers, op het Belgische sectorgemiddelde. De doorlopende kosten zijn hier op nul gezet om de keten zuiver te tonen.</p>
+
+    <div class="block tight">
+      <div class="divlabel">De invoer</div>
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Medewerkers</div><div class="kv-v">250 FTE</div></div>
+        <div class="kv-row"><div class="kv-k">Gemiddeld brutoloon</div><div class="kv-v">€ 45.000 / jaar</div></div>
+        <div class="kv-row"><div class="kv-k">Netto werkdagen</div><div class="kv-v">220 dagen</div></div>
+        <div class="kv-row"><div class="kv-k">Verzuim (= sectorgemiddelde)</div><div class="kv-v">10,14%</div></div>
+        <div class="kv-row"><div class="kv-k">Vervangingsfactor · organisatiefactor</div><div class="kv-v">30% · 50%</div></div>
+      </div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">De berekening</div>
+      <table class="tbl">
+        <tbody>
+          <tr><td>Kost per verloren dag</td><td>(€45.000 ÷ 220) × 1,30</td><td class="num"><span class="mono">€ 266</span></td></tr>
+          <tr><td>Verloren werkdagen</td><td>250 × 220 × 10,14%</td><td class="num"><span class="mono">5.577 dgn</span></td></tr>
+          <tr><td>Directe loonkost</td><td>5.577 × €266</td><td class="num"><span class="mono">€ 1.483.482</span></td></tr>
+          <tr><td>+ Vervangingskost (30%)</td><td>30% × directe loonkost</td><td class="num"><span class="mono">€ 445.045</span></td></tr>
+          <tr><td><strong>= Werkgeverslast</strong></td><td>loonkost + vervanging</td><td class="num"><span class="mono">€ 1.928.527</span></td></tr>
+          <tr><td>+ Organisatorische impact (50%)</td><td>50% × directe loonkost</td><td class="num"><span class="mono">€ 741.741</span></td></tr>
+          <tr><td><strong>= Totale kost</strong></td><td>werkgeverslast + impact</td><td class="num"><span class="mono">€ 2.670.268</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr);margin-top:14px;">
+      <div class="stat"><div class="s-v"><em>€</em>1,93M</div><div class="s-l">Werkgeverslast (factureerbaar).</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>2,67M</div><div class="s-l">Totale kost (incl. impact).</div></div>
+      <div class="stat"><div class="s-v">25,4</div><div class="s-l">FTE-equivalent aan verloren dagen.</div></div>
+    </div>
+    <p class="note"><strong>Let op:</strong> illustratief, met doorlopende kosten op nul. In de praktijk verhogen voordelen en verzekeringen de werkgeverslast verder. Cijfers afgerond.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel A · Uitgewerkt voorbeeld</span><span class="pf-no">05</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — DEEL B: INVOERVARIABELEN ═══════════ -->
+<section class="page page--dark" data-screen-label="06 Invoer">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel B · Technisch</span></div>
+
+    <div class="part-open"><span class="part-tag">Deel B · Het rekenmodel</span><h2 class="part-h">De <em>invoer</em>variabelen.</h2></div>
+    <p class="sec-lead" style="margin-top:12px;color:var(--off-mute);">Elk veld dat de engine inleest, met bereik en standaardwaarde. Verzuim en de meeste kosten kunnen apart voor arbeiders en bedienden worden gezet.</p>
+
+    <div style="background:#fff;border-radius:4px;padding:6px 18px;margin-top:8px;">
+      <table class="tbl" style="margin-top:6px;">
+        <thead><tr><th>Veld</th><th>Bereik</th><th>Standaard</th></tr></thead>
+        <tbody>
+          <tr><td>Medewerkers (FTE)</td><td>1 – 2.000+</td><td class="num"><span class="mono">—</span></td></tr>
+          <tr><td>Verdeling arbeider/bediende</td><td>0 – 100%</td><td class="num"><span class="mono">60% arb.</span></td></tr>
+          <tr><td>Brutoloon / jaar</td><td>€ 20.000 – 120.000+</td><td class="num"><span class="mono">—</span></td></tr>
+          <tr><td>Voordelen alle aard</td><td>€ / maand</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Firmawagen</td><td>€ / maand</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Groeps- / hospitalisatie- / andere verz.</td><td>€ / jaar</td><td class="num"><span class="mono">0</span></td></tr>
+          <tr><td>Vervangingsfactor</td><td>0 – 100%</td><td class="num"><span class="mono">30%</span></td></tr>
+          <tr><td>Organisatiefactor</td><td>0 – 150%</td><td class="num"><span class="mono">50%</span></td></tr>
+          <tr><td>Netto werkdagen / jaar</td><td>180 – 240</td><td class="num"><span class="mono">220</span></td></tr>
+          <tr><td>Verzuim kort / midden / lang</td><td>0 – 10% per categorie</td><td class="num"><span class="mono">sector</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note" style="color:var(--off-mute-2);border-color:var(--line-d);"><strong style="color:var(--off-mute);">Groepstoewijzing:</strong> doorlopende kosten worden via een arbeider/bediende-aandeel gewogen naar de juiste groep. Verzuim wordt per groep ingegeven en headcount-gewogen samengeteld voor het dashboard en de benchmark.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel B · Invoervariabelen</span><span class="pf-no">06</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — DEEL B: HET REKENMODEL ═══════════ -->
+<section class="page" data-screen-label="07 Rekenmodel">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel B · Technisch</span></div>
+
+    <span class="eyebrow">Het rekenmodel</span>
+    <h2 class="sec-title">Van input naar <em>kost.</em></h2>
+    <p class="sec-lead">Het model is volledig deterministisch en transparant. Hieronder de kernberekening, stap voor stap, met de exacte formules zoals de engine ze toepast.</p>
+
+    <div class="divlabel">De keten, in volgorde</div>
+    <div class="formula"><span class="fx-c">// kost van één verloren werkdag</span><br>kost/dag <span class="fx-op">=</span> ( brutoloon ÷ werkdagen ) <span class="fx-op">×</span> 1,30 <span class="fx-c">(RSZ +30%)</span></div>
+    <div class="formula"><span class="fx-c">// verloren dagen, per groep, samengeteld</span><br>verloren dagen <span class="fx-op">=</span> medewerkers <span class="fx-op">×</span> werkdagen <span class="fx-op">×</span> ( verzuim% ÷ 100 )</div>
+    <div class="formula"><span class="fx-c">// directe loonkost van verzuim</span><br>loonkost <span class="fx-op">=</span> verloren dagen <span class="fx-op">×</span> kost/dag</div>
+    <div class="formula">vervangingskost <span class="fx-op">=</span> loonkost <span class="fx-op">×</span> ( vervangfactor ÷ 100 )<br>org. impact <span class="fx-op">=</span> loonkost <span class="fx-op">×</span> ( orgfactor ÷ 100 )</div>
+    <div class="formula" style="border-left-color:var(--orange);background:var(--orange-soft);"><span class="fx-c">// het hoofdcijfer + het totaal</span><br><strong>werkgeverslast</strong> <span class="fx-op">=</span> loonkost <span class="fx-op">+</span> doorlopende kosten <span class="fx-op">+</span> vervanging<br><strong>totale kost</strong> <span class="fx-op">=</span> werkgeverslast <span class="fx-op">+</span> org. impact</div>
+
+    <p class="note"><strong>Afgeleid:</strong> FTE-equivalent = verloren dagen ÷ werkdagen · kost per medewerker = werkgeverslast ÷ FTE · doorlopende kosten = voordelen + verzekeringen, pro rata verdeeld over de verloren dagen.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel B · Het rekenmodel</span><span class="pf-no">07</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — DEEL B: BENCHMARK & RISICO ═══════════ -->
+<section class="page" data-screen-label="08 Benchmark">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel B · Technisch</span></div>
+
+    <span class="eyebrow">Benchmark &amp; risico</span>
+    <h2 class="sec-title">Vergelijken met <em>de sector.</em></h2>
+
+    <div class="block tight">
+      <div class="divlabel">Sectorbenchmark — Belgisch gemiddelde</div>
+      <div class="bench">
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Kort verzuim (≤ 1 maand)</span><span class="br-val">3,18%</span></div><div class="br-track"><div class="br-fill" style="width:31%"></div></div></div>
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Middellang (1 mnd – 1 jaar)</span><span class="br-val">3,10%</span></div><div class="br-track"><div class="br-fill" style="width:31%"></div></div></div>
+        <div class="bench-row sector"><div class="br-top"><span class="br-name">Langdurig (&gt; 1 jaar)</span><span class="br-val">3,86%</span></div><div class="br-track"><div class="br-fill" style="width:38%"></div></div></div>
+        <div class="bench-row you"><div class="br-top"><span class="br-name">Totaal sectorgemiddelde</span><span class="br-val">10,14%</span></div><div class="br-track"><div class="br-fill" style="width:100%"></div></div></div>
+      </div>
+      <p class="note"><strong>Bron:</strong> SD Worx Verzuimbarometer 2025 (nationaal, alle sectoren). Jaarlijks bij te werken via het admin-panel.</p>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Risiconiveau — verschil t.o.v. de sector (in procentpunt)</div>
+      <table class="tbl">
+        <thead><tr><th>Niveau</th><th>Voorwaarde</th><th>Betekenis</th></tr></thead>
+        <tbody>
+          <tr><td>Laag</td><td><span class="mono">verschil &lt; −0,5 pp</span></td><td>Onder het sectorgemiddelde; beperkt risico op structurele uitval.</td></tr>
+          <tr><td>Gemiddeld</td><td><span class="mono">≤ +1,0 pp</span></td><td>Rond de sector; gerichte opvolging houdt de kosten beheersbaar.</td></tr>
+          <tr><td>Verhoogd</td><td><span class="mono">≤ +3,0 pp</span></td><td>Merkbaar erboven; verhoogd risico op productiviteitsverlies.</td></tr>
+          <tr><td>Hoog</td><td><span class="mono">&gt; +3,0 pp</span></td><td>Sterk erboven; hoog risico voor continuïteit en kosten.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><strong>Verschil (procentpunt):</strong> het totale verzuim van de organisatie min het sectorgemiddelde (10,14%). Een positief getal betekent meer verzuim dan de sector; een negatief getal minder.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel B · Benchmark &amp; risico</span><span class="pf-no">08</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — DEEL B: BESPARING & PRIORITEITEN ═══════════ -->
+<section class="page" data-screen-label="09 Besparing">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel B · Technisch</span></div>
+
+    <span class="eyebrow">Besparing &amp; prioriteiten</span>
+    <h2 class="sec-title">Van cijfer naar <em>actie.</em></h2>
+
+    <div class="block tight">
+      <div class="divlabel">Besparingsscenario's</div>
+      <p class="body-p" style="margin-bottom:6px;">Lineair model: de kost is evenredig met het verzuimpercentage. Een reductie van <em>X</em> procentpunt levert <span class="lead-fig">werkgeverslast × (X ÷ totaal&nbsp;verzuim%)</span>, afgekapt zodat de reductie nooit groter is dan het huidige verzuim.</p>
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Scenario 1 — bescheiden</div><div class="kv-v">− 0,5 procentpunt</div></div>
+        <div class="kv-row"><div class="kv-k">Scenario 2 — gericht</div><div class="kv-v">− 1,0 procentpunt</div></div>
+        <div class="kv-row"><div class="kv-k">Scenario 3 — ambitieus</div><div class="kv-v">− 2,0 procentpunt</div></div>
+      </div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Prioriteiten — regelgebaseerd</div>
+      <p class="body-p" style="margin-bottom:8px;">De engine rangschikt de drie verzuimcategorieën op hun afwijking t.o.v. de sectorbenchmark en kiest de bijhorende aanbeveling. Wijkt geen enkele categorie noemenswaardig af, dan vult ze aan met generieke prioriteiten (data zichtbaar maken, beleid verankeren).</p>
+      <div class="hl-grid cols-3" style="margin-top:6px;">
+        <div class="hl-card"><div class="c-role">Kort</div><h3 style="font-size:14px;">Frequent verzuim</h3><p>Versterk leidinggevenden in terugkeer- en verzuimgesprekken; maak patronen vroeg zichtbaar.</p></div>
+        <div class="hl-card"><div class="c-role">Middellang</div><h3 style="font-size:14px;">Casemanagement</h3><p>Gestructureerd casemanagement zodat dossiers niet evolueren naar langdurige uitval.</p></div>
+        <div class="hl-card"><div class="c-role">Langdurig</div><h3 style="font-size:14px;">Re-integratie</h3><p>Externe regie op slepende dossiers om terugkeer te versnellen en de zwaarste kostenpost te beheersen.</p></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">Het rapport sluit af met drie <em>concrete</em> prioriteiten — geen scorekaart, maar een vertrekpunt voor het gesprek.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel B · Besparing &amp; prioriteiten</span><span class="pf-no">09</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — DEEL B: PARAMETERS & BRONNEN ═══════════ -->
+<section class="page" data-screen-label="10 Parameters">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Deel B · Technisch</span></div>
+
+    <span class="eyebrow">Parameters &amp; aannames</span>
+    <h2 class="sec-title">Wat erin <em>vastligt.</em></h2>
+    <p class="sec-lead">Alle parameters staan in één configuratiebestand en zijn beheerbaar via het admin-panel. Wijzigt de wet of het sectorcijfer, dan past één plek het hele systeem aan.</p>
+
+    <table class="tbl" style="margin-top:14px;">
+      <thead><tr><th>Parameter</th><th>Standaard</th><th>Betekenis</th></tr></thead>
+      <tbody>
+        <tr><td>Patronale lasten (RSZ)</td><td class="num"><span class="mono">× 1,30</span></td><td>+30% op het brutoloon.</td></tr>
+        <tr><td>Sector — kort</td><td class="num"><span class="mono">3,18%</span></td><td>Belgisch gemiddelde, categorie K.</td></tr>
+        <tr><td>Sector — middellang</td><td class="num"><span class="mono">3,10%</span></td><td>Belgisch gemiddelde, categorie M.</td></tr>
+        <tr><td>Sector — langdurig</td><td class="num"><span class="mono">3,86%</span></td><td>Belgisch gemiddelde, categorie L.</td></tr>
+        <tr><td>Vervangingsfactor</td><td class="num"><span class="mono">30%</span></td><td>Vervanging = % van de directe loonkost.</td></tr>
+        <tr><td>Organisatiefactor</td><td class="num"><span class="mono">50%</span></td><td>Org. impact = % van de directe loonkost.</td></tr>
+        <tr><td>Besparingsstappen</td><td class="num"><span class="mono">0,5 · 1 · 2</span></td><td>Reductie in procentpunt verzuim.</td></tr>
+        <tr><td>Netto werkdagen</td><td class="num"><span class="mono">± 220</span></td><td>Na vakantie, feestdagen en ADV.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="block tight">
+      <div class="divlabel">Wettelijke context</div>
+      <p class="body-p"><strong>Solidariteitsbijdrage (RIT 3.0):</strong> in 2026 betaalt de werkgever 30% van het bedrag van de ziekte-uitkering in maand 2 en 3 van de arbeidsongeschiktheid; in 2027 uitgebreid met maand 4 en 5. De calculator houdt het brutoloon exclusief patronale RSZ; die wordt apart bijgerekend (×1,30).</p>
+    </div>
+
+    <p class="note"><strong>Disclaimer:</strong> de calculator levert een onderbouwde indicatie op basis van uw input en het Belgische sectorgemiddelde — geen audit of boekhoudkundige vaststelling. De werkelijke kost hangt af van organisatie-specifieke factoren. Bedoeld om het juiste gesprek te starten, niet om alles exact te vatten.</p>
+
+    <div class="p-foot"><span>Montisoro — Calculator-documentatie</span><span>Deel B · Parameters &amp; bronnen</span><span class="pf-no">10</span></div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fit-check resultaat — voorstel v2 (demo)</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#13100D;--off:#F0EDE8;--off-mute:rgba(240,237,232,.62);--orange:#E8592B;
+    --line-d:rgba(240,237,232,.12);--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:ui-monospace,Menlo,monospace;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#26221d;font-family:var(--sans);color:var(--off);padding:32px 16px 80px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .dh{text-align:center;margin-bottom:26px;}
+  .dh .eye{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+  .dh h1{font-family:var(--serif);font-weight:700;font-size:25px;margin:8px 0 6px;color:#fff;}
+  .dh p{font-size:13px;line-height:1.6;color:var(--off-mute);max-width:64ch;margin:0 auto;}
+  .cols{display:flex;gap:48px;justify-content:center;align-items:flex-start;flex-wrap:wrap;}
+  .col-cap{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--off-mute);margin-bottom:14px;}
+  .col-cap b{color:var(--orange);}
+
+  /* MOBIEL: phone frame, gestapeld */
+  .phone{width:393px;background:var(--bg);border-radius:36px;border:1px solid var(--line-d);box-shadow:0 30px 70px -30px rgba(0,0,0,.7);overflow:hidden;}
+  .phone .notch{height:26px;display:flex;align-items:center;justify-content:center;}
+  .phone .notch::after{content:'';width:96px;height:6px;border-radius:6px;background:rgba(240,237,232,.18);}
+  .screen{height:720px;overflow-y:auto;padding:6px 20px 30px;scrollbar-width:thin;}
+  .screen::-webkit-scrollbar{width:5px;}.screen::-webkit-scrollbar-thumb{background:rgba(240,237,232,.18);border-radius:6px;}
+
+  /* DESKTOP: twee kolommen naast elkaar */
+  .deskwrap{width:720px;max-width:100%;background:var(--bg);border-radius:20px;border:1px solid var(--line-d);padding:26px 26px 30px;box-shadow:0 30px 70px -30px rgba(0,0,0,.7);}
+  .desk{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin:6px 0 16px;}
+  .eyebrow::before{content:'';width:16px;height:1.5px;background:var(--orange);}
+  .meta{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;border-top:1px solid var(--line-d);padding-top:16px;margin-bottom:18px;}
+  .meta .k{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--off-mute);margin-bottom:4px;}
+  .meta .v{font-family:var(--serif);font-weight:700;font-size:14px;color:#fff;}
+  h2.head{font-family:var(--serif);font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-.02em;color:#fff;margin-bottom:14px;}
+  .intro{font-size:12.5px;line-height:1.7;color:var(--off-mute);margin-bottom:22px;}
+  .seclabel{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin:0 0 12px;}
+  .tension{background:#1f1811;border-left:2px solid var(--orange);border-radius:12px;padding:16px 18px;}
+  .tension p{font-family:var(--serif);font-weight:700;font-size:14px;line-height:1.7;color:#fff;}
+  .blockp{font-size:12.5px;line-height:1.75;color:var(--off-mute);}
+  .clamp{position:relative;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1);}
+  .clamp.cl{max-height:120px;}
+  .clamp.cl::after{content:'';position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,#1f1811);pointer-events:none;}
+  .more{display:inline-flex;align-items:center;gap:7px;margin-top:11px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--orange);padding:0;}
+  .more svg{width:14px;height:14px;transition:transform .3s;}.more.open svg{transform:rotate(180deg);}
+  .divider{height:1px;background:var(--line-d);margin:22px 0;}
+
+  /* Rapportkaart (rechts / onderaan) */
+  .rcard{background:#241C15;border:1px solid var(--line-d);border-radius:16px;padding:22px 20px;}
+  .rcard .reye{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);}
+  .rcard h3{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.25;color:#fff;margin:9px 0 8px;}
+  .rcard .sub{font-size:11.5px;line-height:1.6;color:var(--off-mute);margin-bottom:15px;}
+  .rlist{display:flex;flex-direction:column;gap:9px;margin-bottom:18px;}
+  .rlist .ri{display:flex;gap:9px;font-size:12px;line-height:1.45;color:var(--off);}
+  .rlist .ri svg{flex:0 0 15px;width:15px;height:15px;color:var(--orange);margin-top:1px;}
+  .fld{margin-bottom:10px;}
+  .fld label{display:block;font-size:11px;font-weight:600;color:var(--off);margin-bottom:5px;}
+  .fld .inp{display:flex;align-items:center;gap:8px;border:1px solid var(--line-d);border-radius:10px;padding:11px 12px;color:var(--off-mute);font-size:12.5px;}
+  .cta{display:block;width:100%;text-align:center;background:var(--orange);color:#fff;border:none;border-radius:100px;padding:14px;font-family:var(--sans);font-weight:700;font-size:13px;cursor:pointer;margin-top:6px;}
+  .ghost{display:block;text-align:center;border:1px solid var(--line-d);color:var(--off);border-radius:100px;padding:12px;font-size:12px;font-weight:600;margin-top:10px;text-decoration:none;}
+  .fine{font-family:var(--mono);font-size:8.5px;letter-spacing:.04em;color:var(--off-mute);text-align:center;margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="dh">
+    <div class="eye">Voorstel v2 · demo (niet live)</div>
+    <h1>Fit-check resultaat — nieuwe indeling</h1>
+    <p>Links het volledige advies (met "Lees meer" op Herkenning). Rechts een <b>"Volledig rapport"</b>-kaart in calculator-stijl: wat er in de PDF zit (5 kernpunten) + gegevens + knop. Op mobiel stapelt het (advies → rapportkaart); op desktop staat het naast elkaar.</p>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="col-cap">Mobiel — <b>gestapeld</b></div>
+      <div class="phone"><div class="notch"></div><div class="screen" id="mob"></div></div>
+    </div>
+    <div>
+      <div class="col-cap">Desktop — <b>naast elkaar</b></div>
+      <div class="deskwrap"><div class="desk" id="desk"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var HERK='Veel organisaties beschikken over de juiste intenties, betrokken medewerkers en bestaande afspraken rond verzuim. Toch blijkt het in de praktijk niet altijd eenvoudig om verzuim op een consistente manier op te volgen. Werkwijzen verschillen tussen afdelingen, verantwoordelijkheden zijn niet altijd even duidelijk en opvolging gebeurt niet overal volgens dezelfde aanpak. Daardoor ontstaan verschillen in kwaliteit, snelheid en besluitvorming. U zoekt een duidelijke aanpak die gedragen wordt door de hele organisatie.';
+  var AANPAK='Wij vertalen verzuimaanpakken naar heldere processen, duidelijke verantwoordelijkheden en werkbare afspraken die aansluiten bij uw dagelijkse werking.';
+  var TOP5=['Analyse van uw huidige verzuimaanpak','Uniforme aanpak van melding tot werkhervatting','Duidelijke afspraken per betrokken rol','Meetindicatoren voor opvolging en sturing','Begeleiding bij duurzame verankering'];
+  var chev='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+  var chk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  var pencil='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+
+  function adviesHtml(clampId){
+    return '<span class="eyebrow">Uw fit · Operationele structuur</span>' +
+      '<div class="meta"><div><div class="k">Verzuimtype</div><div class="v">Langdurig verzuim</div></div><div><div class="k">Maturiteit</div><div class="v">Niveau 2 / 4</div></div><div><div class="k">Schaal</div><div class="v">100 – 500 medewerkers</div></div></div>' +
+      '<h2 class="head">Duidelijke afspraken. Consistente opvolging.</h2>' +
+      '<p class="intro">Op basis van uw antwoorden lijkt verdere afstemming van uw verzuimaanpak de meest aangewezen volgende stap.</p>' +
+      '<div class="seclabel">Herkenning</div>' +
+      '<div class="tension"><div class="clamp cl" id="'+clampId+'"><p>'+HERK+'</p></div>' +
+        '<button class="more" data-c="'+clampId+'">Lees meer '+chev+'</button></div>' +
+      '<div class="divider"></div>' +
+      '<div class="seclabel">Onze aanpak</div><p class="blockp">'+AANPAK+'</p>';
+  }
+  function rapportHtml(){
+    return '<div class="rcard"><span class="reye">Volledig rapport</span>' +
+      '<h3>Ontvang uw volledige PDF fit-check</h3>' +
+      '<p class="sub">Meteen als PDF · 3 pagina\u2019s · berekend op uw gegevens. In uw rapport:</p>' +
+      '<div class="rlist">'+TOP5.map(function(t){return '<div class="ri">'+chk+'<span>'+t+'</span></div>';}).join('')+'</div>' +
+      '<div class="fld"><label>Naam</label><div class="inp">Uw naam</div></div>' +
+      '<div class="fld"><label>Bedrijf</label><div class="inp">Uw organisatie</div></div>' +
+      '<div class="fld"><label>Werk e-mail</label><div class="inp">naam@bedrijf.be</div></div>' +
+      '<button class="cta">Download mijn rapport \u2192</button>' +
+      '<a class="ghost" href="#">Liever meteen een gesprek</a>' +
+      '<div class="fine">Gratis · GDPR-conform · geen spam</div></div>';
+  }
+
+  document.getElementById('mob').innerHTML = adviesHtml('cm') + '<div class="divider"></div>' + rapportHtml();
+  document.getElementById('desk').innerHTML = '<div>'+adviesHtml('cd')+'</div><div>'+rapportHtml()+'</div>';
+
+  document.querySelectorAll('[data-more], .more').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var c=document.getElementById(btn.getAttribute('data-c'));
+      var collapsed=c.classList.toggle('cl');
+      c.style.maxHeight = collapsed ? '' : c.scrollHeight+'px';
+      btn.classList.toggle('open',!collapsed);
+      btn.childNodes[0].nodeValue=(collapsed?'Lees meer ':'Minder ');
+    });
+  });
+  document.querySelectorAll('.cta').forEach(function(b){b.addEventListener('click',function(){alert('Demo: hier start straks de PDF-download + e-mail (zoals nu).');});});
+</script>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="UTF-8">
+<title>Montisoro — Verzuimrapport · TEST (briefing-structuur)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MONTISORO — VERZUIMRAPPORT · TEST  (volgt briefing 14/06/2026)
+   10 logische pagina's. Zelfde render-contract als productie:
+   window.__renderReport({lang, meta, vars, results}).
+   Benchmarks (kort 3,3 / middel 1,9 / lang 1,4) komen uit results.
+   PRODUCTIE ONGEMOEID — dit is een testbestand.
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --page:#FBFAF8; --card:#fff;
+  --ink:#1a1512; --ink-soft:#5c534b; --ink-mute:#8a8078;
+  --off:#F0EDE8; --off-mute:rgba(240,237,232,0.60); --off-mute-2:rgba(240,237,232,0.40);
+  --orange:#E8592B; --orange-soft:#FAE8E1; --orange-deep:#a8431f;
+  --line:rgba(26,21,18,0.10); --line-2:rgba(26,21,18,0.06);
+  --line-d:rgba(240,237,232,0.12);
+  --good:#3F8F6B; --good-soft:rgba(63,143,107,0.12);
+  --warn:#C8824A;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{background:#3a3631;font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;-webkit-font-smoothing:antialiased;}
+.page{position:relative;width:210mm;min-height:297mm;background:var(--page);overflow:hidden;display:flex;flex-direction:column;margin:0 auto;}
+.page--dark{background:var(--bg);color:var(--off);}
+.pad{flex:1;display:flex;flex-direction:column;padding:20mm 19mm 14mm;}
+@media screen{ body{padding:0;} .page{box-shadow:0 18px 50px -18px rgba(0,0,0,.5);} .page + .page{margin-top:0;} }
+@media print{
+  html,body{background:#fff;}
+  .page{box-shadow:none;width:210mm;height:297mm;min-height:0;overflow:hidden;break-inside:avoid;page-break-inside:avoid;}
+  .page:last-child{height:auto;min-height:0;break-inside:auto;page-break-inside:auto;}
+  .page:last-child .pad{display:block;padding-bottom:14mm !important;}
+  /* compressie zodat content-zware pagina's binnen één A4 vallen (geen tekst geschrapt) */
+  .pad{padding:9mm 14mm 6mm !important;}
+  .pad .p{line-height:1.22 !important;margin-bottom:3px !important;font-size:8.8px !important;}
+  .pad .sub-h{margin-top:5px !important;margin-bottom:2px !important;}
+  .pad ul.clean{margin:2px 0 !important;}
+  .pad ul.clean li{margin-bottom:1px !important;line-height:1.22 !important;font-size:8.8px !important;}
+  .pad .t{margin-bottom:3px !important;}
+  .pad .bmline,.pad .statpill{margin:3px 0 !important;}
+  .pad .prionote,.pad [class*=prio]{margin-top:5px !important;padding:7px 10px !important;font-size:8.6px !important;}
+  @page{size:A4;margin:0;}
+}
+
+/* head/foot */
+.ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:22px;}
+.page--dark .ph{border-color:var(--line-d);}
+.ph .logo{font-family:var(--serif);font-weight:700;font-style:italic;font-size:17px;color:var(--ink);}
+.page--dark .ph .logo{color:#fff;}
+.ph .tag{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-family:var(--mono);}
+.page--dark .ph .tag{color:var(--off-mute);}
+.pf{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--line);margin-top:auto;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-family:var(--mono);}
+.page--dark .pf{border-color:var(--line-d);color:var(--off-mute-2);}
+.pf .no{color:var(--orange);}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);font-family:var(--mono);}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--orange);}
+h2.t{font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.12;letter-spacing:-.025em;color:var(--ink);margin:12px 0 8px;}
+.page--dark h2.t{color:#fff;}
+h2.t em{font-style:italic;color:var(--orange);}
+.lead{font-size:12.5px;font-weight:300;line-height:1.7;color:var(--ink-soft);max-width:64ch;}
+.page--dark .lead{color:var(--off-mute);}
+.p{font-size:11.5px;line-height:1.7;color:var(--ink-soft);margin-bottom:10px;}
+.page--dark .p{color:var(--off-mute);}
+.p strong{color:var(--ink);font-weight:600;} .page--dark .p strong{color:#fff;}
+.divlabel{display:flex;align-items:center;gap:12px;margin:18px 0 6px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);font-family:var(--mono);}
+ul.clean{list-style:none;display:flex;flex-direction:column;gap:7px;margin:8px 0;}
+ul.clean li{display:flex;gap:10px;font-size:11px;line-height:1.5;color:var(--ink-soft);}
+.page--dark ul.clean li{color:var(--off-mute);}
+ul.clean li::before{content:'';flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:6px;}
+ol.num{margin:8px 0 8px 4px;padding-left:18px;display:flex;flex-direction:column;gap:6px;}
+ol.num li{font-size:11px;line-height:1.5;color:var(--ink-soft);} ol.num li strong{color:var(--ink);}
+
+/* TITLE */
+.title-wrap{flex:1;display:flex;flex-direction:column;}
+.tt-mid{margin-top:auto;}
+.tt-rule{width:46px;height:2px;background:var(--orange);margin-bottom:24px;}
+.tt-kicker{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);margin-bottom:20px;}
+.tt-h{font-family:var(--serif);font-weight:700;font-size:54px;line-height:1.02;letter-spacing:-.03em;color:#fff;}
+.tt-sub{font-size:13px;font-weight:300;line-height:1.7;color:var(--off-mute);max-width:52ch;margin-top:20px;}
+.tt-meta{margin-top:46px;display:grid;grid-template-columns:1fr 1fr;gap:18px 34px;border-top:1px solid var(--line-d);padding-top:22px;max-width:480px;}
+.tt-meta .ml{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--off-mute-2);margin-bottom:7px;}
+.tt-meta .mv{font-family:var(--serif);font-weight:700;font-size:16px;color:#fff;}
+.tt-foot{margin-top:auto;display:flex;justify-content:space-between;padding-top:22px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--off-mute-2);}
+.tt-badge{position:absolute;top:20mm;right:19mm;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:6px 13px;z-index:2;}
+
+/* TOC list (exec summary) */
+.toc{list-style:none;counter-reset:t;display:flex;flex-direction:column;margin-top:6px;border-top:1px solid var(--line);}
+.toc li{counter-increment:t;display:grid;grid-template-columns:30px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-2);font-size:11.5px;line-height:1.5;color:var(--ink-soft);}
+.toc li::before{content:counter(t);font-family:var(--serif);font-weight:700;font-style:italic;color:var(--orange);font-size:15px;}
+
+/* KPI cards p4 */
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card);}
+.kpi.hero{background:var(--orange-soft);border-color:rgba(232,89,43,.22);grid-column:1/-1;}
+.kpi .kl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:10px;}
+.kpi .kv{font-family:var(--serif);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink);font-feature-settings:"tnum";}
+.kpi.hero .kv{font-size:40px;color:var(--orange-deep);}
+.kpi .kn{font-size:10px;color:var(--ink-mute);margin-top:8px;line-height:1.4;}
+.subkpi{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;margin-top:10px;}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;font-size:11px;vertical-align:top;}
+.tbl th{font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);border-bottom:1.5px solid var(--ink);}
+.page--dark .tbl th{color:var(--off-mute);border-color:var(--off);}
+.tbl td{border-bottom:1px solid var(--line-2);color:var(--ink-soft);}
+.page--dark .tbl td{border-color:var(--line-d);color:var(--off-mute);}
+.tbl td:first-child{color:var(--ink);font-weight:500;} .page--dark .tbl td:first-child{color:#fff;}
+.tbl .num{text-align:right;font-family:var(--mono);font-feature-settings:"tnum";white-space:nowrap;}
+.tbl .e{color:var(--orange-deep);font-weight:500;} .page--dark .tbl .e{color:var(--orange);}
+
+/* input recap */
+.io-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:8px;}
+.io-col .ch{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);padding-bottom:7px;border-bottom:1px solid var(--line);margin-bottom:4px;}
+.io-row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line-2);font-size:10.5px;}
+.io-row .k{color:var(--ink-soft);} .io-row .v{font-family:var(--mono);color:var(--ink);white-space:nowrap;}
+.io-row.empty .v{color:var(--ink-mute);}
+.io-grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px;}
+.io-tbl{margin-top:10px;} .io-tbl td,.io-tbl th{padding:10px 12px;}
+
+/* status pill */
+.statpill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;padding:7px 14px;border-radius:100px;margin:4px 0;}
+.statpill.under{background:var(--good-soft);color:var(--good);}
+.statpill.equal{background:rgba(200,130,74,.14);color:var(--warn);}
+.statpill.above{background:var(--orange-soft);color:var(--orange-deep);}
+.bmline{font-size:11px;color:var(--ink-mute);margin:6px 0 2px;}
+.bmline b{color:var(--ink);font-family:var(--mono);}
+.prionote{margin-top:12px;border-left:2px solid var(--orange);padding:8px 0 8px 16px;font-size:11px;line-height:1.6;color:var(--ink-soft);font-style:italic;}
+.prionote b{font-style:normal;color:var(--orange-deep);}
+.sub-h{font-size:12px;font-weight:600;color:var(--ink);margin:14px 0 4px;}
+
+/* scenario cards p5 */
+.scn{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:12px;background:var(--card);}
+.scn.hl{border-color:rgba(232,89,43,.3);background:var(--orange-soft);}
+.scn .sh{display:flex;align-items:baseline;gap:10px;margin-bottom:4px;}
+.scn .sh .stag{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--orange);padding:3px 8px;border-radius:5px;}
+.scn .sh h4{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--ink);}
+.scn .sp{font-size:10.5px;line-height:1.55;color:var(--ink-soft);margin:6px 0;}
+.note{font-size:9.5px;line-height:1.55;color:var(--ink-mute);border-top:1px solid var(--line);padding-top:10px;margin-top:14px;font-family:var(--sans);}
+
+/* fte hero p9 */
+.fte-hero{display:flex;align-items:center;gap:24px;border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card);margin-top:8px;}
+.fte-num{font-family:var(--serif);font-weight:700;font-size:56px;line-height:.9;color:var(--orange);font-feature-settings:"tnum";}
+.fte-txt{font-size:12px;line-height:1.6;color:var(--ink-soft);} .fte-txt strong{color:var(--ink);}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
+.ctx{border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+.ctx .cl{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:7px;}
+.ctx .cv{font-size:12px;line-height:1.55;color:var(--ink-soft);} .ctx .cv b{color:var(--ink);}
+
+/* cta p10 */
+.cta{background:var(--bg);border-radius:16px;padding:30px 30px;color:var(--off);margin-top:14px;}
+.cta h3{font-family:var(--serif);font-weight:700;font-size:21px;color:#fff;margin-bottom:8px;} .cta h3 em{font-style:italic;color:var(--orange);}
+.cta .cl{font-size:12px;color:var(--off-mute);line-height:1.6;}
+.cta-steps{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;margin:16px 0;}
+.cta-steps div{font-size:11px;color:var(--off-mute);display:flex;gap:9px;} .cta-steps div::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--orange);margin-top:6px;flex-shrink:0;}
+.cta-contact{display:flex;gap:30px;border-top:1px solid var(--line-d);padding-top:16px;margin-top:6px;}
+.cta-contact .l{font-family:var(--mono);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--off-mute-2);margin-bottom:5px;}
+.cta-contact .v{font-size:12px;color:#fff;}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#13100D">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#13100D"/>
+    <circle cx="600" cy="330" r="115" fill="none" stroke="#E8592B" stroke-width="10"/>
+    <text x="600" y="372" font-family="Georgia, serif" font-size="150" font-style="italic" font-weight="700" fill="#F0EDE8" text-anchor="middle">M</text>
+    <rect x="450" y="520" width="300" height="14" rx="7" fill="#E8592B"/>
+    <rect x="380" y="560" width="440" height="10" rx="5" fill="rgba(240,237,232,0.30)"/>
+  </svg>
+</template>
+
+<div id="report"></div>
+
+<script src="../config/calculator-params.js"></script>
+<script>window.MONTISORO_CALC_CONFIG=Object.assign({},window.MONTISORO_CALC_CONFIG,{sector:{K:3.3,M:1.9,L:1.4}});</script>
+<script src="../services/verzuim-engine.js"></script>
+<script src="verzuimrapport-test.content.js"></script>
+<script>
+(function(){
+  'use strict';
+  var E=window.VerzuimEngine, CT=window.__TESTREPORT_CONTENT;
+  function eur(n){return '\u20ac '+Math.round(n||0).toLocaleString('nl-BE',{maximumFractionDigits:0});}
+  function pct(n,d){d=d==null?1:d;return (n||0).toLocaleString('nl-BE',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';}
+  function esc(s){return String(s==null?'':s);}
+
+  function buildDemo(){
+    var st={fte:250,splitA:60,salary:45000,voordelen:50,firmawagen:700,groepsv:600,hospv:400,andereverz:200,
+      grpVoordelen:'beide',grpFirmawagen:'bediende',grpGroepsv:'bediende',grpHospv:'beide',grpAndereverz:'beide',
+      days:220,kA:3.6,mA:2.4,lA:2.1,kB:3.0,mB:1.8,lB:1.4,vervangFactor:30,orgFactor:50};
+    var r=E.report(st,'nl');
+    return {lang:'nl',meta:{company_name:'Voorbeeld NV',report_date:new Date().toLocaleDateString('nl-BE',{day:'numeric',month:'long',year:'numeric'})},vars:r.vars,results:r.results};
+  }
+
+  function statusOf(mine,avg){
+    var d=mine-avg;
+    if(d < -0.15) return 'under';
+    if(d <= 0.15) return 'equal';
+    return 'above';
+  }
+
+  function render(report){
+    if(!report||!report.results){report=buildDemo();}
+    var R=report.results, I=R.input, V=report.vars, M=report.meta||{};
+    var days=I.days||220;
+    var host=document.getElementById('report');
+    var H='';
+
+    /* ── helper page shell ── */
+    function page(dark,inner,foot,no){
+      return '<section class="page'+(dark?' page--dark':'')+'" data-screen-label="'+no+'"><div class="pad">'+
+        '<div class="ph"><span class="logo">Montisoro</span><span class="tag">Verzuimrapport · TEST</span></div>'+
+        inner+'<div class="pf"><span>Montisoro — Verzuimrapport</span><span>'+foot+'</span><span class="no">'+no+'</span></div></div></section>';
+    }
+
+    /* ══ P1 — TITELBLAD ══ */
+    H+='<section class="page page--dark" data-screen-label="01"><div class="pad title-wrap">'+
+       '<span class="tt-badge">Vertrouwelijk · Indicatief</span>'+
+       '<span class="logo" style="font-family:var(--serif);font-weight:700;font-style:italic;font-size:20px;color:#fff;">Montisoro</span>'+
+       '<div class="tt-mid"><div class="tt-rule"></div><div class="tt-kicker">Verzuimrapport</div>'+
+       '<h1 class="tt-h">Wat verzuim<br><em style="font-style:italic;color:var(--orange);">écht</em> kost.</h1>'+
+       '<p class="tt-sub">Indicatieve businessanalyse van de jaarlijkse kost, de risico\u2019s en het besparingspotentieel van verzuim binnen uw organisatie.</p>'+
+       '<div class="tt-meta">'+
+         '<div><div class="ml">Opgesteld voor</div><div class="mv">'+esc(M.company_name||'Voorbeeld NV')+'</div></div>'+
+         '<div><div class="ml">Datum</div><div class="mv">'+esc(M.report_date||'')+'</div></div>'+
+         '<div><div class="ml">Taal</div><div class="mv">Nederlands</div></div>'+
+         '<div><div class="ml">Auteur</div><div class="mv">Montisoro BV</div></div>'+
+       '</div></div>'+
+       '<div class="tt-foot"><span>Re-integrate What Matters</span><span>montisoro.com</span></div>'+
+       '</div></section>';
+
+    /* ══ P2 — EXECUTIVE SUMMARY ══ */
+    var p2='<span class="eyebrow">Executive summary</span><h2 class="t">Verzuim als <em>strategische</em> hefboom.</h2>'+
+      '<p class="p">Dit rapport brengt de impact van verzuim binnen uw organisatie in kaart op basis van de door u aangeleverde gegevens — een onderbouwde analyse van de huidige verzuimsituatie, de financiële gevolgen en de opportuniteiten om kosten te beheersen en duurzame inzetbaarheid te versterken.</p>'+
+      '<p class="p">Verzuim raakt niet alleen de loonkost, maar ook productiviteit, operationele continuïteit, klantentevredenheid en werkdruk. Door die impact zichtbaar te maken, ondersteunt dit rapport strategische besluitvorming rond welzijn, leiderschap, personeelsbeleid en organisatieontwikkeling.</p>'+
+      '<div class="divlabel">In dit rapport vindt u</div>'+
+      '<ol class="toc">'+
+        '<li>Een overzicht van de ingegeven organisatie- en verzuimgegevens.</li>'+
+        '<li>Een berekening van de directe en totale verzuimkost.</li>'+
+        '<li>Een analyse van de kost per kalenderdag en per werkdag afwezigheid.</li>'+
+        '<li>Een simulatie van de financiële impact en het besparingspotentieel.</li>'+
+        '<li>Een gedetailleerde analyse van kort-, middellang- en langdurig verzuim, opgesplitst naar arbeiders en bedienden.</li>'+
+        '<li>Strategische inzichten in de belangrijkste verzuimdrivers, risicozones en verbeterkansen.</li>'+
+        '<li>Concrete aanbevelingen en een plan van aanpak om verzuim duurzaam te beheersen.</li>'+
+      '</ol>'+
+      '<p class="p" style="margin-top:14px;"><strong>Wat gemeten wordt, kan gestuurd worden.</strong> Dit rapport helpt u verzuim niet enkel als kost te bekijken, maar als een strategische hefboom voor duurzame groei en operationele excellentie.</p>';
+    H+=page(false,p2,'Executive summary','02');
+
+    /* ══ P3 — OVERZICHT INGEVOERDE GEGEVENS ══ */
+    var nArb=Math.round((I.fte||0)*(I.splitA||0)/100), nBed=(I.fte||0)-nArb;
+    function tw(g){return g==='arbeider'?'Arbeiders':g==='bediende'?'Bedienden':g==='beide'?'Beide':'—';}
+    var costRows=[
+      ['Voordelen alle aard', I.grpVoordelen, eur(I.voordelen)+' /mnd'],
+      ['Firmawagen', I.grpFirmawagen, eur(I.firmawagen)+' /mnd'],
+      ['Groepsverzekering', I.grpGroepsv, eur(I.groepsv)+' /jaar'],
+      ['Hospitalisatieverzekering', I.grpHospv, eur(I.hospv)+' /jaar'],
+      ['Andere verzekeringen', I.grpAndereverz, eur(I.andereverz)+' /jaar']
+    ];
+    var costTbl='<table class="tbl io-tbl"><thead><tr><th>Doorlopende kostenpost</th><th>Toewijzing</th><th class="num">Bedrag</th></tr></thead><tbody>'+
+      costRows.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+tw(r[1])+'</td><td class="num">'+r[2]+'</td></tr>';}).join('')+
+      '</tbody></table>';
+    var verzTbl='<table class="tbl io-tbl"><thead><tr><th>Verzuimtype</th><th class="num">Arbeiders</th><th class="num">Bedienden</th></tr></thead><tbody>'+
+      '<tr><td>Kort &le; 1 maand</td><td class="num">'+pct(I.kA,2)+'</td><td class="num">'+pct(I.kB,2)+'</td></tr>'+
+      '<tr><td>Middellang 1–12 maanden</td><td class="num">'+pct(I.mA,2)+'</td><td class="num">'+pct(I.mB,2)+'</td></tr>'+
+      '<tr><td>Lang &gt; 1 jaar</td><td class="num">'+pct(I.lA,2)+'</td><td class="num">'+pct(I.lB,2)+'</td></tr>'+
+      '</tbody></table>';
+    var p3='<span class="eyebrow">Stap 1 — invoer</span><h2 class="t">Overzicht <em>ingevoerde</em> gegevens.</h2>'+
+      '<p class="lead">De analyse vertrekt volledig van de gegevens die u hebt ingegeven. Hieronder de samenvatting.</p>'+
+      '<div class="divlabel">Organisatie</div>'+
+      '<div class="io-grid2">'+
+        '<div><div class="io-row"><span class="k">Aantal medewerkers</span><span class="v">'+(I.fte||0)+'</span></div>'+
+          '<div class="io-row"><span class="k">Arbeiders</span><span class="v">'+nArb+' · '+(I.splitA||0)+'%</span></div>'+
+          '<div class="io-row"><span class="k">Bedienden</span><span class="v">'+nBed+' · '+(100-(I.splitA||0))+'%</span></div></div>'+
+        '<div><div class="io-row"><span class="k">Gemiddeld brutoloon</span><span class="v">'+eur(I.salary)+'</span></div>'+
+          '<div class="io-row"><span class="k">Netto werkdagen / jaar</span><span class="v">'+days+'</span></div>'+
+          '<div class="io-row"><span class="k">Vervangingskosten</span><span class="v">'+(I.vervangFactor||0)+'%</span></div>'+
+          '<div class="io-row"><span class="k">Organisatorische impact</span><span class="v">'+(I.orgFactor||0)+'%</span></div></div>'+
+      '</div>'+
+      '<div class="divlabel" style="margin-top:26px;">Doorlopende kosten</div>'+
+      costTbl+
+      '<div class="divlabel" style="margin-top:26px;">Verzuimcijfers</div>'+
+      verzTbl;
+    H+=page(false,p3,'Overzicht ingevoerde gegevens','03');
+
+    /* ══ P4 — DIRECTE & TOTALE KOST ══ */
+    var direct=R.werkgeverslast||R.total||0, totale=R.totaleKost||0;
+    var p4='<span class="eyebrow">Stap 2 — de kost</span><h2 class="t">Directe en totale <em>verzuimkost.</em></h2>'+
+      '<p class="lead">Dit zijn de getallen die u moet kennen. De directe kost is wat u factureerbaar draagt; de totale kost telt ook de verloren productiviteit mee.</p>'+
+      '<div class="kpi-grid">'+
+        '<div class="kpi hero"><div class="kl">Jaarlijkse directe verzuimkost</div><div class="kv">'+eur(direct)+'</div><div class="kn">Loon, voordelen, verzekeringen, vervanging</div></div>'+
+      '</div>'+
+      '<div class="subkpi">'+
+        '<div class="kpi"><div class="kl">Gemiddelde kost / kalenderdag</div><div class="kv">'+eur(direct/365)+'</div><div class="kn">Directe kost ÷ 365 dagen</div></div>'+
+        '<div class="kpi"><div class="kl">Gemiddelde kost / werkdag</div><div class="kv">'+eur(direct/days)+'</div><div class="kn">Directe kost ÷ '+days+' werkdagen</div></div>'+
+      '</div>'+
+      '<div class="kpi-grid" style="margin-top:18px;">'+
+        '<div class="kpi" style="grid-column:1/-1;border-color:rgba(26,21,18,.16);"><div class="kl">Jaarlijkse totale verzuimkost (incl. indirecte)</div><div class="kv">'+eur(totale)+'</div><div class="kn">Directe kost + verloren productiviteit (organisatorische impact)</div></div>'+
+      '</div>'+
+      '<div class="subkpi">'+
+        '<div class="kpi"><div class="kl">Totaal / kalenderdag</div><div class="kv">'+eur(totale/365)+'</div><div class="kn">Totale kost ÷ 365 dagen</div></div>'+
+        '<div class="kpi"><div class="kl">Totaal / werkdag</div><div class="kv">'+eur(totale/days)+'</div><div class="kn">Totale kost ÷ '+days+' werkdagen</div></div>'+
+      '</div>';
+    H+=page(false,p4,'Directe & totale verzuimkost','04');
+
+    /* ══ P5 — FINANCIËLE IMPACT SIMULATOR ══ */
+    var kk=0,mm=0,ll=0;
+    (R.categories||[]).forEach(function(c){ if(c.key==='K')kk=c.mine; if(c.key==='M')mm=c.mine; if(c.key==='L')ll=c.mine; });
+    var totR=kk+mm+ll; var kShare=totR>0?kk/totR:0, durShare=totR>0?(mm+ll)/totR:0;
+    function durSave(r){ return direct*durShare*r; }
+    function comboSave(p,r){ return direct*(kShare*p+durShare*r); }
+    function comboRate(p,r){ return totR*(1-(kShare*p+durShare*r)); }
+    function scnTable(rows){
+      return '<table class="tbl"><thead><tr><th>Inschatting</th><th class="num">Duurtijd-reductie</th><th class="num">Jaarlijkse besparing</th></tr></thead><tbody>'+
+        rows.map(function(r){return '<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="num e">'+r[2]+'</td></tr>';}).join('')+'</tbody></table>';
+    }
+    var p5='<span class="eyebrow">Stap 3 — simulator</span><h2 class="t">Financiële <em>impact</em> simulator.</h2>'+
+      '<p class="lead">Twee getallen worden vaak verward: het <strong>aantal</strong> medewerkers dat ziek is (instroom), en de <strong>duurtijd</strong> van de ziekte. Casey AI en vroege arbeidspotentiaal-inschatting werken op de duurtijd — niet op de instroom.</p>'+
+      '<div class="scn hl"><div class="sh"><span class="stag">Scenario A</span><h4>Vroege inschatting via Casey AI</h4></div>'+
+        '<p class="sp">Casey AI schat het arbeidspotentieel in vanaf het eerste gesprek (week 2–4 i.p.v. week 8) en signaleert direct aan de casemanager. Taakaanpassingen starten sneller → gemiddelde ziekteduur −25–35% in 12 maanden.</p>'+
+        scnTable([['Voorzichtig','−25%',eur(durSave(0.25))],['Realistisch','−30%',eur(durSave(0.30))],['Goed','−35%',eur(durSave(0.35))]])+'</div>'+
+      '<div class="scn"><div class="sh"><span class="stag" style="background:var(--ink);">Scenario B</span><h4>Traditionele inschatting (week 8)</h4></div>'+
+        '<p class="sp">Standaard aanpak: arbeidspotentiaal-inschatting pas vanaf week 8 (KB RIT 3.0). Zes weken later starten kost ±10 procentpunt duurtijd-reductie — het verschil tussen 15% en 25% effect.</p>'+
+        scnTable([['Voorzichtig','−15%',eur(durSave(0.15))],['Realistisch','−20%',eur(durSave(0.20))],['Goed','−25%',eur(durSave(0.25))]])+'</div>'+
+      '<div class="scn"><div class="sh"><span class="stag">Scenario C</span><h4>Combinatie — Preventie + Vroege AA</h4></div>'+
+        '<p class="sp">Preventie (COCC, werkdruk-analyse, korte-verzuim-aanpak) vermindert de instroom met 15–25%; Casey AI + vroege AA verkort de duurtijd met 30–38%. Beide hefbomen samen = maximale impact.</p>'+
+        '<table class="tbl"><thead><tr><th>Inschatting</th><th class="num">Verzuim % (was '+pct(totR)+')</th><th class="num">Duurtijd</th><th class="num">Jaarlijkse besparing</th></tr></thead><tbody>'+
+          [['Realistisch',0.20,0.30],['Goed',0.22,0.35],['Ambitieus',0.25,0.38]].map(function(r){
+            return '<tr><td>'+r[0]+'</td><td class="num">'+pct(comboRate(r[1],r[2]))+'</td><td class="num">−'+Math.round(r[2]*100)+'%</td><td class="num e">'+eur(comboSave(r[1],r[2]))+'</td></tr>';
+          }).join('')+'</tbody></table></div>'+
+      '<p class="note"><strong>Modelnota (te valideren):</strong> duurtijd-reductie wordt toegepast op het duurtijd-gedreven deel van de directe kost (middellang + langdurig = '+pct(durShare*100,0)+' van het verzuim); preventie op de instroom (kort). Dit is een transparant eerste model — de exacte besparingsformule stemmen we samen af.</p>';
+    H+=page(false,p5,'Financiële impact simulator','05');
+
+    /* ══ P6-8 — DETAILANALYSE PER VERZUIMTYPE ══ */
+    function detailPage(catKey,catName,no,first){
+      var cat=(R.categories||[]).find(function(c){return c.key===catKey;})||{mine:0,avg:0};
+      var st=statusOf(cat.mine,cat.avg);
+      var block=CT[catKey][st];
+      var stLbl=st==='under'?'✓ beter dan de benchmark':st==='equal'?'∼ gelijk met de benchmark':'⚠ boven de benchmark';
+      var intro = first ? '<p class="lead" style="margin-top:16px;margin-bottom:14px;">De benchmark is gebaseerd op cijfers van SD Worx 2024 (LE_Verzuim_industrie) en “Ziekteverzuim in België 2025”. Per verzuimtype wordt één analyse getoond, op basis van uw ingegeven cijfers.</p>' : '';
+      var heading='<h2 class="t">'+catName+' <em>verzuim.</em></h2>';
+      var bm='<div class="bmline">Uw percentage: <b>'+pct(cat.mine)+'</b> &nbsp;·&nbsp; Sectorgemiddelde: <b>'+pct(cat.avg)+'</b></div>'+
+        '<div class="statpill '+st+'">'+stLbl+'</div>';
+      var inner='<span class="eyebrow">Stap 5 — Verzuimanalyse</span>'+
+        (first ? intro+heading : heading)+bm+
+        block;
+      return page(false,inner,catName+' verzuim','0'+no);
+    }
+    H+=detailPage('K','Kort',6,true);
+    H+=detailPage('M','Middellang',7,false);
+    H+=detailPage('L','Langdurig',8,false);
+
+    /* ══ P9 — STRATEGISCHE INZICHTEN ══ */
+    var diff=R.differenceVsSector||0;
+    var posWord=diff>0.15?'boven':diff<-0.15?'onder':'gelijk met';
+    var risk=R.riskKey||'avg';
+    var prio=(R.rankedCategories&&R.rankedCategories[0]&&R.rankedCategories[0].label)||'middellang';
+    var riskLbl=((window.VerzuimEngine&&VerzuimEngine.RISK_LABELS&&VerzuimEngine.RISK_LABELS.nl)||{low:'Laag',avg:'Gemiddeld',elevated:'Verhoogd',high:'Hoog'})[risk];
+    var CONCL={
+      low:{lead:'Uw cijfers liggen onder het sectorgemiddelde — een sterke uitgangspositie.',body:'De grootste waarde ligt nu in behoud: veranker wat werkt en houd <strong>'+prio+'</strong> verzuim scherp in het oog, zodat uw voorsprong duurzaam blijft.'},
+      avg:{lead:'Uw cijfers liggen rond het sectorgemiddelde.',body:'Daarin schuilt de opportuniteit: gerichte stappen rond <strong>'+prio+'</strong> verzuim brengen u van “gemiddeld” naar een structurele voorsprong, met directe impact op de kost.'},
+      elevated:{lead:'Uw cijfers liggen merkbaar boven het sectorgemiddelde.',body:'Een structurele aanpak loont hier snel. De grootste hefboom ligt bij <strong>'+prio+'</strong> verzuim — daar valt het meeste te winnen op kost én continuïteit.'},
+      high:{lead:'Uw cijfers liggen sterk boven het sectorgemiddelde.',body:'Dit vraagt een dringende, gestructureerde aanpak. Begin bij <strong>'+prio+'</strong> verzuim: vandaag uw grootste risico én uw grootste besparingskans.'}
+    };
+    var cc=CONCL[risk]||CONCL.avg;
+    var p9='<span class="eyebrow">Stap 6 — inzichten</span><h2 class="t">Strategische <em>inzichten.</em></h2>'+
+      '<p class="lead">Algemeen risiconiveau: <strong style="color:var(--orange-deep)">'+riskLbl+'</strong>. '+cc.lead+'</p>'+
+      '<div class="divlabel">FTE-equivalent</div>'+
+      '<div class="fte-hero"><div class="fte-num">'+pct(R.fteEquivalent,1).replace('%','')+'</div>'+
+        '<div class="fte-txt">Uw huidige verzuim staat gelijk aan het verlies van ongeveer <strong>'+pct(R.fteEquivalent,1).replace('%','')+' voltijdse medewerkers</strong> per jaar — '+ (R.lostDays||0).toLocaleString('nl-BE')+' verloren werkdagen.</div></div>'+
+      '<div class="ctx-grid">'+
+        '<div class="ctx"><div class="cl">Benchmark-context</div><div class="cv">U ligt <b>'+posWord+'</b> het sectorgemiddelde, met <b>'+(diff>=0?'+':'−')+pct(Math.abs(diff)).replace('%','')+' pp</b> (uw '+pct(R.totVerz)+' t.o.v. sector '+pct(R.sectorAverage)+').</div></div>'+
+        '<div class="ctx"><div class="cl">Cascade-risico</div><div class="cv">Zonder gerichte actie stromen <b>middellang</b>-problemen door naar <b>langdurig</b> verzuim in 6–12 maanden — de zwaarste kostenpost.</div></div>'+
+      '</div>'+
+      '<div class="divlabel">Besparingsscenario\u2019s</div>'+
+      '<table class="tbl"><thead><tr><th>Daling verzuim</th><th class="num">Jaarlijkse besparing</th></tr></thead><tbody>'+
+        '<tr><td>− 0,5 procentpunt</td><td class="num e">'+esc(V.saving_half_percent)+'</td></tr>'+
+        '<tr><td>− 1 procentpunt</td><td class="num e">'+esc(V.saving_one_percent)+'</td></tr>'+
+        '<tr><td>− 2 procentpunt</td><td class="num e">'+esc(V.saving_two_percent)+'</td></tr>'+
+      '</tbody></table>';
+    H+=page(false,p9,'Strategische inzichten','09');
+
+    /* ══ P10 — AANBEVELINGEN + PLAN ══ */
+    var p10='<span class="eyebrow">Stap 7 — aanbevelingen</span><h2 class="t">Concrete <em>aanbevelingen.</em></h2>'+
+      '<p class="p">Verzuim kost uw organisatie vandaag ongeveer <strong>'+esc(V.annual_absence_cost)+'</strong> per jaar. '+cc.lead+' De vraag is niet óf deze kost beïnvloedbaar is, maar in welke mate u bereid bent er actief op te sturen.</p>'+
+      '<p class="p">'+cc.body+'</p>'+
+      '<p class="p">Organisaties die verzuim succesvol terugdringen, excelleren doorgaans op drie domeinen:</p>'+
+      '<ul class="clean"><li>Inzicht in de werkelijke oorzaken van verzuim.</li><li>Structuur in begeleiding, preventie en re-integratie.</li><li>Sturing op basis van realtime data en voorspellende inzichten.</li></ul>'+
+      '<div class="cta"><h3>Plan van aanpak: <em>volgende stap</em></h3>'+
+        '<p class="cl">Dit rapport geeft data. De echte waarde zit in een gericht gesprek. In 30 minuten bepalen we samen waar de grootste impact zit, welke ingrepen haalbaar zijn, en welke realistische besparingen mogelijk zijn.</p>'+
+        '<div class="cta-steps"><div>Rapport stap-voor-stap doorlopen</div><div>Dieper graven in relevante cijfers</div><div>Concreet actieplan uitzetten</div><div>30/60/90 dagen bepalen</div></div>'+
+        '<div class="cta-contact"><div><div class="l">Telefoon</div><div class="v">+32 477 89 91 86</div></div><div><div class="l">E-mail</div><div class="v">hello@montisoro.com</div></div><div><div class="l">Web</div><div class="v">montisoro.com</div></div></div>'+
+      '</div>';
+    H+=page(false,p10,'Aanbevelingen & plan van aanpak','10');
+
+    host.innerHTML=H;
+  }
+
+  window.__renderReport=render;
+  // initial render — eigen demo, of klantdata uit sessionStorage (vanaf calculator "Download rapport")
+  var __rep = window.__MONTISORO_REPORT || null;
+  try { if(!__rep){ var __s = sessionStorage.getItem('montisoro_report'); if(__s){ __rep = JSON.parse(__s); } } } catch(e){}
+  render(__rep);
+})();
+</script>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "verzuimrapport-test-report";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  var __m = null;
+  try { __m = (() => {
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  if (paperPage) {
+    return { kind: 'paper-doc', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    if (authoredPx(el, 'width')) break;
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: ≥2 visible non-fixed children, each with authored px width
+  // AND height, all within ±2px of each other. Off unless the page opts in
+  // via data-om-multi-frame on the stop element — guards against card grids
+  // and pricing tables that match the geometry but aren't separate canvases.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var cands = [];
+    for (var k = 0; k < el.children.length; k++) {
+      var ch = el.children[k];
+      var cs; try { cs = getComputedStyle(ch); } catch (e) { continue; }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position === 'fixed') continue;
+      var rc = rectOf(ch);
+      if (rc.width < 2 || rc.height < 2) continue;
+      if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+      cands.push(rc);
+    }
+    if (cands.length >= 2) {
+      var w0 = cands[0].width, h0 = cands[0].height, ok = true;
+      for (var q = 1; q < cands.length; q++)
+        if (Math.abs(cands[q].width - w0) > 2 || Math.abs(cands[q].height - h0) > 2) ok = false;
+      if (ok) return { kind: 'multi-frame', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  return { kind: 'single-canvas', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: authoredPx(el, 'width'), height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + f.width + 'px ' + f.height +
+        'px;margin:0}html,body,[data-om-frame-wrap]{padding:0!important;' +
+        'margin:0!important;background:none!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

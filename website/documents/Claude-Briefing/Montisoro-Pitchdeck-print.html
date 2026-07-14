@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Bedrijfsdossier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" href="../../assets/fonts/playfair-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/dmsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../stylesheets/fonts.css">
+<link rel="stylesheet" href="briefing.css">
+</head>
+<body>
+<div class="doc">
+
+<!-- ═══════════ 01 — COVER ═══════════ -->
+<section class="page page--dark" data-screen-label="01 Cover">
+  <svg class="cover-canvas" preserveAspectRatio="xMidYMid slice" viewBox="0 0 794 1123" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cv-bg" x1="0.2" x2="0.8" y1="0" y2="1"><stop offset="0%" stop-color="#1B130C"/><stop offset="55%" stop-color="#13100D"/><stop offset="100%" stop-color="#0C0905"/></linearGradient>
+      <radialGradient cx="84%" cy="10%" id="cv-gtr" r="46%"><stop offset="0%" stop-color="#E8592B" stop-opacity="0.18"/><stop offset="100%" stop-color="#E8592B" stop-opacity="0"/></radialGradient>
+      <radialGradient cx="8%" cy="92%" id="cv-gbl" r="42%"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.12"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></radialGradient>
+      <linearGradient id="cv-sh" x1="1" x2="0.2" y1="0" y2="1"><stop offset="0%" stop-color="#C8824A" stop-opacity="0.14"/><stop offset="100%" stop-color="#C8824A" stop-opacity="0"/></linearGradient>
+      <filter id="cv-grain"><feTurbulence baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" type="fractalNoise"/><feColorMatrix type="saturate" values="0"/></filter>
+    </defs>
+    <rect fill="url(#cv-bg)" width="794" height="1123"/>
+    <rect fill="url(#cv-gtr)" width="794" height="1123"/>
+    <rect fill="url(#cv-gbl)" width="794" height="1123"/>
+    <polygon fill="url(#cv-sh)" opacity="0.6" points="794,0 794,520 360,1123 -120,1123"/>
+    <polygon fill="url(#cv-sh)" opacity="0.3" points="794,0 560,0 794,360"/>
+    <path d="M 794 720 C 560 690, 300 880, 0 980" fill="none" stroke="#E8592B" stroke-opacity="0.16" stroke-width="1.2"/>
+    <path d="M 794 800 C 580 770, 320 940, 0 1040" fill="none" stroke="#E8592B" stroke-opacity="0.10" stroke-width="0.8"/>
+    <text x="560" y="640" font-family="Playfair Display, Georgia, serif" font-size="640" font-weight="900" font-style="italic" fill="#F0EDE8" opacity="0.035" text-anchor="middle">M</text>
+    <rect filter="url(#cv-grain)" width="794" height="1123" opacity="0.045"/>
+  </svg>
+  <div class="cover-pad cover-inner">
+    <img class="cover-logo" src="assets/montisoro-logo.png" alt="Montisoro">
+    <div class="cover-mid">
+      <div class="cover-rule"></div>
+      <div class="cover-kicker">Bedrijfsdossier · Volledige context-briefing</div>
+      <h1 class="cover-title">Wie <em>Montisoro</em> is,<br>wat we doen<br>en <em>waarom.</em></h1>
+      <p class="cover-sub">Eén volledig naslagdocument over de oorsprong, missie, aanpak, dienstverlening, technologie, het team en de klanten van Montisoro — bedoeld om in één keer het hele beeld te krijgen.</p>
+    </div>
+    <div class="cover-meta">
+      <div><div class="m-lbl">Onderwerp</div><div class="m-val">Montisoro BV</div></div>
+      <div><div class="m-lbl">Sector</div><div class="m-val">Verzuim &amp; werkbaarheid</div></div>
+      <div><div class="m-lbl">Basis</div><div class="m-val">België</div></div>
+      <div><div class="m-lbl">Versie</div><div class="m-val">Juni 2026</div></div>
+    </div>
+    <div class="cover-foot"><span>Re-integrate What Matters</span><span>montisoro.com</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 — INHOUD ═══════════ -->
+<section class="page" data-screen-label="02 Inhoud">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Inhoud</span></div>
+
+    <span class="eyebrow">Over dit document</span>
+    <h2 class="sec-title">Het volledige beeld,<br>in <em>één</em> dossier.</h2>
+    <p class="sec-lead">Dit document brengt alles samen wat nodig is om Montisoro te begrijpen: waar het bedrijf vandaan komt, wat het doet, hoe het werkt, met welke technologie, voor welke markt en met welke mensen en klanten.</p>
+
+    <div class="toc">
+      <div class="toc-row"><span class="t-no">01</span><span class="t-title">In één oogopslag<small>Wie Montisoro is, in het kort</small></span><span class="t-pg">03</span></div>
+      <div class="toc-row"><span class="t-no">02</span><span class="t-title">Het ontstaan<small>Vier momenten die Montisoro vormden</small></span><span class="t-pg">04</span></div>
+      <div class="toc-row"><span class="t-no">03</span><span class="t-title">Het probleem<small>Verzuim als signaal, niet als oorzaak</small></span><span class="t-pg">05</span></div>
+      <div class="toc-row"><span class="t-no">04</span><span class="t-title">Missie &amp; principes<small>Re-integrate What Matters + vijf principes</small></span><span class="t-pg">06</span></div>
+      <div class="toc-row"><span class="t-no">05</span><span class="t-title">Het systeem<small>De vier pijlers van de aanpak</small></span><span class="t-pg">07</span></div>
+      <div class="toc-row"><span class="t-no">06</span><span class="t-title">De dienstverlening<small>Hoe een traject verloopt</small></span><span class="t-pg">08</span></div>
+      <div class="toc-row"><span class="t-no">07</span><span class="t-title">De fit check<small>Vier dimensies naar zes routes</small></span><span class="t-pg">09</span></div>
+      <div class="toc-row"><span class="t-no">08</span><span class="t-title">De verzuimcalculator<small>Wat verzuim écht kost</small></span><span class="t-pg">10</span></div>
+      <div class="toc-row"><span class="t-no">09</span><span class="t-title">Culture of Care<small>Vijf gedragslagen</small></span><span class="t-pg">11</span></div>
+      <div class="toc-row"><span class="t-no">10</span><span class="t-title">Technologie · Storm<small>Het platform sinds 2023</small></span><span class="t-pg">12</span></div>
+      <div class="toc-row"><span class="t-no">11</span><span class="t-title">Technologie · Casey AI<small>De contextuele intelligentielaag</small></span><span class="t-pg">13</span></div>
+      <div class="toc-row"><span class="t-no">12</span><span class="t-title">Bewezen &amp; klanten<small>Resultaten en referenties</small></span><span class="t-pg">14–15</span></div>
+      <div class="toc-row"><span class="t-no">13</span><span class="t-title">De mensen<small>Leiderschap, technologie &amp; casemanagement</small></span><span class="t-pg">16–17</span></div>
+      <div class="toc-row"><span class="t-no">14</span><span class="t-title">Markt, netwerk &amp; contact<small>Positionering, connecties en feiten</small></span><span class="t-pg">18–20</span></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Inhoud</span><span class="pf-no">02</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 — IN ÉÉN OOGOPSLAG ═══════════ -->
+<section class="page" data-screen-label="03 Overzicht">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">In één oogopslag</span></div>
+
+    <span class="eyebrow">In één oogopslag</span>
+    <h2 class="sec-title">Montisoro maakt <em>care</em> werkbaar<br>en <em>capability</em> schaalbaar.</h2>
+    <p class="sec-lead">Montisoro is een Belgisch bedrijf dat organisaties helpt om verzuim en duurzame inzetbaarheid structureel anders aan te pakken — door menselijke expertise, heldere governance en eigen technologie samen te brengen in één systeem.</p>
+
+    <div class="callout">
+      <p class="co-q"><em>“Care</em> is not a feeling.<br>It is a <em>Capability.”</em></p>
+      <p class="co-cite">De missie van Montisoro · Re-integrate What Matters</p>
+    </div>
+
+    <div class="block">
+      <p class="body-p">Het uitgangspunt: <strong>mensen vallen zelden uit door ziekte alleen</strong> — ze vallen ook uit op verbinding, veiligheid en perspectief. En verzuim komt niet terug omdat niemand iets doet, maar <strong>omdat niemand álles ziet</strong>. Het antwoord is geen extra inspanning, maar een systeem dat vroeger ziet, beter handelt en kennis verankert.</p>
+    </div>
+
+    <div class="divlabel">Kerncijfers</div>
+    <div class="stat-strip">
+      <div class="stat"><div class="s-v">2.500<em>+</em></div><div class="s-l">Dossiers in frequent én langdurig verzuim begeleid.</div></div>
+      <div class="stat"><div class="s-v">30–35<em>%</em></div><div class="s-l">Kortere duurtijd van langdurig verzuim.</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>14,7M</div><div class="s-l">Meetbare reductie in verzuimkost.</div></div>
+      <div class="stat"><div class="s-v">~14</div><div class="s-l">Mensen: experten, casemanagers &amp; engineers.</div></div>
+    </div>
+
+    <div class="block tight">
+      <div class="kv">
+        <div class="kv-row"><div class="kv-k">Juridische entiteit</div><div class="kv-v">Montisoro BV · BE0733840137</div></div>
+        <div class="kv-row"><div class="kv-k">Platform (SaaS)</div><div class="kv-v">Storm — live sinds 2023</div></div>
+        <div class="kv-row"><div class="kv-k">AI-laag</div><div class="kv-v">Casey AI — pilot vanaf sept. 2026</div></div>
+        <div class="kv-row"><div class="kv-k">Doelmarkt</div><div class="kv-v">KMO tot grote organisaties (sector-agnostisch)</div></div>
+        <div class="kv-row"><div class="kv-k">Oprichter &amp; CEO</div><div class="kv-v">Laurence Van den Bergh</div></div>
+      </div>
+    </div>
+    <p class="note"><strong>Herkomst cijfers:</strong> geaggregeerde praktijkdata uit Montisoro-dossiers. Onderbouwing en methodologie op aanvraag.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>In één oogopslag</span><span class="pf-no">03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 — HET ONTSTAAN ═══════════ -->
+<section class="page page--dark" data-screen-label="04 Ontstaan">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Het ontstaan</span></div>
+
+    <span class="eyebrow">Het verhaal</span>
+    <h2 class="sec-title">19 jaar <em>engagement.</em><br>Vijf maanden <em>stilte.</em></h2>
+    <p class="sec-lead">Sommige bedrijven ontstaan vanuit een opportuniteit. Montisoro ontstond vanuit een overtuiging. Wat begon als persoonlijke uitval, werd het ontwerpprincipe van een organisatie — vier momenten.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Stilte</h3><p>Vijf maanden stilte. Geen begeleiding. Geen echte landing na 19 jaar engagement.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Onmacht</h3><p>Haar leidinggevende wilde meer doen. Hij wist niet hoe. Niet uit onwil — maar omdat de rol ontbrak.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Inzicht</h3><p>“Mensen vallen zelden uit door ziekte alleen. Ze vallen ook uit op verbinding, veiligheid en perspectief.”</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Montisoro</h3><p>Die rol ontbrak — in te veel organisaties. Dus besliste Laurence ze zelf te bouwen.</p></div></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p class="co-q">Wat begon als persoonlijke uitval, werd het <em>ontwerpprincipe</em> van een organisatie.</p>
+      <p class="co-cite">Laurence Van den Bergh · Founder &amp; CEO</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Het ontstaan</span><span class="pf-no">04</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 — HET PROBLEEM ═══════════ -->
+<section class="page" data-screen-label="05 Probleem">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Het probleem</span></div>
+
+    <span class="eyebrow">Het probleem</span>
+    <h2 class="sec-title">Verzuim is niet het probleem.<br>Het is <em>het signaal.</em></h2>
+    <p class="sec-lead">In de meeste organisaties doet iedereen iets — en toch loopt het vast. Niet door gebrek aan inzet, maar door gebrek aan systeem.</p>
+
+    <div class="block tight">
+      <p class="body-p">HR volgt op. Leidinggevenden proberen betrokken te blijven. Preventiediensten doen hun rol. Medewerkers wachten op duidelijkheid. <strong>Maar niemand ziet alles.</strong> Verzuim raakt mens, team, planning, wetgeving, communicatie, vertrouwen en resultaat tegelijk. Zodra die informatie verspreid zit over mailboxen, Excelbestanden en losse gesprekken, verliest de organisatie grip.</p>
+    </div>
+
+    <div class="pull">De duurste verzuimkost is wat u <em>niet ziet.</em></div>
+
+    <div class="block tight">
+      <div class="divlabel">Tien signalen die buiten beeld blijven</div>
+      <ul class="list-clean list-two">
+        <li>Dossiers worden pas zichtbaar wanneer ze al complex zijn.</li>
+        <li>Signalen zitten verspreid over mails, Excel en notities.</li>
+        <li>HR besteedt te veel tijd aan zoeken en interpreteren.</li>
+        <li>Leidinggevenden twijfelen wat ze mogen zeggen of vragen.</li>
+        <li>Werkhervatting verloopt niet volgens één aanpak.</li>
+        <li>GDPR en documentatie voelen kwetsbaar.</li>
+        <li>Onvoldoende zicht op terugkerende patronen.</li>
+        <li>Kennis gaat verloren bij rolwissels.</li>
+        <li>Afstemming kost telkens opnieuw inspanning.</li>
+        <li>Compliance-risico's worden niet altijd tijdig gezien.</li>
+      </ul>
+    </div>
+
+    <p class="note"><strong>De kern:</strong> drie keer herkenbaar is geen toeval — dat is een patroon. Meer overleg lost dit niet op. Een systeem wel.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Het probleem</span><span class="pf-no">05</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 06 — MISSIE & PRINCIPES ═══════════ -->
+<section class="page" data-screen-label="06 Missie">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Missie &amp; principes</span></div>
+
+    <span class="eyebrow">Missie</span>
+    <h2 class="sec-title"><em>Re</em>integrate <em>What</em> Matters.</h2>
+    <p class="sec-lede lede">Twee betekenissen, één zin. <em>Breng mensen terug.</em> En <em>herstel wat organisaties verloren:</em> verbinding, veiligheid, perspectief.</p>
+
+    <div class="block tight">
+      <p class="body-p">Montisoro bouwt de kennis, structuur en technologie waarmee organisaties <strong>vroeger zien wat vastloopt</strong>, <strong>beter handelen wanneer het complex wordt</strong> en <strong>kennis duurzamer verankeren</strong> — zodat zorg en performantie één systeem worden.</p>
+    </div>
+
+    <span class="eyebrow" style="margin-top:6px;">Vijf principes</span>
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Zichtbaarheid</h3><p>We maken zichtbaar wat anderen missen. Ook wanneer dat ongemakkelijk is. Juist dan.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Eigenaarschap</h3><p>Ons succes meten we niet aan uw afhankelijkheid, maar aan uw zelfstandigheid.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Verbinding</h3><p>Technologie structureert. Mensen verbinden. Nooit andersom.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Eerlijkheid</h3><p>AI ondersteunt. Onze experten blijven verantwoordelijk. Altijd kritisch. Altijd uitlegbaar.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Vertrouwen</h3><p>Verdiend door resultaat. Behouden door transparantie.</p></div></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Missie &amp; principes</span><span class="pf-no">06</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 07 — HET SYSTEEM ═══════════ -->
+<section class="page" data-screen-label="07 Het systeem">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Wat we doen</span></div>
+
+    <span class="eyebrow">Het systeem</span>
+    <h2 class="sec-title">Niet één persoon.<br>Een intelligent <em>systeem.</em></h2>
+    <p class="sec-lead">Vertrouwen is geen soft skill — het is infrastructuur. Vier bewegingen dragen dat systeem: zichtbaar maken, rollen scherp zetten, intelligent ondersteunen en capability bouwen.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card"><div class="c-num">01</div><h3>Human Reintegration</h3><p>Neutrale regie tussen medewerker, HR, leidinggevende en arbeidsgeneeskunde. De rol die in te veel organisaties ontbreekt.</p></div>
+      <div class="hl-card"><div class="c-num">02</div><h3>Compliance <span class="amp">&amp;</span> Governance</h3><p>Welzijnswetgeving, arbeidsrecht, GDPR en compliance vertaald naar de praktijk — werkbare afspraken, geen theorie.</p></div>
+      <div class="hl-card"><div class="c-num">03</div><h3>Capability Building</h3><p>Duidelijke rollen, interne capaciteit en duurzame procesdiscipline. Kennis blijft in de organisatie, niet bij de consultant.</p></div>
+      <div class="hl-card"><div class="c-num">04</div><h3>Technology <span class="amp">&amp;</span> Agentic AI</h3><p>Storm en Casey AI maken care schaalbaar en capability stuurbaar. Menselijk waar het moet, gestructureerd waar het telt.</p></div>
+    </div>
+
+    <div class="pull">Menselijk waar het moet. <em>Gestructureerd</em> waar het telt. Schaalbaar waar het kan.</div>
+
+    <p class="note"><strong>Hoe de vraag verandert:</strong> zodra verzuim zichtbaar wordt in euro's, tijd en impact, verschuift de vraag van “hoe volgen we dossiers beter op?” naar “hoe bouwen we een organisatie die vroeger ziet, beter handelt en minder verliest?”. Daar begint de Montisoro-aanpak.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Het systeem</span><span class="pf-no">07</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 08 — DE DIENSTVERLENING ═══════════ -->
+<section class="page" data-screen-label="08 Dienstverlening">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Dienstverlening</span></div>
+
+    <span class="eyebrow">Hoe een traject verloopt</span>
+    <h2 class="sec-title">Van eerste gesprek<br>tot duurzame <em>capability.</em></h2>
+    <p class="sec-lead">Montisoro werkt met heldere, vaste scopes — geen open einde. Een traject start altijd met een vrijblijvend diagnosegesprek en eindigt bij capaciteit die in de organisatie blijft.</p>
+
+    <div class="steps4">
+      <div class="st"><div class="st-n">1</div><h4>Diagnose</h4><p>Vrijblijvend gesprek van 30–45 min, online of op locatie. We luisteren en schetsen waar de grootste hefbomen zitten.</p></div>
+      <div class="st"><div class="st-n">2</div><h4>Voorstel</h4><p>Concreet voorstel met vaste scope en verwachte terugverdientijd, onderbouwd met uw eigen verzuimcijfers.</p></div>
+      <div class="st"><div class="st-n">3</div><h4>Traject</h4><p>Implementatie van regie, governance en — waar nodig — het Storm-platform. Menselijk begeleid, gestructureerd uitgevoerd.</p></div>
+      <div class="st"><div class="st-n">4</div><h4>Capability</h4><p>Kennis, rollen en discipline verankeren in de organisatie, zodat de aanpak niet persoonsafhankelijk blijft.</p></div>
+    </div>
+
+    <div class="block">
+      <div class="divlabel">Veelgestelde vragen</div>
+      <div class="hl-grid cols-2" style="margin-top:8px;">
+        <div class="hl-card" style="padding-top:0;"><h3 style="font-size:14px;">Hoe verloopt een eerste gesprek?</h3><p>Een vrijblijvend diagnosegesprek van 30 à 45 minuten. U brengt uw situatie, wij luisteren en schetsen de grootste hefbomen. Geen presentatie, geen verkoopdruk.</p></div>
+        <div class="hl-card" style="padding-top:0;"><h3 style="font-size:14px;">Wat kost een traject?</h3><p>Afhankelijk van omvang en ambitie. Heldere, vaste scopes. Na het eerste gesprek volgt een voorstel met verwachte terugverdientijd.</p></div>
+        <div class="hl-card"><h3 style="font-size:14px;">Hoe snel zien we resultaat?</h3><p>Eerste inzichten binnen weken. Een structurele daling volgt doorgaans binnen één tot twee kwartalen, naarmate het systeem grip krijgt.</p></div>
+        <div class="hl-card"><h3 style="font-size:14px;">Werkt dit voor onze sector of kmo?</h3><p>Ja. De methode is sector-agnostisch en schaalt van kmo tot grote organisatie. Wat verschilt is de context, niet het systeem.</p></div>
+      </div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Dienstverlening</span><span class="pf-no">08</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 09 — DE FIT CHECK ═══════════ -->
+<section class="page page--dark" data-screen-label="09 Fit check">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Fit check</span></div>
+
+    <span class="eyebrow">De fit check</span>
+    <h2 class="sec-title">Vier vragen.<br>Eén strategische <em>route.</em></h2>
+    <p class="sec-lead">Niet elke verzuimaanpak past bij elke organisatie. De online fit check brengt een situatie via vier dimensies naar één van zes routes binnen het Montisoro-framework — in minder dan twee minuten, geen black box.</p>
+
+    <div class="divlabel" style="color:var(--orange);">Het proces</div>
+    <div class="steps4" style="border-color:var(--line-d);">
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">1</div><h4 style="color:#fff;">Antwoorden</h4><p style="color:var(--off-mute);">Vier korte vragen over uw situatie.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">2</div><h4 style="color:#fff;">Scoring</h4><p style="color:var(--off-mute);">Vier dimensies worden gewogen.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">3</div><h4 style="color:#fff;">Route</h4><p style="color:var(--off-mute);">De best passende route komt naar boven.</p></div>
+      <div class="st" style="border-color:var(--line-d);"><div class="st-n">4</div><h4 style="color:#fff;">Inzicht</h4><p style="color:var(--off-mute);">Persoonlijk inzicht per e-mail.</p></div>
+    </div>
+
+    <div class="divlabel" style="color:var(--orange);margin-top:22px;">De zes routes</div>
+    <div class="route-list">
+      <div class="route-item"><span class="r-no">01</span><div><h4>Human Reintegration</h4><p>Neutrale regie op individuele dossiers en werkhervatting.</p></div></div>
+      <div class="route-item"><span class="r-no">02</span><div><h4>Capability Building</h4><p>Interne rollen, capaciteit en procesdiscipline opbouwen.</p></div></div>
+      <div class="route-item"><span class="r-no">03</span><div><h4>Operating System</h4><p>Het Storm-platform als operationele ruggengraat.</p></div></div>
+      <div class="route-item"><span class="r-no">04</span><div><h4>Strategy <span class="amp">&amp;</span> Governance</h4><p>Beleid, rollen en compliance strategisch verankeren.</p></div></div>
+      <div class="route-item"><span class="r-no">05</span><div><h4>Culture of Care <span class="amp">&amp;</span> Capability</h4><p>Gedrag en cultuur mee laten evolueren met de aanpak.</p></div></div>
+      <div class="route-item"><span class="r-no">06</span><div><h4>Exploratory Direction</h4><p>Verkennend traject wanneer de richting nog open is.</p></div></div>
+    </div>
+
+    <p class="note" style="color:var(--off-mute-2);border-color:var(--line-d);"><strong style="color:var(--off-mute);">Wat de check analyseert:</strong> vier dimensies geven samen één strategisch beeld — geen scorekaart, maar een vertrekpunt voor het gesprek met directie, HR of arbeidsgeneeskunde.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Fit check</span><span class="pf-no">09</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 10 — DE CALCULATOR ═══════════ -->
+<section class="page" data-screen-label="10 Calculator">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Calculator</span></div>
+
+    <span class="eyebrow">De verzuimcalculator</span>
+    <h2 class="sec-title">Wat verzuim <em>écht</em> kost.</h2>
+    <p class="sec-lead">Verzuim kost meer dan afwezigheid: capaciteit, planning, teamenergie, kennis, snelheid en continuïteit. De online ROI-calculator geeft een eerste indicatie — niet om alles exact te vatten, wel om zichtbaar te maken wat vaak onderschat wordt.</p>
+
+    <div class="block tight">
+      <p class="body-p">In zes begeleide stappen — organisatie, brutoloon, doorlopende kosten, vervangingskosten, organisatorische impact en verzuimprofiel — berekent de calculator twee kostbegrippen: de <strong>werkgeverslast</strong> (de factureerbare kost) en de <strong>totale kost</strong> (inclusief de niet-gefactureerde organisatorische impact). Het resultaat verschijnt als een print-ready verzuimrapport, met benchmark tegenover het Belgische sectorgemiddelde, risiconiveau, besparingsscenario's en concrete prioriteiten.</p>
+    </div>
+
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Patronale lasten (RSZ)</div><div class="kv-v">× 1,30 op het brutoloon</div></div>
+      <div class="kv-row"><div class="kv-k">Sectorgemiddelde (BE)</div><div class="kv-v">10,14% (kort 3,18 · midden 3,10 · lang 3,86)</div></div>
+      <div class="kv-row"><div class="kv-k">Vervangingsfactor</div><div class="kv-v">standaard 30% van de directe loonkost</div></div>
+      <div class="kv-row"><div class="kv-k">Organisatiefactor</div><div class="kv-v">standaard 50% van de directe loonkost</div></div>
+      <div class="kv-row"><div class="kv-k">Bron benchmark</div><div class="kv-v">SD Worx Verzuimbarometer 2025</div></div>
+    </div>
+
+    <div class="callout">
+      <p class="co-q">“Een eerste indicatie. Vaak genoeg om het juiste gesprek <em>te starten.”</em></p>
+      <p class="co-cite">Een volledige technische uitleg staat in het document “Calculator-documentatie”.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>De verzuimcalculator</span><span class="pf-no">10</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 11 — CULTURE OF CARE ═══════════ -->
+<section class="page" data-screen-label="11 Cultuur">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Culture of Care</span></div>
+
+    <span class="eyebrow">Culture of Care &amp; Capability</span>
+    <h2 class="sec-title">Technologie werkt pas wanneer<br><em>gedrag</em> mee evolueert.</h2>
+    <p class="sec-lead">Software verandert geen organisaties. Gedrag doet dat. Daarom combineert Montisoro technologie met vijf gedragslagen die de aanpak structureel maken in plaats van persoonsafhankelijk.</p>
+
+    <div class="hl-list">
+      <div class="hl-row"><div class="hl-num">01</div><div><h3>Capability Building</h3><p>Zodat kennis, opvolging en expertise in de organisatie blijven — niet bij de consultant vertrekken.</p></div></div>
+      <div class="hl-row"><div class="hl-num">02</div><div><h3>Leiderschap</h3><p>Zodat leidinggevenden sterker worden in gesprekken, opvolging en ondersteuning. Niet harder. Beter.</p></div></div>
+      <div class="hl-row"><div class="hl-num">03</div><div><h3>Psychologische veiligheid</h3><p>Zodat signalen sneller besproken en problemen vroeger zichtbaar worden. Geen taboe rond werkbaarheid.</p></div></div>
+      <div class="hl-row"><div class="hl-num">04</div><div><h3>Governance <span class="amp">&amp;</span> rolzuiverheid</h3><p>Zodat verantwoordelijkheden, beslissingen en communicatie helder blijven — ook in complexe dossiers.</p></div></div>
+      <div class="hl-row"><div class="hl-num">05</div><div><h3>Procesdiscipline</h3><p>Zodat opvolging niet afhankelijk wordt van goodwill of toeval. Het hangt aan structuur, niet aan personen.</p></div></div>
+    </div>
+
+    <p class="note"><strong>De kern:</strong> technologie zónder capability creëert afhankelijkheid. Capability mét technologie creëert schaalbare organisatiekracht.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Culture of Care</span><span class="pf-no">11</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 12 — TECHNOLOGIE · STORM ═══════════ -->
+<section class="page page--dark" data-screen-label="12 Storm">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Technologie · Storm</span></div>
+
+    <span class="eyebrow">Storm</span>
+    <h2 class="sec-title">The operating system behind<br><em>sustainable work.</em></h2>
+    <p class="sec-lead">Storm is het SaaS-platform van Montisoro sinds 2023. Het structureert alles wat vandaag verspreid zit over mailboxen, Excelbestanden, losse gesprekken en individuele kennis — niet als administratieve laag, maar als operationele intelligentie.</p>
+
+    <div class="pillrow">
+      <span class="pill">Dossiers</span><span class="pill">Rollen</span><span class="pill">Communicatie</span>
+      <span class="pill">Opvolging</span><span class="pill">Documentatie</span><span class="pill">Governance</span>
+    </div>
+
+    <div class="hl-grid cols-3" style="margin-top:8px;">
+      <div class="hl-card"><div class="c-role">01</div><h3>GDPR compliant</h3><p>Conform Europese privacywetgeving. Data-minimisatie ingebouwd, niet bijgevoegd.</p></div>
+      <div class="hl-card"><div class="c-role">02</div><h3>Rolgebaseerd</h3><p>Wie wat ziet en mag doen volgt strikt de rol binnen het traject.</p></div>
+      <div class="hl-card"><div class="c-role">03</div><h3>2FA secured</h3><p>Twee-factor authenticatie standaard. Toegang is een beslissing.</p></div>
+      <div class="hl-card"><div class="c-role">04</div><h3>Enterprise-ready</h3><p>SSO, audit logs, custom rollen en integraties. Vanaf dag één.</p></div>
+      <div class="hl-card"><div class="c-role">05</div><h3>Active vandaag</h3><p>Actief binnen meerdere corporate organisaties. Geen pilot — productie.</p></div>
+      <div class="hl-card"><div class="c-role">06</div><h3>EU cloud-hosted</h3><p>Volledig gehost binnen Europese cloud. Data verlaat het continent niet.</p></div>
+    </div>
+
+    <div class="pull">Storm maakt verzuim niet alleen zichtbaar. Het maakt organisaties <em>consistenter</em> in hoe ze handelen.</div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Technologie · Storm</span><span class="pf-no">12</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 13 — TECHNOLOGIE · CASEY AI ═══════════ -->
+<section class="page page--dark" data-screen-label="13 Casey AI">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Technologie · Casey AI</span></div>
+
+    <span class="eyebrow">Casey AI · pilot september 2026</span>
+    <h2 class="sec-title">Geen chatbot. De<br><em>contextual intelligence layer.</em></h2>
+    <p class="sec-lead">Casey combineert jarenlange praktijkervaring, een eigen ontwikkelde methodologie en een Agentic AI-framework in één intelligent systeem dat leert van uw context, ondersteunt waar nodig en meegroeit met uw organisatie — altijd met de mens aan het stuur.</p>
+
+    <div class="divlabel" style="color:var(--orange);">Wat Casey betekent per rol</div>
+    <div class="hl-grid cols-3" style="margin-top:8px;">
+      <div class="hl-card"><div class="c-role">01</div><h3>Case managers</h3><p>Scherpere voorbereiding en consistenter dossierbeheer.</p></div>
+      <div class="hl-card"><div class="c-role">02</div><h3>HR</h3><p>Meer overzicht, sterkere documentatie en minder kennisverlies.</p></div>
+      <div class="hl-card"><div class="c-role">03</div><h3>Leidinggevenden</h3><p>Meer vertrouwen in gesprekken en opvolging op de werkvloer.</p></div>
+      <div class="hl-card"><div class="c-role">04</div><h3>Preventie</h3><p>Betere inzichten in patronen, signalen en werkbaarheid.</p></div>
+      <div class="hl-card"><div class="c-role">05</div><h3>Organisatie</h3><p>Meer grip op risico, capaciteit en duurzame inzetbaarheid.</p></div>
+      <div class="hl-card" style="justify-content:center;"><p style="font-family:var(--serif);font-style:italic;font-size:13px;color:#fff;line-height:1.4;">Casey denkt niet in <em style="color:var(--orange);">tickets</em> — maar in context, gedrag en continuïteit.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:18px;">
+      <span class="eyebrow" style="color:var(--orange);">Human in the Loop</span>
+      <p class="co-q" style="margin-top:12px;">AI zonder context creëert <em>ruis.</em></p>
+      <p class="co-cite" style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:11px;color:var(--off-mute);">Daarom blijft menselijke expertise essentieel in elke beslissing. Human in the Loop is geen feature — het is architectuur. Vanaf september 2026 starten pilootprogramma's met een selecte groep early adopters die mee bepalen hoe Casey evolueert.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Technologie · Casey AI</span><span class="pf-no">13</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 14 — BEWEZEN ═══════════ -->
+<section class="page" data-screen-label="14 Bewezen">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Bewijs</span></div>
+
+    <span class="eyebrow">Bewezen in de praktijk</span>
+    <h2 class="sec-title">Geen passieve theorie.<br>Gebouwd voor <em>schaal.</em></h2>
+    <p class="sec-lead">Montisoro is bewezen in de praktijk en gebouwd voor organisaties die vooruit willen — van eerste verzuimdag tot duurzame werkhervatting.</p>
+
+    <div class="divlabel">Resultaat in cijfers</div>
+    <div class="stat-strip" style="grid-template-columns:repeat(3,1fr);">
+      <div class="stat"><div class="s-v">2.500<em>+</em></div><div class="s-l">Begeleide dossiers in frequent én langdurig verzuim.</div></div>
+      <div class="stat"><div class="s-v">30–35<em>%</em></div><div class="s-l">Kortere duurtijd van langdurig verzuim.</div></div>
+      <div class="stat"><div class="s-v"><em>€</em>14,7M</div><div class="s-l">Meetbare reductie in verzuimkost.</div></div>
+    </div>
+
+    <div class="block">
+      <p class="body-p">Die resultaten ontstaan niet uit één ingreep, maar uit het samenspel van neutrale regie, heldere governance, capability-opbouw en technologie. Het effect is meetbaar op drie niveaus tegelijk: <strong>kortere verzuimduur</strong>, <strong>lagere kost</strong> en <strong>minder kennisverlies</strong> bij rolwissels.</p>
+    </div>
+
+    <p class="note"><strong>Transparantie (belangrijk):</strong> bovenstaande cijfers zijn gebaseerd op geaggregeerde praktijkdata uit Montisoro-dossiers. Meetperiode, definitie en berekening zijn op aanvraag beschikbaar; een aparte methodologie-onderbouwing is in voorbereiding. Cijfers worden bewust niet sterker geformuleerd dan ze onderbouwd kunnen worden.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Bewezen in de praktijk</span><span class="pf-no">14</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 15 — KLANTEN ═══════════ -->
+<section class="page" data-screen-label="15 Klanten">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Klanten</span></div>
+
+    <span class="eyebrow">Vertrouwd door</span>
+    <h2 class="sec-title">Bewezen bij <em>corporates.</em></h2>
+    <p class="sec-lead">Montisoro werkt vandaag met grote, gekende organisaties rond verzuim, begeleiding en duurzame werkhervatting. Geverifieerde referenties zijn beschikbaar op aanvraag.</p>
+
+    <div class="logo-wall">
+      <div class="logo-cell"><img src="assets/logos/volvo.svg" alt="Volvo Group"><div class="lc-role"><b>Volvo Group</b>HR-directeur</div></div>
+      <div class="logo-cell"><img src="assets/logos/alcon.svg" alt="Alcon"><div class="lc-role"><b>Alcon Laboratories</b>People Manager</div></div>
+      <div class="logo-cell"><img src="assets/logos/novartis.png" alt="Novartis"><div class="lc-role"><b>Novartis Manufacturing</b>Operations Director</div></div>
+      <div class="logo-cell"><img src="assets/logos/axa.png" alt="AXA"><div class="lc-role"><b>AXA Belgium</b>Preventieadviseur</div></div>
+      <div class="logo-cell"><img src="assets/logos/securitas.png" alt="Securitas"><div class="lc-role"><b>Securitas</b>Head of People</div></div>
+      <div class="logo-cell"><img src="assets/logos/vaillant.png" alt="Vaillant"><div class="lc-role"><b>Vaillant Group</b>HR Business Partner</div></div>
+    </div>
+
+    <div class="block tight">
+      <p class="body-p">De samenwerking draait telkens rond hetzelfde: <strong>verzuim, begeleiding en duurzame werkhervatting.</strong> De rollen die met Montisoro werken — van HR-directie en preventieadviseurs tot operations en people management — geven aan dat de aanpak op meerdere niveaus van een organisatie aansluit.</p>
+    </div>
+
+    <p class="note"><strong>Klantquotes:</strong> letterlijke citaten en gepubliceerde cases worden toegevoegd zodra schriftelijk akkoord van de betrokken organisaties beschikbaar is. Tot dan geldt: geverifieerde referentie op aanvraag.</p>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Klanten &amp; referenties</span><span class="pf-no">15</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 16 — DE MENSEN I ═══════════ -->
+<section class="page" data-screen-label="16 Team leiderschap">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Het team</span></div>
+
+    <span class="eyebrow">De mensen</span>
+    <h2 class="sec-title">De mensen achter de <em>capability.</em></h2>
+    <p class="sec-lead">Werkbaar werk integreert zich niet vanzelf. Het vraagt mensen die durven kijken, scherp analyseren, juist handelen en technologie slim inzetten — een team van strategie, casemanagement en engineering.</p>
+
+    <div class="divlabel">Leiderschap &amp; technologie</div>
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Founder · CEO</div><h3>Laurence Van den Bergh</h3><p>Beleidssterk, analytisch en tech-savvy met pit. Brengt strategisch inzicht, juridische scherpte en ervaringsdeskundigheid samen om verzuimbeleid menselijker én effectiever te maken.</p></div>
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">CPO</div><h3>Jeroen</h3><p>Bouwt de technologische ruggengraat. Vertaalt methodologie naar werkende systemen — van architectuur tot Casey AI. Waar complexiteit dreigt vast te lopen, zorgt hij dat het beweegt.</p></div>
+      <div class="hl-card"><div class="c-role">Business Development</div><h3>Glenn</h3><p>Verbindt strategie, markt en klantbehoeften met schaalbare groei. 10+ jaar ervaring in digitale oplossingen en business development. Scherp, pragmatisch, gericht op impact.</p></div>
+      <div class="hl-card"><div class="c-role">Marketing &amp; Branding</div><h3>Reza</h3><p>Vertaalt de identiteit van Montisoro naar alles wat je ziet, leest en voelt — van digitale vormgeving tot klantmateriaal, van campagne tot strategie.</p></div>
+      <div class="hl-card"><div class="c-role">Lead AI Architect</div><h3>Amr</h3><p>Ontwerpt en ontwikkelt de intelligentie achter Casey AI. Vertaalt visie en praktijkkennis naar geavanceerde Agentic AI-frameworks die leren, redeneren en handelen.</p></div>
+      <div class="hl-card"><div class="c-role">Senior Platform Engineer</div><h3>Ahmed</h3><p>Verantwoordelijk voor opbouw, beveiliging, monitoring en schaalbaarheid van de AWS-cloudinfrastructuur van Storm en Casey AI.</p></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Het team · leiderschap</span><span class="pf-no">16</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 17 — DE MENSEN II ═══════════ -->
+<section class="page" data-screen-label="17 Team casemanagement">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Het team</span></div>
+
+    <span class="eyebrow">Casemanagement &amp; expertise</span>
+    <h2 class="sec-title">Non-clinical <em>casemanagers.</em></h2>
+    <p class="sec-lead">De casemanagers brengen structuur, rust en menselijkheid in verzuimtrajecten — van eerste opvolging tot duurzame werkhervatting, in nauwe samenwerking met arbeidsgeneeskunde.</p>
+
+    <div class="hl-grid cols-2">
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Non-clinical Casemanager</div><h3>Els</h3><p>Brengt structuur, rust en menselijkheid in verzuimtrajecten. Begeleidt medewerkers en organisaties van eerste opvolging tot duurzame werkhervatting.</p></div>
+      <div class="hl-card" style="padding-top:16px;"><div class="c-role">Non-clinical Casemanager</div><h3>Edith</h3><p>Combineert ervaring als stress- en burn-outcoach, loopbaanbegeleider en outplacementbegeleider met een warme, gestructureerde aanpak in re-integratie.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Casemanager</div><h3>Rico</h3><p>Verpleegkundige met warmte, klinische scherpte en pit. Werkt nauw samen met arbeidsgeneeskunde en brengt een blik mee die het verschil maakt op de werkvloer.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Casemanager</div><h3>Astrid</h3><p>Arbeidspsycholoog met stevige terreinervaring, dicht bij medewerker én organisatie. Komt in beeld wanneer het telt — en weet wat er dan nodig is.</p></div>
+      <div class="hl-card"><div class="c-role">Non-clinical Casemanager</div><h3>Stefi</h3><p>Ervaren ergotherapeut en trainer die organisaties ondersteunt bij het implementeren van Culture of Care, met focus op praktische toepasbaarheid en duurzame gedragsverandering.</p></div>
+      <div class="hl-card" style="justify-content:center;"><p style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--ink);line-height:1.45;">Een uitbreidend team van experten, klinisch en non-clinical, rond de <em style="color:var(--orange);">mens</em> en de organisatie.</p></div>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Het team · casemanagement</span><span class="pf-no">17</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 18 — MARKT & POSITIONERING ═══════════ -->
+<section class="page" data-screen-label="18 Markt">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Markt</span></div>
+
+    <span class="eyebrow">Markt &amp; positionering</span>
+    <h2 class="sec-title">Waar Montisoro <em>past.</em></h2>
+    <p class="sec-lead">Montisoro positioneert zich op het kruispunt van verzuimbeleid, welzijn op het werk en technologie — een ruimte waar consultancy, software en juridische expertise vaak los van elkaar opereren.</p>
+
+    <div class="hl-grid cols-2" style="margin-top:14px;">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Doelmarkt</h3><p>KMO tot grote organisaties in België waar verzuim, werkbaarheid en menselijke complexiteit dagelijkse realiteit zijn. Sector-agnostisch — de context verschilt, het systeem niet.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Kerncontacten</h3><p>HR-directie, preventieadviseurs, leidinggevenden en CFO's. De calculator en fit check zijn bewust gebouwd om dat eerste gesprek te openen.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Onderscheidend</h3><p>Niet één persoon of één tool, maar een systeem: menselijke regie + governance + capability + technologie. Kennis blijft in de organisatie.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Commercieel model</h3><p>Diagnosegesprek → traject met vaste scope → Storm-platform → Casey AI. Voorstellen met verwachte terugverdientijd, op basis van de eigen cijfers van de klant.</p></div>
+    </div>
+
+    <div class="block tight">
+      <div class="divlabel">Instroom van nieuwe klanten</div>
+      <ul class="list-clean list-two">
+        <li>Diagnosegesprekken via de drie contactkanalen.</li>
+        <li>De online fit check als laagdrempelig vertrekpunt.</li>
+        <li>De ROI-calculator die de kost zichtbaar maakt.</li>
+        <li>Casey AI-pilootprogramma (start september 2026).</li>
+      </ul>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Markt &amp; positionering</span><span class="pf-no">18</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 19 — CONNECTIES & NETWERK ═══════════ -->
+<section class="page page--dark" data-screen-label="19 Netwerk">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Netwerk</span></div>
+
+    <span class="eyebrow">Connecties, investeerders &amp; netwerk</span>
+    <h2 class="sec-title">Met wie Montisoro <em>verbonden</em> is.</h2>
+    <p class="sec-lead">Een eerlijk overzicht van het netwerk van Montisoro — inclusief wat (nog) niet publiek is. Dit document vermeldt geen relaties die niet bevestigd zijn.</p>
+
+    <div class="hl-grid cols-2" style="margin-top:14px;border-color:var(--line-d);">
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Klantrelaties</h3><p>Actieve samenwerkingen met o.a. Volvo Group, Alcon, Novartis, AXA Belgium, Securitas en Vaillant Group — rond verzuim, begeleiding en duurzame werkhervatting.</p></div>
+      <div class="hl-card" style="padding-top:0;"><h3 style="font-size:15px;">Founder-netwerk</h3><p>Het publieke aanspreekpunt loopt via de oprichter, Laurence Van den Bergh, o.a. via LinkedIn. Het bedrijf is door de oprichter geleid.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Investeerders</h3><p>Er is op dit moment géén publiek aangekondigde externe investering. Mocht financiering of een partnerschap aangekondigd worden, dan hoort dat hier — niet eerder.</p></div>
+      <div class="hl-card"><h3 style="font-size:15px;">Pers &amp; publicaties</h3><p>Er is nog geen geconsolideerde persdekking of gepubliceerde case. Cases en artikelen worden toegevoegd zodra ze bestaan en geverifieerd zijn.</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px;">
+      <p class="co-q">Wat hier staat, is <em>bevestigd.</em> Wat nog niet bevestigd is, staat er bewust niet in.</p>
+      <p class="co-cite">Conform het principe: vertrouwen verdiend door resultaat, behouden door transparantie.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Connecties &amp; netwerk</span><span class="pf-no">19</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 20 — FEITEN & CONTACT ═══════════ -->
+<section class="page page--dark" data-screen-label="20 Contact">
+  <div class="page-pad">
+    <div class="p-head"><img class="p-logo" src="assets/montisoro-logo.png" alt="Montisoro"><span class="tag">Feiten &amp; contact</span></div>
+
+    <span class="eyebrow">Feiten &amp; contact</span>
+    <h2 class="sec-title">Het dossier in <em>feiten.</em></h2>
+
+    <div class="divlabel" style="color:var(--orange);">Bedrijfsfiche</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Bedrijf</div><div class="kv-v">Montisoro BV</div></div>
+      <div class="kv-row"><div class="kv-k">Ondernemingsnummer</div><div class="kv-v">BE0733840137</div></div>
+      <div class="kv-row"><div class="kv-k">Basis</div><div class="kv-v">België</div></div>
+      <div class="kv-row"><div class="kv-k">Domein</div><div class="kv-v">Verzuim · werkbaarheid · re-integratie</div></div>
+      <div class="kv-row"><div class="kv-k">Platform</div><div class="kv-v">Storm (SaaS, live sinds 2023)</div></div>
+      <div class="kv-row"><div class="kv-k">AI-laag</div><div class="kv-v">Casey AI (pilot sept. 2026)</div></div>
+    </div>
+
+    <div class="divlabel" style="color:var(--orange);margin-top:18px;">Drie kanalen, één gesprek</div>
+    <div class="kv">
+      <div class="kv-row"><div class="kv-k">Plan een gesprek</div><div class="kv-v">montisoro.com/contact</div></div>
+      <div class="kv-row"><div class="kv-k">E-mail</div><div class="kv-v">hello@montisoro.com</div></div>
+      <div class="kv-row"><div class="kv-k">Telefoon</div><div class="kv-v">+32 477 89 91 86 · +32 472 38 76 35</div></div>
+      <div class="kv-row"><div class="kv-k">LinkedIn</div><div class="kv-v">linkedin.com/in/laurence-van-den-bergh</div></div>
+      <div class="kv-row"><div class="kv-k">Website</div><div class="kv-v">montisoro.com</div></div>
+    </div>
+
+    <div class="colophon">
+      <p style="font-family:var(--serif);font-style:italic;font-weight:700;font-size:22px;color:#fff;letter-spacing:-.01em;">Re-integrate <span style="color:var(--orange);">What Matters.</span></p>
+      <p style="font-size:10px;color:var(--off-mute-2);margin-top:10px;line-height:1.6;font-family:var(--mono);letter-spacing:.04em;">Bedrijfsdossier Montisoro · versie juni 2026 · samengesteld op basis van de publieke website en het projectmateriaal van Montisoro. Cijfers en claims zoals door Montisoro gecommuniceerd; onderbouwing op aanvraag. © 2026 Montisoro BV.</p>
+    </div>
+
+    <div class="p-foot"><span>Montisoro — Bedrijfsdossier</span><span>Feiten &amp; contact</span><span class="pf-no">20</span></div>
+  </div>
+</section>
+
+</div>
+<script>
+(async () => {
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  @page { margin: 0.5cm; }\n  html, body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }\n  section, article, figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

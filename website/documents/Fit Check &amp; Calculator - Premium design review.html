@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Montisoro — Premium design review · Fit Check &amp; Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#E8592B; --orange-cta:#CC4A1E; --orange-tint:rgba(232,89,43,0.10);
+  --bg:#13100D; --bg-2:#1A1410; --bg-3:#1C1814;
+  --page:#f9f8f6; --page-2:#f2efea;
+  --off:#F0EDE8; --muted-d:rgba(240,237,232,0.72); --muted-d-2:rgba(240,237,232,0.52);
+  --ink:#1a1a1a; --ink-soft:#3a352f; --ink-mute:#6b7280;
+  --line-d:rgba(240,237,232,0.14); --line-l:rgba(26,21,18,0.12);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --good:#1F7A4D; --warn:#B45309; --bad:#A12C2C;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--page);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.6;font-weight:300;}
+img{max-width:100%;display:block;}
+a{color:var(--orange-cta);text-decoration:none;}
+a:hover{color:var(--orange);}
+
+/* ── structure ── */
+.section{padding:clamp(64px,9vw,120px) clamp(22px,6vw,80px);}
+.section.dark{background:var(--bg);color:var(--off);}
+.section.light{background:var(--page);color:var(--ink);}
+.section.alt{background:var(--page-2);}
+.wrap{max-width:1120px;margin:0 auto;}
+.narrow{max-width:820px;margin:0 auto;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:22px;}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange);display:block;}
+.dark .eyebrow{color:var(--orange);}
+
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;letter-spacing:-.02em;line-height:1.1;}
+.h-title{font-size:clamp(30px,4.6vw,56px);}
+.h-sec{font-size:clamp(26px,3.6vw,42px);}
+.h-sub{font-size:clamp(20px,2.4vw,28px);}
+em.acc{font-style:italic;color:var(--orange);}
+.lead{font-size:clamp(16px,1.5vw,19px);line-height:1.75;font-weight:300;max-width:70ch;}
+.dark .lead{color:var(--muted-d);}
+.light .lead{color:var(--ink-soft);}
+p{text-wrap:pretty;}
+.body{font-size:15.5px;line-height:1.82;font-weight:300;}
+.light .body{color:var(--ink-soft);}
+.dark .body{color:var(--muted-d);}
+.mt8{margin-top:8px;}.mt16{margin-top:16px;}.mt24{margin-top:24px;}.mt40{margin-top:40px;}.mt56{margin-top:56px;}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:5px 13px;}
+
+/* ── cover ── */
+.cover{min-height:96vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.cover::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 82% 8%,rgba(232,89,43,.16),transparent 55%);pointer-events:none;}
+.cover .wrap{position:relative;z-index:1;}
+.cover .kicker{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted-d-2);margin-bottom:28px;font-weight:500;}
+.cover h1{font-size:clamp(40px,7vw,92px);line-height:1.02;}
+.cover .sub{margin-top:30px;font-size:clamp(16px,1.7vw,21px);color:var(--muted-d);max-width:60ch;line-height:1.7;font-weight:300;}
+.cover .meta{margin-top:52px;display:flex;flex-wrap:wrap;gap:14px 40px;font-size:13px;color:var(--muted-d-2);border-top:1px solid var(--line-d);padding-top:26px;}
+.cover .meta b{color:var(--off);font-weight:600;}
+.notecode{margin-top:34px;display:inline-flex;align-items:center;gap:12px;padding:12px 20px;border:1px solid rgba(232,89,43,.4);background:var(--orange-tint);border-radius:100px;font-size:13px;font-weight:500;color:var(--off);}
+.notecode b{color:var(--orange);}
+
+/* ── panel roster ── */
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line-d);border:1px solid var(--line-d);border-radius:14px;overflow:hidden;margin-top:44px;}
+.pers{background:var(--bg-2);padding:22px 22px 24px;}
+.pers .n{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--off);}
+.pers .r{font-size:12px;color:var(--muted-d-2);margin-top:5px;letter-spacing:.02em;}
+.pers .init{font-family:var(--serif);font-style:italic;color:var(--orange);font-size:13px;}
+
+/* ── scorecards ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+@media(max-width:820px){.grid2{grid-template-columns:1fr;}}
+.scard{background:#fff;border:1px solid var(--line-l);border-radius:18px;padding:30px 30px 26px;box-shadow:0 24px 50px -34px rgba(0,0,0,.4);}
+.scard.d{background:var(--bg-2);border-color:var(--line-d);box-shadow:none;}
+.scard h3{font-size:23px;}
+.scard .ov{display:flex;align-items:baseline;gap:10px;margin:6px 0 22px;}
+.scard .ov .big{font-family:var(--serif);font-weight:900;font-size:52px;color:var(--orange);line-height:1;}
+.scard .ov .of{font-size:14px;color:var(--ink-mute);}
+.scard.d .ov .of{color:var(--muted-d-2);}
+.crit{display:flex;flex-direction:column;gap:11px;}
+.row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;}
+.row .lbl{font-size:13.5px;color:var(--ink-soft);}
+.scard.d .row .lbl{color:var(--muted-d);}
+.row .bar{grid-column:1 / -1;height:5px;border-radius:3px;background:rgba(26,21,18,.08);overflow:hidden;margin-top:-3px;}
+.scard.d .row .bar{background:rgba(240,237,232,.10);}
+.row .bar > i{display:block;height:100%;background:var(--orange);border-radius:3px;}
+.row .sc{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums;}
+.scard.d .row .sc{color:var(--off);}
+.devrow{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;}
+.chip{font-size:11.5px;font-weight:500;color:var(--ink-soft);border:1px solid var(--line-l);border-radius:100px;padding:6px 13px;}
+.scard.d .chip{color:var(--muted-d);border-color:var(--line-d);}
+.chip b{font-family:var(--serif);font-weight:700;color:var(--orange);}
+
+/* ── dialogue ── */
+.talk{display:flex;flex-direction:column;gap:26px;margin-top:14px;}
+.turn{display:grid;grid-template-columns:180px 1fr;gap:26px;padding-bottom:26px;border-bottom:1px solid var(--line-d);}
+@media(max-width:720px){.turn{grid-template-columns:1fr;gap:8px;}}
+.turn .who{font-size:13px;}
+.turn .who .nm{font-family:var(--serif);font-weight:700;color:var(--off);font-size:15px;}
+.turn .who .rl{color:var(--muted-d-2);font-size:11.5px;margin-top:3px;letter-spacing:.02em;}
+.turn .said{font-size:15.5px;line-height:1.8;color:var(--muted-d);font-weight:300;}
+.turn .said b{color:var(--off);font-weight:500;}
+.turn.hot .said{color:var(--off);}
+.themes{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border:1px solid var(--line-d);border-radius:14px;overflow:hidden;margin-top:40px;}
+@media(max-width:720px){.themes{grid-template-columns:1fr;}}
+.theme{background:var(--bg-2);padding:24px 26px;}
+.theme .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:10px;}
+.theme p{font-size:14px;color:var(--muted-d);line-height:1.7;}
+
+/* ── concepts ── */
+.concept{padding:clamp(48px,7vw,96px) clamp(22px,6vw,80px);border-top:1px solid var(--line-l);}
+.concept:nth-child(even){background:var(--page-2);}
+.chead{display:flex;align-items:flex-start;gap:26px;margin-bottom:12px;}
+.chead .num{font-family:var(--serif);font-style:italic;font-weight:900;font-size:clamp(48px,7vw,84px);color:var(--orange);line-height:.85;opacity:.9;}
+.chead .ttl h2{font-size:clamp(26px,3.4vw,40px);}
+.chead .ttl .oneline{color:var(--ink-mute);font-size:15px;margin-top:6px;}
+.cgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start;margin-top:30px;}
+@media(max-width:900px){.cgrid{grid-template-columns:1fr;gap:34px;}}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line-l);border:1px solid var(--line-l);border-radius:12px;overflow:hidden;}
+@media(max-width:520px){.specs{grid-template-columns:1fr;}}
+.spec{background:#fff;padding:14px 16px;}
+.concept:nth-child(even) .spec{background:var(--page);}
+.spec .k{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:4px;}
+.spec .v{font-size:13px;color:var(--ink-soft);line-height:1.5;}
+.cwhy{margin-top:22px;font-size:14.5px;line-height:1.8;color:var(--ink-soft);}
+.cwhy .fitscore{margin-top:16px;display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--ink);}
+.cwhy .fitscore b{font-family:var(--serif);font-weight:900;font-size:22px;color:var(--orange);}
+
+/* ── mini mockups ── */
+.mockwrap{position:sticky;top:24px;}
+.mocklabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:14px;text-align:center;}
+.mock{border-radius:20px;padding:26px 24px 24px;position:relative;overflow:hidden;min-height:320px;font-weight:400;}
+.mock .m-eye{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:14px;}
+.mock .m-q{font-size:21px;line-height:1.2;margin-bottom:18px;}
+.mock .m-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:12px;font-size:13px;margin-bottom:9px;}
+.mock .m-opt .let{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;}
+.mock .m-prog{display:flex;gap:6px;margin-bottom:20px;}
+.mock .m-prog i{height:4px;flex:1;border-radius:3px;}
+.mock .m-btn{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.04em;padding:12px 22px;border-radius:100px;}
+
+/* concept 1 · apple minimal */
+.mk1{background:#fbfbfd;color:#1d1d1f;border:1px solid #e6e6ea;box-shadow:0 30px 60px -40px rgba(0,0,0,.3);}
+.mk1 .m-prog i{background:#e2e2e6;}.mk1 .m-prog i.on{background:#1d1d1f;}
+.mk1 .m-eye{color:#86868b;}
+.mk1 .m-q{font-family:var(--sans);font-weight:600;letter-spacing:-.02em;color:#1d1d1f;}
+.mk1 .m-opt{background:#fff;border:1px solid #e6e6ea;color:#1d1d1f;}
+.mk1 .m-opt.sel{border-color:#1d1d1f;background:#f5f5f7;}
+.mk1 .m-opt .let{background:#f0f0f2;color:#86868b;}
+.mk1 .m-opt.sel .let{background:#1d1d1f;color:#fff;}
+.mk1 .m-btn{background:#1d1d1f;color:#fff;}
+
+/* concept 2 · awwwards premium (editorial dark) */
+.mk2{background:#141210;color:var(--off);border:1px solid rgba(240,237,232,.10);box-shadow:0 30px 70px -36px rgba(0,0,0,.8);}
+.mk2 .m-prog i{background:rgba(240,237,232,.14);}.mk2 .m-prog i.on{background:var(--orange);}
+.mk2 .m-eye{color:var(--orange);}
+.mk2 .m-q{font-family:var(--serif);font-weight:700;color:var(--off);}
+.mk2 .m-q i{font-style:italic;color:var(--orange);}
+.mk2 .m-opt{background:rgba(240,237,232,.03);border:1px solid rgba(240,237,232,.10);color:var(--off);}
+.mk2 .m-opt.sel{border-color:var(--orange);background:rgba(232,89,43,.10);}
+.mk2 .m-opt .let{background:rgba(240,237,232,.06);color:var(--muted-d);font-family:var(--serif);}
+.mk2 .m-opt.sel .let{background:var(--orange);color:#fff;}
+.mk2 .m-btn{background:var(--orange-cta);color:#fff;text-transform:uppercase;letter-spacing:.08em;}
+
+/* concept 3 · high-end saas (light, crisp, systematic) */
+.mk3{background:#fff;color:#111827;border:1px solid #e5e7eb;box-shadow:0 24px 50px -34px rgba(17,24,39,.28);}
+.mk3 .m-prog{gap:0;background:#eef0f3;border-radius:100px;height:5px;overflow:hidden;padding:0;}
+.mk3 .m-prog i{flex:none;width:42%;background:var(--orange);border-radius:100px;height:100%;}
+.mk3 .m-prog i.pad{display:none;}
+.mk3 .m-eye{color:var(--orange);}
+.mk3 .m-q{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;color:#111827;}
+.mk3 .m-opt{background:#f9fafb;border:1px solid #e5e7eb;color:#111827;}
+.mk3 .m-opt.sel{border-color:var(--orange);background:#fff;box-shadow:0 0 0 3px rgba(232,89,43,.14);}
+.mk3 .m-opt .let{background:#eef0f3;color:#6b7280;border-radius:50%;}
+.mk3 .m-opt.sel .let{background:var(--orange);color:#fff;}
+.mk3 .m-btn{background:var(--orange-cta);color:#fff;border-radius:10px;}
+
+/* concept 4 · luxury enterprise (dark, gold-warm, gilded lines) */
+.mk4{background:linear-gradient(160deg,#171310,#0f0c09);color:#efe7dc;border:1px solid rgba(200,164,110,.28);box-shadow:0 30px 70px -36px rgba(0,0,0,.85);}
+.mk4 .m-prog i{background:rgba(200,164,110,.18);}.mk4 .m-prog i.on{background:#c8a46e;}
+.mk4 .m-eye{color:#c8a46e;letter-spacing:.24em;}
+.mk4 .m-q{font-family:var(--serif);font-weight:700;color:#efe7dc;}
+.mk4 .m-opt{background:transparent;border:1px solid rgba(200,164,110,.24);color:#efe7dc;}
+.mk4 .m-opt.sel{border-color:#c8a46e;background:rgba(200,164,110,.08);}
+.mk4 .m-opt .let{background:transparent;border:1px solid rgba(200,164,110,.4);color:#c8a46e;font-family:var(--serif);}
+.mk4 .m-opt.sel .let{background:#c8a46e;color:#171310;border-color:#c8a46e;}
+.mk4 .m-btn{background:transparent;border:1px solid #c8a46e;color:#c8a46e;text-transform:uppercase;letter-spacing:.14em;}
+
+/* concept 5 · future healthcare (soft light, glass, calm) */
+.mk5{background:linear-gradient(155deg,#ffffff,#f4f1ee);color:#241d18;border:1px solid rgba(255,255,255,.7);box-shadow:0 30px 60px -38px rgba(36,29,24,.35);}
+.mk5 .m-prog i{background:rgba(36,29,24,.10);border-radius:100px;}.mk5 .m-prog i.on{background:var(--orange);}
+.mk5 .m-eye{color:var(--orange);}
+.mk5 .m-q{font-family:var(--serif);font-weight:700;color:#241d18;}
+.mk5 .m-q i{font-style:italic;color:var(--orange);}
+.mk5 .m-opt{background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(36,29,24,.08);color:#241d18;box-shadow:0 6px 18px -14px rgba(36,29,24,.4);}
+.mk5 .m-opt.sel{border-color:var(--orange);background:#fff;}
+.mk5 .m-opt .let{background:var(--orange-tint);color:var(--orange);border-radius:50%;}
+.mk5 .m-opt.sel .let{background:var(--orange);color:#fff;}
+.mk5 .m-btn{background:var(--orange-cta);color:#fff;box-shadow:0 10px 24px -12px rgba(204,74,30,.7);}
+
+/* ── per-step proposals ── */
+.arch{background:#fff;border:1px solid var(--line-l);border-radius:18px;padding:30px 30px 28px;margin-top:26px;box-shadow:0 24px 50px -38px rgba(0,0,0,.35);}
+.section.alt .arch{background:var(--page);}
+.arch .ahead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line-l);padding-bottom:16px;margin-bottom:18px;}
+.arch .ahead h3{font-size:22px;}
+.arch .ahead .cur{font-size:13px;color:var(--ink-mute);}
+.arch .ahead .cur b{font-family:var(--serif);font-weight:700;color:var(--orange);font-size:16px;}
+.probs{font-size:14px;color:var(--ink-soft);line-height:1.7;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
+.probs li{display:grid;grid-template-columns:16px 1fr;gap:10px;}
+.probs li::before{content:'—';color:var(--orange);font-weight:700;}
+.opts3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px;}
+@media(max-width:820px){.opts3{grid-template-columns:1fr;}}
+.opt3{border:1px solid var(--line-l);border-radius:12px;padding:20px;background:var(--page-2);}
+.section.alt .opt3{background:#fff;}
+.opt3 .lt{font-family:var(--serif);font-style:italic;font-weight:700;color:var(--orange);font-size:15px;margin-bottom:8px;}
+.opt3 .nm{font-weight:600;font-size:14.5px;color:var(--ink);margin-bottom:8px;}
+.opt3 p{font-size:13px;color:var(--ink-soft);line-height:1.65;}
+.opt3 .ps{margin-top:12px;font-size:12px;font-weight:600;color:var(--ink);}
+.opt3 .ps b{font-family:var(--serif);font-weight:900;color:var(--orange);font-size:17px;}
+
+/* ── roadmap ── */
+.road{display:flex;flex-direction:column;gap:2px;background:var(--line-d);border:1px solid var(--line-d);border-radius:16px;overflow:hidden;margin-top:36px;}
+.rlane{background:var(--bg-2);padding:26px 28px;}
+.rlane .lh{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;}
+.rlane .lh .t{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--off);}
+.rlane .lh .meta{font-size:12px;color:var(--muted-d-2);}
+.item{display:grid;grid-template-columns:1fr repeat(4,64px);gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line-d);font-size:13.5px;}
+.item:first-of-type{border-top:0;}
+@media(max-width:720px){.item{grid-template-columns:1fr;gap:6px;}.item .m{display:inline-block;margin-right:14px;}}
+.item .desc{color:var(--muted-d);}
+.item .desc b{color:var(--off);font-weight:500;}
+.item .m{font-size:11px;color:var(--muted-d-2);text-align:center;}
+.item .m .dots{display:inline-flex;gap:3px;justify-content:center;margin-top:3px;}
+.item .m .dots i{width:6px;height:6px;border-radius:50%;background:rgba(240,237,232,.18);}
+.item .m .dots i.on{background:var(--orange);}
+@media(max-width:720px){.item .m{text-align:left;}.item .m .dots{margin-top:0;margin-left:6px;vertical-align:middle;}}
+.mhdr{display:grid;grid-template-columns:1fr repeat(4,64px);gap:12px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-d-2);padding:0 0 6px;font-weight:600;}
+@media(max-width:720px){.mhdr{display:none;}}
+.mhdr span{text-align:center;}.mhdr span:first-child{text-align:left;}
+
+/* ── verdict ── */
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;}
+@media(max-width:820px){.verdict{grid-template-columns:1fr;}}
+.vc{background:var(--bg-2);border:1px solid var(--line-d);border-radius:18px;padding:30px;}
+.vc h3{font-size:22px;color:var(--off);}
+.vscores{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:22px;}
+.vscore{background:var(--bg-3);border-radius:12px;padding:18px;}
+.vscore .k{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-d-2);font-weight:600;}
+.vscore .val{font-family:var(--serif);font-weight:900;font-size:38px;color:var(--orange);line-height:1;margin-top:8px;}
+.vscore .val span{font-size:15px;color:var(--muted-d-2);font-family:var(--sans);font-weight:400;}
+.rec{background:var(--orange-tint);border:1px solid rgba(232,89,43,.4);border-radius:18px;padding:32px clamp(24px,4vw,44px);margin-top:40px;}
+.rec .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:12px;}
+.rec h3{font-size:clamp(22px,2.6vw,30px);color:var(--off);}
+.rec p{color:var(--muted-d);margin-top:14px;font-size:15.5px;line-height:1.8;font-weight:300;}
+.rec .win{margin-top:18px;display:inline-flex;align-items:center;gap:12px;font-family:var(--serif);font-style:italic;font-weight:700;font-size:19px;color:var(--off);}
+.rec .win b{color:var(--orange);}
+
+.foot{padding:48px clamp(22px,6vw,80px);background:var(--bg);color:var(--muted-d-2);font-size:12.5px;border-top:1px solid var(--line-d);text-align:center;letter-spacing:.02em;}
+
+/* print */
+@media print{
+  .mockwrap{position:static;}
+  .section,.concept{page-break-inside:avoid;}
+  body{background:#fff;}
+}
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.in{opacity:1;transform:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="section dark cover">
+  <div class="wrap">
+    <div class="kicker">Onafhankelijk designpanel · Awwwards-review</div>
+    <h1>Fit Check &amp; Calculator,<br>onder de loep van een <em class="acc">topbureau</em>.</h1>
+    <p class="sub">Een volledige visuele audit van beide meerstaps-tools door een panel van vijftien specialisten — met scores, een scherpe paneldiscussie, vijf richtingsconcepten, voorstellen per stap en een roadmap. Eén regel: de flow, de teksten, de vragen en de berekeningen blijven exact zoals ze zijn. We herontwerpen enkel de beleving.</p>
+    <div class="notecode"><b>Fase:</b> Review &amp; concepten — nog géén implementatie. Uitwerken pas na jouw goedkeuring.</div>
+    <div class="meta">
+      <div><b>Scope</b> · Fit Check (4 stappen) &amp; Calculator (6 stappen) + rapport-gate</div>
+      <div><b>Getoetst op</b> · desktop · tablet · mobiel</div>
+      <div><b>Vast</b> · flow · copy · logica · uitkomst</div>
+    </div>
+  </div>
+</header>
+
+<!-- PANEL -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="eyebrow">Het panel</div>
+    <h2 class="h-sec">Vijftien specialisten, één maatstaf:<br>zou dit <em class="acc">gepubliceerd</em> worden?</h2>
+    <p class="lead mt24">Elk lid beoordeelde beide tools onafhankelijk voordat het panel samenkwam. De rollen overlappen bewust — waar de CRO-specialist conversie ziet, ziet de gedragspsycholoog cognitieve last, en de art director ziet ritme. Die wrijving maakt de discussie scherp.</p>
+    <div class="roster">
+      <div class="pers"><div class="n">Élise Rback</div><div class="r">Creative Director · Awwwards-bureau</div></div>
+      <div class="pers"><div class="n">Daan Verhoeven</div><div class="r">Senior UI Designer</div></div>
+      <div class="pers"><div class="n">Mara Kowalski</div><div class="r">Senior UX Designer</div></div>
+      <div class="pers"><div class="n">Tomás Ferreira</div><div class="r">Product Designer</div></div>
+      <div class="pers"><div class="n">Nadia El-Amrani</div><div class="r">CRO-specialist</div></div>
+      <div class="pers"><div class="n">Dr. Ben Sørensen</div><div class="r">Gedragspsycholoog</div></div>
+      <div class="pers"><div class="n">Yuki Tanaka</div><div class="r">Motion Designer</div></div>
+      <div class="pers"><div class="n">Leo Marchetti</div><div class="r">Interaction Designer</div></div>
+      <div class="pers"><div class="n">Sofía Rivas</div><div class="r">Visual Designer</div></div>
+      <div class="pers"><div class="n">Anton Kruger</div><div class="r">Art Director</div></div>
+      <div class="pers"><div class="n">Priya Nair</div><div class="r">Information Architect</div></div>
+      <div class="pers"><div class="n">Hannah Cole</div><div class="r">Accessibility-specialist</div></div>
+      <div class="pers"><div class="n">Marc Dubois</div><div class="r">Form Design-specialist</div></div>
+      <div class="pers"><div class="n">Aïsha Bello</div><div class="r">Mobile UX-specialist</div></div>
+      <div class="pers"><div class="n">Jonas Willems</div><div class="r">Design System-specialist</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAP 1 · SCORES -->
+<section class="section light alt">
+  <div class="wrap">
+    <div class="eyebrow">Stap 1 · Individuele beoordeling</div>
+    <h2 class="h-sec">De nulmeting</h2>
+    <p class="lead mt16 body" style="max-width:75ch;">Consensusscores van het panel per criterium, op 10. De vertrekbasis is bewust eerlijk: beide tools zijn ná de recente iteraties competent, merkvast en rustiger dan het gemiddelde B2B-formulier. Maar "competent en merkvast" is niet hetzelfde als "gepubliceerd worden op Awwwards" — en dáár legt dit panel de lat.</p>
+
+    <div class="grid2 mt40">
+      <!-- Fit Check -->
+      <div class="scard">
+        <h3>Fit Check</h3>
+        <div class="ov"><span class="big">7,2</span><span class="of">/ 10 · gewogen gemiddelde</span></div>
+        <div class="crit">
+          <div class="row"><span class="lbl">Eerste indruk</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Premium uitstraling</span><span class="sc">7,0</span><span class="bar"><i style="width:70%"></i></span></div>
+          <div class="row"><span class="lbl">Vertrouwen</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Rust</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Visuele hiërarchie</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Duidelijkheid</span><span class="sc">8,0</span><span class="bar"><i style="width:80%"></i></span></div>
+          <div class="row"><span class="lbl">Consistentie met de site</span><span class="sc">8,0</span><span class="bar"><i style="width:80%"></i></span></div>
+          <div class="row"><span class="lbl">Conversiegerichtheid</span><span class="sc">7,0</span><span class="bar"><i style="width:70%"></i></span></div>
+          <div class="row"><span class="lbl">Micro-interacties</span><span class="sc">6,0</span><span class="bar"><i style="width:60%"></i></span></div>
+          <div class="row"><span class="lbl">Gebruiksgemak</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+        </div>
+        <div class="devrow">
+          <span class="chip">Desktop <b>7,5</b></span>
+          <span class="chip">Tablet <b>6,5</b></span>
+          <span class="chip">Mobile <b>6,5</b></span>
+        </div>
+      </div>
+
+      <!-- Calculator -->
+      <div class="scard">
+        <h3>Calculator</h3>
+        <div class="ov"><span class="big">6,6</span><span class="of">/ 10 · gewogen gemiddelde</span></div>
+        <div class="crit">
+          <div class="row"><span class="lbl">Eerste indruk</span><span class="sc">7,0</span><span class="bar"><i style="width:70%"></i></span></div>
+          <div class="row"><span class="lbl">Premium uitstraling</span><span class="sc">6,5</span><span class="bar"><i style="width:65%"></i></span></div>
+          <div class="row"><span class="lbl">Vertrouwen</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Rust</span><span class="sc">6,0</span><span class="bar"><i style="width:60%"></i></span></div>
+          <div class="row"><span class="lbl">Visuele hiërarchie</span><span class="sc">6,5</span><span class="bar"><i style="width:65%"></i></span></div>
+          <div class="row"><span class="lbl">Duidelijkheid</span><span class="sc">7,0</span><span class="bar"><i style="width:70%"></i></span></div>
+          <div class="row"><span class="lbl">Consistentie met de site</span><span class="sc">7,5</span><span class="bar"><i style="width:75%"></i></span></div>
+          <div class="row"><span class="lbl">Conversiegerichtheid</span><span class="sc">7,0</span><span class="bar"><i style="width:70%"></i></span></div>
+          <div class="row"><span class="lbl">Micro-interacties</span><span class="sc">5,5</span><span class="bar"><i style="width:55%"></i></span></div>
+          <div class="row"><span class="lbl">Gebruiksgemak</span><span class="sc">6,5</span><span class="bar"><i style="width:65%"></i></span></div>
+        </div>
+        <div class="devrow">
+          <span class="chip">Desktop <b>7,0</b></span>
+          <span class="chip">Tablet <b>6,0</b></span>
+          <span class="chip">Mobile <b>5,5</b></span>
+        </div>
+      </div>
+    </div>
+    <p class="body mt24" style="max-width:75ch;color:var(--ink-mute);font-size:13.5px;">De Calculator scoort structureel lager op <b>rust, hiërarchie en mobiel</b>: stap 6 (verzuimprofiel) is dicht, met veel velden, pillen en percentages tegelijk in beeld. De Fit Check profiteert van zijn "één vraag per scherm"-ritme, maar verliest punten op <b>micro-interacties</b> — de overgangen zijn functioneel, niet memorabel.</p>
+  </div>
+</section>
+
+<!-- STAP 2 · DISCUSSIE -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="eyebrow">Stap 2 · Paneldiscussie</div>
+    <h2 class="h-sec">Niet vriendelijk. <em class="acc">Eerlijk.</em></h2>
+    <p class="lead mt16">De volledige vergadering, ingekort tot de scherpste passages. De experts spreken elkaar tegen waar het moet.</p>
+
+    <div class="talk">
+      <div class="turn hot">
+        <div class="who"><div class="nm">Élise Rback</div><div class="rl">Creative Director</div></div>
+        <div class="said">Laat ik meteen scherp zijn. Dit is <b>goed werk — en dat is precies het probleem</b>. Het is verzorgd, merkvast, netjes. Maar er is geen enkel moment waar ik als jurylid denk: "dít heb ik nog nooit zo gezien". Awwwards beloont geen netheid. Het beloont een <b>signatuurmoment</b>. Waar is het moment dat iemand een screenshot maakt?</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Daan Verhoeven</div><div class="rl">Senior UI</div></div>
+        <div class="said">Oneens dat het "af" is. De witte kaart op de donkere overlay is een grote stap — Fit Check en Calculator staan nu in dezelfde lijn, dat leest rustig. Maar de kaart <b>zweeft</b>. Eén platte schaduw, geen laagopbouw, geen textuur op de donkere achtergrond. Het voelt als een modal, niet als een beleving.</div>
+      </div>
+      <div class="turn hot">
+        <div class="who"><div class="nm">Anton Kruger</div><div class="rl">Art Director</div></div>
+        <div class="said">De donkere achtergrond áchter de kaart is nu een dode ruimte. Puur zwart met een zweem oranje. In een top-tier flow ademt die ruimte: <b>een grote, stille serif-index ("01 / 04"), een subtiel verlopende gloed die met de stap meebeweegt</b>, korrel. Nu is het leeg — en leeg is niet hetzelfde als rustig.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Mara Kowalski</div><div class="rl">Senior UX</div></div>
+        <div class="said">Voor mij is de Calculator het echte gesprek. Stap 6 is een <b>muur</b>. Werkdagen, totaalverzuim, zes categorie-pillen, benchmarks — allemaal tegelijk. De gebruiker is een CEO, geen HR-analist. Cognitief te veel op één scherm. De Fit Check heeft de discipline van één vraag per scherm; de Calculator laat die discipline los precies waar het het zwaarst wordt.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Dr. Ben Sørensen</div><div class="rl">Gedragspsycholoog</div></div>
+        <div class="said">Precies. En de <b>voortgang liegt een beetje</b>. Zes bolletjes suggereren zes gelijke stappen, maar stap 6 is vijf keer zo zwaar als stap 1. Dat is waar mensen afhaken: niet uit onwil, maar omdat de inschatting die ze bij stap 1 maakten ("kort klusje") botst met de realiteit bij stap 6. Toon de zwaarte eerlijk, of verlicht de zware stap.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Nadia El-Amrani</div><div class="rl">CRO</div></div>
+        <div class="said">Vanuit conversie: het rapport-scherm is het belangrijkste moment van de hele funnel en het voelt het minst bijzonder. Iemand heeft net 2 minuten geïnvesteerd — dán komt er een formulier. De <b>onthulling van de uitkomst en de e-mailvraag zouden een climax moeten zijn</b>, geen administratieve handeling. Nu is er geen crescendo.</div>
+      </div>
+      <div class="turn hot">
+        <div class="who"><div class="nm">Yuki Tanaka</div><div class="rl">Motion</div></div>
+        <div class="said">Er is bijna geen motion-taal. Stappen wisselen met een simpele fade/slide. Geen <b>gedeeld element dat meereist</b>, geen getal dat optelt bij de reveal, geen ritme in het verschijnen van opties. Motion is hier een afterthought, en juist motion is wat "premium" van "template" scheidt op Awwwards.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Aïsha Bello</div><div class="rl">Mobile UX</div></div>
+        <div class="said">Mobiel is de zwakste plek en waarschijnlijk waar de meeste bezoekers zitten. De verzuim-pillen in de Calculator worden krap, de titels van de stepper verdwijnen, en de witte kaart heeft op kleine schermen weinig ademruimte tot de rand. Ik wil <b>duimzone-navigatie</b>: de primaire knop altijd binnen bereik, niet ergens onderaan een lange kaart.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Marc Dubois</div><div class="rl">Form Design</div></div>
+        <div class="said">De invoervelden zijn correct — potlood-affordance, focus-ring, inputmode klopt. Maar ze zijn <b>karakterloos</b>. Een topflow behandelt een getalveld als een moment: groot cijfer, eenheid subtiel, directe bevestiging. Nu is €-invoer visueel gelijk aan een postcodeveld. De hiërarchie tussen "belangrijk cijfer" en "bijzaak" ontbreekt.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Hannah Cole</div><div class="rl">Accessibility</div></div>
+        <div class="said">Krediet waar het hoort: focus-visible, aria-labels en reduced-motion zijn aanwezig — dat is zeldzaam en het houdt élke richting hieronder haalbaar. Mijn zorg is <b>contrast bij de mooiere concepten</b>: zodra we naar goud-op-donker of glas gaan, moeten we AA blijven halen. Schoonheid mag de leesbaarheid niet kosten.</div>
+      </div>
+      <div class="turn">
+        <div class="who"><div class="nm">Jonas Willems</div><div class="rl">Design System</div></div>
+        <div class="said">Belangrijkste randvoorwaarde: wat we ook kiezen moet uit <b>dezelfde tokens</b> komen als de site — Playfair, DM Sans, #E8592B, de pill-knoppen. Twee tools die anders voelen dan de rest van de site is erger dan twee tools die "maar" netjes zijn. De winnende richting is die welke de bestaande huisstijl <b>opvoert</b>, niet vervangt.</div>
+      </div>
+      <div class="turn hot">
+        <div class="who"><div class="nm">Tomás Ferreira</div><div class="rl">Product Designer</div></div>
+        <div class="said">Dan is de conclusie eigenlijk al getekend. We hoeven geen nieuwe taal te verzinnen — de site ís al editorieel, donker, serif, met dat oranje. We moeten die taal <b>doortrekken ín de tool en er craft aan toevoegen</b>: ademende achtergrond, serif-index, een echte reveal. Niet Apple-steriel, niet goud-luxe. De site zélf, maar dan op scherp gezet.</div>
+      </div>
+    </div>
+
+    <div class="themes">
+      <div class="theme"><div class="k">Wat voelt verouderd</div><p>Platte kaart-op-vlak-modal. Stepper-bolletjes zonder gevoel voor zwaarte. Formulier als eindpunt in plaats van climax.</p></div>
+      <div class="theme"><div class="k">Wat voelt modern</div><p>Één vraag per scherm (Fit Check). De witte kaart-in-donker-lijn. Merkvaste serif-koppen en het oranje accent.</p></div>
+      <div class="theme"><div class="k">Wat voelt goedkoop</div><p>Dode zwarte achtergrond achter de kaart. Generieke fade tussen stappen. Getalvelden zonder hiërarchie.</p></div>
+      <div class="theme"><div class="k">Wat voelt premium</div><p>De rust en typografie zijn er al. Wat ontbreekt is craft in de marge: motion, laagopbouw, één signatuurmoment.</p></div>
+      <div class="theme"><div class="k">Waar de aandacht wegvalt</div><p>Calculator stap 6 (dichtheid). De sprong van "invullen" naar "formulier" zonder emotionele piek bij de uitkomst.</p></div>
+      <div class="theme"><div class="k">Waar vertrouwen sneller moet</div><p>Vroeger in de flow: "± 2 minuten", "we bellen niet ongevraagd", zichtbare benchmarkbron — nu te laat/te klein.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAP 3 · CONCEPTEN INTRO -->
+<section class="section light">
+  <div class="wrap narrow" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">Stap 3 · Vijf richtingen</div>
+    <h2 class="h-sec">Vijf concepten, één die past</h2>
+    <p class="lead mt16" style="margin-inline:auto;">Elk concept is volledig gespecificeerd én getoond als levende mini-mockup van één Fit Check-stap. Onderaan elk concept staat een eerlijke "past bij Montisoro"-score — want mooi in isolatie telt niet; het moet aanvoelen als dezelfde site.</p>
+  </div>
+</section>
+
+<!-- CONCEPT 1 -->
+<section class="concept">
+  <div class="wrap">
+    <div class="chead">
+      <div class="num">01</div>
+      <div class="ttl"><div class="tag">Apple Minimal</div><h2 class="mt8">Stilte als luxe</h2><div class="oneline">Bijna niets — en dat "bijna niets" perfect uitgevoerd.</div></div>
+    </div>
+    <div class="cgrid">
+      <div>
+        <div class="specs">
+          <div class="spec"><div class="k">Stijl</div><div class="v">Extreem gereduceerd, veel wit, systeemgevoel</div></div>
+          <div class="spec"><div class="k">Kleuren</div><div class="v">#fbfbfd / #f5f5f7, inkt #1d1d1f, oranje enkel als micro-accent</div></div>
+          <div class="spec"><div class="k">Spacing</div><div class="v">Zeer royaal, 8-punts grid, veel lucht rond één element</div></div>
+          <div class="spec"><div class="k">Typografie</div><div class="v">Sans-first (DM Sans 600), serif verdwijnt bijna</div></div>
+          <div class="spec"><div class="k">Kaarten</div><div class="v">Bijna randloos, 1px hairline, subtiele diepe schaduw</div></div>
+          <div class="spec"><div class="k">Invoervelden</div><div class="v">Groot, minimaal, onderlijn i.p.v. box</div></div>
+          <div class="spec"><div class="k">Progress</div><div class="v">Dunne zwarte segmentbalk, geen labels</div></div>
+          <div class="spec"><div class="k">Stapnavigatie</div><div class="v">Tekstlinks, geen zware knoppen</div></div>
+          <div class="spec"><div class="k">Iconografie</div><div class="v">Geen — puur typografisch</div></div>
+          <div class="spec"><div class="k">Illustraties</div><div class="v">Geen; leegte is de illustratie</div></div>
+          <div class="spec"><div class="k">Knoppen</div><div class="v">Zwart gevuld, strak radius, geen glans</div></div>
+          <div class="spec"><div class="k">Schaduw &amp; glas</div><div class="v">Eén zachte diepe schaduw; geen blur-effecten</div></div>
+          <div class="spec"><div class="k">Animatie</div><div class="v">Traag, ease-out, opacity+lichte lift, nooit bounce</div></div>
+          <div class="spec"><div class="k">Feedback</div><div class="v">Subtiel: selectie = randkleur, geen kleurexplosie</div></div>
+          <div class="spec"><div class="k">Succes / fout</div><div class="v">Rustige inline-tekst, één vinkje; fout in grijs-rood, nooit alarmerend</div></div>
+        </div>
+        <div class="cwhy">
+          <p><b>Waarom sterk:</b> ademt vertrouwen en kalmte, past bij een premium doelgroep, tijdloos. <b>Waarom riskant:</b> Montisoro's merk is warm-editorieel met een uitgesproken serif en oranje — Apple-steriel wist juist díe identiteit uit. Het zou kunnen voelen als "een andere site".</p>
+          <div class="fitscore">Past bij Montisoro: <b>6,5</b></div>
+        </div>
+      </div>
+      <div class="mockwrap">
+        <div class="mocklabel">Mini-mockup · Fit Check</div>
+        <div class="mock mk1">
+          <div class="m-prog"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="m-eye">Vraag 1 · Verzuimtype</div>
+          <div class="m-q">Over welk type verzuim gaat het voornamelijk?</div>
+          <div class="m-opt sel"><span class="let">A</span><span>Kort frequent verzuim</span></div>
+          <div class="m-opt"><span class="let">B</span><span>Langdurig verzuim</span></div>
+          <div class="m-opt"><span class="let">C</span><span>Een mix van beide</span></div>
+          <div class="m-btn">Volgende →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT 2 -->
+<section class="concept">
+  <div class="wrap">
+    <div class="chead">
+      <div class="num">02</div>
+      <div class="ttl"><div class="tag">Awwwards Premium</div><h2 class="mt8">De site, op scherp gezet</h2><div class="oneline">De bestaande editorial-taal, maar met craft in elke marge.</div></div>
+    </div>
+    <div class="cgrid">
+      <div>
+        <div class="specs">
+          <div class="spec"><div class="k">Stijl</div><div class="v">Donker-editorieel, exact Montisoro's DNA, opgevoerd</div></div>
+          <div class="spec"><div class="k">Kleuren</div><div class="v">#13100D achtergrond, witte kaart, oranje #E8592B als enige accent</div></div>
+          <div class="spec"><div class="k">Spacing</div><div class="v">Ruim, maar met bewuste asymmetrie en optische marges</div></div>
+          <div class="spec"><div class="k">Typografie</div><div class="v">Playfair-vraag met cursief oranje accentwoord, DM Sans body</div></div>
+          <div class="spec"><div class="k">Kaarten</div><div class="v">Witte kaart met gelaagde schaduw + fijne lichtrand bovenaan</div></div>
+          <div class="spec"><div class="k">Invoervelden</div><div class="v">Groot cijfer, eenheid gedimd, live-bevestiging bij typen</div></div>
+          <div class="spec"><div class="k">Progress</div><div class="v">Segmenten die vullen; grote stille serif-index op de achtergrond</div></div>
+          <div class="spec"><div class="k">Stapnavigatie</div><div class="v">Pill-knoppen (bestaand), maar met richtingsanimatie</div></div>
+          <div class="spec"><div class="k">Iconografie</div><div class="v">Geen decoratieve iconen — serif-nummers &amp; oranje streepjes</div></div>
+          <div class="spec"><div class="k">Illustraties</div><div class="v">Ademende radiale gloed + fijne korrel op de donkere achtergrond</div></div>
+          <div class="spec"><div class="k">Knoppen</div><div class="v">Oranje pill gevuld (bestaand), micro-lift bij hover</div></div>
+          <div class="spec"><div class="k">Schaduw &amp; glas</div><div class="v">Diepte via gelaagde schaduw; lichte glas-balk boven/onder</div></div>
+          <div class="spec"><div class="k">Animatie</div><div class="v">Gedeeld element reist mee; opties staggeren in; getal telt op bij reveal</div></div>
+          <div class="spec"><div class="k">Feedback</div><div class="v">Selectie = oranje vulling + zachte schaal; haptisch ritme</div></div>
+          <div class="spec"><div class="k">Succes / fout</div><div class="v">Reveal = climax met opbouw; fout = zachte shake + oranje inline</div></div>
+        </div>
+        <div class="cwhy">
+          <p><b>Waarom sterk:</b> geen stijlbreuk met de site — het voelt als dezelfde hand, maar met de craft die Awwwards beloont. Alle bestaande tokens en toegankelijkheid blijven overeind. <b>Waarom riskant:</b> vraagt de meeste motion- en detailregie; "opgevoerd" mag niet "druk" worden.</p>
+          <div class="fitscore">Past bij Montisoro: <b>9,5</b></div>
+        </div>
+      </div>
+      <div class="mockwrap">
+        <div class="mocklabel">Mini-mockup · Fit Check</div>
+        <div class="mock mk2">
+          <div class="m-prog"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="m-eye">— Vraag 1 · Verzuimtype</div>
+          <div class="m-q">Over welk type verzuim gaat het <i>voornamelijk?</i></div>
+          <div class="m-opt sel"><span class="let">A</span><span>Kort frequent verzuim</span></div>
+          <div class="m-opt"><span class="let">B</span><span>Langdurig verzuim</span></div>
+          <div class="m-opt"><span class="let">C</span><span>Een mix van beide</span></div>
+          <div class="m-btn">Volgende →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT 3 -->
+<section class="concept">
+  <div class="wrap">
+    <div class="chead">
+      <div class="num">03</div>
+      <div class="ttl"><div class="tag">High-End SaaS</div><h2 class="mt8">Helder, systematisch, licht</h2><div class="oneline">Denk Linear/Stripe: strak, licht, data-vertrouwen.</div></div>
+    </div>
+    <div class="cgrid">
+      <div>
+        <div class="specs">
+          <div class="spec"><div class="k">Stijl</div><div class="v">Licht, clean, systematisch; product-UI-gevoel</div></div>
+          <div class="spec"><div class="k">Kleuren</div><div class="v">Wit/#f9fafb, inkt #111827, oranje als functioneel accent</div></div>
+          <div class="spec"><div class="k">Spacing</div><div class="v">Compact-efficiënt, strak 4/8-grid, hoge informatiedichtheid</div></div>
+          <div class="spec"><div class="k">Typografie</div><div class="v">Sans-dominant (DM Sans 700 koppen), serif enkel op accenten</div></div>
+          <div class="spec"><div class="k">Kaarten</div><div class="v">Scherpe hoeken (10px), 1px rand, minimale schaduw</div></div>
+          <div class="spec"><div class="k">Invoervelden</div><div class="v">Duidelijke boxen, labels boven, focus-ring oranje</div></div>
+          <div class="spec"><div class="k">Progress</div><div class="v">Doorlopende dunne balk met %; stapnummers klein</div></div>
+          <div class="spec"><div class="k">Stapnavigatie</div><div class="v">Knop + terug-link; sneltoetsen (Enter = volgende)</div></div>
+          <div class="spec"><div class="k">Iconografie</div><div class="v">Minimaal/geen — cijfers en labels dragen</div></div>
+          <div class="spec"><div class="k">Illustraties</div><div class="v">Geen; kleine data-visuals (mini-grafiek) als accent</div></div>
+          <div class="spec"><div class="k">Knoppen</div><div class="v">Oranje gevuld, 10px radius, strak</div></div>
+          <div class="spec"><div class="k">Schaduw &amp; glas</div><div class="v">Zeer subtiel; focus-glow i.p.v. slagschaduw</div></div>
+          <div class="spec"><div class="k">Animatie</div><div class="v">Snel, functioneel (150–250ms), geen show</div></div>
+          <div class="spec"><div class="k">Feedback</div><div class="v">Directe inline-validatie, live berekende waarde in beeld</div></div>
+          <div class="spec"><div class="k">Succes / fout</div><div class="v">Toast/inline-status, groen/oranje; fout precies bij het veld</div></div>
+        </div>
+        <div class="cwhy">
+          <p><b>Waarom sterk:</b> uitstekend voor de Calculator specifiek — dichtheid en data voelen hier natuurlijk, en het straalt technisch vertrouwen uit. <b>Waarom riskant:</b> het is licht en sans-first, terwijl de Montisoro-site donker en serif-editorieel is. Los sterk, maar breekt met de sfeer van de rest.</p>
+          <div class="fitscore">Past bij Montisoro: <b>6,0</b></div>
+        </div>
+      </div>
+      <div class="mockwrap">
+        <div class="mocklabel">Mini-mockup · Fit Check</div>
+        <div class="mock mk3">
+          <div class="m-prog"><i></i></div>
+          <div class="m-eye">Vraag 1 / 4 · Verzuimtype</div>
+          <div class="m-q">Over welk type verzuim gaat het voornamelijk?</div>
+          <div class="m-opt sel"><span class="let">A</span><span>Kort frequent verzuim</span></div>
+          <div class="m-opt"><span class="let">B</span><span>Langdurig verzuim</span></div>
+          <div class="m-opt"><span class="let">C</span><span>Een mix van beide</span></div>
+          <div class="m-btn">Volgende →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT 4 -->
+<section class="concept">
+  <div class="wrap">
+    <div class="chead">
+      <div class="num">04</div>
+      <div class="ttl"><div class="tag">Luxury Enterprise</div><h2 class="mt8">Gilded &amp; gewichtig</h2><div class="oneline">Donker, warm metaal, veel gewicht — private-bank-gevoel.</div></div>
+    </div>
+    <div class="cgrid">
+      <div>
+        <div class="specs">
+          <div class="spec"><div class="k">Stijl</div><div class="v">Donker, exclusief, tactiel; luxe-merk-register</div></div>
+          <div class="spec"><div class="k">Kleuren</div><div class="v">Diep bruinzwart + warm goud #c8a46e; oranje als warm signaal</div></div>
+          <div class="spec"><div class="k">Spacing</div><div class="v">Ruim en plechtig, gecentreerd, veel ademruimte</div></div>
+          <div class="spec"><div class="k">Typografie</div><div class="v">Playfair prominent, ruime letterspatie op labels</div></div>
+          <div class="spec"><div class="k">Kaarten</div><div class="v">Randloos of dunne gouden hairline; geen felle vlakken</div></div>
+          <div class="spec"><div class="k">Invoervelden</div><div class="v">Onderlijn in goud, minimaal, elegant</div></div>
+          <div class="spec"><div class="k">Progress</div><div class="v">Fijne gouden lijn/serif-cijfers, discreet</div></div>
+          <div class="spec"><div class="k">Stapnavigatie</div><div class="v">Outline-knop in goud; terug als fijne tekstlink</div></div>
+          <div class="spec"><div class="k">Iconografie</div><div class="v">Geen; serif-cijfers en gouden streepjes</div></div>
+          <div class="spec"><div class="k">Illustraties</div><div class="v">Subtiele textuur/vignet; nooit kleurrijk</div></div>
+          <div class="spec"><div class="k">Knoppen</div><div class="v">Outline goud, vult bij hover; ingetogen</div></div>
+          <div class="spec"><div class="k">Schaduw &amp; glas</div><div class="v">Diepe zachte schaduw, geen glas; matte oppervlakken</div></div>
+          <div class="spec"><div class="k">Animatie</div><div class="v">Traag en gewichtig, gordijn-achtige overgangen</div></div>
+          <div class="spec"><div class="k">Feedback</div><div class="v">Ingetogen; selectie = gouden gloed, geen felle kleur</div></div>
+          <div class="spec"><div class="k">Succes / fout</div><div class="v">Discreet; fout in gedempt terracotta, nooit schril</div></div>
+        </div>
+        <div class="cwhy">
+          <p><b>Waarom sterk:</b> onmiskenbaar premium, straalt gewicht en exclusiviteit uit. <b>Waarom riskant:</b> goud introduceert een tweede accentkleur die nergens anders op de site voorkomt — dat botst met het strakke oranje-only systeem, en "luxe" kan afstandelijk voelen voor een tool die juist toegankelijk vertrouwen wil wekken. Contrast-risico op AA.</p>
+          <div class="fitscore">Past bij Montisoro: <b>5,5</b></div>
+        </div>
+      </div>
+      <div class="mockwrap">
+        <div class="mocklabel">Mini-mockup · Fit Check</div>
+        <div class="mock mk4">
+          <div class="m-prog"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="m-eye">Vraag 1 · Verzuimtype</div>
+          <div class="m-q">Over welk type verzuim gaat het voornamelijk?</div>
+          <div class="m-opt sel"><span class="let">A</span><span>Kort frequent verzuim</span></div>
+          <div class="m-opt"><span class="let">B</span><span>Langdurig verzuim</span></div>
+          <div class="m-opt"><span class="let">C</span><span>Een mix van beide</span></div>
+          <div class="m-btn">Volgende →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPT 5 -->
+<section class="concept">
+  <div class="wrap">
+    <div class="chead">
+      <div class="num">05</div>
+      <div class="ttl"><div class="tag">Future Healthcare</div><h2 class="mt8">Zacht, helder, menselijk</h2><div class="oneline">Licht, luchtig glas, kalme warmte — zorg zonder klinisch te zijn.</div></div>
+    </div>
+    <div class="cgrid">
+      <div>
+        <div class="specs">
+          <div class="spec"><div class="k">Stijl</div><div class="v">Licht, zacht, optimistisch; menselijke warmte</div></div>
+          <div class="spec"><div class="k">Kleuren</div><div class="v">Warm-wit verloop, inkt #241d18, oranje behouden als accent</div></div>
+          <div class="spec"><div class="k">Spacing</div><div class="v">Genereus, afgerond, veel lucht; zachte ritmes</div></div>
+          <div class="spec"><div class="k">Typografie</div><div class="v">Playfair-koppen behouden, DM Sans body, iets groter</div></div>
+          <div class="spec"><div class="k">Kaarten</div><div class="v">Zacht glas (frosted), grote radius, diffuse schaduw</div></div>
+          <div class="spec"><div class="k">Invoervelden</div><div class="v">Afgeronde glas-velden, zachte focus-gloed</div></div>
+          <div class="spec"><div class="k">Progress</div><div class="v">Zachte gevulde balk met afgeronde uiteinden</div></div>
+          <div class="spec"><div class="k">Stapnavigatie</div><div class="v">Ronde pill-knoppen met diffuse oranje glow</div></div>
+          <div class="spec"><div class="k">Iconografie</div><div class="v">Geen decoratieve iconen (huisregel); zachte streepjes</div></div>
+          <div class="spec"><div class="k">Illustraties</div><div class="v">Abstracte zachte verlopen/blobs op de achtergrond, subtiel</div></div>
+          <div class="spec"><div class="k">Knoppen</div><div class="v">Oranje gevuld met zachte glow-schaduw</div></div>
+          <div class="spec"><div class="k">Schaduw &amp; glas</div><div class="v">Kern van het concept: frosted glass + diffuse schaduwen</div></div>
+          <div class="spec"><div class="k">Animatie</div><div class="v">Zacht en vloeiend, licht verende ease, kalm tempo</div></div>
+          <div class="spec"><div class="k">Feedback</div><div class="v">Warme, geruststellende micro-copy; zachte kleurwissels</div></div>
+          <div class="spec"><div class="k">Succes / fout</div><div class="v">Geruststellend; fout mild en oplossingsgericht geformuleerd</div></div>
+        </div>
+        <div class="cwhy">
+          <p><b>Waarom sterk:</b> emotioneel warm en geruststellend — past bij het onderwerp (welzijn, verzuim, mensen). Behoudt het oranje en de serif. <b>Waarom riskant:</b> licht en glas breken met de donkere editorial-hero's van de site; glas is prestatie- en contrastgevoelig op mobiel. Werkt beter als "lichte helft" dan als volledige richting.</p>
+          <div class="fitscore">Past bij Montisoro: <b>7,5</b></div>
+        </div>
+      </div>
+      <div class="mockwrap">
+        <div class="mocklabel">Mini-mockup · Fit Check</div>
+        <div class="mock mk5">
+          <div class="m-prog"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="m-eye">Vraag 1 · Verzuimtype</div>
+          <div class="m-q">Over welk type verzuim gaat het <i>voornamelijk?</i></div>
+          <div class="m-opt sel"><span class="let">A</span><span>Kort frequent verzuim</span></div>
+          <div class="m-opt"><span class="let">B</span><span>Langdurig verzuim</span></div>
+          <div class="m-opt"><span class="let">C</span><span>Een mix van beide</span></div>
+          <div class="m-btn">Volgende →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAP 4 · VOORSTELLEN PER STAP -->
+<section class="section light alt">
+  <div class="wrap">
+    <div class="eyebrow">Stap 4 · Voorstellen per stap</div>
+    <h2 class="h-sec">Van scherm naar scherm</h2>
+    <p class="lead mt16 body" style="max-width:78ch;">De stappen zijn gegroepeerd per <b>archetype</b> — meerdere stappen delen exact dezelfde vorm, dus een voorstel voor het archetype geldt voor elke stap van dat type. Per archetype: de huidige situatie met score en problemen, dan drie voorstellen (A / B / C) met premium-score. Nog géén code.</p>
+
+    <!-- Archetype 1 -->
+    <div class="arch">
+      <div class="ahead">
+        <h3>Fit Check · keuzevraag-stap <span style="font-size:13px;font-weight:400;color:var(--ink-mute);">(stap 1–4)</span></h3>
+        <div class="cur">Huidige score: <b>7,5</b>/10</div>
+      </div>
+      <ul class="probs">
+        <li>De overgang tussen vragen is een simpele fade — geen ritme, geen gedeeld element dat meereist.</li>
+        <li>Opties verschijnen allemaal tegelijk; geen stagger die het oog leidt.</li>
+        <li>De donkere ruimte rond de kaart is leeg; de stap-context ("waar ben ik") leeft niet.</li>
+      </ul>
+      <div class="opts3">
+        <div class="opt3"><div class="lt">Voorstel A</div><div class="nm">Serif-index op de achtergrond</div><p>Grote, stille "01 / 04" in Playfair achter de kaart, die zacht crossfade't bij stapwissel. Geeft context en craft zonder ruis. <span class="ps mt8" style="display:block;">Waarom beter: oriëntatie + editorial-signatuur. Premium: <b>9,0</b></span></p></div>
+        <div class="opt3"><div class="nm">Voorstel B</div><div class="lt">Gestaggerde opties + shared eyebrow</div><p>De eyebrow/vraag blijft staan en morpht; opties staggeren in (40ms uit elkaar). De vraag "reist" tussen stappen i.p.v. te knipperen. <span class="ps mt8" style="display:block;">Waarom beter: vloeiend, geleid oog. Premium: <b>8,5</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel C</div><div class="nm">Directe doorstroom bij keuze</div><p>Bij een enkelvoudige keuze automatisch (met korte, annuleerbare vertraging) doorschuiven — minder klikken, meer flow. Multi-select houdt de knop. <span class="ps mt8" style="display:block;">Waarom beter: minder frictie. Premium: <b>8,0</b></span></p></div>
+      </div>
+    </div>
+
+    <!-- Archetype 2 -->
+    <div class="arch">
+      <div class="ahead">
+        <h3>Calculator · numeriek invoer-stap <span style="font-size:13px;font-weight:400;color:var(--ink-mute);">(stap 1–5)</span></h3>
+        <div class="cur">Huidige score: <b>7,0</b>/10</div>
+      </div>
+      <ul class="probs">
+        <li>Alle getalvelden zien er gelijk uit — geen hiërarchie tussen "hoofdcijfer" en "bijzaak".</li>
+        <li>Geen live-bevestiging van wat een ingevuld getal betekent; de waarde landt pas op het eindscherm.</li>
+        <li>Skip-affordance voor optionele stappen is subtiel; onduidelijk dat je verder mag zonder in te vullen.</li>
+      </ul>
+      <div class="opts3">
+        <div class="opt3"><div class="lt">Voorstel A</div><div class="nm">Hoofdcijfer groot</div><p>Het kernveld per stap wordt een groot serif/tabular getal met gedimde eenheid; ondersteunende velden blijven compact. Directe visuele rangorde. <span class="ps mt8" style="display:block;">Waarom beter: focus + premium-gevoel. Premium: <b>9,0</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel B</div><div class="nm">Live micro-echo</div><p>Onder het veld verschijnt een rustige, live meelezende zin ("± €X per medewerker/jaar") — bevestiging zonder de reveal te verklappen. <span class="ps mt8" style="display:block;">Waarom beter: vertrouwen tijdens invoer. Premium: <b>8,5</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel C</div><div class="nm">Expliciete "overslaan"</div><p>Optionele stappen krijgen een duidelijke, rustige "Overslaan — we gebruiken het sectorgemiddelde"-actie naast de knop. <span class="ps mt8" style="display:block;">Waarom beter: minder twijfel, sneller. Premium: <b>7,5</b></span></p></div>
+      </div>
+    </div>
+
+    <!-- Archetype 3 -->
+    <div class="arch">
+      <div class="ahead">
+        <h3>Calculator · verzuimprofiel <span style="font-size:13px;font-weight:400;color:var(--ink-mute);">(stap 6 — de "muur")</span></h3>
+        <div class="cur">Huidige score: <b>6,0</b>/10</div>
+      </div>
+      <ul class="probs">
+        <li>Werkdagen, totaalverzuim, zes categorie-pillen en benchmarks staan tegelijk in beeld — te veel op één scherm.</li>
+        <li>De stepper doet alsof dit "gewoon stap 6 van 6" is, terwijl het vijf keer zwaarder is dan de rest.</li>
+        <li>Mobiel wordt dit het krapst; pillen en percentages verdringen elkaar.</li>
+      </ul>
+      <div class="opts3">
+        <div class="opt3"><div class="lt">Voorstel A</div><div class="nm">Progressive disclosure</div><p>Toon eerst enkel de totalen; de zes categorie-pillen zitten achter een rustige "Verfijn per categorie"-uitklap (standaard dicht, waarden vooraf ingevuld op sectorgemiddelde). <span class="ps mt8" style="display:block;">Waarom beter: halveert de gevoelde last. Premium: <b>9,0</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel B</div><div class="nm">Sub-stappen binnen stap 6</div><p>Splits visueel in "arbeiders" → "bedienden" als twee micro-schermen binnen dezelfde stap; de stepper toont een fijne sub-voortgang. <span class="ps mt8" style="display:block;">Waarom beter: één ding tegelijk. Premium: <b>8,5</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel C</div><div class="nm">Eerlijke voortgang</div><p>Geef stap 6 visueel meer "gewicht" in de stepper (bredere zone/label "uitgebreid") zodat de verwachting klopt met de realiteit. <span class="ps mt8" style="display:block;">Waarom beter: minder verrassing = minder afhaken. Premium: <b>7,5</b></span></p></div>
+      </div>
+    </div>
+
+    <!-- Archetype 4 -->
+    <div class="arch">
+      <div class="ahead">
+        <h3>Beide · uitkomst + rapport-gate <span style="font-size:13px;font-weight:400;color:var(--ink-mute);">(de climax)</span></h3>
+        <div class="cur">Huidige score: <b>6,5</b>/10</div>
+      </div>
+      <ul class="probs">
+        <li>De onthulling van het resultaat voelt gelijk aan elke andere stap — geen crescendo na de investering.</li>
+        <li>Het e-mailformulier verschijnt als administratieve handeling, niet als beloning.</li>
+        <li>Er is geen motion die het "moment" markeert (getal dat optelt, sectie die opent).</li>
+      </ul>
+      <div class="opts3">
+        <div class="opt3"><div class="lt">Voorstel A</div><div class="nm">Count-up reveal</div><p>Het kerncijfer telt op vanaf 0 met een korte build; de rest van het rapport-blok schuift er onder vandaan. Eén duidelijk piekmoment. <span class="ps mt8" style="display:block;">Waarom beter: emotionele climax = hogere conversie. Premium: <b>9,5</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel B</div><div class="nm">Gate als beloning</div><p>Herkader het formulier: "Uw rapport is klaar — waar mogen we het naartoe sturen?" met de mini-preview van het rapport ernaast als bewijs. <span class="ps mt8" style="display:block;">Waarom beter: formulier voelt als toegang, niet als drempel. Premium: <b>8,5</b></span></p></div>
+        <div class="opt3"><div class="lt">Voorstel C</div><div class="nm">Achtergrond reageert</div><p>Bij de reveal warmt de donkere achtergrond subtiel op (oranje gloed intensiveert even) — een niet-verbale "gefeliciteerd, hier is het". <span class="ps mt8" style="display:block;">Waarom beter: signatuurmoment. Premium: <b>8,0</b></span></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAP 5 · ROADMAP -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="eyebrow">Stap 5 · Prioriteiten</div>
+    <h2 class="h-sec">Roadmap</h2>
+    <p class="lead mt16">Gerangschikt op verhouding tussen impact en inspanning. Punten (●) = intensiteit per as; meer punten = meer impact of meer werk.</p>
+
+    <div class="road">
+      <div class="rlane">
+        <div class="lh"><span class="t">Quick wins</span><span class="meta">≤ 1 uur per stuk · additief, engine onaangeroerd</span></div>
+        <div class="mhdr"><span>Ingreep</span><span>UX</span><span>Conversie</span><span>Vertrouwen</span><span>Werk</span></div>
+        <div class="item"><span class="desc"><b>Ademende achtergrond</b> — radiale gloed + fijne korrel achter de kaart</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Gestaggerde opties</b> — laat keuzeknoppen 40ms uit elkaar inkomen</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Gelaagde kaartschaduw</b> + fijne lichtrand bovenaan (weg van "modal")</span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Expliciete "overslaan"</b> op optionele calculator-stappen</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span></div>
+      </div>
+
+      <div class="rlane">
+        <div class="lh"><span class="t">Medium verbeteringen</span><span class="meta">½–2 dagen · gerichte herwerking van componenten</span></div>
+        <div class="mhdr"><span>Ingreep</span><span>UX</span><span>Conversie</span><span>Vertrouwen</span><span>Werk</span></div>
+        <div class="item"><span class="desc"><b>Serif-index op de achtergrond</b> ("01 / 04") die met de stap meebeweegt</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Hoofdcijfer-hiërarchie</b> + live micro-echo in calculatorvelden</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Count-up reveal</b> van het kerncijfer bij het resultaat</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span></div>
+        <div class="item"><span class="desc"><b>Gate als beloning</b> herkaderen + rapport-preview als bewijs</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span></div>
+      </div>
+
+      <div class="rlane">
+        <div class="lh"><span class="t">Grote redesigns</span><span class="meta">3–6 dagen · structurele herwerking (flow blijft gelijk)</span></div>
+        <div class="mhdr"><span>Ingreep</span><span>UX</span><span>Conversie</span><span>Vertrouwen</span><span>Werk</span></div>
+        <div class="item"><span class="desc"><b>Progressive disclosure van stap 6</b> — totalen eerst, categorieën uitklapbaar</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div>
+        <div class="item"><span class="desc"><b>Motion-systeem</b> — gedeeld element + richtingsanimatie door de hele flow</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span></div>
+        <div class="item"><span class="desc"><b>Mobiele duimzone-navigatie</b> — vaste primaire actie binnen bereik</span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span><span class="m"><span class="dots"><i class="on"></i><i class="on"></i><i></i></span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAP 6 · EINDOORDEEL -->
+<section class="section dark" style="background:var(--bg-2);">
+  <div class="wrap">
+    <div class="eyebrow">Stap 6 · Eindbesluit</div>
+    <h2 class="h-sec">Het oordeel</h2>
+
+    <div class="verdict">
+      <div class="vc">
+        <h3>Fit Check</h3>
+        <div class="vscores">
+          <div class="vscore"><div class="k">UI</div><div class="val">7,5<span>/10</span></div></div>
+          <div class="vscore"><div class="k">UX</div><div class="val">7,5<span>/10</span></div></div>
+          <div class="vscore"><div class="k">Premium</div><div class="val">7,0<span>/10</span></div></div>
+          <div class="vscore"><div class="k">Awwwards-potentieel</div><div class="val">6,0<span>/10</span></div></div>
+        </div>
+      </div>
+      <div class="vc">
+        <h3>Calculator</h3>
+        <div class="vscores">
+          <div class="vscore"><div class="k">UI</div><div class="val">6,5<span>/10</span></div></div>
+          <div class="vscore"><div class="k">UX</div><div class="val">7,0<span>/10</span></div></div>
+          <div class="vscore"><div class="k">Premium</div><div class="val">6,5<span>/10</span></div></div>
+          <div class="vscore"><div class="k">Awwwards-potentieel</div><div class="val">5,5<span>/10</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="k">Advies van het panel</div>
+      <h3>Bouw niet iets nieuws — voer de site op.</h3>
+      <p>Het panel is unaniem: de kracht van Montisoro zit al in de bestaande taal — donker-editorieel, Playfair met cursief oranje accent, één warm oranje, rustige pill-knoppen, en toegankelijkheid die al op orde is. Een steriele Apple-richting of een gouden luxe-richting zou die identiteit juist uitwissen. Wat ontbreekt, is <b>craft in de marges</b>: een ademende achtergrond, een stille serif-index, gestaggerde motion, en een echte climax bij de uitkomst. Dat tilt beide tools van "competent" naar "gepubliceerd".</p>
+      <div class="win">Gekozen richting: <b>Concept 02 · Awwwards Premium</b> — de site, op scherp gezet.<br></div>
+      <p style="margin-top:16px;font-size:14px;color:var(--muted-d-2);">Aanbevolen accent: leen de <b>lichte, zachte warmte van Concept 05</b> specifiek voor het rapport-/succesmoment, zodat de climax lichter en positiever aanvoelt dan de rest van de donkere flow. En gebruik de <b>heldere data-discipline van Concept 03</b> als leidraad voor de dichtheid van Calculator-stap 6.</p>
+    </div>
+
+    <p class="lead mt40" style="max-width:80ch;">Het einddoel blijft ongewijzigd: dezelfde flow, dezelfde teksten, dezelfde functionaliteit, dezelfde berekeningen, dezelfde stappen — maar een beleving die aanvoelt alsof ze ontworpen is door een bureau dat regelmatig op Awwwards verschijnt. <b style="color:var(--off);">Er wordt nog niets gebouwd.</b> Zeg welke richting (en welke voorstellen) je goedkeurt, en dan werk ik die volledig uit en implementeer ik ze — additief, met de engine onaangeroerd.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  Montisoro · Premium design review — Fit Check &amp; Calculator · Onafhankelijk designpanel · Review &amp; concepten, geen implementatie
+</footer>
+
+<script>
+(function(){
+  if(matchMedia('(prefers-reduced-motion: no-preference)').matches){
+    var els=document.querySelectorAll('.section .wrap > *, .concept .wrap, .arch, .scard, .theme, .rlane');
+    // lightweight: reveal whole blocks
+    var blocks=document.querySelectorAll('.scard,.arch,.turn,.concept,.rlane,.vc,.rec,.roster,.themes');
+    blocks.forEach(function(b){b.classList.add('reveal');});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    blocks.forEach(function(b){io.observe(b);});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banner frame</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#13100D; --off:#F0EDE8; --white:#fff; --orange:#E8592B; --orange-cta:#CC4A1E;
+    --muted-d:rgba(240,237,232,.62); --muted-d-2:rgba(240,237,232,.42); --div-d:rgba(240,237,232,.12);
+    --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:var(--sans);background:#0c0a08;color:var(--off);-webkit-font-smoothing:antialiased;}
+
+  .hero{position:relative;background:var(--bg);overflow:hidden;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(72px,10vw,120px) 0 0;}
+  .hero::before{content:'';position:absolute;top:-160px;right:-160px;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(232,89,43,0.12) 0%,transparent 62%);pointer-events:none;}
+  .hero::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 38px,rgba(240,237,232,0.015) 38px 39px);pointer-events:none;}
+  .eb{max-width:1200px;margin:0 auto;width:100%;padding:0 clamp(22px,5vw,72px);}
+  .hero-inner{position:relative;z-index:1;flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(24px,4vh,56px);}
+
+  .hero-eyebrow{display:none;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:26px;}
+  .hero-eyebrow::before{content:'';width:30px;height:1.5px;background:var(--orange);flex-shrink:0;}
+  body[data-variant="eyebrow"] .hero-eyebrow,body[data-variant="both"] .hero-eyebrow{display:flex;}
+
+  .hero-headline{font-family:var(--serif);font-weight:900;font-size:clamp(40px,5.2vw,72px);line-height:.98;color:var(--white);letter-spacing:-.025em;max-width:15ch;}
+  .hero-headline .re,.hero-headline .what{font-style:italic;color:var(--orange);}
+
+  .hero-promise{display:none;font-family:var(--sans);font-weight:500;font-size:clamp(18px,1.9vw,23px);line-height:1.4;color:var(--off);max-width:30ch;margin-top:26px;}
+  .hero-promise b{color:var(--orange);font-weight:600;}
+  body[data-variant="promise"] .hero-promise,body[data-variant="both"] .hero-promise{display:block;}
+
+  .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);margin-top:clamp(28px,3.4vw,44px);align-items:end;}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;border-radius:100px;padding:15px 30px;text-decoration:none;transition:all .2s ease;cursor:pointer;border:1px solid transparent;}
+  .btn-primary{background:var(--orange-cta);color:#fff;}
+  .btn-ghost{background:transparent;color:var(--off);border-color:rgba(240,237,232,.28);}
+  .cta-note{margin-top:14px;font-size:12.5px;color:var(--muted-d);display:flex;align-items:center;gap:8px;}
+  .cta-note::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);}
+  .hero-body{font-weight:300;font-size:clamp(15px,1.5vw,17px);line-height:1.85;color:rgba(240,237,232,.82);max-width:52ch;}
+  .hero-body .ds-num{font-weight:600;color:var(--off);}
+
+  .hero-data{position:relative;z-index:1;margin-top:clamp(40px,6vh,80px);border-top:1px solid var(--div-d);}
+  .hero-data-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  .hd-stat{padding:clamp(20px,2.4vw,30px) clamp(16px,2vw,30px) clamp(22px,2.6vw,34px) 0;border-left:1px solid var(--div-d);}
+  .hd-stat:first-child{border-left:none;padding-left:0;}
+  .hd-stat:not(:first-child){padding-left:clamp(16px,2vw,32px);}
+  .hd-tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+  .hd-num{font-family:var(--sans);font-weight:600;font-size:clamp(28px,3.4vw,48px);color:#fff;line-height:1;margin-bottom:12px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .hd-num .ar{color:var(--orange);font-size:.6em;margin-right:.18em;vertical-align:.06em;}
+  .hd-lbl{font-size:13px;font-weight:300;line-height:1.55;color:var(--muted-d);}
+
+  .hero-source{display:none;padding:14px 0 26px;font-size:12px;color:var(--muted-d-2);}
+  body[data-source="on"] .hero-source{display:block;}
+
+  /* ── MOBIEL — REGEL: alles past altijd op één gsm-scherm, nooit onderbroken.
+     De hero vult 100svh en verdeelt met space-between; de spacing is zo krap
+     gezet dat zelfs de fullste variant (bovenkop + belofte + bronregel) past. ── */
+  @media(max-width:640px){
+    .hero{min-height:100svh;padding:54px 0 0;}
+    .hero-eyebrow{font-size:10px;letter-spacing:.1em;margin-bottom:10px;gap:8px;}
+    .hero-eyebrow::before{width:18px;}
+    .hero-headline{font-size:clamp(28px,7.6vw,38px);line-height:1;max-width:none;}
+    .hero-promise{font-size:14.5px;margin-top:10px;max-width:none;}
+    .hero-meta{grid-template-columns:1fr;gap:12px;margin-top:14px;align-items:start;}
+    .hero-cta{flex-direction:column;align-items:stretch;gap:8px;}
+    .btn{justify-content:center;padding:12px 16px;font-size:13.5px;}
+    .cta-note{margin-top:9px;font-size:11.5px;}
+    .hero-body{font-size:12.5px;line-height:1.55;}
+    .hero-data{margin-top:14px;}
+    .hero-data-grid{grid-template-columns:1fr 1fr;}
+    .hd-stat{padding:11px 10px 11px 0;border-top:1px solid var(--div-d);}
+    .hd-stat:nth-child(-n+2){border-top:none;}
+    .hd-stat:nth-child(odd){border-left:none;padding-left:0;}
+    .hd-stat:nth-child(even){padding-left:12px;}
+    .hd-tag{font-size:9px;margin-bottom:4px;letter-spacing:.1em;}
+    .hd-num{font-size:clamp(19px,6vw,25px);margin-bottom:3px;}
+    .hd-lbl{font-size:10.5px;line-height:1.4;}
+    .hero-source{font-size:9.5px;padding:8px 0 12px;}
+  }
+</style>
+</head>
+<body data-variant="both" data-source="on">
+<header class="hero">
+  <div class="eb hero-inner">
+    <span class="hero-eyebrow" id="eyebrowEl">Verzuimbegeleiding &amp; re-integratie voor Belgische werkgevers</span>
+    <h1 class="hero-headline"><span class="re">Re</span>integrate <span class="what">What</span> Matters</h1>
+    <p class="hero-promise" id="promiseEl">Minder lange uitval. Sneller terug aan het werk — <b>zonder dat het op HR neerkomt.</b></p>
+    <div class="hero-meta">
+      <div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#">Plan een gesprek →</a>
+          <a class="btn btn-ghost" href="#">Bereken uw verzuimkost →</a>
+        </div>
+        <p class="cta-note">30–45 minuten · online of op locatie</p>
+      </div>
+      <p class="hero-body">Elke dag dat een medewerker uitvalt, kost u tot <span class="ds-num">€266</span>. Met zorg, kennis en technologie in één systeem wordt duurzame werkhervatting bij u geen toeval, maar structuur.</p>
+    </div>
+  </div>
+  <div class="eb">
+    <div class="hero-data">
+      <div class="hero-data-grid">
+        <div class="hd-stat"><p class="hd-tag">Ervaring</p><div class="hd-num"><span class="ar">›</span>2.500</div><p class="hd-lbl">Re-integratiecases</p></div>
+        <div class="hd-stat"><p class="hd-tag">Impact</p><div class="hd-num"><span class="ar">›</span>€14,7M</div><p class="hd-lbl">Besparing uitkeringen</p></div>
+        <div class="hd-stat"><p class="hd-tag">Reductie</p><div class="hd-num"><span class="ar">↓</span>30–35%</div><p class="hd-lbl">Verzuimduur</p></div>
+        <div class="hd-stat"><p class="hd-tag">Effect</p><div class="hd-num"><span class="ar">↓</span>92–100K</div><p class="hd-lbl">Ziektedagen</p></div>
+      </div>
+      <p class="hero-source" id="sourceEl">Cijfers o.b.v. SD&nbsp;Worx Verzuimbarometer 2025 + geaggregeerde Montisoro-dossierdata.</p>
+    </div>
+  </div>
+</header>
+<script>
+  var EY=[
+    'Verzuimbegeleiding & re-integratie voor Belgische werkgevers',
+    'Voor werkgevers met langdurig & frequent verzuim',
+    'Regie over verzuim — voor HR & directie in België'
+  ];
+  var PR=[
+    'Minder lange uitval. Sneller terug aan het werk — <b>zonder dat het op HR neerkomt.</b>',
+    'Montisoro neemt de regie over langdurig verzuim — <b>met mensen, structuur én technologie.</b>',
+    '<b>Gemiddeld 30–35% kortere verzuimduur</b> — onderbouwd, niet beloofd.'
+  ];
+  window.addEventListener('message', function(e){
+    var d=e.data||{}; if(d.type!=='tweak') return;
+    if(d.variant) document.body.setAttribute('data-variant', d.variant);
+    if('source' in d) document.body.setAttribute('data-source', d.source?'on':'off');
+    if('eyebrowIdx' in d) document.getElementById('eyebrowEl').textContent=EY[d.eyebrowIdx]||EY[0];
+    if('promiseIdx' in d) document.getElementById('promiseEl').innerHTML=PR[d.promiseIdx]||PR[0];
+  });
+  if(parent!==window) parent.postMessage({type:'frame-ready'},'*');
+</script>
+</body>
+</html>

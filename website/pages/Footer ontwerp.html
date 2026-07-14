@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Footer-ontwerp — Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --bg-deep:#0D0905; --orange:#E8592B; --orange-hover:#d04d22;
+  --off:#F0EDE8; --white:#fff; --muted:rgba(240,237,232,0.62); --faint:rgba(240,237,232,0.34);
+  --line:rgba(240,237,232,0.12);
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
+}
+html,body{font-family:var(--sans);background:#1c1814;color:var(--off);}
+
+/* label boven elk ontwerp */
+.lbl{display:flex;align-items:baseline;gap:12px;padding:34px clamp(20px,5vw,56px) 14px;}
+.lbl .n{font-family:var(--serif);font-weight:700;font-size:13px;color:var(--orange);}
+.lbl .t{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--off);}
+.lbl .d{font-size:12px;color:var(--faint);margin-left:auto;max-width:420px;text-align:right;line-height:1.5;}
+@media(max-width:640px){.lbl .d{display:none;}}
+
+/* ════ gedeelde footer-bouwstenen ════ */
+.foot{position:relative;overflow:hidden;}
+.foot .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;}
+.foot .veil{position:absolute;inset:0;}
+.foot-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,90px) clamp(24px,5vw,56px) 0;}
+
+/* CTA-band bovenaan de home-footer */
+.foot-cta{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:clamp(40px,5vw,64px);border-bottom:1px solid var(--line);}
+.foot-cta .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.foot-cta .eyebrow::before{content:'';width:24px;height:1.5px;background:var(--orange);}
+.foot-cta h2{font-family:var(--serif);font-weight:700;font-size:clamp(30px,3.6vw,48px);line-height:1.08;letter-spacing:-.02em;color:var(--white);max-width:620px;}
+.foot-cta h2 em{font-style:italic;color:var(--orange);}
+.foot-btn{display:inline-flex;align-items:center;gap:10px;flex-shrink:0;background:var(--orange);color:#fff;font-size:14px;font-weight:600;letter-spacing:.02em;text-decoration:none;border-radius:100px;padding:16px 32px;transition:background .2s,transform .15s;white-space:nowrap;}
+.foot-btn:hover{background:var(--orange-hover);transform:translateY(-2px);}
+
+/* kolommen */
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;padding:clamp(44px,5vw,64px) 0;}
+@media(max-width:880px){.foot-grid{grid-template-columns:1fr 1fr;gap:40px 32px;}}
+@media(max-width:520px){.foot-grid{grid-template-columns:1fr;gap:36px;}}
+.foot-brand img{height:62px;width:auto;display:block;margin-bottom:22px;}
+.foot-brand p{font-size:13.5px;font-weight:300;line-height:1.7;color:var(--muted);max-width:300px;margin-bottom:22px;}
+.foot-social{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:500;color:var(--off);text-decoration:none;border:1px solid var(--line);border-radius:100px;padding:10px 18px;transition:border-color .2s,background .2s;}
+.foot-social:hover{border-color:var(--orange);background:rgba(232,89,43,0.08);}
+.foot-social svg{width:16px;height:16px;}
+.foot-col h4{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:18px;}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+.foot-col a{font-size:14px;font-weight:400;color:var(--muted);text-decoration:none;transition:color .2s;}
+.foot-col a:hover{color:var(--orange);}
+.foot-contact a{display:block;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.5;transition:color .2s;}
+.foot-contact a:hover{color:var(--orange);}
+.foot-contact .big{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--off);margin-bottom:6px;}
+
+/* onderbalk */
+.foot-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);}
+.foot-bottom .copy{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);}
+.foot-legal{display:flex;flex-wrap:wrap;gap:10px 22px;}
+.foot-legal a{font-size:12px;color:var(--faint);text-decoration:none;transition:color .2s;}
+.foot-legal a:hover{color:var(--orange);}
+
+/* ── HOME-footer: met cover ── */
+.foot-home{background:var(--bg-deep);}
+.foot-home .veil{background:
+  linear-gradient(to bottom, rgba(13,9,5,0.42) 0%, rgba(13,9,5,0.72) 42%, rgba(13,9,5,0.93) 100%);}
+
+/* ── INNER-footer: subtiel, zonder cover ── */
+.foot-inner-page{background:var(--bg-deep);}
+.foot-inner-page::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 50% 60% at 88% 0%, rgba(232,89,43,0.07), transparent 70%);}
+.foot-sep{height:60px;}
+</style>
+</head>
+<body>
+
+<!-- ════ HOME-FOOTER (met cover) ════ -->
+<div class="lbl"><span class="n">A</span><span class="t">Home — volwaardige footer</span><span class="d">Met dezelfde cover als de banner. Royaal: CTA-band, navigatie, contact, legal.</span></div>
+
+<footer class="foot foot-home">
+  <img class="bg" src="../assets/banner-cover.jpg" alt="">
+  <div class="veil"></div>
+  <div class="foot-inner">
+
+    <div class="foot-cta">
+      <div>
+        <span class="eyebrow">Klaar om te starten?</span>
+        <h2>Verzuim niet langer <em>ondergaan,</em> maar begrijpen.</h2>
+      </div>
+      <a href="#" class="foot-btn">Plan een gesprek
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="../assets/montisoro-logo.png" alt="Montisoro">
+        <p>We verbinden diepgaande HR-expertise met technologie om medewerkers te helpen terugkeren naar werk.</p>
+        <a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="foot-social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+
+      <div class="foot-col">
+        <h4>Navigatie</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Onze aanpak</a></li>
+          <li><a href="#">Technologie</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="#">Fit check</a></li>
+          <li><a href="#">Verzuimcalculator</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col foot-contact">
+        <h4>Contact</h4>
+        <div class="big">Montisoro</div>
+        <a href="mailto:hello@montisoro.com">hello@montisoro.com</a>
+        <a href="tel:+32477899186">+32 477 89 91 86</a>
+        <a href="#">België</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span class="copy">© 2026 Montisoro</span>
+      <div class="foot-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+        <a href="#">Algemene voorwaarden</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<div class="foot-sep"></div>
+
+<!-- ════ INNER-PAGE FOOTER (subtiel, zonder cover) ════ -->
+<div class="lbl"><span class="n">B</span><span class="t">Binnenpagina's — subtiele footer</span><span class="d">Zelfde structuur, rustiger: donkere achtergrond met enkel een zachte oranje gloed, geen cover.</span></div>
+
+<footer class="foot foot-inner-page">
+  <div class="foot-inner">
+
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="../assets/montisoro-logo.png" alt="Montisoro">
+        <p>We verbinden diepgaande HR-expertise met technologie om medewerkers te helpen terugkeren naar werk.</p>
+        <a href="https://www.linkedin.com/in/laurence-van-den-bergh/" target="_blank" rel="noopener" class="foot-social">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24H8V8z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="foot-col">
+        <h4>Navigatie</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Onze aanpak</a></li>
+          <li><a href="#">Technologie</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Tools</h4>
+        <ul>
+          <li><a href="#">Fit check</a></li>
+          <li><a href="#">Verzuimcalculator</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col foot-contact">
+        <h4>Contact</h4>
+        <div class="big">Montisoro</div>
+        <a href="mailto:hello@montisoro.com">hello@montisoro.com</a>
+        <a href="tel:+32477899186">+32 477 89 91 86</a>
+        <a href="#">België</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span class="copy">© 2026 Montisoro</span>
+      <div class="foot-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Cookies</a>
+        <a href="#">Algemene voorwaarden</a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>

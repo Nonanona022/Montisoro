@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Outlook-koppeling — Stappenplan · Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --orange:#E8592B; --orange-hover:#d04d22; --orange-dim:rgba(232,89,43,0.10); --orange-tint:#FAE8E1;
+  --ink:#1a1512; --soft:#5c534b; --mute:#8a8078; --line:#e7e2db; --line2:#efeae3;
+  --page:#f4f1ec; --card:#ffffff; --bg:#13100D;
+  --green:#1f7a4d; --amber:#b9791f; --red:#c0392b;
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,monospace;
+}
+html{background:var(--page);}
+body{font-family:var(--sans);color:var(--ink);line-height:1.6;padding:48px 20px 80px;-webkit-font-smoothing:antialiased;}
+.doc{max-width:860px;margin:0 auto;}
+
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.eyebrow::before{content:'';width:26px;height:1.5px;background:var(--orange);}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5vw,46px);letter-spacing:-.02em;line-height:1.08;margin-bottom:14px;}
+h1 em{font-style:italic;color:var(--orange);}
+.lead{font-size:15.5px;font-weight:300;color:var(--soft);max-width:640px;line-height:1.75;}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--mute);}
+.meta b{color:var(--ink);font-weight:600;}
+
+/* mental model band */
+.model{background:var(--bg);border-radius:16px;padding:30px 32px;color:#F0EDE8;margin-top:34px;}
+.model h3{font-family:var(--serif);font-weight:700;font-size:19px;color:#fff;margin-bottom:16px;}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;}
+@media(max-width:640px){.flow{grid-template-columns:1fr;}.flow .arrow{transform:rotate(90deg);justify-self:center;}}
+.fbox{background:rgba(240,237,232,0.06);border:1px solid rgba(240,237,232,0.12);border-radius:12px;padding:16px;text-align:center;}
+.fbox .ic{font-size:22px;margin-bottom:8px;}
+.fbox h4{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px;}
+.fbox p{font-size:11.5px;font-weight:300;color:rgba(240,237,232,0.58);line-height:1.5;}
+.arrow{color:var(--orange);font-size:20px;font-weight:700;text-align:center;}
+.model .note{font-size:12.5px;font-weight:300;color:rgba(240,237,232,0.62);margin-top:18px;line-height:1.65;border-top:1px solid rgba(240,237,232,0.12);padding-top:16px;}
+.model .note b{color:#fff;font-weight:600;}
+
+section{margin-top:46px;}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+.snum{font-family:var(--serif);font-weight:700;font-size:20px;color:var(--orange);}
+h2{font-family:var(--serif);font-weight:700;font-size:25px;letter-spacing:-.015em;}
+.sintro{font-size:14px;color:var(--soft);font-weight:300;margin:8px 0 22px;max-width:680px;line-height:1.7;}
+.who{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:100px;margin-left:4px;vertical-align:middle;}
+.who.it{background:rgba(31,122,77,0.10);color:var(--green);}
+.who.me{background:var(--orange-dim);color:var(--orange);}
+
+/* steps */
+.plan{counter-reset:p;display:flex;flex-direction:column;}
+.pstep{display:grid;grid-template-columns:48px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);align-items:start;}
+.pstep:last-child{border-bottom:none;}
+.pstep::before{counter-increment:p;content:counter(p);font-family:var(--serif);font-weight:700;font-size:30px;color:var(--orange);line-height:1;}
+.pstep h4{font-size:15.5px;font-weight:600;margin-bottom:6px;}
+.pstep p{font-size:13.5px;color:var(--soft);font-weight:300;line-height:1.7;margin-bottom:7px;}
+.pstep ul{margin:8px 0 0;padding-left:18px;}
+.pstep li{font-size:13px;color:var(--soft);font-weight:300;line-height:1.7;margin-bottom:3px;}
+.pstep code{font-family:var(--mono);font-size:12.5px;background:#efeae3;padding:1px 6px;border-radius:5px;color:var(--ink);}
+
+/* env vars table */
+.tbl-wrap{border:1px solid var(--line);border-radius:13px;overflow:hidden;}
+table{border-collapse:collapse;width:100%;font-size:13px;}
+thead th{background:#faf8f5;text-align:left;padding:12px 16px;font-weight:600;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);}
+tbody td{padding:12px 16px;border-bottom:1px solid var(--line2);vertical-align:top;color:var(--soft);}
+tbody tr:last-child td{border-bottom:none;}
+tbody td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink);font-weight:500;white-space:nowrap;}
+
+.callout{display:grid;grid-template-columns:auto 1fr;gap:14px;background:var(--orange-dim);border:1px solid rgba(232,89,43,0.24);border-radius:13px;padding:18px 20px;margin-top:22px;}
+.callout .ico{width:30px;height:30px;border-radius:8px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.callout h4{font-size:14px;font-weight:600;margin-bottom:4px;}
+.callout p{font-size:13px;color:var(--soft);font-weight:300;line-height:1.65;}
+
+.checklist{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 24px;}
+.crow{display:flex;align-items:center;gap:13px;padding:13px 0;border-bottom:1px solid var(--line2);font-size:13.5px;}
+.crow:last-child{border-bottom:none;}
+.crow .box{width:20px;height:20px;border:1.5px solid var(--orange);border-radius:6px;flex-shrink:0;}
+.crow b{font-weight:600;color:var(--ink);}
+
+.foot{margin-top:54px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--mute);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.foot b{color:var(--ink);font-weight:600;letter-spacing:.16em;text-transform:uppercase;}
+@media print{body{padding:0;}.model{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <span class="eyebrow">Implementatie · backend</span>
+  <h1>Outlook-koppeling —<br><em>stap voor stap.</em></h1>
+  <p class="lead">Hoe we de boekingsflow op de website koppelen aan de Outlook-agenda van Montisoro, zodat beschikbaarheid live klopt en er nooit dubbel geboekt wordt.</p>
+  <div class="meta">
+    <div>Datum · <b>22 juni 2026</b></div>
+    <div>Technologie · <b>Microsoft Graph (M365)</b></div>
+    <div>Status · <b>wacht op M365-postvak</b></div>
+  </div>
+
+  <!-- mentaal model -->
+  <div class="model">
+    <h3>Hoe het werkt — in één beeld</h3>
+    <div class="flow">
+      <div class="fbox"><div class="ic">🌐</div><h4>Website</h4><p>Bezoeker kiest type + dag</p></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">📅</div><h4>Outlook-agenda baas</h4><p>Vrij/bezet wordt gelezen</p></div>
+      <div class="arrow">→</div>
+      <div class="fbox"><div class="ic">✓</div><h4>Afspraak vastgelegd</h4><p>Event + Teams-link aangemaakt</p></div>
+    </div>
+    <p class="note">De website <b>leest</b> de agenda van de baas (welke slots zijn al bezet?) en <b>schrijft</b> de nieuwe afspraak erin terug. Eén agenda = geen dubbelboeking. De bevestigingsmail gaat los daarvan uit via <b>hello@montisoro.com</b> — dat blijft ongewijzigd.</p>
+  </div>
+
+  <!-- 1 — jullie kant -->
+  <section>
+    <div class="shead"><span class="snum">01</span><h2>Eenmalig instellen bij Microsoft <span class="who it">Jullie IT / M365-beheer</span></h2></div>
+    <p class="sintro">In het Azure-/Entra-portaal (portal.azure.com → "App-registraties"). Een klus van ±10 minuten. Resultaat: drie sleutels die je aan mij bezorgt.</p>
+    <div class="plan">
+      <div class="pstep"><div>
+        <h4>Nieuwe app registreren</h4>
+        <p>Naam bv. <b>"Montisoro Boekingen"</b>. Account-type: <b>Single tenant</b> (alleen jullie organisatie). Geen redirect-URI nodig.</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>Clientgeheim aanmaken</h4>
+        <p>Onder <i>Certificaten &amp; geheimen → Nieuw clientgeheim</i>. Noteer meteen de <b>waarde</b> (die is maar één keer zichtbaar).</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>Rechten geven (Application permissions)</h4>
+        <p>Onder <i>API-machtigingen → Microsoft Graph → Application permissions</i>:</p>
+        <ul>
+          <li><code>Calendars.ReadWrite</code> — vrij/bezet lezen + afspraak aanmaken</li>
+          <li><code>OnlineMeetings.ReadWrite</code> — Teams-link genereren</li>
+        </ul>
+        <p>Daarna op <b>"Beheerderstoestemming verlenen"</b> klikken (vereist een admin).</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>De agenda kiezen</h4>
+        <p>Bepaal welk <b>postvak</b> de afspraken bevat — de Outlook-agenda van de baas, bv. <code>laurence@montisoro.com</code>. Dít adres geef je me door. (Een gedeelde mailbox zoals <code>afspraken@montisoro.com</code> kan ook — vaak netter.)</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>De drie sleutels + het agenda-adres aan mij bezorgen</h4>
+        <p>Stuur ze veilig door. Ik zet ze als <b>environment variables</b> op de server — ze komen <b>nooit</b> in de website-code te staan.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 2 — wat ik nodig heb -->
+  <section>
+    <div class="shead"><span class="snum">02</span><h2>De vier waarden die ik nodig heb</h2></div>
+    <p class="sintro">Zodra je deze hebt, kan ik bouwen. Ze worden veilig op de server bewaard (Netlify environment variables).</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Sleutel</th><th>Wat het is · waar je het vindt</th></tr></thead>
+        <tbody>
+          <tr><td>MS_TENANT_ID</td><td>Directory (tenant) ID — op de overzichtspagina van de app-registratie</td></tr>
+          <tr><td>MS_CLIENT_ID</td><td>Application (client) ID — idem, overzichtspagina</td></tr>
+          <tr><td>MS_CLIENT_SECRET</td><td>De geheime waarde uit stap 2 (Certificaten &amp; geheimen)</td></tr>
+          <tr><td>MS_CALENDAR_USER</td><td>Het e-mailadres van de agenda, bv. laurence@montisoro.com</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <span class="ico">🔒</span>
+      <div>
+        <h4>Veiligheid</h4>
+        <p>Deze waarden geven toegang tot de agenda — behandel het clientgeheim als een wachtwoord. Ze staan straks alléén server-side; de bezoeker van de website ziet ze nooit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — wat ik bouw -->
+  <section>
+    <div class="shead"><span class="snum">03</span><h2>Wat ik daarna bouw <span class="who me">Ik</span></h2></div>
+    <p class="sintro">De boekingsflow heeft al twee "naden" klaarliggen — nu nog met gesimuleerde data. Ik vervang die door echte Graph-calls.</p>
+    <div class="plan">
+      <div class="pstep"><div>
+        <h4>Een Graph-helper in de backend</h4>
+        <p>Een nieuw bestandje dat met de vier sleutels een toegangstoken ophaalt bij Microsoft (client-credentials). Eén centrale plek; de rest gebruikt het.</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>Beschikbaarheid live maken — <code>slotsFor()</code></h4>
+        <p>Vandaag verzint de website welke slots bezet zijn. Ik vervang dat door Graph <code>getSchedule</code> (vrij/bezet van de agenda). Het vaste weekschema mínus wat al in Outlook staat = de echte vrije slots. Bezet valt automatisch weg.</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>De afspraak echt aanmaken — <code>submitBooking()</code></h4>
+        <p>Bij "Bevestig afspraak" maakt de backend een echt agenda-item aan in de agenda van de baas:</p>
+        <ul>
+          <li><b>Online</b> → <code>isOnlineMeeting: true</code> → Teams-link automatisch gegenereerd</li>
+          <li><b>Ter plaatse</b> → het opgegeven adres als locatie</li>
+        </ul>
+        <p>De bezoeker komt als genodigde op het event → krijgt zo ook de echte agenda-uitnodiging.</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>De bevestigingsmail vullen met de echte link</h4>
+        <p>De bestaande gebrande afspraakmail krijgt nu de echte Teams-link / <code>.ics</code>-agendaknop — niet langer een placeholder.</p>
+      </div></div>
+      <div class="pstep"><div>
+        <h4>Dubbelboek-slot dichttimmeren</h4>
+        <p>Tussen "slot tonen" en "afspraak aanmaken" doet de backend een laatste vrij/bezet-check, zodat twee mensen niet tegelijk hetzelfde slot pakken.</p>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 4 — testen -->
+  <section>
+    <div class="shead"><span class="snum">04</span><h2>Samen testen &amp; live zetten</h2></div>
+    <div class="checklist">
+      <div class="crow"><span class="box"></span><div>Eén <b>online</b> testboeking → verschijnt in de agenda mét Teams-link</div></div>
+      <div class="crow"><span class="box"></span><div>Eén <b>ter-plaatse</b> testboeking → verschijnt met het juiste adres</div></div>
+      <div class="crow"><span class="box"></span><div>Een bezet slot in Outlook → <b>verdwijnt</b> van de website</div></div>
+      <div class="crow"><span class="box"></span><div>Bevestigingsmail komt aan via <b>hello@montisoro.com</b> (vereist ook de Resend-sleutels, K1)</div></div>
+      <div class="crow"><span class="box"></span><div>NL én EN flow doorlopen — beide schrijven naar dezelfde agenda</div></div>
+    </div>
+    <div class="callout">
+      <span class="ico">!</span>
+      <div>
+        <h4>Twee koppelingen, los van elkaar</h4>
+        <p>De <b>agenda</b> (deze koppeling, Microsoft Graph) en de <b>mailverzending</b> (Resend-sleutels, "K1") staan los. Voor een volledig werkende flow zijn ze allebei nodig — maar je kunt ze in elke volgorde aanzetten.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b>Montisoro · implementatiegids</b>
+    <span>Wacht op: M365-postvak + 3 Azure-sleutels · 22 juni 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

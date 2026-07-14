@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="robots" content="noindex">
+<title>Montisoro — Flow Overview</title><link rel="stylesheet" href="../../../stylesheets/fonts.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',-apple-system,sans-serif;background:#FBFAF8;color:#1a1512;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:clamp(40px,7vw,80px) clamp(22px,5vw,48px)}
+.eye{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E8592B;display:flex;align-items:center;gap:10px}.eye::before{content:'';width:26px;height:1.5px;background:#E8592B}
+h1{font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:clamp(30px,5vw,52px);letter-spacing:-.025em;margin:16px 0 14px;line-height:1.05}
+h1 em{font-style:italic;color:#E8592B}
+.lede{font-weight:300;font-size:16px;color:#5c534b;max-width:62ch;margin-bottom:40px;line-height:1.75}
+.flow{border:1px solid #e7e2db;border-radius:16px;background:#fff;padding:clamp(22px,3vw,32px);margin-bottom:16px}
+.flow .trg{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#E8592B}
+.flow h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:24px;letter-spacing:-.01em;margin:8px 0 6px}
+.flow .src{font-size:13px;color:#8a8078;margin-bottom:18px}
+.steps{display:flex;flex-direction:column;gap:10px}
+.row{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start;padding:12px 0;border-top:1px solid #f0ece6}
+.row:first-child{border-top:none}
+.pill{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;text-align:center;height:fit-content}
+.pill.klant{background:#FAE8E1;color:#b8420f}.pill.intern{background:#eef0f2;color:#5c6470}.pill.pdf{background:#13100D;color:#F0EDE8}
+.row .d{font-size:14px;color:#5c534b;line-height:1.55}.row .d b{color:#1a1512;font-weight:600}
+.tech{margin-top:40px;padding:22px 24px;background:#f3efe9;border-radius:14px;font-size:13px;color:#5c534b;line-height:1.7}
+.tech b{color:#1a1512}
+code{font-family:'DM Mono',monospace;font-size:12px;background:#fff;border:1px solid #e7e2db;border-radius:5px;padding:1px 6px}
+a.back{display:inline-block;margin-top:36px;font-family:'DM Mono',monospace;font-size:12px;color:#E8592B;text-decoration:none}
+</style></head>
+<body><div class="wrap">
+<div class="eye">Flow Overview · verzendlogica</div>
+<h1>Wanneer wordt <em>wat</em> verstuurd?</h1>
+<p class="lede">Montisoro kent vier triggers op de website. Per trigger ziet u welke e-mail naar de bezoeker gaat, welke notificatie het team krijgt en of er een PDF meegaat. Alle communicatie is tweetalig (NL/EN), gekozen op basis van de taal van de bezoeker.</p>
+
+<div class="flow"><div class="trg">Trigger 1 · Verzuimcalculator</div><h2>Calculator-aanvraag</h2><div class="src">Bezoeker vult de calculator in en vraagt een rapport aan</div>
+<div class="steps">
+<div class="row"><span class="pill klant">Klant</span><div class="d"><b>Klantmail met rapport.</b> Bevestiging + geschat kerncijfer + risiconiveau. Het PDF-rapport zit als bijlage; een beveiligde downloadlink (7 dagen) dient als vangnet.</div></div>
+<div class="row"><span class="pill pdf">PDF</span><div class="d"><b>Verzuimrapport (6 p.)</b> meegestuurd als bijlage.</div></div>
+<div class="row"><span class="pill intern">Intern</span><div class="d"><b>Notificatie</b> naar hello@montisoro.com met contactgegevens + alle berekende cijfers + PDF-status.</div></div>
+</div></div>
+
+<div class="flow"><div class="trg">Trigger 2 · Contactpagina</div><h2>Diagnosegesprek-aanvraag</h2><div class="src">Bezoeker boekt een gesprek via de contactpagina</div>
+<div class="steps">
+<div class="row"><span class="pill klant">Klant</span><div class="d"><b>Bevestigingsmail</b> — "aanvraag ontvangen, we nemen binnen één werkdag contact op". CTA verwijst naar de aanpak-pagina (warm houden, niet opnieuw boeken).</div></div>
+<div class="row"><span class="pill intern">Intern</span><div class="d"><b>Notificatie</b> met naam, e-mail, organisatie, datum, tijdstip, locatie en bericht.</div></div>
+</div></div>
+
+<div class="flow"><div class="trg">Trigger 3 · Fit check</div><h2>Fit check voltooid</h2><div class="src">Bezoeker doorloopt de fit check en krijgt een route</div>
+<div class="steps">
+<div class="row"><span class="pill klant">Klant</span><div class="d"><b>Bevestigingsmail</b> — "fit check ontvangen, een adviseur bekijkt uw profiel". CTA "Plan een gesprek" (volgende stap in de funnel).</div></div>
+<div class="row"><span class="pill intern">Intern</span><div class="d"><b>Notificatie</b> met de aanbevolen route, combinatie, maturiteit, schaal en verzuimtype.</div></div>
+</div></div>
+
+<div class="flow"><div class="trg">Trigger 4 · Casey AI</div><h2>Casey waitlist-aanmelding</h2><div class="src">Bezoeker schrijft zich in voor de Casey-pilot</div>
+<div class="steps">
+<div class="row"><span class="pill klant">Klant</span><div class="d"><b>Bevestigingsmail</b> — "welkom op de wachtlijst", met de verwachte timing (najaar 2026). CTA "Meer over Casey".</div></div>
+<div class="row"><span class="pill intern">Intern</span><div class="d"><b>Notificatie</b> met e-mail en bron van de aanmelding.</div></div>
+</div></div>
+
+<div class="tech"><b>Technische bron (ter info).</b> Eén gedeelde, merkvaste sjabloon-engine: <code>email-templates.js</code> (NL+EN, klant + intern). Server-side verzonden via <code>mailer.js</code> (Resend). De calculator loopt via <code>/api/calculator-report</code>; contact/fit check/Casey via <code>/api/form-submit</code>. Inert tot de productie-sleutels (Resend) gezet zijn.</div>
+
+<a class="back" href="../index.html">← Terug naar de startpagina</a>
+</div></body></html>

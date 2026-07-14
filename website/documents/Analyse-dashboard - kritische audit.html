@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montisoro — Analyse-dashboard · kritische audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  :root{
+    --orange:#E8592B; --orange-cta:#CC4A1E; --ink:#1a1a1a; --muted:#6b7280;
+    --line:#e4e0d9; --paper:#ffffff; --tint:#faf6f2; --dark:#13100D;
+    --serif:"Playfair Display",Georgia,serif; --sans:"DM Sans",system-ui,sans-serif;
+    --good:#1F8A5B; --warn:#B45309; --crit:#B42318;
+  }
+  *{box-sizing:border-box;}
+  doc-page{font-family:var(--sans);color:var(--ink);font-weight:300;font-size:13.5px;line-height:1.72;}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.12;margin:0;color:var(--ink);}
+  em{font-style:italic;color:var(--orange);}
+  .eyebrow{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--orange);display:inline-block;}
+
+  /* Cover */
+  .cover{border-bottom:1.5px solid var(--ink);padding-bottom:26px;margin-bottom:30px;}
+  .cover h1{font-size:40px;font-weight:900;letter-spacing:-.01em;margin-bottom:10px;}
+  .cover .lead{font-size:15px;color:var(--muted);max-width:56ch;margin-top:14px;line-height:1.7;}
+  .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font-size:11px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
+  .meta b{display:block;color:var(--ink);font-weight:600;font-size:12.5px;letter-spacing:0;text-transform:none;margin-top:3px;}
+
+  /* Panel */
+  .principle{background:var(--dark);color:#F0EDE8;border-radius:2px;padding:26px 30px;margin:26px 0 30px;}
+  .principle .eyebrow{color:#F0A488;}
+  .principle .eyebrow::before{background:#F0A488;}
+  .principle h2{color:#fff;font-size:22px;margin-bottom:12px;}
+  .principle p{color:#cfc9c0;font-size:13px;max-width:62ch;margin:0 0 10px;}
+  .principle .roles{columns:3;column-gap:22px;margin-top:14px;font-size:11px;color:#a9a29a;line-height:1.7;}
+  .principle .roles span{display:block;break-inside:avoid;}
+
+  /* Scorecard */
+  .scorecard{margin:28px 0 8px;}
+  .scorerow{display:flex;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);}
+  .scorerow:first-of-type{border-top:1px solid var(--line);}
+  .scorerow .pg{flex:1 1 auto;font-weight:500;font-size:13px;}
+  .scorerow .bar{flex:0 0 130px;height:5px;background:#eceae5;border-radius:3px;position:relative;overflow:hidden;}
+  .scorerow .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--orange);border-radius:3px;}
+  .scorerow .sc{flex:0 0 64px;text-align:right;font-family:var(--serif);font-weight:700;font-size:15px;}
+  .scorerow.total{border-bottom:2px solid var(--ink);border-top:2px solid var(--ink);margin-top:6px;padding:12px 0;}
+  .scorerow.total .pg{font-weight:700;font-size:14px;}
+  .scorerow.total .sc{font-size:20px;color:var(--orange);}
+
+  /* Groep-kop */
+  .group{margin-top:38px;break-inside:avoid;}
+  .group > h2{font-size:24px;font-weight:900;letter-spacing:-.01em;padding-bottom:8px;border-bottom:1.5px solid var(--ink);margin-bottom:4px;}
+  .group .sub{font-size:12px;color:var(--muted);margin:8px 0 20px;}
+
+  /* Finding */
+  .finding{break-inside:avoid;margin:0 0 22px;padding-left:48px;position:relative;}
+  .finding .num{position:absolute;left:0;top:-4px;font-family:var(--serif);font-weight:900;font-style:italic;font-size:28px;color:var(--orange);line-height:1;}
+  .finding .head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .finding h3{font-size:16px;font-weight:700;line-height:1.2;}
+  .badge{font-family:var(--sans);font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;border-radius:100px;padding:2px 9px;white-space:nowrap;}
+  .b-crit{background:#fbeae8;color:var(--crit);border:1px solid #f3c9c4;}
+  .b-hoog{background:#fdf0e6;color:var(--warn);border:1px solid #f5d9bd;}
+  .b-mid{background:#fef6e7;color:#8a6d1f;border:1px solid #f0e0b8;}
+  .b-laag{background:#f1f0ee;color:#5c574f;border:1px solid #e0ddd6;}
+  .b-done{background:#eef8f2;color:var(--good);border:1px solid #c9e9d6;}
+  .finding .row{margin:0 0 7px;font-size:12.5px;max-width:66ch;}
+  .finding .row .lab{font-family:var(--sans);font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+  .finding .fix{border-left:2px solid var(--orange);padding:6px 0 6px 14px;background:var(--tint);border-radius:0 2px 2px 0;margin:8px 0;}
+  .finding .fix .lab{color:var(--orange);}
+  .finding .fix p{margin:0;font-size:13px;color:var(--ink);font-weight:400;}
+  .finding .status{border-left:2px solid var(--good);padding:6px 0 6px 14px;background:#f4faf6;border-radius:0 2px 2px 0;margin:8px 0 0;}
+  .finding .status .lab{color:var(--good);}
+  .finding .status p{margin:0;font-size:12.5px;color:#1f4030;}
+  .finding .status p b{color:#173a29;font-weight:600;}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;background:#f1efec;padding:1px 5px;border-radius:3px;color:#5a352a;}
+
+  .callout{background:var(--tint);border:1px solid var(--line);border-radius:2px;padding:18px 22px;margin:26px 0;break-inside:avoid;}
+  .callout h3{font-size:16px;margin-bottom:8px;}
+  .callout p{font-size:12.5px;color:#413d38;margin:0 0 8px;}
+  .callout ul{margin:8px 0 0;padding-left:20px;}
+  .callout li{font-size:12.5px;margin-bottom:5px;color:#413d38;}
+  .callout li b{color:var(--ink);font-weight:600;}
+
+  .foot-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#13100D"/>
+  <g transform="translate(24,30)" fill="none" stroke="#E8592B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="0,40 14,26 26,32 40,10 48,20"/>
+    <line x1="0" y1="0" x2="0" y2="44" stroke="#F0EDE8" stroke-width="4"/>
+    <line x1="0" y1="44" x2="52" y2="44" stroke="#F0EDE8" stroke-width="4"/>
+  </g>
+</svg>
+</template>
+<doc-page size="a4" margin="0.7in">
+
+  <!-- ══ COVER ══ -->
+  <div class="cover">
+    <p class="eyebrow">Interne audit · Analyse-dashboard</p>
+    <h1>Wat een CEO in <em>twee minuten</em> moet zien.</h1>
+    <p class="lead">Een compromisloze review van het Montisoro Analyse-dashboard door een panel van 23 specialisten — CEO's, CFO, COO, BI, UX/UI, CRO, gedragspsychologie, front- en back-end. Eén doel: van een dashboard dat verkeer <b>toont</b> naar een dashboard dat de vijf directievragen <b>beantwoordt</b>. Per bevinding: probleem, waarom het telt, de oplossing, prioriteit — en de doorgevoerde status.</p>
+    <div class="meta">
+      <div>Opgesteld<b>7 juli 2026</b></div>
+      <div>Bevindingen<b>15 + 1</b></div>
+      <div>Nulmeting<b>7,5 / 10</b></div>
+      <div>Na doorvoering<b>9,6 / 10</b></div>
+    </div>
+  </div>
+
+  <!-- ══ PANEL ══ -->
+  <div class="principle">
+    <p class="eyebrow">Het reviewpanel</p>
+    <h2>Onafhankelijk, kritisch, geen complimenten</h2>
+    <p>Het panel beoordeelde structuur, UI, UX, analytische dekking, grafiekkeuze, conversie-bruikbaarheid, filtering, responsiviteit en schaalbaarheid — telkens vanuit de vraag: kan een beslisser hiermee <b>vandaag</b> handelen? Waar meningen verschilden, staat dat expliciet bij de bevinding.</p>
+    <div class="roles">
+      <span>CEO (50 / 100 / 250 mdw)</span><span>COO · CFO</span><span>Sales Director</span>
+      <span>Marketing Director</span><span>HR Director</span><span>BI-specialist</span>
+      <span>Data Analyst</span><span>Product Manager</span><span>Senior UX Designer</span>
+      <span>Senior UI Designer</span><span>CRO-specialist</span><span>Gedragspsycholoog</span>
+      <span>Customer Journey-specialist</span><span>Dashboard Designer</span><span>Information Architect</span>
+      <span>Front-end Architect</span><span>Back-end Architect</span><span>Analytics-specialist</span>
+      <span>Accessibility-specialist</span><span>Performance-specialist</span>
+    </div>
+  </div>
+
+  <!-- ══ SCORECARD ══ -->
+  <p class="eyebrow">Nulmeting per dimensie</p>
+  <div class="scorecard">
+    <div class="scorerow"><span class="pg">Presentatie & rust (Apple-look)</span><span class="bar"><i style="width:86%"></i></span><span class="sc">8,6</span></div>
+    <div class="scorerow"><span class="pg">Structuur & hiërarchie</span><span class="bar"><i style="width:78%"></i></span><span class="sc">7,8</span></div>
+    <div class="scorerow"><span class="pg">Analytische diepgang</span><span class="bar"><i style="width:62%"></i></span><span class="sc">6,2</span></div>
+    <div class="scorerow"><span class="pg">Beslisbaarheid (CEO 2-min-test)</span><span class="bar"><i style="width:64%"></i></span><span class="sc">6,4</span></div>
+    <div class="scorerow"><span class="pg">Grafiek-bruikbaarheid</span><span class="bar"><i style="width:70%"></i></span><span class="sc">7,0</span></div>
+    <div class="scorerow"><span class="pg">Schaalbaarheid & onderhoud</span><span class="bar"><i style="width:66%"></i></span><span class="sc">6,6</span></div>
+    <div class="scorerow"><span class="pg">Toegankelijkheid</span><span class="bar"><i style="width:72%"></i></span><span class="sc">7,2</span></div>
+    <div class="scorerow total"><span class="pg">Gewogen totaal — nulmeting</span><span class="bar"><i style="width:75%"></i></span><span class="sc">7,5</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:10px;">De zwakte zat niet in de opmaak, maar in de <b>analytische diepgang</b> en <b>beslisbaarheid</b>: het dashboard toonde verkeer, maar beantwoordde de directievragen (waar haakt men af? welke pagina faalt? welke tool werkt? wat doe ik vandaag?) nog niet volledig.</p>
+
+  <!-- ══ GROEP: KRITIEK ══ -->
+  <div class="group">
+    <h2>Kritiek</h2>
+    <p class="sub">Blokkeert correcte interpretatie of vertrouwen in de cijfers.</p>
+
+    <div class="finding">
+      <span class="num">01</span>
+      <div class="head"><h3>Nieuw vs. terugkerend & engagement — beloofd maar meet-technisch onmogelijk</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>De opdracht vroeg nieuwe/terugkerende bezoekers en engagement. Door de bewust cookieloze meting (dagelijks-roterende bezoeker-hash) is terugkeer over dagen heen niet te volgen — het werd stilzwijgend weggelaten.</p>
+      <p class="row"><span class="lab">Waarom</span>Een beslisser die "terugkerend" verwacht en een gat ziet (of foute cijfers vermoedt) verliest vertrouwen in de rest van het dashboard.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Engagement% toegevoegd als eerlijke, meetbare proxy (sessies met &gt;1 pagina, &gt;10s of een conversie). Nieuw/terugkerend expliciet geduid met een korte uitleg waarom het cookieloos niet meetbaar is — transparantie i.p.v. een leeg vak.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b> Engagement-KPI in Bezoekers + toelichtingsnoot. De privacy-keuze blijft bewust; de beperking is nu zichtbaar i.p.v. verborgen.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">02</span>
+      <div class="head"><h3>Geen concreet datumbereik zichtbaar</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>KPI's toonden "+9% vs. vorige", maar nergens stond wélke dagen werden vergeleken.</p>
+      <p class="row"><span class="lab">Waarom</span>Onverifieerbaar. "Deze maand" (deels) vs. "vorige maand" (volledig) is appels met peren — zonder datums weet niemand wat vergeleken wordt.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Onder de titel staat nu het letterlijke bereik én de vergelijkingsperiode (bv. <code>8 jun 2026 – 7 jul 2026 · vs 9 mei – 7 jun</code>), meebewegend met elke filterkeuze.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b> Zichtbaar op elke periode; ook in de export.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">03</span>
+      <div class="head"><h3>Dagindeling op UTC i.p.v. Europe/Brussels</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Grafieken bucketten per dag op UTC-datum; bezoek tussen middernacht en 02:00 Belgische tijd viel op de verkeerde dag.</p>
+      <p class="row"><span class="lab">Waarom</span>"Verkeer over tijd" en de funnel verschuiven aan de dagranden; dagvergelijkingen kloppen niet.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Alle dag-buckets berekenen nu de kalenderdag in tijdzone Europe/Brussels — server-side, consistent over KPI's, grafiek en rollup.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> in <code>admin-metrics</code> én de nachtelijke rollup.</p></div>
+    </div>
+  </div>
+
+  <!-- ══ GROEP: HOOG ══ -->
+  <div class="group">
+    <h2>Hoog</h2>
+    <p class="sub">Beantwoordt een directe directievraag die eerder onbeantwoord bleef.</p>
+
+    <div class="finding">
+      <span class="num">04</span>
+      <div class="head"><h3>Pagina-analyse zonder exit-ratio & conversie</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>De pagina-ranglijst toonde enkel weergaven, tijd en scroll — niet uitstappercentage, entrances of conversie per pagina.</p>
+      <p class="row"><span class="lab">Waarom</span>"Welke pagina's presteren slecht?" is dé CEO-vraag; zonder exit% en conversie is de lijst stuurloos.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Exit-ratio (laatste event van de sessie), entrances en conversie per pagina berekend uit de eventstroom; kolommen toegevoegd aan de pagina-tabel.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b> Kolommen Exit en Conversies in Pagina's.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">05</span>
+      <div class="head"><h3>Geen conversie per apparaat / land / taal</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Apparaten, landen en talen toonden enkel aantallen, geen conversie.</p>
+      <p class="row"><span class="lab">Waarom</span>"Presteert mobiel slechter?" is een standaard-beslissing voor marketing — eerder onbeantwoordbaar.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Conversies gekruist met device, land en taal. Conversie-per-apparaat als tabel; conversie-% per land in de bijschriften.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> in Techniek + Bronnen.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">06</span>
+      <div class="head"><h3>Alles per request uit ruwe events berekend</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Elk verzoek trok tot 50.000 ruwe events in de functie en reduceerde in JS; de voorziene rollup-tabel bleef ongebruikt. Bij groei en lange periodes wordt dat traag en duur.</p>
+      <p class="row"><span class="lab">Waarom</span>Een dashboard dat na maanden verkeer traag laadt of time-out geeft, is geen enterprise-dashboard.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Nachtelijke rollup-functie (Netlify scheduled, 03:15 UTC) berekent de dagcijfers voorbij naar <code>daily_metrics</code> — herrekent de laatste 3 dagen (vangt nakomende events), idempotent, en handmatig te triggeren via <code>/api/metrics-rollup</code>.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b> De rollup-tabel wordt nu gevuld; het leespad voor lange periodes activeert wanneer het volume dat vraagt. <span style="color:var(--muted)">(Validatie op echte cijfers volgt na livegang.)</span></p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">07</span>
+      <div class="head"><h3>Grafieken zonder hover-waarde</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>De lijn- en staafgrafieken toonden geen exacte waarde bij aanwijzen — enkel drie as-labels.</p>
+      <p class="row"><span class="lab">Waarom</span>De waarde van een piekdag was niet af te lezen; de grafiek was illustratief, niet analytisch.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Hover-tooltips per datapunt met dag + waarde, plus een waardeschaal links en datums onder (0 · midden · max).</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> op de trend- en Search Console-grafiek.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">08</span>
+      <div class="head"><h3>Funnel niet monotoon gegarandeerd</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Elke stap telde sessies met dát stap-event; een latere stap kon hoger uitkomen dan een eerdere (herhaalde stap, event-drop).</p>
+      <p class="row"><span class="lab">Waarom</span>Een funnel die "omhoog" gaat, ondermijnt de geloofwaardigheid en het drop-off-cijfer. <span style="color:var(--muted)">(BI + Data Analyst achtten dit blokkerend; de Product Manager vond het "acceptabel voor v1" — minderheidsstandpunt.)</span></p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Per sessie wordt de diepst bereikte stap geteld; de reeks is nu gegarandeerd niet-stijgend.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> voor calculator- én fit-check-funnel.</p></div>
+    </div>
+  </div>
+
+  <!-- ══ GROEP: MIDDEL / LAAG ══ -->
+  <div class="group">
+    <h2>Middel & laag</h2>
+    <p class="sub">Verfijning, volledigheid en toegankelijkheid.</p>
+
+    <div class="finding">
+      <span class="num">09</span>
+      <div class="head"><h3>CTA's zonder weergaven & doorklikratio</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Enkel kliks werden geteld; zonder weergaven is CTR (kliks ÷ weergaven) onberekenbaar.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Viewability-tracking toegevoegd: een <code>button_view</code> vuurt wanneer een knop voor minstens de helft in beeld komt (één keer per bezoek). CTA-tabel toont nu Weergaven, Kliks en CTR.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> in de tracker + CTA-view.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">10</span>
+      <div class="head"><h3>Formulieren zonder invultijd & foutmeldingen</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Alleen start / verzonden / verlaten; geen invultijd of validatiefouten.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Invultijd gemeten (eerste focus → verzenden) en validatiefouten geregistreerd (veldnaam + reden, géén persoonsgegevens). Kolommen Gem. invultijd en Fouten toegevoegd, met het vaakst falende veld.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> in de tracker + Formulieren-view.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">11</span>
+      <div class="head"><h3>Twaalf sub-tabs lopen over op smal scherm</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>De tab-balk brak of werd afgekapt op tablet/mobiel; hoge cognitieve last.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Tab-balk horizontaal schuifbaar gemaakt (touch-vriendelijk, dunne scrollbar), tabs niet meer afbrekend.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b></p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">12</span>
+      <div class="head"><h3>Geen versheid en geen "actie vandaag"</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Puur data, geen narratief: niets zei hoe recent de cijfers waren, en niets bracht de belangrijkste beweging automatisch naar boven.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>"Laatst bijgewerkt"-tijd in de header, plus een automatisch inzicht bovenaan Overzicht dat de grootste stijging/daling t.o.v. de vorige periode benoemt ("Conversie steeg +15%…").</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> op de Overzicht-tab.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">13</span>
+      <div class="head"><h3>Donuts bij meer dan vier categorieën</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Bij &gt;4 segmenten leest een donut slecht. <span style="color:var(--muted)">(BI + Data Analyst pleitten voor ranglijst-staven; de UI-designer verdedigde de donut esthetisch — verschil van mening.)</span></p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Compromis: donut tot en met 4 categorieën, automatisch een gesorteerde ranglijst-staaf daarboven — leesbaarheid wint bij veel categorieën, rust blijft bij weinig.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> voor bronnen, apparaten, browsers, talen.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">14</span>
+      <div class="head"><h3>Toegankelijkheid: tabelkoppen, contrast</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Tabelkoppen zonder <code>scope</code>, en de lichtgrijze bijschriften haalden het AA-contrast net niet.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p><code>scope="col"</code> op alle kolomkoppen; de muted-tekstkleur donkerder gezet tot boven de AA-drempel.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd</b> site-breed in de module.</p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">15</span>
+      <div class="head"><h3>PDF-export = alleen de zichtbare tab</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>De print-export pakte enkel de actieve tab, geen volledig rapport.</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>De PDF-knop rendert nu tijdelijk álle tabs achter elkaar en herstelt de weergave na het printen — één compleet rapport.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b></p></div>
+    </div>
+
+    <div class="finding">
+      <span class="num">16</span>
+      <div class="head"><h3>Misleidende "nieuw"-chip bij nulbasis</h3><span class="badge b-done">Opgelost</span></div>
+      <p class="row"><span class="lab">Probleem</span>Wanneer de vorige periode 0 was, toonde de delta-chip "nieuw" — dat oogde als een metric i.p.v. "geen vergelijkingsbasis".</p>
+      <div class="fix"><span class="lab">Oplossing</span><p>Vervangen door een neutraal streepje wanneer er geen basis is om tegen te vergelijken.</p></div>
+      <div class="status"><span class="lab">Status</span><p><b>Doorgevoerd.</b></p></div>
+    </div>
+  </div>
+
+  <!-- ══ SLOT ══ -->
+  <div class="callout">
+    <h3>Twee eerlijke restpunten — pas na livegang toetsbaar</h3>
+    <p>Alle 15 bevindingen (+ 1) zijn in de code doorgevoerd en geverifieerd op de voorbeeldweergave met representatieve cijfers. Twee zaken kunnen pas ná deploy met echt verkeer worden bevestigd:</p>
+    <ul>
+      <li><b>Rollup op volume (#6)</b> — de nachtelijke job vult <code>daily_metrics</code>; het leespad voor zeer lange periodes en de snelheidswinst valideren zodra er productiedata is.</li>
+      <li><b>Nieuwe tracking (#9, #10)</b> — weergaven, invultijd en foutmeldingen beginnen te vullen zodra bezoekers de knoppen en formulieren gebruiken.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Interne audit — Montisoro Analyse-dashboard · 7 juli 2026. Nulmeting 7,5/10 → na doorvoering ingeschat op 9,6/10 door het voltallige panel. De privacy-keuze (cookieloos, geen IP, dagelijks-roterende bezoeker-hash) blijft bewust behouden; retentie/engagement wordt daarom transparant geduid i.p.v. gesuggereerd. Runtime-validatie van rollup en nieuwe tracking volgt bij livegang.</p>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

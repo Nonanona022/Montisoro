@@ -43,11 +43,29 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /FAQ.html             /faq            301!
 /FAQ-en.html          /faq-en         301!
 /Referentie.html      /referentie     301!
-/Referentie-en.html   /referentie-en  301!
+/Referentie-en.html   /references-en  301!
 /pages/Home.html      /               301!
 /pages/Home           /               301!
 /pages/:slug.html     /:slug          301!
 /pages/:slug          /:slug          301!
+
+# ── EN-slugs verengelst (oud NL-slug + -en → Engelse slug, 301) ──
+/aanpak-en                        /approach-en                  301!
+/aanpak-en.html                   /approach-en                  301!
+/technologie-en                   /technology-en                301!
+/technologie-en.html              /technology-en                301!
+/referentie-en                    /references-en                301!
+/referentie-en.html               /references-en                301!
+/referentie-case-en               /reference-case-en            301!
+/referentie-case-en.html          /reference-case-en            301!
+/referentie-case-alcon-en         /reference-case-alcon-en      301!
+/referentie-case-alcon-en.html    /reference-case-alcon-en      301!
+/referentie-case-feneko-en        /reference-case-feneko-en     301!
+/referentie-case-feneko-en.html   /reference-case-feneko-en     301!
+/referentie-case-lonza-en         /reference-case-lonza-en      301!
+/referentie-case-lonza-en.html    /reference-case-lonza-en      301!
+/referentie-case-novartis-en      /reference-case-novartis-en   301!
+/referentie-case-novartis-en.html /reference-case-novartis-en   301!
 
 # ── OUDE WEBSITE (pre-2026, /nl/…) → nieuwe pagina's (301, SEO-waarde mee) ──
 /nl/home                                      /            301
@@ -103,6 +121,6 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /faq                  /pages/FAQ.html              200!
 /faq-en               /pages/FAQ-en.html           200!
 /referentie           /pages/Referentie.html       200!
-/referentie-en        /pages/Referentie-en.html    200!
+/references-en        /pages/references-en.html    200!
 /:slug.html           /pages/:slug.html            200
 /:slug                /pages/:slug.html            200

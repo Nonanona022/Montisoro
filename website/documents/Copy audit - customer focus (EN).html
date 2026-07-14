@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Montisoro — Copy audit: customer focus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined){visibility:hidden}
+  :root{
+    --orange:#E8592B;
+    --orange-cta:#CC4A1E;
+    --ink:#1a1a1a;
+    --muted:#6b7280;
+    --line:#e4e0d9;
+    --paper:#ffffff;
+    --tint:#faf6f2;
+    --dark:#13100D;
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"DM Sans",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  doc-page{font-family:var(--sans);color:var(--ink);font-weight:300;font-size:13.5px;line-height:1.72;}
+
+  /* ── Typography ── */
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.12;margin:0;color:var(--ink);}
+  em{font-style:italic;color:var(--orange);}
+  .eyebrow{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:var(--orange);display:inline-block;}
+
+  /* ── Cover ── */
+  .cover{border-bottom:1.5px solid var(--ink);padding-bottom:26px;margin-bottom:30px;}
+  .cover h1{font-size:42px;font-weight:900;letter-spacing:-.01em;margin-bottom:10px;}
+  .cover .lead{font-size:15px;color:var(--muted);max-width:54ch;margin-top:14px;line-height:1.7;}
+  .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px;font-size:11px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;}
+  .meta b{display:block;color:var(--ink);font-weight:600;font-size:12.5px;letter-spacing:0;text-transform:none;margin-top:3px;}
+
+  /* ── Principle / method ── */
+  .principle{background:var(--dark);color:#F0EDE8;border-radius:2px;padding:26px 30px;margin:26px 0 30px;}
+  .principle .eyebrow{color:#F0A488;}
+  .principle .eyebrow::before{background:#F0A488;}
+  .principle h2{color:#fff;font-size:23px;margin-bottom:12px;}
+  .principle p{color:#cfc9c0;font-size:13px;max-width:62ch;margin:0 0 10px;}
+  .principle .frame{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;}
+  .principle .frame div{flex:1 1 200px;border-top:1px solid rgba(255,255,255,.18);padding-top:10px;}
+  .principle .frame b{color:#fff;font-weight:600;font-size:12px;display:block;margin-bottom:3px;}
+  .principle .frame span{color:#a9a29a;font-size:11.5px;}
+
+  /* ── Scorecard ── */
+  .scorecard{margin:28px 0 8px;}
+  .scorerow{display:flex;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);}
+  .scorerow:first-of-type{border-top:1px solid var(--line);}
+  .scorerow .pg{flex:1 1 auto;font-weight:500;font-size:13px;}
+  .scorerow .bar{flex:0 0 130px;height:5px;background:#eceae5;border-radius:3px;position:relative;overflow:hidden;}
+  .scorerow .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--orange);border-radius:3px;}
+  .scorerow .sc{flex:0 0 44px;text-align:right;font-family:var(--serif);font-weight:700;font-size:15px;}
+  .scorerow.total{border-bottom:2px solid var(--ink);border-top:2px solid var(--ink);margin-top:6px;padding:12px 0;}
+  .scorerow.total .pg{font-weight:700;font-size:14px;}
+  .scorerow.total .sc{font-size:20px;color:var(--orange);}
+
+  /* ── Page sections ── */
+  .page-sec{margin-top:38px;break-inside:avoid;}
+  .page-sec > h2{font-size:26px;font-weight:900;letter-spacing:-.01em;padding-bottom:8px;border-bottom:1.5px solid var(--ink);margin-bottom:4px;}
+  .page-verdict{font-size:12px;color:var(--muted);margin:10px 0 22px;display:flex;align-items:baseline;gap:10px;}
+  .page-verdict .chip{font-family:var(--serif);font-weight:700;font-size:13px;color:var(--ink);background:var(--tint);border:1px solid var(--line);border-radius:100px;padding:2px 12px;white-space:nowrap;}
+
+  /* ── Finding ── */
+  .finding{break-inside:avoid;margin:0 0 24px;padding-left:46px;position:relative;}
+  .finding .num{position:absolute;left:0;top:-4px;font-family:var(--serif);font-weight:900;font-style:italic;font-size:30px;color:var(--orange);line-height:1;}
+  .finding .loc{font-family:var(--sans);font-weight:600;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .finding h3{font-size:17px;font-weight:700;margin-bottom:8px;line-height:1.2;}
+  .finding .why{font-size:12.5px;color:#413d38;margin:0 0 14px;max-width:66ch;}
+
+  .ba{margin:0 0 12px;}
+  .ba .lab{font-family:var(--sans);font-weight:700;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px;}
+  .voor{border-left:2px solid #cfc9c0;padding:2px 0 2px 14px;margin-bottom:12px;}
+  .voor .lab{color:#9a938b;}
+  .voor p{margin:0;color:#7d766e;font-style:italic;font-size:13px;}
+  .na{border-left:2px solid var(--orange);padding:8px 0 8px 14px;background:var(--tint);border-radius:0 2px 2px 0;}
+  .na .lab{color:var(--orange);}
+  .na p{margin:0;color:var(--ink);font-weight:400;font-size:13.5px;}
+  .na p + p{margin-top:6px;}
+  .better{font-size:12px;color:#413d38;margin:12px 0 0;max-width:66ch;}
+  .better b{font-weight:600;color:var(--ink);}
+
+  /* ── Already strong ── */
+  .good{break-inside:avoid;border-left:2px solid #1F8A5B;padding:10px 16px 10px 16px;margin:0 0 14px;background:#f4faf6;border-radius:0 2px 2px 0;}
+  .good .lab{font-weight:700;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:#1F8A5B;margin-bottom:4px;}
+  .good p{margin:0;font-size:12.5px;color:#31463b;}
+  .good p b{color:#173a29;}
+
+  .callout{background:var(--tint);border:1px solid var(--line);border-radius:2px;padding:18px 22px;margin:24px 0;break-inside:avoid;}
+  .callout h3{font-size:16px;margin-bottom:8px;}
+  .callout p{font-size:12.5px;color:#413d38;margin:0;}
+  .callout ol{margin:10px 0 0;padding-left:20px;}
+  .callout li{font-size:12.5px;margin-bottom:6px;color:#413d38;}
+  .callout li b{color:var(--ink);font-weight:600;}
+
+  .foot-note{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:.86em;background:#efeae3;padding:1px 5px;border-radius:3px;}
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#13100D"/>
+  <text x="50" y="67" font-family="'Playfair Display',Georgia,serif" font-size="54" font-weight="900" font-style="italic" fill="#E8592B" text-anchor="middle">u</text>
+</svg>
+</template>
+<doc-page size="a4" margin="0.7in">
+
+  <!-- ══ COVER ══ -->
+  <div class="cover">
+    <p class="eyebrow">Internal copy audit · not published</p>
+    <h1>Does the site talk about <em>us</em>,<br>or about <em>you</em>?</h1>
+    <p class="lead">A page-by-page review of every visible line of copy on the Montisoro website, against one question: is the visitor at the centre, or Montisoro? Each finding comes with a concrete rewrite — <b>Before → After</b> — and the behavioural rationale. Nothing on the site has been changed; these are proposals. (English mirror of the Dutch audit.)</p>
+    <div class="meta">
+      <div>Prepared<b>6 July 2026</b></div>
+      <div>Scope<b>10 live pages + shared CTAs</b></div>
+      <div>Goal<b>Fully customer-focused · min. 9.5/10</b></div>
+    </div>
+  </div>
+
+  <!-- ══ PRINCIPLE ══ -->
+  <div class="principle">
+    <p class="eyebrow">The principle behind this audit</p>
+    <h2>The visitor is the hero. Montisoro is the <em>guide</em>.</h2>
+    <p>Visitors don't buy a company — they buy a better version of their own situation. Whoever lands on the site (leadership, HR facing complex absence) doesn't think “what a strong company”, but “does this company understand my problem, and will <em>I</em> be better off here?”. The strongest B2B copy casts the client in the lead role and positions the brand as the guide that gets them there — not as the hero telling its own story.</p>
+    <p>In practice that comes down to three reflexes, applicable to every sentence:</p>
+    <div class="frame">
+      <div><b>Subject = the client</b><span>Let “you / your organization” perform the verb, not “Montisoro brings / builds / makes”.</span></div>
+      <div><b>Headline = the problem or the gain</b><span>Titles name the visitor's pain or outcome, not the brand's name or foundation.</span></div>
+      <div><b>Proof may be about us</b><span>Numbers, references and expertise <em>show</em> authority — that's exactly where “we” is fitting and credible.</span></div>
+    </div>
+  </div>
+
+  <!-- ══ SCORECARD ══ -->
+  <div class="scorecard">
+    <p class="eyebrow">Customer focus per page — baseline</p>
+    <div class="scorerow"><span class="pg">Home</span><span class="bar"><i style="width:70%"></i></span><span class="sc">7.0</span></div>
+    <div class="scorerow"><span class="pg">Approach</span><span class="bar"><i style="width:75%"></i></span><span class="sc">7.5</span></div>
+    <div class="scorerow"><span class="pg">About</span><span class="bar"><i style="width:80%"></i></span><span class="sc">8.0</span></div>
+    <div class="scorerow"><span class="pg">Technology</span><span class="bar"><i style="width:75%"></i></span><span class="sc">7.5</span></div>
+    <div class="scorerow"><span class="pg">Calculator</span><span class="bar"><i style="width:95%"></i></span><span class="sc">9.5</span></div>
+    <div class="scorerow"><span class="pg">Fit Check</span><span class="bar"><i style="width:95%"></i></span><span class="sc">9.5</span></div>
+    <div class="scorerow"><span class="pg">References (overview)</span><span class="bar"><i style="width:70%"></i></span><span class="sc">7.0</span></div>
+    <div class="scorerow"><span class="pg">Case detail (template)</span><span class="bar"><i style="width:70%"></i></span><span class="sc">7.0</span></div>
+    <div class="scorerow"><span class="pg">FAQ</span><span class="bar"><i style="width:85%"></i></span><span class="sc">8.5</span></div>
+    <div class="scorerow"><span class="pg">Contact</span><span class="bar"><i style="width:90%"></i></span><span class="sc">9.0</span></div>
+    <div class="scorerow total"><span class="pg">Average now</span><span class="bar"><i style="width:79%"></i></span><span class="sc">7.9</span></div>
+  </div>
+  <p class="better" style="max-width:68ch;">The base is strong: <b>Calculator, Fit Check and Contact</b> are already model examples of customer-focused copy. The gain sits in roughly 15 sentences — chiefly <b>section headings</b> (“Why Montisoro”, “The Montisoro Foundation”, “What we do”), a few <b>hero subtitles</b> and the <b>case summaries</b>, where Montisoro is currently the grammatical subject. Flipping those lifts the whole to 9.5.</p>
+
+  <!-- ══════════════════ HOME ══════════════════ -->
+  <div class="page-sec">
+    <h2>1 · Home</h2>
+    <div class="page-verdict"><span class="chip">7.0 / 10</span> A strong, problem-led hero opening and an excellent calculator block — but three anchors pull attention to the brand instead of the visitor.</div>
+
+    <div class="finding">
+      <span class="num">1</span>
+      <p class="loc">Hero · subtitle</p>
+      <h3>From “Montisoro brings together” to “so it's never left to chance for you”</h3>
+      <p class="why">The first sentence is perfectly customer-focused (the cost hits the visitor). The second switches to Montisoro as subject: the company “brings together”. The visitor drops out of the very sentence meant to carry the promise.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Every day an employee is absent costs up to €266. Montisoro brings together care, expertise and technology so that a lasting return to work is never left to chance.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“Every day an employee is absent costs you up to €266. With care, expertise and technology in one system, a lasting return to work is no longer left to chance — it becomes structure.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the promise is now about the visitor's outcome (“becomes structure”) rather than what Montisoro does. “Costs you” personalises the pain; the instruments remain as means, not lead role.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">2</span>
+      <p class="loc">“Strengths” section · eyebrow + title</p>
+      <h3>“Why Montisoro” is an about-ourselves heading</h3>
+      <p class="why">Both the eyebrow (“Why Montisoro”) and the title (“Where existing roles stop, Montisoro begins”) make the brand the subject. The visitor has to translate it to their own situation themselves.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>Eyebrow: “Why Montisoro” — Title: “Where existing roles stop, Montisoro begins.”</p></div>
+        <div class="na"><div class="lab">After</div><p>Eyebrow: “Why this works” — Title: “Where your existing roles stop, the real work begins.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the heading now names the <b>gap the visitor already feels</b> (“your existing roles stop”) — a limit they recognise — instead of a brand claim. Montisoro's positioning as the solution stays implicit and gains credibility.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">3</span>
+      <p class="loc">“Strengths” section · pillar 01</p>
+      <h3>“Montisoro brings these perspectives together”</h3>
+      <p class="why">A pure we-do sentence. The valuable part (one well-founded approach) is framed as something Montisoro does, not something the visitor gets.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“From fragmentation to direction — Absence affects people, work and the organization. Montisoro brings these perspectives together into one well-founded approach.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“From fragmentation to direction — Absence affects people, work and the organization at once. You get those perspectives back in one well-founded approach.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> “You get … back” makes the visitor the recipient of the gain. The emphasis shifts from the brand's performance to the result inside the reader's organization.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">4</span>
+      <p class="loc">“Foundation” section · eyebrow + intro</p>
+      <h3>“The Montisoro Foundation” is about the brand, not the gain</h3>
+      <p class="why">The heading and intro describe how Montisoro is built (one layer, three instruments, eight years of expertise). That's classic “look how we're put together” copy. The visitor reads what the brand is, not what it does for them.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>Eyebrow: “The Montisoro Foundation” — “Organizations that care for their people perform better. One cultural layer, carried by three instruments, built on eight years of expertise…”</p></div>
+        <div class="na"><div class="lab">After</div><p>Eyebrow: “What you can build on” — “Organizations that care for their people perform better. You build on one cultural layer, three instruments and eight years of expertise in reintegration.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> “What you can build on / You build on” turns the foundation into something the visitor uses. The eight years of expertise stay as proof — now in service of them. (Keep the brand name in the section; it's the framing of the intro that matters.)</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">5</span>
+      <p class="loc">“References” section · card blurb</p>
+      <h3>“We brought structure” — the reference talks about us</h3>
+      <p class="why">The card text describes what Montisoro did (“We brought structure, made the costs visible…”). In a reference the client is the hero; the strongest teaser shows what the client <em>won</em>, not what the firm did. (Same pattern on the References overview page — see section 7.)</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“From fragmented follow-up to one approach — We brought structure, made the costs visible and intervened sooner where it counted.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“From fragmented follow-up to one approach — Structure restored, costs made visible, and faster intervention where it counted.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> without “we” as subject the line becomes a <b>result</b> the client achieved. The reader more easily projects that result onto their own organization — exactly what a reference should trigger.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">6</span>
+      <p class="loc">“Contact” section (slot) + repeated on About</p>
+      <h3>“Discover how Montisoro strengthens your approach”</h3>
+      <p class="why">The closing CTA opens on the brand. The visitor reads “Montisoro” first, only then “your approach”. This exact line also appears on the About page — fix it once, two places get stronger.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Discover how Montisoro strengthens your approach, from the first day of absence to sustainable return to work.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“Discover how you strengthen your approach, from the first day of absence to sustainable return to work.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the visitor becomes the actor of their own improvement. Shorter distance between reader and promise; the brand name is redundant here (the whole page is already Montisoro).</p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Hero opening line</b> (“Every day an employee is absent costs up to €266”) leads with the visitor's pain. <b>Calculator block</b> (“Slide in <b>your</b> salary cost … see what <b>you</b> can save”) is exemplary customer-focus. <b>The four figures</b> (2,500 cases, €14.7M, 30–35%, 92–100K) are proof/authority — the brand focus is right here. <b>Founder section</b> is an origin story and may stay in the first-person/brand voice; it builds empathy. <b>“Are we a match? →”</b> invites the visitor — strong.</p></div>
+  </div>
+
+  <!-- ══════════════════ APPROACH ══════════════════ -->
+  <div class="page-sec">
+    <h2>2 · Approach</h2>
+    <div class="page-verdict"><span class="chip">7.5 / 10</span> Excellent problem sections in the visitor's voice — a couple of “we-do” lines in the statement and bridge blocks keep the score under 9.</div>
+
+    <div class="finding">
+      <span class="num">7</span>
+      <p class="loc">Hero · subtitle</p>
+      <h3>“Montisoro makes visible … and builds the structure”</h3>
+      <p class="why">The headline (“Absence is not the problem. It is the signal.”) is beautifully customer-focused. The subtitle then falls back on Montisoro as the subject of two verbs.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Montisoro makes visible where things get stuck and builds the structure to enable a lasting return to work.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“You see where things get stuck, and gain the structure to enable a lasting return to work.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> “You see … and gain” puts the visitor in the driver's seat of their own insight. The promise feels like something they acquire, not a service description.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">8</span>
+      <p class="loc">“Statement” section · eyebrow + intro</p>
+      <h3>“What we do — Montisoro makes care workable”</h3>
+      <p class="why">The eyebrow (“What we do”) and opening line (“Montisoro brings knowledge, structure and technology together…”) are brand-as-subject. What's strong is that the follow-up (“capability that stays in <em>your</em> organization”) is already customer-focused — the opening just doesn't yet match it.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>Eyebrow: “What we do” — “Montisoro brings knowledge, structure and technology together for a lasting return to work.”</p></div>
+        <div class="na"><div class="lab">After</div><p>Eyebrow: “What's in it for you” — “Knowledge, structure and technology come together into one system for a lasting return to work in your organization.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the eyebrow now promises a gain instead of a service description, and the intro lines up with the already-strong “stays in your organization” further down. A consistent visitor voice throughout the block.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">9</span>
+      <p class="loc">“ROI bridge” section · caption</p>
+      <h3>“Our calculator makes visible”</h3>
+      <p class="why">Small but it counts: “Our calculator” centres the tool (and the brand), whereas the gain for the visitor (seeing for themselves what stays hidden) should be the trigger.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Our calculator makes visible what today often stays hidden.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“See for yourself, in two minutes, what today often stays hidden.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> “See for yourself” is a direct, active invitation (agency with the visitor) and lowers the threshold with a time promise — which raises click-through to the calculator.</p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>“The problem — The costliest absence cost? What you don't see.”</b> is sharply customer-focused. <b>The 10 signals</b> (“For us, cases only become visible…”, “Our HR team…”) are deliberately in the <b>visitor's own voice</b> — that's recognition/self-diagnosis and exactly right; don't flip it. <b>Closing “We'll look at where your organization is losing grip”</b> is a balanced, collaborative “we”. Eyebrow “Our approach” is a navigation label and acceptable.</p></div>
+  </div>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <div class="page-sec">
+    <h2>3 · About</h2>
+    <div class="page-verdict"><span class="chip">8.0 / 10</span> An About page is <em>allowed</em> to be about the brand — here even with a best-in-class example of customer focus. Only the shared closing CTA and the mission opening are worth lifting.</div>
+
+    <div class="callout">
+      <h3>Context: the one page where “we” is the norm</h3>
+      <p>Visitors come to About to judge <em>whether</em> they trust the brand — here the brand voice is expected and appropriate. The bar shifts: not “avoid we”, but “tie every brand claim to the visitor”. This page already does that for the most part.</p>
+    </div>
+
+    <div class="good"><div class="lab">A model for the whole site</div><p>Principle 02 — <b>“Ownership — We measure our success not by your dependence, but by your independence.”</b> This is exactly the right move: a brand value fully translated into the client's gain. Use this line as the benchmark for every rewrite elsewhere.</p></div>
+
+    <div class="finding">
+      <span class="num">10</span>
+      <p class="loc">“Mission” section · intro</p>
+      <h3>Strong mission, but it opens on the brand</h3>
+      <p class="why">“Montisoro builds the knowledge, structure and technology that lets organisations see earlier…” — the gain for the organization is there, but only after the brand as builder. A small tilt puts the organization first.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Montisoro builds the knowledge, structure and technology that lets organisations see earlier what is breaking down, act better when things get complex and embed knowledge more sustainably.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“With the right knowledge, structure and technology you see earlier what is breaking down, act better when things get complex and embed knowledge more sustainably. That's what Montisoro builds.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the visitor (“you see / act / embed”) comes first; the brand claim closes as a signature. Same content, but the gain lands first — and sticks.</p>
+    </div>
+
+    <p class="better" style="max-width:68ch;">The <b>closing CTA “Discover how Montisoro strengthens your approach”</b> appears here too — see finding 6 (Home) for the rewrite; one fix covers both pages.</p>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Hero</b> (“Some companies are born from an opportunity. Montisoro from a conviction.”) — the brand voice is appropriate and distinctive here. <b>Team bios</b> and the <b>origin story</b> belong in the brand voice and build trust. The <b>five principles</b> are sharp; principle 02 is a site-wide model.</p></div>
+  </div>
+
+  <!-- ══════════════════ TECHNOLOGY ══════════════════ -->
+  <div class="page-sec">
+    <h2>4 · Technology</h2>
+    <div class="page-verdict"><span class="chip">7.5 / 10</span> A product page logically describes the product — and Casey + the waitlist already do so with the visitor in view. The hero and the Storm opening are the pivots.</div>
+
+    <div class="finding">
+      <span class="num">11</span>
+      <p class="loc">Hero · subtitle</p>
+      <h3>“Montisoro builds technology for organizations where…”</h3>
+      <p class="why">The hero opens on the brand as builder. The audience is named (“organizations where absence … is daily reality”), but in the third person — the visitor reads about “organizations”, not about themselves.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Montisoro builds technology for organizations where absence, employability and human complexity are daily reality.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“For organizations like yours — where absence, employability and human complexity are daily reality — this is built.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> “like yours” pulls the visitor into the sentence and mirrors their reality back. The emphasis shifts from who builds it to who it exists for.</p>
+    </div>
+
+    <div class="finding">
+      <span class="num">12</span>
+      <p class="loc">“Storm” section · opening</p>
+      <h3>Opens on product history, not on what it gives you</h3>
+      <p class="why">“Storm has been Montisoro's SaaS platform since 2023. It brings information, roles, communication and follow-up together…” — brand and date first, then the function. What's strong is the closer (“makes organizations more consistent in how they act”); that gain can move forward.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Storm has been Montisoro's SaaS platform since 2023. It brings information, roles, communication and follow-up together in one environment.”</p></div>
+        <div class="na"><div class="lab">After</div><p>“All your information, roles, communication and follow-up in one environment. That's Storm — the SaaS platform corporate organizations have been building on since 2023.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the sentence opens on what the visitor gets (“All your … in one environment”); “since 2023” and “corporate organizations” stay as <b>proof</b> — exactly where the brand focus is credible.</p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Casey AI</b> (“learns from your context … grows with your organization”) is already customer-focused. <b>Human in the loop</b> (“People keep the final responsibility”) reassures the visitor. <b>Waitlist</b> (“Casey learns every day. So does your organization.”) and the <b>closing</b> (“We'll show you … what Casey can mean for your organization”) balance brand and visitor well.</p></div>
+  </div>
+
+  <!-- ══════════════════ CALCULATOR ══════════════════ -->
+  <div class="page-sec">
+    <h2>5 · Calculator</h2>
+    <div class="page-verdict"><span class="chip">9.5 / 10</span> A model example. Nothing to change — use it as the benchmark for the rest of the site.</div>
+    <div class="good"><div class="lab">Already strong — keep as benchmark</div><p><b>Hero:</b> “What does absence really cost? In six short steps, based on <b>your</b> organisation … <b>you</b> get one grounded figure and <b>your</b> full report.” <b>Report gate:</b> “Receive <b>your</b> full absence report … <b>Your</b> report includes: <b>Your</b> total absence cost … What <b>you</b> can save by acting earlier … <b>Your</b> position versus the sector.” Every line is the visitor. The proof (“2,500+ cases · 8 years of practice”) sits as reassurance, not boasting. This is 9.5 copy.</p></div>
+  </div>
+
+  <!-- ══════════════════ FIT CHECK ══════════════════ -->
+  <div class="page-sec">
+    <h2>6 · Fit Check</h2>
+    <div class="page-verdict"><span class="chip">9.5 / 10</span> Entirely in the visitor's voice. Nothing to change.</div>
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Hero:</b> “Is <b>your</b> absence approach ready for what organizations need today? Four questions. Two minutes. One smart match — between <b>your</b> organization and the approach that's truly needed today.” The four steps (Absence type, Need, Maturity, Scale) diagnose the visitor. “No fluffy HR test. A capability check.” sets the expectation sharply. Exemplary.</p></div>
+  </div>
+
+  <!-- ══════════════════ REFERENCES ══════════════════ -->
+  <div class="page-sec">
+    <h2>7 · References — overview</h2>
+    <div class="page-verdict"><span class="chip">7.0 / 10</span> The hero is fine; the card teasers tell what “we” did instead of what the client won.</div>
+
+    <div class="finding">
+      <span class="num">13</span>
+      <p class="loc">“The cases” section · card teasers</p>
+      <h3>“We brought structure” in the teasers</h3>
+      <p class="why">The same teasers as on Home. In a reference, the <b>client</b> is the hero. “We brought structure…” makes Montisoro the subject; the reader projects more easily when the line describes the <b>result at the client</b>. The section title (“Every sector. One system.”) and “See how it played out” are strong.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>Volvo: “We brought structure, made the costs visible and intervened sooner where it counted.”</p></div>
+        <div class="na"><div class="lab">After</div><p>Volvo: “Structure restored, costs made visible and faster intervention where it counts — across multiple shifts.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> result phrasing without “we” lets every prospect recognise themselves in the outcome. The added context (“across multiple shifts”) makes it concrete and relatable.</p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Hero</b> (“Clients who prove it … helps organisations strengthen lasting employability”) and <b>“See how it played out”</b> are good. Focus only on the teaser lines.</p></div>
+  </div>
+
+  <!-- ══════════════════ CASE DETAIL ══════════════════ -->
+  <div class="page-sec">
+    <h2>8 · Case detail (template)</h2>
+    <div class="page-verdict"><span class="chip">7.0 / 10</span> Results and quotes are already in the client's voice (strong). The hero summary consistently makes Montisoro the subject — that's where the gain sits, and one fix in the template improves <em>every</em> case.</div>
+
+    <div class="finding">
+      <span class="num">14</span>
+      <p class="loc">Every case · hero summary (field <code>hero_sum</code> in cases.js)</p>
+      <h3>Make the client the hero, not Montisoro</h3>
+      <p class="why">In all four cases Montisoro is the grammatical subject of the summary: “Montisoro brought absence under control”, “Montisoro follows up employees”, “Montisoro built a health policy”. In a case the CEO-reader wants to recognise themselves in the client — the client has to play the lead, with Montisoro as the guide that made it possible.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before · Volvo</div><p>“In an industrial, multi-shift environment, Montisoro brought absence back under control, not with more meetings, but with one system that unites insight, structure and follow-through.”</p></div>
+        <div class="na"><div class="lab">After · Volvo</div><p>“In an industrial, multi-shift environment, Volvo Group brought absence back under control — not with more meetings, but with one system that unites insight, structure and follow-through. Montisoro helped build it.”</p></div>
+      </div>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before · Alcon</div><p>“…Montisoro personally follows up absent employees through its Re-boarding programme.”</p></div>
+        <div class="na"><div class="lab">After · Alcon</div><p>“…Alcon keeps absent employees personally on board through Montisoro's Re-boarding programme.”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> the client achieves the result; Montisoro is the guide that makes it possible. That's precisely the StoryBrand effect that makes references persuasive — the prospect sees themselves in the lead. <b>One change to the <code>hero_sum</code> pattern (cases.js) propagates to every case and every future case from the dashboard.</b></p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Result cards</b> (“More clarity”, “Long-term absence down sharply”, “Faster follow-up”) are in client outcomes — exactly right. <b>Client quotes</b> (William De Plecker, Hilde Hermans) are authentic social proof in the client's voice. <b>“At a glance”</b> (Challenge/Approach/Result/Duration) is neutral and scannable. Titles like “What the collaboration delivered” are result-focused — keep them.</p></div>
+  </div>
+
+  <!-- ══════════════════ FAQ ══════════════════ -->
+  <div class="page-sec">
+    <h2>9 · FAQ</h2>
+    <div class="page-verdict"><span class="chip">8.5 / 10</span> Questions and answers are largely in the visitor's voice. Hardly anything to do.</div>
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p>The questions are posed in the <b>visitor's voice</b> (“How quickly do <b>we</b> see results?”, “Does this work for <b>our</b> sector or SME?”) — that's self-identification and right. The answers balance well: “<b>You</b> bring <b>your</b> situation, we listen”, “After the first conversation <b>you</b> receive a concrete proposal … grounded in <b>your</b> own figures”, “we tailor the approach to <b>your</b> reality”. The “we” here is always the guide beside the client — appropriate.</p></div>
+  </div>
+
+  <!-- ══════════════════ CONTACT ══════════════════ -->
+  <div class="page-sec">
+    <h2>10 · Contact</h2>
+    <div class="page-verdict"><span class="chip">9.0 / 10</span> Honest, pressure-free and you-first. Nothing structural to change.</div>
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>Hero:</b> “Choose how <b>you</b> reach us. No sales pitch … <b>You</b> bring <b>your</b> question, we listen, and tell you honestly whether we can add value.” <b>Channels</b> are framed around the visitor's choice. <b>“You speak directly with the founder”</b> and <b>“Your data stays with us”</b> build trust. A strong piece of guide copy — the honesty (“If we're not the right party, we'll say so”) raises credibility.</p></div>
+  </div>
+
+  <!-- ══════════════════ SHARED CTAs ══════════════════ -->
+  <div class="page-sec">
+    <h2>Shared CTAs & footer</h2>
+    <div class="page-verdict"><span class="chip">8.5 / 10</span> The primary buttons are already action- and visitor-focused; one label is worth lifting.</div>
+
+    <div class="finding">
+      <span class="num">15</span>
+      <p class="loc">Secondary CTA · multiple pages</p>
+      <h3>“Explore our approach first” / “Discover our approach first”</h3>
+      <p class="why">Small detail, high frequency: “our approach” makes the brand the owner. For a navigation button the approach itself is enough; “our” adds nothing but brand focus.</p>
+      <div class="ba">
+        <div class="voor"><div class="lab">Before</div><p>“Explore our approach first →” · “Discover our approach first →”</p></div>
+        <div class="na"><div class="lab">After</div><p>“Explore the approach first →” · “Here's how we do it →”</p></div>
+      </div>
+      <p class="better"><b>Why stronger:</b> more neutral and more action-oriented; the button promises content, not brand ownership. (“Here's how we do it” keeps the guide voice without the possessive “our”.)</p>
+    </div>
+
+    <div class="good"><div class="lab">Already strong — leave unchanged</div><p><b>“Calculate your absence cost →”</b> (possessive-correct: it's <em>your</em> cost), <b>“Book a call →”</b> (clear action), <b>“Are we a match? →”</b>, <b>“All references →”</b>. The <b>footer</b> is navigation/legal and neutral — no we-problem.</p></div>
+  </div>
+
+  <!-- ══════════════════ PRIORITIZATION ══════════════════ -->
+  <div class="callout">
+    <h3>Prioritization — how you reach 9.5</h3>
+    <p>The site already sits at 7.9. These six moves carry the greatest effect and together touch barely ten sentences:</p>
+    <ol>
+      <li><b>Flip the section headings</b> (Home “Why Montisoro” + “The Montisoro Foundation”; Approach “What we do”). Headings weigh most — they set the first impression per section. <span style="color:#6b7280">→ findings 2, 4, 8</span></li>
+      <li><b>Tilt the hero subtitles</b> toward “you see / you gain” (Home, Approach, Technology). <span style="color:#6b7280">→ findings 1, 7, 11</span></li>
+      <li><b>Case summaries</b>: client as subject in the <code>hero_sum</code> pattern (cases.js) — one fix, all cases. <span style="color:#6b7280">→ finding 14</span></li>
+      <li><b>Reference teasers</b> from “we did” to “result at the client” (Home + overview). <span style="color:#6b7280">→ findings 5, 13</span></li>
+      <li><b>Shared closing CTA</b> “Discover how Montisoro strengthens your approach” → “…how you strengthen your approach” (Home + About in one go). <span style="color:#6b7280">→ finding 6</span></li>
+      <li><b>Micro-labels</b>: “our calculator/approach” → neutral-active. <span style="color:#6b7280">→ findings 9, 15</span></li>
+    </ol>
+    <p style="margin-top:12px;">Leave <b>Calculator, Fit Check, Contact</b>, the <b>numbers/proof blocks</b>, the <b>Founder and team sections</b> and the <b>client quotes</b> untouched — those carry the brand voice where it belongs (authority and empathy) and are already strong.</p>
+  </div>
+
+  <p class="foot-note">Internal copy audit for Montisoro · 6 July 2026 · Proposals only — nothing on the live site has been changed. English mirror of the Dutch audit. Rewrites respect the existing house style (Playfair serif + orange accent, one <em>em</em> accent per title). Not yet reviewed at copy level: legal pages (Privacy, Cookies, Terms) — brand voice there is legally correct and not relevant to customer focus.</p>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body>
+</html>

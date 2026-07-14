@@ -1,11 +1,7 @@
 User-agent: *
 Allow: /
 
-# Block crawler access to source-only folders that have no real content
-Disallow: /components/
-Disallow: /hooks/
-Disallow: /contexts/
-Disallow: /layouts/
+# Interne documenten niet indexeren
 Disallow: /documents/
 
 Sitemap: https://montisoro.com/sitemap.xml

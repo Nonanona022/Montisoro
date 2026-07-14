@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro Calculator — 10 actiepunten met grootste effect</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+:root{
+  --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+  --ink:#1A1512; --soft:#52493F; --mute:#6E6359; --line:rgba(26,21,18,.12); --line2:rgba(26,21,18,.20);
+  --orange:#CC4A1E; --orange2:#E8592B; --bg:#F4F2EF; --card:#fff;
+  --good:#1F7A4D; --warn:#B4530A; --bad:#A12C2C;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:900px;margin:0 auto;padding:56px 24px 120px;}
+.doc-head{border-bottom:2px solid var(--ink);padding-bottom:26px;margin-bottom:26px;}
+.kicker{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+h1{font-family:var(--serif);font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;letter-spacing:-.02em;margin-bottom:16px;}
+h1 em{font-style:italic;color:var(--orange2);}
+.lede{font-size:16px;color:var(--soft);max-width:64ch;}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:var(--mute);}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--orange2);}
+.tier-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin:34px 0 4px;display:flex;align-items:center;gap:10px;}
+.tier-label::after{content:'';flex:1;height:1px;background:var(--line);}
+.card{display:flex;gap:20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-top:14px;}
+.rank{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;font-family:var(--serif);font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;}
+.card.top .rank{background:var(--orange);}
+.body{flex:1;min-width:0;}
+.card h2{font-family:var(--sans);font-weight:700;font-size:19px;line-height:1.25;letter-spacing:-.01em;margin-bottom:8px;}
+.what{font-size:14.5px;color:var(--soft);margin-bottom:8px;}
+.what b{color:var(--ink);font-weight:600;}
+.why{font-size:13.5px;color:var(--mute);border-left:2px solid var(--line2);padding-left:12px;margin-bottom:14px;}
+.why b{color:var(--soft);font-weight:600;}
+.impacts{display:flex;gap:8px;flex-wrap:wrap;}
+.imp{font-size:11px;font-weight:600;letter-spacing:.02em;padding:4px 10px;border-radius:100px;border:1px solid var(--line2);color:var(--soft);display:inline-flex;align-items:center;gap:6px;}
+.imp .lvl{letter-spacing:1px;color:var(--orange2);font-weight:800;}
+.imp.conv{background:rgba(204,74,30,.06);border-color:rgba(204,74,30,.25);}
+.imp.trust{background:rgba(31,122,77,.06);border-color:rgba(31,122,77,.25);}
+.imp.trust .lvl{color:var(--good);}
+.imp.ease{background:rgba(180,83,10,.06);border-color:rgba(180,83,10,.25);}
+.imp.ease .lvl{color:var(--warn);}
+.footer-note{background:var(--ink);color:#F0EDE8;border-radius:16px;padding:26px 30px;margin-top:34px;}
+.footer-note h3{font-family:var(--serif);font-weight:700;font-size:22px;color:#fff;margin-bottom:10px;}
+.footer-note h3 em{font-style:italic;color:var(--orange2);}
+.footer-note p{color:rgba(240,237,232,.82);font-size:14px;margin-bottom:0;}
+.jump{display:flex;align-items:baseline;gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(240,237,232,.16);}
+.jump .from{font-size:13px;color:rgba(240,237,232,.6);}
+.jump .arrow{font-family:var(--serif);font-size:26px;font-weight:800;color:#fff;}
+.jump .arrow em{font-style:italic;color:var(--orange2);}
+@media print{body{background:#fff;}.card,.footer-note{break-inside:avoid;}.wrap{padding:0;}}
+@media(max-width:600px){.card{flex-direction:column;gap:14px;}.rank{width:38px;height:38px;font-size:19px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-head">
+  <div class="kicker">Montisoro Verzuimcalculator · Prioriteitenplan</div>
+  <h1>10 actiepunten met het <em>grootste effect</em></h1>
+  <p class="lede">Gedestilleerd uit de expertaudit en gerangschikt op impact. De bovenste drie halen de calculator van "twijfel" naar "ja"; de rest maakt de afwerking topbedrijf-waardig. Elk punt is concreet en los uitvoerbaar.</p>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--orange2);"></span> Conversie</span>
+    <span><span class="dot" style="background:var(--good);"></span> Vertrouwen</span>
+    <span><span class="dot" style="background:var(--warn);"></span> Gebruiksgemak</span>
+    <span style="color:var(--soft);"><b>+++</b> = grootste effect</span>
+  </div>
+</header>
+
+<div class="tier-label">Kritiek · van "twijfel" naar "ja"</div>
+
+<div class="card top">
+  <div class="rank">1</div>
+  <div class="body">
+    <h2>Los de belofte-breuk op: toon een live cijfer tijdens de stappen</h2>
+    <p class="what"><b>Wat:</b> de hero belooft "real-time" en "zie de impact meteen", maar het bedrag verschijnt pas op het einde. Toon op desktop een compact meelopend cijfer terwijl men invult (op mobiel de rustige onthulling behouden), óf pas de belofte-copy aan.</p>
+    <p class="why"><b>Waarom:</b> verwachting ≠ ervaring is de grootste vertrouwensbreuk in de flow, precies vóór de datavraag. Meebewegende cijfers houden bovendien het momentum vast en verlagen het afhaakrisico halverwege.</p>
+    <div class="impacts"><span class="imp conv">Conversie <span class="lvl">+++</span></span><span class="imp trust">Vertrouwen <span class="lvl">+++</span></span><span class="imp ease">Gebruiksgemak <span class="lvl">++</span></span></div>
+  </div>
+</div>
+
+<div class="card top">
+  <div class="rank">2</div>
+  <div class="body">
+    <h2>Maak de rapport-waarde expliciet bij het formulier</h2>
+    <p class="what"><b>Wat:</b> zet naast het invulformulier een concrete lijst "u ontvangt: sectorbenchmark, 3 besparingsscenario's, deelbare PDF voor uw board, aanbevolen volgende stap".</p>
+    <p class="why"><b>Waarom:</b> op dat moment staat het hoofdbedrag + 4 KPI's al op het scherm. Zonder een tastbare meerwaarde is er te weinig reden om data te ruilen — dit is het grootste conversielek.</p>
+    <div class="impacts"><span class="imp conv">Conversie <span class="lvl">+++</span></span><span class="imp trust">Vertrouwen <span class="lvl">++</span></span></div>
+  </div>
+</div>
+
+<div class="card top">
+  <div class="rank">3</div>
+  <div class="body">
+    <h2>Ontgok de %-velden met sectordefaults</h2>
+    <p class="what"><b>Wat:</b> stap 4 & 5 (aandeel vervangings- en organisatiekosten) vooraf invullen met een sectorstandaard + knop "ken ik niet → gebruik sectorgemiddelde". Toon de bron.</p>
+    <p class="why"><b>Waarom:</b> geen enkele CEO heeft die percentages paraat; nu gokt men, en dat ondermijnt het geloof in het eindbedrag ("als mijn input een gok is, is de uitkomst dat ook").</p>
+    <div class="impacts"><span class="imp trust">Vertrouwen <span class="lvl">+++</span></span><span class="imp ease">Gebruiksgemak <span class="lvl">++</span></span></div>
+  </div>
+</div>
+
+<div class="tier-label">Belangrijk · geloofwaardigheid & momentum</div>
+
+<div class="card">
+  <div class="rank">4</div>
+  <div class="body">
+    <h2>Rond het bedrag af naar een range</h2>
+    <p class="what"><b>Wat:</b> toon "± €770K" (of "€760K–€785K") in plaats van "€771.480" tot op de euro.</p>
+    <p class="why"><b>Waarom:</b> exacte cijfers spreken het label "indicatief" tegen. Een range voelt eerlijker en wordt méér vertrouwd.</p>
+    <div class="impacts"><span class="imp trust">Vertrouwen <span class="lvl">++</span></span><span class="imp conv">Conversie <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="rank">5</div>
+  <div class="body">
+    <h2>Voeg een controle-stap toe vóór de onthulling</h2>
+    <p class="what"><b>Wat:</b> een korte samenvatting "dit vulde u in — kloppen deze cijfers?" met snel-bewerken vóór het resultaat verschijnt.</p>
+    <p class="why"><b>Waarom:</b> laat de gebruiker een scheve schatting corrigeren en geeft controle terug — dat verhoogt het vertrouwen in de uitkomst op het beslissende moment.</p>
+    <div class="impacts"><span class="imp trust">Vertrouwen <span class="lvl">++</span></span><span class="imp ease">Gebruiksgemak <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="rank">6</div>
+  <div class="body">
+    <h2>Toon inspanning en voortgang</h2>
+    <p class="what"><b>Wat:</b> "6 stappen · ± 2 min" in de hero, en per stap "stap 3 van 6 · nog ~1 min".</p>
+    <p class="why"><b>Waarom:</b> een CEO weet nu niet waar hij aan begint. Een helder eindpunt verhoogt het aantal starts én de voltooiing.</p>
+    <div class="impacts"><span class="imp conv">Conversie <span class="lvl">++</span></span><span class="imp ease">Gebruiksgemak <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="rank">7</div>
+  <div class="body">
+    <h2>Zet één subtiele proof-regel bij het formulier</h2>
+    <p class="what"><b>Wat:</b> bv. "Berekend door 1.200+ organisaties" of één kort klantcitaat — ter vervanging van de verwijderde logostrip, maar zonder de drukte.</p>
+    <p class="why"><b>Waarom:</b> sociale bewijskracht op het datamoment verlaagt de weerstand om gegevens te delen.</p>
+    <div class="impacts"><span class="imp conv">Conversie <span class="lvl">++</span></span><span class="imp trust">Vertrouwen <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="rank">8</div>
+  <div class="body">
+    <h2>Voeg geruststelling over contact toe</h2>
+    <p class="what"><b>Wat:</b> bij de consent een regel "We sturen enkel uw rapport — geen ongevraagde verkooptelefoons."</p>
+    <p class="why"><b>Waarom:</b> de onuitgesproken angst bij B2B-formulieren is "word ik nu platgebeld?". Dat expliciet wegnemen verhoogt de invulbereidheid.</p>
+    <div class="impacts"><span class="imp conv">Conversie <span class="lvl">++</span></span><span class="imp trust">Vertrouwen <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="tier-label">Afwerking · topbedrijf-niveau</div>
+
+<div class="card">
+  <div class="rank">9</div>
+  <div class="body">
+    <h2>Trek copy en termen gelijk</h2>
+    <p class="what"><b>Wat:</b> "úw" → "uw" in stap 6, stepper "Verzuim" vs. titel "Verzuimprofiel" één term geven, stap 3 duidelijk maken dat leeg = €0.</p>
+    <p class="why"><b>Waarom:</b> kleine inconsistenties zijn precies wat topbedrijven niet laten passeren; ze knagen onbewust aan de professionele uitstraling.</p>
+    <div class="impacts"><span class="imp trust">Vertrouwen <span class="lvl">+</span></span><span class="imp ease">Gebruiksgemak <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="rank">10</div>
+  <div class="body">
+    <h2>Toegankelijkheids- en mobiel-detailronde</h2>
+    <p class="what"><b>Wat:</b> contrast van micro-labels meten (WCAG AA), tooltips per toetsenbord/screenreader bereikbaar maken, statuskleur van de verzuim-pillen niet enkel via kleur, en de lange stappen 3 & 6 op mobiel inklappen.</p>
+    <p class="why"><b>Waarom:</b> vergroot het bereik en voorkomt dat een deel van de bezoekers stilletjes afhaakt op een telefoon.</p>
+    <div class="impacts"><span class="imp ease">Gebruiksgemak <span class="lvl">++</span></span><span class="imp trust">Vertrouwen <span class="lvl">+</span></span></div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <h3>Verwachte sprong: van 7,4 naar <em>9,5</em></h3>
+  <p>Punten 1–3 tillen de calculator naar ± 8,7 en veranderen het eindoordeel van "twijfel" in "ja". Met 4–8 erbij is 9,5 realistisch; 9–10 maken de afwerking gelijk aan Deloitte/HubSpot/Apple-niveau.</p>
+  <div class="jump">
+    <span class="from">Vandaag 7,4</span>
+    <span class="arrow">→ <em>9,5</em></span>
+    <span class="from">met punten 1 t/m 8</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

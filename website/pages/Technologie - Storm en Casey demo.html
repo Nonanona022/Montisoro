@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storm &amp; Casey — beeld-demo (A/B)</title>
+
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<link rel="stylesheet" href="../stylesheets/site.css">
+<link rel="stylesheet" href="../stylesheets/montisoro-v2.css">
+<link rel="stylesheet" href="../stylesheets/ds2.css">
+<link rel="stylesheet" href="../stylesheets/motion.css">
+
+<style>
+  /* Fallback-tokens (robuust standalone) — komen normaal uit de gedeelde CSS */
+  :root{
+    --orange:#E8592B; --orange-cta:#CC4A1E;
+    --bg:#13100D; --bg-page:#f9f8f6; --bg-card:#f2f0ec;
+    --off:#F0EDE8; --muted-d:#9a938b; --muted-d-2:#b8b1a8;
+    --text-primary:#1a1a1a; --text-muted:#6b7280;
+    --div-d:rgba(240,237,232,.14); --div-d-2:rgba(240,237,232,.22);
+    --border-l:rgba(0,0,0,.10); --border-l-2:rgba(0,0,0,.16);
+    --serif:'Playfair Display',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+  }
+  body{margin:0;background:var(--bg-page);font-family:var(--sans);}
+
+  /* Demo-hint */
+  .demo-bar{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:center;gap:10px;
+    background:#13100D;color:var(--off);font-size:12.5px;letter-spacing:.02em;padding:10px 18px;text-align:center;}
+  .demo-bar b{color:var(--orange);font-weight:600;}
+  .demo-bar .cur{margin-left:6px;padding:2px 10px;border:1px solid var(--div-d-2);border-radius:100px;font-size:11px;color:var(--muted-d-2);}
+
+  .chapter-inner{max-width:1040px;margin:0 auto;}
+  .eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+  .eyebrow::before{content:"";display:inline-block;width:22px;height:1.5px;background:var(--orange);vertical-align:middle;margin-right:12px;margin-bottom:3px;}
+  .title.h-section{font-family:var(--serif);font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.12;letter-spacing:-.02em;margin:0 0 18px;}
+  .title em{font-style:italic;color:var(--orange);}
+  .on-light{color:var(--text-primary);} .on-dark{color:var(--off);}
+  .lead{font-family:var(--sans);font-weight:300;font-size:clamp(15px,1.5vw,18px);line-height:1.7;max-width:600px;margin:0 0 40px;}
+  .on-light .lead,.chapter.light .lead{color:var(--text-muted);} .chapter.dark .lead{color:var(--muted-d);}
+
+  /* ─────────── STORM MEDIA ─────────── */
+  .storm-media{margin-top:8px;}
+  .storm-frame{position:relative;background:#fff;border-radius:12px;overflow:hidden;
+    box-shadow:0 34px 80px -34px rgba(19,16,13,.34), 0 4px 14px -6px rgba(19,16,13,.12);
+    border:1px solid var(--border-l);}
+  /* A = editorial/frameless: geen browserbalk, subtiele haarlijn + zachte schaduw */
+  .browser-bar{display:none;align-items:center;gap:14px;height:42px;padding:0 16px;background:#eceae5;border-bottom:1px solid var(--border-l);}
+  body[data-pres="B"] .browser-bar{display:flex;}
+  .browser-bar .dots{display:flex;gap:7px;}
+  .browser-bar .dots span{width:11px;height:11px;border-radius:50%;background:#cfcbc3;}
+  .browser-bar .dots span:nth-child(1){background:#e6795f;}
+  .browser-bar .dots span:nth-child(2){background:#e6c15f;}
+  .browser-bar .dots span:nth-child(3){background:#7fbf8e;}
+  .browser-bar .url{font-size:12px;color:#8a847b;background:#f5f3ef;border:1px solid var(--border-l);border-radius:100px;padding:4px 14px;letter-spacing:.02em;}
+  /* B krijgt iets strakkere hoek + duidelijke rand; A leunt op schaduw */
+  body[data-pres="A"] .storm-frame{border-color:rgba(0,0,0,.06);}
+  body[data-pres="B"] .storm-frame{border-color:var(--border-l-2);box-shadow:0 24px 60px -30px rgba(19,16,13,.30);}
+
+  .slot-hero{aspect-ratio:16/9;width:100%;background:#f2f0ec;}
+  .storm-crops{display:none;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border-l);}
+  .storm-crops .slot-crop{aspect-ratio:4/3;background:#f2f0ec;}
+  body[data-shot="crops"] .slot-hero{display:none;}
+  body[data-shot="crops"] .storm-crops{display:grid;}
+  image-slot{display:block;width:100%;height:100%;}
+
+  .media-cap{margin-top:16px;font-size:12.5px;color:var(--text-muted);display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .media-cap .live{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--text-primary);}
+  .media-cap .live::before{content:"";width:7px;height:7px;border-radius:50%;background:#5ABF7E;}
+
+  /* ─────────── CASEY PREVIEW ─────────── */
+  .casey-media{margin-top:12px;max-width:620px;}
+  .casey-shell{background:none;border:none;border-radius:16px;padding:0;overflow:hidden;}
+  body[data-pres="B"] .casey-shell{background:rgba(240,237,232,.04);border:1px solid var(--div-d);padding:0 0 8px;}
+  .casey-head{display:none;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--div-d);}
+  body[data-pres="B"] .casey-head{display:flex;}
+  .casey-head .casey-name{font-family:var(--serif);font-weight:700;font-size:16px;color:var(--off);letter-spacing:-.01em;}
+  .casey-head .casey-pill{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(232,89,43,.4);border-radius:100px;padding:3px 10px;}
+  .casey-chat{display:flex;flex-direction:column;gap:14px;padding:0;}
+  body[data-pres="B"] .casey-chat{padding:18px;}
+  .msg{max-width:82%;}
+  .msg .msg-tag{display:block;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted-d);margin-bottom:7px;}
+  .msg p{margin:0;font-size:14.5px;line-height:1.62;padding:14px 18px;border-radius:16px;}
+  .msg.ctx{align-self:flex-start;}
+  .msg.ctx p{background:rgba(240,237,232,.06);color:var(--off);border:1px solid var(--div-d);border-top-left-radius:5px;}
+  .msg.casey{align-self:flex-end;text-align:left;}
+  .msg.casey .msg-tag{color:var(--orange);text-align:right;}
+  .msg.casey p{background:rgba(232,89,43,.13);color:var(--off);border:1px solid rgba(232,89,43,.28);border-top-right-radius:5px;}
+  .msg.casey em{font-style:normal;color:#F4A07E;font-weight:500;}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+  .chips span{font-size:12.5px;color:var(--muted-d-2);border:1px solid var(--div-d-2);border-radius:100px;padding:8px 15px;}
+  .chips span:first-child{color:var(--off);border-color:rgba(232,89,43,.5);}
+  .casey-cap{margin-top:20px;font-size:12px;color:var(--muted-d);letter-spacing:.02em;}
+  .casey-cap b{color:var(--muted-d-2);font-weight:600;}
+
+  /* ─────────── VIDEO-LOOP (placeholder) ─────────── */
+  .media-video{display:none;position:relative;width:100%;aspect-ratio:16/9;background:linear-gradient(160deg,#1c1813,#13100d);align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+  body[data-media="video"] .media-video{display:flex;}
+  body[data-media="video"] .slot-hero{display:none !important;}
+  body[data-media="video"] .storm-crops{display:none !important;}
+  body[data-media="video"] .casey-chat{display:none;}
+  body[data-media="video"] .casey-shell{border:1px solid var(--div-d);}
+  body[data-media="video"] .casey-media{max-width:none;}
+  .mv-play{width:0;height:0;border-style:solid;border-width:14px 0 14px 24px;border-color:transparent transparent transparent rgba(232,89,43,.92);animation:mvpulse 2.4s ease-in-out infinite;}
+  @keyframes mvpulse{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.07);}}
+  .mv-label{font-size:12.5px;color:var(--muted-d-2);letter-spacing:.03em;padding:0 20px;text-align:center;}
+  .mv-timeline{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(240,237,232,.10);overflow:hidden;}
+  .mv-timeline::after{content:"";position:absolute;top:0;left:0;height:100%;width:32%;background:var(--orange);animation:mvscan 6s linear infinite;}
+  @keyframes mvscan{0%{transform:translateX(-110%);}100%{transform:translateX(420%);}}
+  @media (prefers-reduced-motion: reduce){.mv-play{animation:none;}.mv-timeline::after{animation:none;width:45%;}}
+
+  .chapter{padding:clamp(48px,7vw,88px) 24px;}
+  .chapter.light{background:var(--bg-page);}
+  .chapter.dark{background:var(--bg);}
+
+  #tweaks-root{position:fixed;z-index:60;}
+</style>
+</head>
+<body class="ds2" data-pres="A" data-shot="hero">
+
+<div class="demo-bar">
+  <span>Beeld-demo — zet <b>Tweaks</b> aan in de werkbalk om <b>stijl A/B</b>, <b>Screenshot/Video</b> en het Storm-beeld te wisselen.</span>
+  <span class="cur">Nu: <span id="styleLabel">A · Editorial</span></span>
+</div>
+
+<!-- ══════════════════ STORM (light) ══════════════════ -->
+<section class="chapter light" id="storm">
+  <div class="chapter-inner">
+    <span class="eyebrow">Storm</span>
+    <h2 class="title h-section on-light">Operational intelligence for <em>sustainable work.</em></h2>
+    <p class="lead">Storm brengt verzuim, dossiers en benchmarks samen in één beeld. Geen losse rapporten meer, maar een systeem dat toont waar actie nodig is, vandaag.</p>
+
+    <div class="storm-media">
+      <div class="storm-frame">
+        <div class="browser-bar">
+          <span class="dots"><span></span><span></span><span></span></span>
+          <span class="url">app.montisoro.com/storm</span>
+        </div>
+        <div class="slot-hero">
+          <image-slot id="storm-hero" shape="rect" placeholder="Sleep hier een Storm-screenshot (liggend, 16:9)"></image-slot>
+        </div>
+        <div class="storm-crops">
+          <div class="slot-crop"><image-slot id="storm-crop-1" shape="rect" placeholder="Dashboard"></image-slot></div>
+          <div class="slot-crop"><image-slot id="storm-crop-2" shape="rect" placeholder="Dossier"></image-slot></div>
+          <div class="slot-crop"><image-slot id="storm-crop-3" shape="rect" placeholder="Benchmark"></image-slot></div>
+        </div>
+        <div class="media-video" role="img" aria-label="Storm video-demo (placeholder)">
+          <span class="mv-play"></span>
+          <span class="mv-label">Video-demo speelt hier — autoplay · muted · loop</span>
+          <span class="mv-timeline"></span>
+        </div>
+      </div>
+      <p class="media-cap"><span class="live">Storm</span> live sinds 2023 — echte productweergave.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CASEY (dark) ══════════════════ -->
+<section class="chapter dark" id="casey">
+  <div class="chapter-inner">
+    <span class="eyebrow">Casey AI</span>
+    <h2 class="title h-section on-dark">Geen chatbot.<br>De <em>contextual intelligence layer.</em></h2>
+    <p class="lead">Casey kijkt niet naar losse tickets, maar naar context en gedrag, en stelt de volgende stap voor. Een voorproefje van hoe dat er in de praktijk uitziet:</p>
+
+    <div class="casey-media">
+      <div class="casey-shell">
+        <div class="casey-head">
+          <span class="casey-name">Casey</span>
+          <span class="casey-pill">preview</span>
+        </div>
+        <div class="casey-chat">
+          <div class="msg ctx">
+            <span class="msg-tag">Signaal</span>
+            <p>Derde korte afwezigheid in acht weken — zelfde team, telkens na een piekweek.</p>
+          </div>
+          <div class="msg casey">
+            <span class="msg-tag">Casey</span>
+            <p>Dit lijkt een <em>patroon</em>, geen los incident. De timing wijst eerder op werkdruk dan op ziekte. Zal ik een informeel bilan-gesprek voorstellen aan de leidinggevende, vóór dit naar langdurig verzuim kantelt?</p>
+          </div>
+          <div class="chips">
+            <span>Bilan voorstellen</span>
+            <span>Toon dossier</span>
+            <span>Later</span>
+          </div>
+        </div>
+        <div class="media-video" role="img" aria-label="Casey video-demo (preview placeholder)">
+          <span class="mv-play"></span>
+          <span class="mv-label">Preview-demo speelt hier — concept, geen live product</span>
+          <span class="mv-timeline"></span>
+        </div>
+      </div>
+      <p class="casey-cap"><b>Preview</b> · pilootprogramma vanaf najaar 2026. Illustratief voorbeeld, geen live data.</p>
+    </div>
+  </div>
+</section>
+
+<div id="tweaks-root"></div>
+
+<script src="../scripts/image-slot.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "pres": "B · Productframe",
+  "shot": "Eén hero",
+  "media": "Video-loop"
+}/*EDITMODE-END*/;
+
+function App(){
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(function(){
+    document.body.setAttribute('data-pres', String(t.pres).charAt(0) === 'B' ? 'B' : 'A');
+    document.body.setAttribute('data-shot', String(t.shot).charAt(0) === 'D' ? 'crops' : 'hero');
+    document.body.setAttribute('data-media', String(t.media).charAt(0) === 'V' ? 'video' : 'shot');
+    var lbl = document.getElementById('styleLabel');
+    if (lbl) lbl.textContent = t.pres;
+  }, [t.pres, t.shot, t.media]);
+
+  return (
+    <TweaksPanel title="Beeld-demo">
+      <TweakSection label="Presentatie A / B" />
+      <TweakRadio label="Stijl" value={t.pres}
+        options={['A \u00b7 Editorial', 'B \u00b7 Productframe']}
+        onChange={function(v){ setTweak('pres', v); }} />
+      <TweakSection label="Beeld" />
+      <TweakRadio label="Type" value={t.media}
+        options={['Screenshot', 'Video-loop']}
+        onChange={function(v){ setTweak('media', v); }} />
+      <TweakSection label="Storm-beeld" />
+      <TweakRadio label="Layout" value={t.shot}
+        options={['E\u00e9n hero', 'Drie crops']}
+        onChange={function(v){ setTweak('shot', v); }} />
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<App />);
+</script>
+</body>
+</html>

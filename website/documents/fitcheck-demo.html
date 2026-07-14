@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Fit check — demo (PDF's + pagina) — Montisoro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D;--off:#F0EDE8;--muted:rgba(240,237,232,.55);--div:rgba(240,237,232,.12);
+  --orange:#E8592B;--serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+}
+html,body{height:100%;background:var(--bg);font-family:var(--sans);color:var(--off);}
+.app{display:flex;flex-direction:column;height:100vh;}
+.bar{display:flex;align-items:center;gap:18px;height:56px;flex:0 0 56px;padding:0 20px;border-bottom:1px solid var(--div);background:rgba(13,9,5,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
+.brand{font-family:var(--serif);font-weight:900;font-size:17px;letter-spacing:-.01em;color:var(--off);margin-right:6px;}
+.brand em{font-style:italic;color:var(--orange);}
+.tabs{display:flex;gap:6px;}
+.tab{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--muted);background:transparent;border:1px solid transparent;border-radius:100px;padding:9px 18px;cursor:pointer;transition:all .2s;}
+.tab:hover{color:var(--off);background:rgba(240,237,232,.06);}
+.tab.is-active{color:#fff;background:var(--orange);}
+.tab .num{font-family:var(--mono);font-size:11px;opacity:.7;}
+.tab.is-active .num{opacity:1;}
+.spacer{flex:1;}
+.hint{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(240,237,232,.35);}
+.stage{position:relative;flex:1;min-height:0;}
+.frame{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg);}
+.frame[hidden]{display:none;}
+@media(max-width:560px){.bar{gap:10px;padding:0 12px;}.brand{display:none;}.tab{padding:8px 13px;font-size:12px;}.hint{display:none;}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="bar">
+    <span class="brand">Montisoro <em>·</em> Fit check</span>
+    <div class="tabs">
+      <button class="tab is-active" data-tab="pdf"><span class="num">01</span>PDF-voorbeelden</button>
+      <button class="tab" data-tab="page"><span class="num">02</span>Fit check-pagina</button>
+    </div>
+    <span class="spacer"></span>
+    <span class="hint" id="hint">16 voorbeeldrapporten</span>
+  </div>
+  <div class="stage">
+    <iframe class="frame" id="f-pdf" src="fitcheck-voorbeelden.html" title="PDF-voorbeelden"></iframe>
+    <iframe class="frame" id="f-page" src="../pages/fit-check.html" title="Fit check-pagina" hidden></iframe>
+  </div>
+</div>
+<script>
+(function(){
+  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  var frames = { pdf: document.getElementById('f-pdf'), page: document.getElementById('f-page') };
+  var hints = { pdf: '16 voorbeeldrapporten', page: 'Live pagina · klik “Start de fit check”' };
+  var hint = document.getElementById('hint');
+  function show(key){
+    tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === key); });
+    Object.keys(frames).forEach(function(k){ frames[k].hidden = (k !== key); });
+    hint.textContent = hints[key] || '';
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.dataset.tab); }); });
+})();
+</script>
+</body>
+</html>

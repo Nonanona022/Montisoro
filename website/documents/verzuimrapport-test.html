@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Montisoro — Verzuimrapport · Testflow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../stylesheets/fonts.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MONTISORO — VERZUIMRAPPORT TESTFLOW  (intern hulpmiddel)
+   Doorloopt dezelfde 6 stappen als de website-calculator, slaat de
+   e-mail/lead-stap over en toont meteen het rapport. Zelfde rekenmotor.
+   GEEN wijziging aan rapport, calculator of backend.
+═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#13100D; --bg-2:#1c1814; --panel:#211c17; --line:rgba(240,237,232,0.10);
+  --off:#F0EDE8; --off-mute:rgba(240,237,232,0.55); --off-dim:rgba(240,237,232,0.34);
+  --orange:#E8592B; --orange-soft:rgba(232,89,43,0.14);
+  --good:#5BBE90; --warn:#E8A23B;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+html,body{height:100%;}
+body{font-family:var(--sans);background:var(--bg);color:var(--off);min-height:100vh;}
+
+/* ───────── WIZARD SCREEN ───────── */
+.wizard-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:34px 20px 60px;}
+.testbadge{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);border:1px solid var(--orange-soft);background:var(--orange-soft);padding:6px 14px;border-radius:100px;margin-bottom:18px;}
+.testbadge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);}
+.wiz{width:100%;max-width:680px;}
+
+/* stepper */
+.stepper{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px;position:relative;}
+.stepper::before{content:'';position:absolute;top:15px;left:6%;right:6%;height:1.5px;background:var(--line);z-index:0;}
+.step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;cursor:pointer;position:relative;z-index:1;background:none;border:0;color:inherit;font-family:inherit;}
+.step .circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:600 13px var(--mono);background:var(--bg-2);border:1.5px solid var(--line);color:var(--off-mute);transition:all .2s;}
+.step .nm{font-size:10.5px;font-weight:500;color:var(--off-dim);text-align:center;line-height:1.25;max-width:84px;transition:color .2s;}
+.step.done .circle{background:rgba(232,89,43,.18);border-color:var(--orange);color:var(--orange);}
+.step.active .circle{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 0 0 5px var(--orange-soft);}
+.step.active .nm{color:var(--off);}
+
+/* card */
+.card{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:34px 36px 30px;}
+.eyebrow{font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.card h1{font-family:var(--serif);font-weight:700;font-size:28px;letter-spacing:-.02em;margin:7px 0 8px;}
+.card h1 em{font-style:italic;color:var(--orange);}
+.card .lead{font-size:13.5px;line-height:1.6;color:var(--off-mute);max-width:54ch;margin-bottom:26px;}
+
+.panel{display:none;}
+.panel.active{display:block;animation:fade .35s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+.field{margin-bottom:22px;}
+.field > label{display:block;font-size:12.5px;font-weight:600;color:var(--off);margin-bottom:4px;}
+.field .hint{font-size:11.5px;color:var(--off-dim);margin-bottom:11px;line-height:1.4;}
+.numwrap{display:flex;align-items:center;gap:10px;}
+.numwrap input{flex:1;min-width:0;font:600 18px var(--mono);color:#fff;background:var(--bg);border:1.5px solid var(--line);border-radius:11px;padding:13px 15px;transition:border-color .16s;}
+.numwrap input:focus{outline:none;border-color:var(--orange);}
+.numwrap .unit{font-size:12px;color:var(--off-mute);white-space:nowrap;flex:0 0 auto;}
+.numwrap.invalid input{border-color:#D62828;}
+.err{font-size:11.5px;color:#ff7a5c;margin-top:7px;display:none;}
+.err.show{display:block;}
+
+.sliderrow{margin-bottom:20px;}
+.sliderrow .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
+.sliderrow .top label{font-size:12.5px;font-weight:500;color:var(--off-mute);}
+.sliderrow .val{font:600 15px var(--mono);color:#fff;}
+.sliderrow .val small{font-size:11px;color:var(--off-mute);font-weight:400;}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:5px;background:linear-gradient(var(--orange),var(--orange)) no-repeat,var(--line);background-size:var(--p,0%) 100%;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--orange);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--orange);cursor:pointer;}
+
+/* per-kost segmented (arbeider/bediende/beide) */
+.costrow{display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(240,237,232,.06);}
+.costrow:last-child{border-bottom:0;}
+.costrow .cl{font-size:13px;font-weight:500;color:var(--off);}
+.costrow .ci{display:flex;align-items:center;gap:8px;}
+.costrow .ci input{width:108px;font:600 14px var(--mono);color:#fff;background:var(--bg);border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;text-align:right;}
+.costrow .ci input:focus{outline:none;border-color:var(--orange);}
+.costrow .ci .u{font-size:11px;color:var(--off-mute);width:34px;}
+.seg{grid-column:1/-1;display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px;width:max-content;}
+.seg button{font:500 11px var(--sans);color:var(--off-mute);background:none;border:0;border-radius:6px;padding:6px 13px;cursor:pointer;transition:all .15s;}
+.seg button.on{background:var(--orange);color:#fff;}
+
+.derived{display:flex;gap:24px;margin-top:6px;padding:14px 16px;background:var(--bg);border-radius:11px;}
+.derived div{flex:1;}
+.derived .dl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--off-dim);margin-bottom:5px;}
+.derived .dv{font:600 17px var(--mono);color:#fff;}
+
+.grp-block{margin-bottom:18px;}
+.grp-block > .gh{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--line);}
+
+/* nav */
+.nav{display:flex;align-items:center;gap:12px;margin-top:30px;}
+.nav .spacer{flex:1;}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 13px var(--sans);border-radius:10px;padding:13px 22px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--off);transition:all .16s;min-height:48px;}
+.btn:hover{border-color:var(--orange);color:#fff;}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff;}
+.btn.primary:hover{background:#cc4a1e;}
+.btn:disabled{opacity:.35;cursor:not-allowed;}
+.btn svg{width:15px;height:15px;}
+
+.quickfill{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:22px;}
+.quickfill .qfl{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--off-dim);margin-right:4px;}
+.quickfill button{font:600 11px var(--sans);color:var(--off);background:var(--panel);border:1px solid var(--line);border-radius:100px;padding:7px 13px;cursor:pointer;transition:all .15s;}
+.quickfill button:hover{border-color:var(--orange);color:#fff;}
+
+.langtop{display:flex;justify-content:flex-end;width:100%;max-width:680px;margin-bottom:14px;}
+.langseg{display:inline-flex;background:var(--bg-2);border:1px solid var(--line);border-radius:9px;padding:4px;gap:3px;}
+.langseg button{font:600 11px var(--sans);color:var(--off-mute);background:none;border:0;border-radius:6px;padding:6px 13px;cursor:pointer;}
+.langseg button.on{background:var(--orange);color:#fff;}
+
+/* ───────── REPORT SCREEN ───────── */
+.report-screen{display:none;height:100vh;flex-direction:column;}
+.report-screen.show{display:flex;}
+.rtopbar{display:flex;align-items:center;gap:12px;padding:0 22px;height:60px;flex:0 0 60px;background:var(--bg-2);border-bottom:1px solid var(--line);}
+.rtopbar .ttl{font-family:var(--serif);font-weight:700;font-size:16px;}
+.rtopbar .ttl em{font-style:italic;color:var(--orange);}
+.rtopbar .zoomctl{display:flex;align-items:center;gap:9px;margin-left:auto;font-size:11px;color:var(--off-mute);}
+.rtopbar .zoomctl input{width:110px;accent-color:var(--orange);}
+.rpanes{flex:1;display:flex;min-height:0;}
+.preview{flex:1;min-width:0;overflow:auto;background:#3a3631;padding:26px 0;}
+.frame-wrap{width:max-content;margin:0 auto;}
+iframe#rep{border:0;display:block;width:794px;background:#fff;box-shadow:0 24px 70px -20px rgba(0,0,0,.6);transform-origin:top center;}
+.checks{flex:0 0 350px;background:var(--bg-2);border-left:1px solid var(--line);overflow-y:auto;padding:20px 20px 50px;transition:margin-right .2s;}
+.checks.hidden{margin-right:-350px;}
+.checks h2{font-family:var(--serif);font-weight:700;font-size:16px;margin-bottom:3px;}
+.checks .sub{font-size:11px;color:var(--off-mute);line-height:1.5;margin-bottom:16px;}
+.cgroup{margin-top:18px;}
+.cgroup > .gh{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);padding-bottom:7px;margin-bottom:8px;border-bottom:1px solid var(--line);}
+.crow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:6px 0;border-bottom:1px solid rgba(240,237,232,.05);}
+.crow .ck{font-size:11px;color:var(--off-mute);line-height:1.3;flex:1;}
+.crow .ck small{display:block;font-size:9px;color:var(--off-dim);letter-spacing:.03em;}
+.crow .cv{font:600 12.5px var(--mono);color:#fff;white-space:nowrap;text-align:right;}
+.crow.hero .cv{color:var(--orange);font-size:14px;}
+.pill{display:inline-block;font:600 10px var(--sans);padding:3px 9px;border-radius:100px;}
+.pill.low{background:rgba(91,190,144,.16);color:var(--good);}
+.pill.avg{background:rgba(232,162,59,.16);color:var(--warn);}
+.pill.elevated{background:rgba(232,89,43,.16);color:var(--orange);}
+.pill.high{background:rgba(232,89,43,.24);color:#ff7a4d;}
+.cattbl{width:100%;border-collapse:collapse;margin-top:4px;}
+.cattbl th{font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--off-dim);text-align:right;padding:5px 6px;border-bottom:1px solid var(--line);}
+.cattbl th:first-child{text-align:left;}
+.cattbl td{font:500 11.5px var(--mono);padding:6px;text-align:right;border-bottom:1px solid rgba(240,237,232,.05);}
+.cattbl td:first-child{text-align:left;font-family:var(--sans);font-size:11px;color:var(--off-mute);}
+.cattbl td.over{color:#ff7a4d;} .cattbl td.under{color:var(--good);}
+
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:rgba(240,237,232,0.14);border-radius:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+@media (max-width:720px){
+  .card{padding:26px 22px 24px;}
+  .step .nm{display:none;}
+  .checks{flex-basis:100%;position:absolute;right:0;top:60px;bottom:0;z-index:5;}
+}
+</style>
+</head>
+<body>
+
+<!-- ░░░ WIZARD ░░░ -->
+<div class="wizard-screen" id="wizScreen">
+  <div class="langtop">
+    <div class="langseg" id="langSeg">
+      <button data-lang="nl" class="on">Nederlands</button>
+      <button data-lang="en">English</button>
+    </div>
+  </div>
+  <span class="testbadge">Intern · Testflow — geen e-mail, geen opslag</span>
+  <div class="wiz">
+    <div class="stepper" id="stepper"></div>
+    <div class="card">
+      <div id="panels"></div>
+      <div class="nav">
+        <button class="btn" id="prevBtn">← Vorige</button>
+        <div class="spacer"></div>
+        <button class="btn primary" id="nextBtn">Volgende →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ░░░ REPORT ░░░ -->
+<div class="report-screen" id="repScreen">
+  <div class="rtopbar">
+    <button class="btn" id="backBtn">← Terug naar stappen</button>
+    <span class="ttl">Uw <em>verzuimrapport</em></span>
+    <button class="btn" id="openTab">Open in nieuw tabblad</button>
+    <button class="btn primary" id="toggleChecks">Cijfercontrole</button>
+    <div class="zoomctl"><span>Zoom</span><input type="range" id="zoom" min="0.35" max="1" step="0.01" value="0.62"></div>
+  </div>
+  <div class="rpanes">
+    <div class="preview">
+      <div class="frame-wrap"><iframe id="rep" src="verzuimrapport-test-report.html"></iframe></div>
+    </div>
+    <aside class="checks" id="checks">
+      <h2>Cijfercontrole</h2>
+      <p class="sub">Wat de rekenmotor uit uw invoer berekent — en waar het in het rapport verschijnt.</p>
+      <div id="checkBody"></div>
+    </aside>
+  </div>
+</div>
+
+<script src="../config/calculator-params.js"></script>
+<script>/* TEST: benchmarks volgens briefing 14/06/2026 — kort 3,3 / middellang 1,9 / langdurig 1,4 */
+window.MONTISORO_CALC_CONFIG=Object.assign({},window.MONTISORO_CALC_CONFIG,{sector:{K:3.3,M:1.9,L:1.4}});</script>
+<script src="../services/verzuim-engine.js"></script>
+<script>
+(function(){
+  'use strict';
+  var E = window.VerzuimEngine;
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ── i18n (compact — alleen wat de testflow nodig heeft) ── */
+  var I18N = {
+    nl:{
+      steps:['Organisatie','Brutoloon','Doorlopende kosten','Vervangingskosten','Organisatorische impact','Verzuim'],
+      prev:'← Vorige', next:'Volgende →', see:'Bekijk rapport →',
+      grp:[['arbeider','Arbeiders'],['bediende','Bedienden'],['beide','Beiden']],
+      back:'← Terug naar stappen', opentab:'Open in nieuw tabblad', company:'Voorbeeld NV',
+      errFte:'Vul het aantal medewerkers in om verder te gaan.',
+      errSalary:'Vul het brutoloon in om verder te gaan.',
+      errVerz:'Vul minstens één verzuimpercentage in om het rapport te zien.',
+      pmonth:'/ mnd', pyear:'/ jaar'
+    },
+    en:{
+      steps:['Organisation','Gross salary','Ongoing costs','Replacement costs','Organisational impact','Absence'],
+      prev:'← Back', next:'Next →', see:'View report →',
+      grp:[['arbeider','Blue-collar'],['bediende','White-collar'],['beide','Both']],
+      back:'← Back to steps', opentab:'Open in new tab', company:'Sample Ltd.',
+      errFte:'Enter the number of employees to continue.',
+      errSalary:'Enter the gross salary to continue.',
+      errVerz:'Enter at least one absence rate to see the report.',
+      pmonth:'/ mo', pyear:'/ yr'
+    }
+  };
+
+  /* ── stap-content (NL + EN labels) ── */
+  var C = {
+    nl:{
+      s1:{eye:'Stap 1 van 6',h:'Organisatie',lead:'Hoe groot is uw organisatie en hoe is ze samengesteld?',fte:'Aantal medewerkers (FTE)',unit:'medewerkers',split:'Verhouding arbeiders / bedienden',arb:'arbeiders',bed:'bedienden'},
+      s2:{eye:'Stap 2 van 6',h:'Gemiddeld brutoloon',lead:'Wat kost uw medewerker gemiddeld per jaar.',sal:'Gemiddeld bruto jaarloon',unit:'€ / jaar'},
+      s3:{eye:'Stap 3 van 6',h:'Doorlopende kosten',lead:'Alle vaste doorlopende kosten, naast het gewaarborgd loon.',hint:'Duid per kost aan of die geldt voor arbeider, bediende of beide.',
+          rows:[['voordelen','Voordelen','pmonth','grpVoordelen'],['firmawagen','Firmawagen','pmonth','grpFirmawagen'],['groepsv','Groepsverzekering','pyear','grpGroepsv'],['hospv','Hospitalisatie','pyear','grpHospv'],['andereverz','Andere verzekering','pyear','grpAndereverz']]},
+      s4:{eye:'Stap 4 van 6',h:'Vervangingskosten',lead:"Kosten om het werk toch uitgevoerd te krijgen: interim, tijdelijke vervanging, extra aanwerving of overuren van collega's.",lbl:'Vervangingskosten',sub:'% van de directe loonkost'},
+      s5:{eye:'Stap 5 van 6',h:'Organisatorische impact',lead:'Productiviteitsverlies, managementtijd, kennisverlies, kwaliteitsverlies en re-integratie — de niet-gefactureerde kost van verzuim.',lbl:'Organisatorische impact',sub:'% van de directe loonkost'},
+      s6:{eye:'Stap 6 van 6',h:'Verzuimprofiel',lead:'Pas het verzuim per categorie aan — apart voor arbeiders en bedienden. De vergelijking met het Belgisch sectorgemiddelde staat in uw rapport.',arbH:'Arbeiders',bedH:'Bedienden',k:'Kort (< 1 maand)',m:'Middellang (1–12 maanden)',l:'Langdurig (> 1 jaar)',days:'Netto werkdagen / jaar',daysu:'dagen'}
+    },
+    en:{
+      s1:{eye:'Step 1 of 6',h:'Organisation',lead:'How big is your organisation and how is it composed?',fte:'Number of employees (FTE)',unit:'employees',split:'Blue-collar / white-collar ratio',arb:'blue-collar',bed:'white-collar'},
+      s2:{eye:'Step 2 of 6',h:'Average gross salary',lead:'What your employee costs on average per year.',sal:'Average gross annual salary',unit:'€ / year'},
+      s3:{eye:'Step 3 of 6',h:'Ongoing costs',lead:'All fixed ongoing costs, on top of guaranteed pay.',hint:'For each cost, indicate whether it applies to blue-collar, white-collar or both.',
+          rows:[['voordelen','Benefits','pmonth','grpVoordelen'],['firmawagen','Company car','pmonth','grpFirmawagen'],['groepsv','Group insurance','pyear','grpGroepsv'],['hospv','Hospitalisation','pyear','grpHospv'],['andereverz','Other insurance','pyear','grpAndereverz']]},
+      s4:{eye:'Step 4 of 6',h:'Replacement costs',lead:'Costs to get the work done anyway: interim, temporary replacement, extra hiring or colleagues’ overtime.',lbl:'Replacement costs',sub:'% of direct wage cost'},
+      s5:{eye:'Step 5 of 6',h:'Organisational impact',lead:'Productivity loss, management time, knowledge loss, quality loss and reintegration — the uninvoiced cost of absence.',lbl:'Organisational impact',sub:'% of direct wage cost'},
+      s6:{eye:'Step 6 of 6',h:'Absence profile',lead:'Adjust absence per category — separately for blue- and white-collar. The comparison with the Belgian sector average is in your report.',arbH:'Blue-collar',bedH:'White-collar',k:'Short (< 1 month)',m:'Medium (1–12 months)',l:'Long-term (> 1 year)',days:'Net working days / year',daysu:'days'}
+    }
+  };
+
+  /* ── state (zelfde sleutels als de echte calculator) ── */
+  var state = {
+    fte:250, splitA:60, salary:45000,
+    voordelen:50, firmawagen:700, groepsv:600, hospv:400, andereverz:200,
+    grpVoordelen:'beide', grpFirmawagen:'bediende', grpGroepsv:'bediende', grpHospv:'beide', grpAndereverz:'beide',
+    days:220, kA:3.18, mA:3.10, lA:3.86, kB:3.18, mB:3.10, lB:3.86,
+    vervangFactor:30, orgFactor:50, company_name:''
+  };
+  var PRESETS = {
+    'Klein KMO':{fte:25,splitA:35,salary:42000,voordelen:40,firmawagen:450,groepsv:480,hospv:340,andereverz:140,vervangFactor:25,orgFactor:40,kA:2.9,mA:2.6,lA:2.4,kB:2.4,mB:2.1,lB:1.9},
+    'Groot bedrijf':{fte:1200,splitA:55,salary:48000,voordelen:75,firmawagen:850,groepsv:720,hospv:480,andereverz:260,vervangFactor:35,orgFactor:55,kA:3.4,mA:3.3,lA:4.2,kB:2.8,mB:2.9,lB:3.6},
+    'Hoog verzuim':{fte:300,splitA:65,salary:44000,kA:5.2,mA:4.8,lA:6.4,kB:4.6,mB:4.2,lB:5.8,vervangFactor:40,orgFactor:60},
+    'Laag verzuim':{fte:180,splitA:40,salary:50000,kA:2.4,mA:2.1,lA:2.0,kB:2.0,mB:1.8,lB:1.6,vervangFactor:20,orgFactor:35}
+  };
+
+  var lang='nl';
+  function L(){ return I18N[lang]; }
+  function CC(){ return C[lang]; }
+
+  /* ─────────── helpers ─────────── */
+  function setTrack(el){ var min=+el.min,max=+el.max; el.style.setProperty('--p',((+el.value-min)/(max-min))*100+'%'); }
+  function nf(n,d){ d=d==null?0:d; return Number(n).toLocaleString(lang==='en'?'en-IE':'nl-BE',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+
+  function numField(key,label,unit,opts){
+    opts=opts||{};
+    var f=document.createElement('div'); f.className='field';
+    f.innerHTML='<label>'+label+'</label><div class="numwrap"><input type="text" inputmode="numeric" id="i_'+key+'"><span class="unit">'+unit+'</span></div><div class="err" id="e_'+key+'"></div>';
+    var inp=f.querySelector('input'); inp.value=nf(state[key]);
+    inp.addEventListener('input',function(){
+      var v=parseInt(inp.value.replace(/[^\d]/g,''),10); state[key]=isFinite(v)?v:0;
+      clearErr(key);
+    });
+    inp.addEventListener('blur',function(){ inp.value=nf(state[key]); });
+    return f;
+  }
+  function sliderField(key,label,min,max,step,fmtVal){
+    var f=document.createElement('div'); f.className='sliderrow';
+    f.innerHTML='<div class="top"><label>'+label+'</label><span class="val" id="v_'+key+'"></span></div><input type="range" id="i_'+key+'" min="'+min+'" max="'+max+'" step="'+step+'">';
+    var sl=f.querySelector('input'), val=f.querySelector('.val');
+    sl.value=state[key]; setTrack(sl);
+    function show(){ val.innerHTML=fmtVal(state[key]); }
+    show();
+    sl.addEventListener('input',function(){ state[key]=+sl.value; setTrack(sl); show(); if(key==='splitA') updateDerived(); });
+    return f;
+  }
+  function clearErr(key){ var e=$('e_'+key); if(e){e.classList.remove('show'); var w=e.previousElementSibling; if(w&&w.classList)w.classList.remove('invalid');} }
+
+  var derivedEl;
+  function updateDerived(){
+    if(!derivedEl) return;
+    var arb=Math.round(state.fte*state.splitA/100), bed=state.fte-arb;
+    derivedEl.querySelector('.d-arb').textContent=nf(arb)+' · '+state.splitA+'%';
+    derivedEl.querySelector('.d-bed').textContent=nf(bed)+' · '+(100-state.splitA)+'%';
+  }
+
+  /* ─────────── panels bouwen ─────────── */
+  function buildPanels(){
+    var host=$('panels'); host.innerHTML='';
+    var c=CC();
+    for(var s=1;s<=6;s++){
+      var p=document.createElement('div'); p.className='panel'+(s===step?' active':''); p.dataset.step=s;
+      var d=c['s'+s];
+      var head='<span class="eyebrow">'+d.eye+'</span><h1>'+d.h+'</h1><p class="lead">'+d.lead+'</p>';
+      p.innerHTML=head;
+      host.appendChild(p);
+
+      if(s===1){
+        if(step===1){
+          var qf=document.createElement('div'); qf.className='quickfill';
+          qf.innerHTML='<span class="qfl">Snel invullen:</span>';
+          Object.keys(PRESETS).forEach(function(name){
+            var b=document.createElement('button'); b.textContent=name;
+            b.addEventListener('click',function(){ applyPreset(PRESETS[name]); buildPanels(); });
+            qf.appendChild(b);
+          });
+          p.appendChild(qf);
+        }
+        p.appendChild(numField('fte',d.fte,d.unit));
+        p.appendChild(sliderField('splitA',d.split,0,100,1,function(v){return v+'% '+d.arb+' <small>· '+(100-v)+'% '+d.bed+'</small>';}));
+        derivedEl=document.createElement('div'); derivedEl.className='derived';
+        derivedEl.innerHTML='<div><div class="dl">'+d.arb+'</div><div class="dv d-arb"></div></div><div><div class="dl">'+d.bed+'</div><div class="dv d-bed"></div></div>';
+        p.appendChild(derivedEl); updateDerived();
+      }
+      else if(s===2){
+        p.appendChild(numField('salary',d.sal,d.unit));
+      }
+      else if(s===3){
+        var hint=document.createElement('p'); hint.className='hint'; hint.style.marginBottom='6px'; hint.textContent=d.hint; p.appendChild(hint);
+        d.rows.forEach(function(r){ p.appendChild(costRow(r[0],r[1],L()[r[2]],r[3])); });
+      }
+      else if(s===4){
+        p.appendChild(sliderField('vervangFactor',d.lbl+' — '+d.sub,0,100,1,function(v){return v+'<small>%</small>';}));
+      }
+      else if(s===5){
+        p.appendChild(sliderField('orgFactor',d.lbl+' — '+d.sub,0,150,1,function(v){return v+'<small>%</small>';}));
+      }
+      else if(s===6){
+        var ga=document.createElement('div'); ga.className='grp-block';
+        ga.innerHTML='<div class="gh">'+d.arbH+'</div>';
+        ga.appendChild(sliderField('kA',d.k,0,10,0.01,pctv));
+        ga.appendChild(sliderField('mA',d.m,0,10,0.01,pctv));
+        ga.appendChild(sliderField('lA',d.l,0,10,0.01,pctv));
+        p.appendChild(ga);
+        var gb=document.createElement('div'); gb.className='grp-block';
+        gb.innerHTML='<div class="gh">'+d.bedH+'</div>';
+        gb.appendChild(sliderField('kB',d.k,0,10,0.01,pctv));
+        gb.appendChild(sliderField('mB',d.m,0,10,0.01,pctv));
+        gb.appendChild(sliderField('lB',d.l,0,10,0.01,pctv));
+        p.appendChild(gb);
+        p.appendChild(sliderField('days',d.days,180,240,1,function(v){return v+' <small>'+d.daysu+'</small>';}));
+      }
+    }
+  }
+  function pctv(v){ return nf(v,2)+'<small>%</small>'; }
+
+  function costRow(key,label,unit,grpKey){
+    var row=document.createElement('div'); row.className='costrow';
+    row.innerHTML='<div class="cl">'+label+'</div><div class="ci"><input type="text" inputmode="numeric" id="i_'+key+'"><span class="u">'+unit+'</span></div>';
+    var inp=row.querySelector('input'); inp.value=nf(state[key]);
+    inp.addEventListener('input',function(){ var v=parseInt(inp.value.replace(/[^\d]/g,''),10); state[key]=isFinite(v)?v:0; });
+    inp.addEventListener('blur',function(){ inp.value=nf(state[key]); });
+    var seg=document.createElement('div'); seg.className='seg';
+    L().grp.forEach(function(o){
+      var b=document.createElement('button'); b.textContent=o[1]; b.dataset.val=o[0];
+      if(state[grpKey]===o[0]) b.classList.add('on');
+      b.addEventListener('click',function(){ state[grpKey]=o[0]; seg.querySelectorAll('button').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); });
+      seg.appendChild(b);
+    });
+    row.appendChild(seg);
+    return row;
+  }
+
+  function applyPreset(p){ Object.keys(p).forEach(function(k){ state[k]=p[k]; }); }
+
+  /* ─────────── stepper ─────────── */
+  var step=1;
+  function buildStepper(){
+    var host=$('stepper'); host.innerHTML='';
+    L().steps.forEach(function(nm,idx){
+      var n=idx+1;
+      var b=document.createElement('button'); b.className='step'+(n===step?' active':n<step?' done':'');
+      b.innerHTML='<span class="circle">'+n+'</span><span class="nm">'+nm+'</span>';
+      b.addEventListener('click',function(){ goTo(n); });
+      host.appendChild(b);
+    });
+  }
+  function validUpTo(target){
+    for(var s=1;s<target;s++){
+      if(s===1 && !(state.fte>0)) return {step:1,msg:L().errFte};
+      if(s===2 && !(state.salary>0)) return {step:2,msg:L().errSalary};
+      if(s===6 && !((state.kA+state.mA+state.lA+state.kB+state.mB+state.lB)>0)) return {step:6,msg:L().errVerz};
+    }
+    return null;
+  }
+  function showStepErr(o){
+    var key=o.step===1?'fte':o.step===2?'salary':null;
+    if(key){ var e=$('e_'+key); if(e){ e.textContent=o.msg; e.classList.add('show'); var w=e.previousElementSibling; if(w&&w.classList)w.classList.add('invalid'); } }
+    else { alert(o.msg); }
+  }
+  function goTo(n){
+    n=Math.min(6,Math.max(1,n));
+    if(n>step){ var bad=validUpTo(n); if(bad){ step=bad.step; buildStepper(); buildPanels(); showStepErr(bad); syncNav(); return; } }
+    step=n; buildStepper(); buildPanels(); syncNav();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function syncNav(){
+    $('prevBtn').disabled=(step===1);
+    $('prevBtn').textContent=L().prev;
+    $('nextBtn').textContent=(step===6)?L().see:L().next;
+  }
+
+  $('prevBtn').addEventListener('click',function(){ goTo(step-1); });
+  $('nextBtn').addEventListener('click',function(){
+    if(step<6){ goTo(step+1); return; }
+    var bad=validUpTo(7); if(bad){ step=bad.step; buildStepper(); buildPanels(); showStepErr(bad); syncNav(); return; }
+    showReport();
+  });
+
+  /* ─────────── taal ─────────── */
+  document.querySelectorAll('#langSeg button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#langSeg button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on'); lang=b.dataset.lang;
+      document.documentElement.lang=lang;
+      buildStepper(); buildPanels(); syncNav();
+    });
+  });
+
+  /* ─────────── REPORT ─────────── */
+  var frame=$('rep'), zoom=$('zoom'), frameReady=false, pendingObj=null;
+  frame.addEventListener('load',function(){ frameReady=true; if(pendingObj) inject(pendingObj); });
+
+  function buildObj(){
+    var rep=E.report(state, lang);
+    return { _rep:rep, obj:{ lang:lang, meta:{ company_name:(state.company_name||L().company),
+      report_date:new Date().toLocaleDateString(lang==='en'?'en-GB':'nl-BE',{day:'numeric',month:'long',year:'numeric'}),
+      lang_label:lang==='en'?'English':'Nederlands' }, vars:rep.vars, results:rep.results } };
+  }
+  function inject(obj){ try{ var w=frame.contentWindow; if(w&&typeof w.__renderReport==='function'){ w.__renderReport(obj); setTimeout(sizeFrame,60); } }catch(e){console.error(e);} }
+  function sizeFrame(){
+    try{ var doc=frame.contentWindow.document; var h=Math.max(doc.body.scrollHeight,doc.documentElement.scrollHeight);
+      frame.style.height=h+'px'; var wrap=document.querySelector('.frame-wrap'); var z=parseFloat(zoom.value);
+      wrap.style.height=(h*z)+'px'; wrap.style.width=(794*z)+'px';
+    }catch(e){}
+  }
+  function applyZoom(){ frame.style.transform='scale('+zoom.value+')'; sizeFrame(); }
+  function fitZoom(){ var pane=document.querySelector('.preview'); if(!pane)return; var z=Math.max(0.35,Math.min(1,(pane.clientWidth-44)/794)); zoom.value=z.toFixed(2); applyZoom(); }
+  zoom.addEventListener('input',applyZoom);
+  var _rt; window.addEventListener('resize',function(){ clearTimeout(_rt); _rt=setTimeout(fitZoom,150); });
+
+  function showReport(){
+    var built=buildObj();
+    $('wizScreen').style.display='none';
+    $('repScreen').classList.add('show');
+    pendingObj=built.obj;
+    if(frameReady) inject(built.obj);
+    renderChecks(built._rep);
+    setTimeout(fitZoom,120);
+  }
+  $('backBtn').addEventListener('click',function(){
+    $('repScreen').classList.remove('show'); $('wizScreen').style.display='flex';
+    $('backBtn').textContent=L().back; $('openTab').textContent=L().opentab;
+    window.scrollTo({top:0});
+  });
+  $('openTab').addEventListener('click',function(){
+    var built=buildObj(); var win=window.open('verzuimrapport-test-report.html','_blank'); if(!win)return;
+    var t=setInterval(function(){ try{ if(typeof win.__renderReport==='function'){ win.__renderReport(built.obj); clearInterval(t);} }catch(e){} },120);
+    setTimeout(function(){clearInterval(t);},9000);
+  });
+  $('toggleChecks').addEventListener('click',function(){ $('checks').classList.toggle('hidden'); this.classList.toggle('primary'); setTimeout(fitZoom,230); });
+
+  /* ─────────── cijfercontrole ─────────── */
+  function eur(n){ return '\u20ac '+Math.round(n||0).toLocaleString(lang==='en'?'en-IE':'nl-BE',{maximumFractionDigits:0}); }
+  function pct(n){ return (n||0).toLocaleString(lang==='en'?'en-IE':'nl-BE',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
+  function renderChecks(rep){
+    var R=rep.results, V=rep.vars, I=R.input, days=I.days||220;
+    function grp(t,r){ return '<div class="cgroup"><div class="gh">'+t+'</div>'+r+'</div>'; }
+    function row(k,sub,v,cls){ return '<div class="crow'+(cls?' '+cls:'')+'"><div class="ck">'+k+(sub?'<small>'+sub+'</small>':'')+'</div><div class="cv">'+v+'</div></div>'; }
+    var riskKey=R.riskKey, riskLbl=(E.RISK_LABELS[lang]||E.RISK_LABELS.nl)[riskKey];
+    var h='';
+    h+=grp('Kerncijfer',
+      row('Werkgeverslast / jaar','Cover + p.2 (hero)',V.annual_absence_cost,'hero')+
+      row('Per medewerker','p.2 KPI',V.werkgeverslast_per_employee)+
+      row('Totale kost (incl. org.)','p.2 / p.4',V.totale_kost));
+    h+=grp('Benchmark & risico',
+      row('Verzuimgraad (gewogen)','p.2',V.absence_rate)+
+      row('Sectorgemiddelde','SD Worx',V.sector_average)+
+      row('Verschil t.o.v. sector','p.2',V.difference_vs_sector)+
+      row('Risiconiveau','p.2 risicoband','<span class="pill '+riskKey+'">'+riskLbl+'</span>'));
+    h+=grp('Verloren tijd',
+      row('Verloren werkdagen','p.2',V.lost_workdays_num)+
+      row('FTE-equivalent','p.2',V.fte_equivalent)+
+      row('Kost per verloren dag','',V.cost_per_lost_day));
+    h+=grp('Kostenopbouw (werkgeverslast)',
+      row('Directe loonkost',pct(R.breakdown.loonPct),V.loon_cost)+
+      row('Doorlopende kosten',pct(R.breakdown.doorlopendPct),V.doorlopend_cost)+
+      row('Vervangingskosten',pct(R.breakdown.vervangPct),V.vervanging_cost)+
+      row('Organisatorische impact','',V.org_impact_cost));
+    h+=grp('Kost per dag (p.4)',
+      row('Direct / kalenderdag','÷ 365',eur(R.total/365))+
+      row('Direct / werkdag','÷ '+days,eur(R.total/days))+
+      row('Totaal / kalenderdag','÷ 365',eur(R.totaleKost/365))+
+      row('Totaal / werkdag','÷ '+days,eur(R.totaleKost/days)));
+    h+=grp('Besparingsscenario\u2019s',
+      row('\u2212 0,5 pp verzuim','',V.saving_half_percent)+
+      row('\u2212 1 pp verzuim','',V.saving_one_percent)+
+      row('\u2212 2 pp verzuim','',V.saving_two_percent));
+    var rows=R.categories.map(function(c){ var over=c.mine>c.avg;
+      return '<tr><td>'+({K:'Kort',M:'Middellang',L:'Langdurig'}[c.key])+'</td><td class="'+(over?'over':'under')+'">'+pct(c.mine)+'</td><td>'+pct(c.avg)+'</td></tr>'; }).join('');
+    h+=grp('Per categorie (p.6\u20138)','<table class="cattbl"><thead><tr><th>Categorie</th><th>Uw %</th><th>Sector</th></tr></thead><tbody>'+rows+'</tbody></table>');
+    $('checkBody').innerHTML=h;
+  }
+
+  /* init */
+  buildStepper(); buildPanels(); syncNav();
+})();
+</script>
+</body>
+</html>
