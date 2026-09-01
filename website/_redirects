@@ -11,9 +11,6 @@ https://montisoro.be/*        https://montisoro.com/:splat    301!
 http://www.montisoro.be/*     https://montisoro.com/:splat    301!
 https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 
-# ── Favicon op site-root (Google haalt /favicon.ico standaard op) ──
-/favicon.ico    /favicon.png    200
-
 # ── API → Netlify Functions (zonder deze 404't /api/* → login + health kapot) ──
 /api/calculator-report       /.netlify/functions/calculator-report       200
 /api/track                   /.netlify/functions/track                   200
@@ -73,7 +70,7 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 # ── OUDE WEBSITE (pre-2026, /nl/…) → nieuwe pagina's (301, SEO-waarde mee) ──
 /nl/home                                      /            301
 /nl/english                                   /home-en     301
-/nl/france                                    /            301
+/nl/france                                    /pages/404.html 404!
 /nl/laurence_van_den_bergh                    /about       301
 /nl/visie_en_missie                           /about       301
 /nl/waarin_wij_geloven                        /about       301
@@ -112,11 +109,12 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /nl/faq                                       /faq         301
 /nl/disclaimer                                /disclaimer  301
 /nl/privacy_statement                         /privacy     301
-/nl/literatuur                                /            301
-/nl/subsidies                                 /            301
-/nl/sitemap                                   /            301
-# vangnet: elke andere oude /nl/-URL → home
-/nl/*                                         /            301
+/nl/literatuur                                /pages/404.html 404!
+/nl/subsidies                                 /pages/404.html 404!
+/nl/sitemap                                   /pages/404.html 404!
+# Geen inhoudelijk equivalent: geef een echte 404 in plaats van een soft-404
+# redirect naar de homepage. Zo kan Google onbekende legacy-URL's opruimen.
+/nl/*                                         /pages/404.html 404!
 
 # ── Schone URL's serveren (200 rewrite, URL blijft schoon) ──
 /                     /pages/Home.html             200!

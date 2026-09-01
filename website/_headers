@@ -31,6 +31,12 @@
 /assets/*
   Cache-Control: public, max-age=604800
 
+# Stable, crawlable brand icons for browsers and Google Search.
+/favicon.ico
+  Cache-Control: public, max-age=86400, must-revalidate
+/favicon.png
+  Cache-Control: public, max-age=86400, must-revalidate
+
 # Short-cache HTML (content updates propagate fast)
 /pages/*
   Cache-Control: public, max-age=300, must-revalidate
@@ -46,3 +52,10 @@
 /admin-panel/*
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-cache, no-store, must-revalidate
+
+# Internal delivery material stays reachable for reviewers, but must never
+# compete with the public landing pages in search results.
+/documents/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/prototypes/*
+  X-Robots-Tag: noindex, nofollow, noarchive

@@ -5,7 +5,9 @@
   "description": "Montisoro FASE 2 — calculator report backend (Netlify Functions)",
   "engines": { "node": ">=18" },
   "scripts": {
-    "test": "node test/run-engine-tests.js"
+    "test": "node test/run-engine-tests.js",
+    "seo:noindex": "node noindex-sandbox.mjs",
+    "seo:verify": "node verify-search-indexing.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.45.0",

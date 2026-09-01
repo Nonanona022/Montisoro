@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Interne documenten niet indexeren
-Disallow: /documents/
+# Interne documenten sturen X-Robots-Tag: noindex. Crawlers moeten ze kunnen
+# ophalen om die instructie te zien; daarom blokkeren we /documents/ hier niet.
 
 Sitemap: https://montisoro.com/sitemap.xml
