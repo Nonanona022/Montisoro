@@ -4,9 +4,11 @@ import path from 'node:path';
 const ROOT = 'website';
 const PAGES = path.join(ROOT, 'pages');
 const expectedIconLinks = [
-  '<link rel="icon" href="/favicon.ico" sizes="any">',
-  '<link rel="icon" type="image/png" sizes="128x128" href="/favicon.png">',
-  '<link rel="apple-touch-icon" href="/favicon.png">',
+  '<link rel="icon" type="image/x-icon" href="/favicon.ico?v=3" sizes="16x16 32x32 48x48 128x128">',
+  '<link rel="icon" type="image/png" sizes="128x128" href="/favicon.png?v=3">',
+  '<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3">',
+  '<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3">',
+  '<link rel="apple-touch-icon" href="/favicon.png?v=3">',
 ];
 
 const routeToFile = new Map([
@@ -57,6 +59,13 @@ for (const route of sitemapUrls) {
 
 const ico = fs.readFileSync(path.join(ROOT, 'favicon.ico'));
 if (!(ico[0] === 0 && ico[1] === 0 && ico[2] === 1 && ico[3] === 0)) fail('website/favicon.ico is not a real ICO file');
+if (ico.readUInt16LE(4) !== 4) fail('website/favicon.ico must contain 16, 32, 48 and 128 pixel variants');
+
+for (const [name, size] of [['favicon-16x16.png', 16], ['favicon-32x32.png', 32]]) {
+  const png = fs.readFileSync(path.join(ROOT, name));
+  if (png.toString('hex', 0, 8) !== '89504e470d0a1a0a') fail(`${name} is not a PNG file`);
+  if (png.readUInt32BE(16) !== size || png.readUInt32BE(20) !== size) fail(`${name} has the wrong dimensions`);
+}
 
 const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
 const netlify = fs.readFileSync('netlify.toml', 'utf8');
