@@ -24,8 +24,6 @@ const routeToFile = new Map([
   ['/referentie-case', 'referentie-case.html'], ['/reference-case-en', 'reference-case-en.html'],
   ['/referentie-case-alcon', 'referentie-case-alcon.html'], ['/reference-case-alcon-en', 'reference-case-alcon-en.html'],
   ['/referentie-case-feneko', 'referentie-case-feneko.html'], ['/reference-case-feneko-en', 'reference-case-feneko-en.html'],
-  ['/referentie-case-lonza', 'referentie-case-lonza.html'], ['/reference-case-lonza-en', 'reference-case-lonza-en.html'],
-  ['/referentie-case-novartis', 'referentie-case-novartis.html'], ['/reference-case-novartis-en', 'reference-case-novartis-en.html'],
 ]);
 
 const additionalPublicPages = new Set([
