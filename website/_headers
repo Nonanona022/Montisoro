@@ -38,6 +38,10 @@
   Cache-Control: public, max-age=86400, must-revalidate
 /favicon-*.png
   Cache-Control: public, max-age=86400, must-revalidate
+/montisoro-icon-v4.ico
+  Cache-Control: public, max-age=86400, must-revalidate
+/montisoro-icon-v4-*.png
+  Cache-Control: public, max-age=86400, must-revalidate
 
 # Short-cache HTML (content updates propagate fast)
 /pages/*
