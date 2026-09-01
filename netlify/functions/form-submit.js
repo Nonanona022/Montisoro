@@ -166,8 +166,12 @@ exports.handler = async (event) => {
     alerting.logFailure({ type: 'email_internal', recipient: 'internal', subject: m.subject, error: e.message, submission_id: submissionId }).catch(()=>{});
   }
 
-  // ── afspraak: maak het echte agenda-item aan in Outlook (klaar maar inert) ──
-  // Zolang Graph niet geconfigureerd is, wordt dit netjes overgeslagen.
+  // ── afspraak: maak het echte agenda-item aan in Outlook ──
+  // De status gaat terug naar de browser; alleen een werkelijk aangemaakt
+  // agenda-item mag daar als bevestigde afspraak worden getoond.
+  let calendarStatus = type === 'booking'
+    ? (graph.isConfigured() ? 'failed' : 'not_configured')
+    : 'not_applicable';
   if (type === 'booking' && graph.isConfigured()) {
     try {
       await graph.createEvent({
@@ -178,6 +182,7 @@ exports.handler = async (event) => {
         location: f.afspraaktype === 'onsite' ? f.adres : '',
         attendee: { email: f.email, name: f.name || '' }
       });
+      calendarStatus = 'created';
     } catch (e) { console.error('[form-submit] graph event failed:', e.message); }
   }
 
@@ -214,6 +219,18 @@ exports.handler = async (event) => {
   if (submissionId) {
     try { await store.patchFormSubmission(submissionId, { mail_status: mailStatus, confirm_status: confirmStatus }); }
     catch (e) { console.error('[form-submit] status patch failed:', e.message); }
+  }
+
+  if (type === 'booking') {
+    const requestReceived = !!submissionId || mailStatus === 'sent' || confirmStatus === 'sent' || calendarStatus === 'created';
+    const bookingConfirmed = calendarStatus === 'created' && confirmStatus === 'sent';
+    return res(requestReceived ? 200 : 503, {
+      ok: requestReceived,
+      booking_confirmed: bookingConfirmed,
+      calendar_status: calendarStatus,
+      mail_status: mailStatus,
+      confirm_status: confirmStatus
+    });
   }
 
   return res(200, { ok: true, mail_status: mailStatus, confirm_status: confirmStatus });

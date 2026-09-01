@@ -586,7 +586,7 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
 #mIntro .mi-line.in{opacity:1;transform:none;}
 #mIntro .mi-line em{font-style:italic;color:#E8592B;}
 </style>
-<script src="../scripts/ga4.js"></script>
+<script src="../scripts/ga4.js?v=20260901-1"></script>
 <script src="../scripts/clarity.js"></script>
 </head>
 <body class="ms-dark-hero theme-mid ws-comfortable hs-row ty-default rl-normal cta-rounded titel-mega ds2">
@@ -964,7 +964,7 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
            .sort(function(a,b){return (a.order||0)-(b.order||0);});
   function makeItem(c){
     var d=document.createElement('div');d.className='logo-item';
-    if(c.logo){var img=document.createElement('img');var _src=c.logo,_webp=_src.replace(/\.(png|jpe?g)$/i,'.webp');if(_webp!==_src){img.onerror=function(){this.onerror=null;this.src=_src;};}img.src=_webp;img.alt=c.name||'';img.loading='lazy';img.decoding='async';d.appendChild(img);}
+    if(c.logo){var img=document.createElement('img');img.src=c.logo;img.alt=c.name||'';img.loading='lazy';img.decoding='async';d.appendChild(img);}
     else if(c.name){var s=document.createElement('span');s.textContent=c.name;d.appendChild(s);}
     return d;
   }
@@ -1117,7 +1117,7 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
   document.querySelectorAll('[data-count]').forEach(function(e){ io.observe(e); });
 })();
 </script>
-<script src="../scripts/motion.js" defer></script>
+<script src="../scripts/motion.js?v=20260901-1" defer></script>
 <script src="../scripts/montisoro-v2.js"></script>
 <script>
 /* Houd de homepage exact gelijk aan de editorial beta: verwijder de oude
@@ -1201,7 +1201,7 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
 <link rel="stylesheet" href="../stylesheets/shell.css">
 <script src="../scripts/shell.js" defer></script>
 <script src="../scripts/site-content.js" defer></script>
-<script src="../scripts/analytics.js" defer></script>
-<script src="../scripts/events.js" defer></script>
+<script src="../scripts/analytics.js?v=20260901-1" defer></script>
+<script src="../scripts/events.js?v=20260901-1" defer></script>
 </body>
 </html>

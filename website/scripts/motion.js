@@ -552,7 +552,7 @@
   function cookieBanner(){
     var KEY = 'montisoro.cookie.v2';
     var listeners = [];
-    var isEN = /-en\.html$/i.test((location.pathname.split('/').pop() || ''));
+    var isEN = /-en(?:\.html)?$/i.test((location.pathname.split('/').pop() || ''));
 
     var CATS = [
       { id:'functional',  locked:true  },
@@ -593,8 +593,8 @@
     function persist(choice, cats){
       var rec = { v:2, choice:choice, categories:cats, ts:new Date().toISOString() };
       try { localStorage.setItem(KEY, JSON.stringify(rec)); } catch(e){}
-      if (window.dataLayer) window.dataLayer.push({ event:'cookie_consent', choice:choice, cookie_categories:cats });
       listeners.forEach(function(cb){ try { cb(rec); } catch(e){} });
+      if (cats.analytics && window.dataLayer) window.dataLayer.push({ event:'cookie_consent', choice:choice, cookie_categories:cats });
       return rec;
     }
     function allCats(v){ var o={}; CATS.forEach(function(c){ o[c.id] = c.locked ? true : v; }); return o; }

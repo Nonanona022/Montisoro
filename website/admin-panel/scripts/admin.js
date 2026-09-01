@@ -2409,7 +2409,8 @@
 
   /* ── #A/#B: Health check → system alert banner ── */
   (function healthCheck(){
-    fetch('/api/health', { method: 'GET' })
+    var healthSession = AUTH.read();
+    fetch('/api/health', { method: 'GET', headers: { 'Authorization': 'Bearer ' + healthSession.token } })
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(h){
         if (!h) return;

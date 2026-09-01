@@ -5,7 +5,7 @@
   <!-- ── Homepage ── -->
   <url>
     <loc>https://montisoro.com/</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://montisoro.com/home-en</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
@@ -95,13 +95,13 @@
   <!-- ── Contact ── -->
   <url>
     <loc>https://montisoro.com/contact</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.95</priority>
+    <lastmod>2026-09-01</lastmod><priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en" />
   </url>
   <url>
     <loc>https://montisoro.com/contact-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
+    <lastmod>2026-09-01</lastmod><priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en" />
   </url>

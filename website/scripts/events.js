@@ -14,7 +14,21 @@
 ═══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
-  try {
+  var CONSENT_KEY = 'montisoro.cookie.v2';
+
+  function readCats() {
+    try { var rec = JSON.parse(localStorage.getItem(CONSENT_KEY)); return (rec && rec.categories) || null; }
+    catch (e) { return null; }
+  }
+  function allowed(cats) { return !!(cats && cats.analytics); }
+
+  // Aanroepen uit formulieren blijven veilig vóór toestemming.
+  window.mtrack = window.mtrack || function () {};
+
+  function boot() {
+    if (window.__msEventsBooted || !allowed(readCats())) return;
+    window.__msEventsBooted = true;
+    try {
     // ── Do-Not-Track respecteren (net als analytics.js) ──
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.msDoNotTrack === '1') {
       window.mtrack = function () {}; // no-op zodat aanroepen nergens breken
@@ -62,6 +76,7 @@
 
     // ── Verzenden ──
     function send(name, meta) {
+      if (!allowed(readCats())) return;
       var payload = {
         s: sid,
         n: name,
@@ -263,7 +278,18 @@
     if (document.readyState === 'complete' || document.readyState === 'interactive') send('page_view', {});
     else document.addEventListener('DOMContentLoaded', function () { send('page_view', {}); });
 
-  } catch (e) {
-    window.mtrack = window.mtrack || function () {};
+    } catch (e) {
+      window.mtrack = window.mtrack || function () {};
+    }
   }
+
+  if (allowed(readCats())) boot();
+  var consentTries = 0;
+  (function hookConsent(){
+    if (window.MontisoroConsent && typeof window.MontisoroConsent.onChange === 'function') {
+      window.MontisoroConsent.onChange(function(rec){ if (allowed(rec && rec.categories)) boot(); });
+      return;
+    }
+    if (consentTries++ < 40) setTimeout(hookConsent, 150);
+  })();
 })();

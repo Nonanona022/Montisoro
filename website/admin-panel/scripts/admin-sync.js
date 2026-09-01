@@ -88,7 +88,7 @@
     var s = sess();
     if (!s || !s.token) return;            // inert: blijft lokaal
     // Probe het echte fundament; live ALLEEN als Supabase bereikbaar is.
-    fetch('/api/health', { method: 'GET' })
+    fetch('/api/health', { method: 'GET', headers: { 'Authorization': 'Bearer ' + s.token } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (h) { if (h && h.services && h.services.supabase && h.services.supabase.ok) setSource('live'); })
       .catch(function () { /* health onbereikbaar → blijf lokaal */ });

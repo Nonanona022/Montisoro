@@ -253,7 +253,7 @@ body{padding-top:64px;}
 <noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
 <link rel="stylesheet" href="../stylesheets/ds2.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://montisoro.com/home-en"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://montisoro.com/contact-en"}]}</script>
-<script src="../scripts/ga4.js"></script>
+<script src="../scripts/ga4.js?v=20260901-1"></script>
 <script src="../scripts/clarity.js"></script>
 </head>
 <body class="ms-dark-hero ds2">
@@ -575,10 +575,10 @@ body{padding-top:64px;}
             <div class="screen" data-screen="4">
               <div class="confirm">
                 <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-                <h3>Your booking is <em>confirmed.</em></h3>
-                <p class="lead" id="bfConfLead">We look forward to speaking with you.</p>
+                <h3 id="bfConfTitle">Your request has been <em>received.</em></h3>
+                <p class="lead" id="bfConfLead">We are checking the calendar and will send the final confirmation by email.</p>
                 <div class="summary" id="bfSummary"></div>
-                <div class="invite-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> Added to our calendar, you'll receive a confirmation by email.</div>
+                <div class="invite-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> After our check, you will receive the final confirmation by email.</div>
               </div>
             </div>
 
@@ -783,7 +783,7 @@ body{padding-top:64px;}
       foot.classList.remove('end'); back.style.display=''; next.style.display='';
       if(reset) reset.remove(); if(closeB) closeB.remove();
       back.style.visibility = state.step===1 ? 'hidden' : 'visible';
-      next.innerHTML = (state.step===3 ? 'Confirm booking' : 'Next') + ARROW;
+      next.innerHTML = (state.step===3 ? 'Send request' : 'Next') + ARROW;
       next.disabled = !canAdvance();
       var hint=$('bfHint'); if(hint){ hint.textContent = !next.disabled ? '' : (state.step===1?'Choose the type of meeting first.':state.step===2?'Pick a day and a time slot.':state.step===3?'Fill in all required fields.':''); }
     }
@@ -862,7 +862,18 @@ body{padding-top:64px;}
     var icClk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
     var rows=[ [state.type==='online'?icCam:icPin,'Type',typeLabel], [icCal,'Date',state.dateLabel||''], [icClk,'Time',state.time+' – '+addMin(state.time,30)+' · 30 min'], [state.type==='online'?icCam:icPin, state.type==='online'?'Location':'Address', locVal] ];
     $('bfSummary').innerHTML = rows.map(function(r){ return '<div class="srow"><span class="sic">'+r[0]+'</span><div><div class="sk">'+r[1]+'</div><div class="sv">'+r[2]+'</div></div></div>'; }).join('');
-    $('bfConfLead').textContent = state.type==='online' ? 'The Teams link is in the confirmation in your inbox.' : 'We\'ll come to the address provided. You\'ll receive a confirmation by email.';
+    $('bfConfLead').textContent = 'We are checking the calendar and will send the final confirmation by email.';
+  }
+
+  function showBookingResult(result){
+    var confirmed=!!(result&&result.booking_confirmed);
+    buildSummary();
+    $('bfConfTitle').innerHTML = confirmed ? 'Your booking is <em>confirmed.</em>' : 'Your request has been <em>received.</em>';
+    $('bfConfLead').textContent = confirmed
+      ? (state.type==='online' ? 'The Teams link is in the confirmation in your inbox.' : 'We\'ll come to the address provided. You\'ll receive a confirmation by email.')
+      : 'We are checking the calendar and will send the final confirmation by email.';
+    state.step=4;
+    paint();
   }
 
   function submitBooking(){
@@ -878,10 +889,21 @@ body{padding-top:64px;}
       locatie: loc, adres: (state.type==='onsite' ? loc : ''),
       name:name, email:email, telefoon:phone, organisatie:org, bericht:msg
     }, botcheck:'' };
-    /* Go straight to the confirmation; the lead is sent in the background (best-effort, no mailto redirect). */
-    buildSummary(); state.step=4; paint();
-    try{ if(window.mtrack){ window.mtrack('demo_requested',{type:state.type}); window.mtrack('form_submit',{form:'booking'}); } }catch(e){}
-    try { fetch('/api/form-submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }).catch(function(){}); } catch(e){}
+    var next=$('bfNext'), hint=$('bfHint');
+    next.disabled=true;
+    next.textContent='Sending request…';
+    if(hint) hint.textContent='';
+    fetch('/api/form-submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+      .then(function(r){ return r.json().then(function(data){ if(!r.ok || !data || !data.ok) throw new Error('submit_failed'); return data; }); })
+      .then(function(data){
+        showBookingResult(data);
+        try{ if(window.mtrack){ window.mtrack(data.booking_confirmed?'booking_confirmed':'booking_requested',{type:state.type}); window.mtrack('form_submit',{form:'booking'}); } }catch(e){}
+      })
+      .catch(function(){
+        next.disabled=false;
+        next.innerHTML='Send request'+ARROW;
+        if(hint) hint.textContent='We could not send your request. Check your connection and try again.';
+      });
   }
 
   function goNext(){
@@ -1105,7 +1127,7 @@ body{padding-top:64px;}
   setTimeout(function(){ els.forEach(function(e){ e.classList.add('in'); }); }, 3000);
 })();
 </script>
-<script src="../scripts/motion.js" defer></script>
+<script src="../scripts/motion.js?v=20260901-1" defer></script>
 
 <script src="../scripts/montisoro-v2.js"></script>
 <link rel="stylesheet" href="../stylesheets/forms.css">
@@ -1113,8 +1135,8 @@ body{padding-top:64px;}
 <script src="../scripts/shell.js" defer></script>
 <script src="../scripts/phone-be.js" defer></script>
 <script src="../scripts/site-content.js" defer></script>
-<script src="../scripts/analytics.js" defer></script>
-<script src="../scripts/events.js" defer></script>
+<script src="../scripts/analytics.js?v=20260901-1" defer></script>
+<script src="../scripts/events.js?v=20260901-1" defer></script>
 <script>(function(){function w(){document.querySelectorAll(".cal-card .field").forEach(function(f){var l=f.querySelector("label"),i=f.querySelector("input,textarea,select");if(l&&i){if(!i.id)i.id="bff"+Math.random().toString(36).slice(2,8);if(!l.getAttribute("for"))l.setAttribute("for",i.id);}});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",w);else w();})();</script>
 
 <script>
