@@ -586,8 +586,7 @@
         performance:['Prestatiecookies','Meten laadtijd en stabiliteit om de site te verbeteren.']
       }
     };
-    var POLICY = isEN ? 'https://www.montisoro.com/en/privacy_statement'
-                      : 'https://www.montisoro.com/nl/privacy_statement';
+    var POLICY = isEN ? '/privacy-en' : '/privacy';
 
     function read(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
     function persist(choice, cats){

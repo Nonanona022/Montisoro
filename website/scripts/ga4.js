@@ -9,6 +9,10 @@
   function dnt(){
     return navigator.doNotTrack==='1' || window.doNotTrack==='1' || navigator.msDoNotTrack==='1';
   }
+  function productionHost(){
+    var host=(window.location.hostname||'').toLowerCase();
+    return host==='montisoro.com' || host==='www.montisoro.com';
+  }
   function readCats(){
     try { var r=JSON.parse(localStorage.getItem(KEY)); return (r&&r.categories)||null; }
     catch(e){ return null; }
@@ -48,6 +52,9 @@
     window.gtag('js',new Date());
     window.gtag('config',GA_ID,{anonymize_ip:true});
   }
+
+  // Geen analytics op lokale, Netlify- of ontwerppreviews: zo blijft GA4 schoon.
+  if(!productionHost()) return;
 
   boot(readCats());
   var tries=0;

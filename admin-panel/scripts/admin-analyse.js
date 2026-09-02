@@ -261,7 +261,7 @@
       '<div class="u-mt-20">'+panel(mtT('an_pt_convperdevice'), mtT('an_pd_devices'), devConv)+'</div>'+
       '<div class="u-mt-20">'+panel(mtT('an_pt_webvitals'),mtT('an_pd_vitals'), vt)+'</div>'+
       '<div class="u-mt-20">'+panel(mtT('an_pt_heatmap'),mtT('an_pd_heatmap'),
-        '<div style="text-align:center;padding:24px 16px;color:'+C.muted+'"><div style="font-size:13px;margin-bottom:10px">Architectuur voorzien — nog niet gekoppeld.</div><button class="btn btn-ghost" id="an-heatmap-connect"><i class="ti ti-flame"></i> Heatmap-tool koppelen</button><div style="font-size:11.5px;margin-top:10px;max-width:440px;margin-left:auto;margin-right:auto">Let op: Clarity/Hotjar plaatsen wél cookies → dit vergt een consent-laag. Daarom bewust als los, later-activeerbaar slot.</div></div>')+'</div>';
+        '<div style="text-align:center;padding:24px 16px;color:'+C.muted+'"><div style="font-size:13px;margin-bottom:10px">Microsoft Clarity is gekoppeld.</div><a class="btn btn-ghost" href="https://clarity.microsoft.com/projects/view/xmf5h83z44/heatmaps" target="_blank" rel="noopener noreferrer"><i class="ti ti-flame"></i> Open heatmaps</a><div style="font-size:11.5px;margin-top:10px;max-width:440px;margin-left:auto;margin-right:auto">Heatmaps en sessie-opnamen verschijnen zodra bezoekers analytische cookies toestaan. GA4 en Clarity worden alleen op montisoro.com geladen.</div></div>')+'</div>';
   };
   V.seo = function(d){
     var langs=panel(mtT('an_pt_langs'), null, dist(d.langs.map(function(x){return {k:(x.key||'?').toUpperCase(),v:x.count};})));

@@ -6,6 +6,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "test": "node test/run-engine-tests.js",
+    "analytics:verify": "node verify-analytics-privacy.mjs",
     "seo:noindex": "node noindex-sandbox.mjs",
     "seo:verify": "node verify-search-indexing.mjs"
   },
