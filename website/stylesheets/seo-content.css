@@ -1,6 +1,16 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:#f7f5f2;color:#211c18;font-family:'DM Sans',sans-serif}
+.m-nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(19,16,13,.94);border-bottom:1px solid rgba(240,237,232,.08);transition:background .3s ease}
+.m-nav.scrolled{background:rgba(13,9,5,.97)}
+.m-nav-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.m-nav-logo img{display:block;width:auto;height:44px}
+.m-nav-links{display:flex;align-items:center;gap:2px;margin:0;padding:0;list-style:none}
+.m-nav-links li{position:relative}
+.m-nav-links li a{display:block;padding:8px 14px;border-radius:6px;color:rgba(240,237,232,.68);font-size:13px;font-weight:500;letter-spacing:.02em;text-decoration:none;white-space:nowrap;transition:color .2s,background .2s}
+.m-nav-links li a:hover{color:#f0ede8;background:rgba(240,237,232,.07)}
+.m-nav-links li a.m-cta{margin-left:6px;padding:9px 20px;background:#e8592b;color:#fff;font-weight:700}
+.m-hamburger{display:none;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin-right:-10px;padding:10px;border:0;background:transparent;color:#f0ede8;font-size:24px;cursor:pointer}
 .seo-hero{position:relative;min-height:72vh;display:flex;align-items:center;overflow:hidden;background:#13100d;color:#f0ede8;padding:150px 24px 96px}
 .seo-hero::after{content:"";position:absolute;inset:0;background:url('../assets/banner-lines.jpg') center/cover no-repeat;opacity:.24;mask-image:linear-gradient(to bottom,transparent,#000 28%,#000 72%,transparent)}
 .seo-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 12%,rgba(232,89,43,.22),transparent 42%),linear-gradient(145deg,#17120f,#0d0905)}
@@ -44,5 +54,6 @@ body{margin:0;background:#f7f5f2;color:#211c18;font-family:'DM Sans',sans-serif}
 .seo-related a{display:flex;min-height:88px;align-items:center;justify-content:space-between;gap:15px;padding:20px;border:1px solid rgba(33,28,24,.1);border-radius:14px;color:#211c18;text-decoration:none;font-weight:700;background:#fff}
 .seo-related a span{color:#e8592b}
 .seo-updated{margin-top:26px;color:#7c746e;font-size:12px}
+@media(max-width:1180px){.m-nav{padding:0 20px}.m-nav-links{display:none}.m-hamburger{display:flex}}
 @media(max-width:800px){.seo-hero{min-height:auto;padding:126px 20px 78px}.seo-intro{grid-template-columns:1fr;gap:18px}.seo-grid,.seo-related{grid-template-columns:1fr}.seo-section{padding:64px 20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.seo-button:hover{transform:none}}
