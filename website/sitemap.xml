@@ -1,201 +1,270 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
-  <!-- ── Homepage ── -->
   <url>
     <loc>https://montisoro.com/</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.00</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/home-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/" />
   </url>
   <url>
     <loc>https://montisoro.com/home-en</loc>
-    <lastmod>2026-09-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.95</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/home-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/" />
   </url>
-
-  <!-- ── About ── -->
   <url>
     <loc>https://montisoro.com/about</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/about" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/about-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/about" />
   </url>
   <url>
     <loc>https://montisoro.com/about-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/about" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/about-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/about" />
   </url>
-
-  <!-- ── Onze aanpak ── -->
   <url>
     <loc>https://montisoro.com/aanpak</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.90</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/aanpak" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/approach-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/aanpak" />
   </url>
   <url>
     <loc>https://montisoro.com/approach-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/aanpak" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/approach-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/aanpak" />
   </url>
-
-  <!-- ── Technologie ── -->
   <url>
     <loc>https://montisoro.com/technologie</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/technologie" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/technology-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/technologie" />
   </url>
   <url>
     <loc>https://montisoro.com/technology-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/technologie" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/technology-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/technologie" />
   </url>
-
-  <!-- ── Calculator ── -->
   <url>
     <loc>https://montisoro.com/calculator</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator" />
   </url>
   <url>
     <loc>https://montisoro.com/calculator-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator" />
   </url>
-
-  <!-- ── Fit Check ── -->
   <url>
     <loc>https://montisoro.com/fit-check</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.85</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/fit-check" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/fit-check-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/fit-check" />
   </url>
   <url>
     <loc>https://montisoro.com/fit-check-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/fit-check" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/fit-check-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/fit-check" />
   </url>
-
-  <!-- ── Contact ── -->
   <url>
     <loc>https://montisoro.com/contact</loc>
-    <lastmod>2026-09-01</lastmod><priority>0.95</priority>
+    <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/contact" />
   </url>
   <url>
     <loc>https://montisoro.com/contact-en</loc>
-    <lastmod>2026-09-01</lastmod><priority>0.90</priority>
+    <lastmod>2026-09-01</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/contact" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/contact-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/contact" />
   </url>
-
-  <!-- ── Privacy ── -->
   <url>
     <loc>https://montisoro.com/privacy</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.30</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/privacy-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/privacy" />
   </url>
   <url>
     <loc>https://montisoro.com/privacy-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.25</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/privacy" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/privacy-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/privacy" />
   </url>
-
-  <!-- ── Disclaimer ── -->
   <url>
     <loc>https://montisoro.com/disclaimer</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.30</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/disclaimer" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/disclaimer-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/disclaimer" />
   </url>
   <url>
     <loc>https://montisoro.com/disclaimer-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.25</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/disclaimer" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/disclaimer-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/disclaimer" />
   </url>
-  <!-- ── FAQ ── -->
   <url>
     <loc>https://montisoro.com/faq</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/faq" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/faq-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/faq" />
   </url>
   <url>
     <loc>https://montisoro.com/faq-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.65</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/faq" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/faq-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/faq" />
   </url>
-
-  <!-- ── Referenties (overzicht) ── -->
   <url>
     <loc>https://montisoro.com/referentie</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.80</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/references-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie" />
   </url>
   <url>
     <loc>https://montisoro.com/references-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <lastmod>2026-07-10</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/references-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie" />
   </url>
-
-  <!-- ── Referentie-cases ── -->
   <url>
     <loc>https://montisoro.com/referentie-case</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case" />
   </url>
   <url>
     <loc>https://montisoro.com/reference-case-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case" />
   </url>
   <url>
     <loc>https://montisoro.com/referentie-case-alcon</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-alcon" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-alcon-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-alcon" />
   </url>
   <url>
     <loc>https://montisoro.com/reference-case-alcon-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-alcon" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-alcon-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-alcon" />
   </url>
   <url>
     <loc>https://montisoro.com/referentie-case-feneko</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.75</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-feneko" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-feneko-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-feneko" />
   </url>
   <url>
     <loc>https://montisoro.com/reference-case-feneko-en</loc>
-    <lastmod>2026-07-10</lastmod><priority>0.70</priority>
+    <lastmod>2026-09-24</lastmod>
     <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-feneko" />
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-feneko-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-feneko" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/rit-3-0</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/rit-3-0" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/rit-3-0-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/rit-3-0" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/rit-3-0-en</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/rit-3-0" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/rit-3-0-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/rit-3-0" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/langdurig-verzuim</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/langdurig-verzuim" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/long-term-absence-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/langdurig-verzuim" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/long-term-absence-en</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/langdurig-verzuim" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/long-term-absence-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/langdurig-verzuim" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/non-clinical-casemanager</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/non-clinical-casemanager" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/non-clinical-case-manager-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/non-clinical-casemanager" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/non-clinical-case-manager-en</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/non-clinical-casemanager" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/non-clinical-case-manager-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/non-clinical-casemanager" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/verzuimbeleid</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/verzuimbeleid" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/absence-policy-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/verzuimbeleid" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/absence-policy-en</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/verzuimbeleid" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/absence-policy-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/verzuimbeleid" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/calculator-methodologie</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator-methodologie" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-methodology-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator-methodologie" />
+  </url>
+  <url>
+    <loc>https://montisoro.com/calculator-methodology-en</loc>
+    <lastmod>2026-09-24</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator-methodologie" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-methodology-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator-methodologie" />
   </url>
 </urlset>

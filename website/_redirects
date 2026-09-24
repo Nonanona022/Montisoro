@@ -112,6 +112,8 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /nl/literatuur                                /pages/404.html 404!
 /nl/subsidies                                 /pages/404.html 404!
 /nl/sitemap                                   /pages/404.html 404!
+/source/M                                     /pages/404.html 404!
+/source/m                                     /pages/404.html 404!
 # Geen inhoudelijk equivalent: geef een echte 404 in plaats van een soft-404
 # redirect naar de homepage. Zo kan Google onbekende legacy-URL's opruimen.
 /nl/*                                         /pages/404.html 404!
