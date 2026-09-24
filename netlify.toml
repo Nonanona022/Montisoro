@@ -357,6 +357,19 @@
   status = 301
   force = true
 
+# Legacy bronroute zonder inhoudelijk equivalent: echte 404 voor Google-opruiming.
+[[redirects]]
+  from = "/source/M"
+  to = "/pages/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/source/m"
+  to = "/pages/404.html"
+  status = 404
+  force = true
+
 # Legacy .html blijft werken (200-serve; canonical dedupt naar extensieloos)
 [[redirects]]
   from = "/:slug.html"

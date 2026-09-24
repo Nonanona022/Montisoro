@@ -7,6 +7,10 @@
   "scripts": {
     "test": "node test/run-engine-tests.js",
     "analytics:verify": "node verify-analytics-privacy.mjs",
+    "seo:generate-content": "node generate-seo-pages.mjs",
+    "seo:generate-sitemap": "node generate-sitemap.mjs",
+    "seo:audit": "node audit-static-seo.mjs",
+    "seo:prerender-cases": "node prerender-cases.mjs",
     "seo:noindex": "node noindex-sandbox.mjs",
     "seo:verify": "node verify-search-indexing.mjs"
   },

@@ -26,6 +26,11 @@ const routeToFile = new Map([
   ['/referentie-case', 'referentie-case.html'], ['/reference-case-en', 'reference-case-en.html'],
   ['/referentie-case-alcon', 'referentie-case-alcon.html'], ['/reference-case-alcon-en', 'reference-case-alcon-en.html'],
   ['/referentie-case-feneko', 'referentie-case-feneko.html'], ['/reference-case-feneko-en', 'reference-case-feneko-en.html'],
+  ['/rit-3-0', 'rit-3-0.html'], ['/rit-3-0-en', 'rit-3-0-en.html'],
+  ['/langdurig-verzuim', 'langdurig-verzuim.html'], ['/long-term-absence-en', 'long-term-absence-en.html'],
+  ['/non-clinical-casemanager', 'non-clinical-casemanager.html'], ['/non-clinical-case-manager-en', 'non-clinical-case-manager-en.html'],
+  ['/verzuimbeleid', 'verzuimbeleid.html'], ['/absence-policy-en', 'absence-policy-en.html'],
+  ['/calculator-methodologie', 'calculator-methodologie.html'], ['/calculator-methodology-en', 'calculator-methodology-en.html'],
 ]);
 
 const additionalPublicPages = new Set([
@@ -34,6 +39,8 @@ const additionalPublicPages = new Set([
 
 const failures = [];
 const fail = message => failures.push(message);
+const titles = new Map();
+const descriptions = new Map();
 const sitemap = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
 const sitemapUrls = [...sitemap.matchAll(/<loc>https:\/\/montisoro\.com([^<]*)<\/loc>/g)]
   .map(match => match[1] || '/');
@@ -53,6 +60,16 @@ for (const route of sitemapUrls) {
   if (/name=["']robots["'][^>]*noindex/i.test(html)) fail(`Production page is noindex: ${file}`);
   const canonical = route === '/' ? 'https://montisoro.com/' : `https://montisoro.com${route}`;
   if (!html.includes(`<link rel="canonical" href="${canonical}">`)) fail(`Canonical mismatch: ${file}`);
+  const h1Count = (html.match(/<h1\b/gi) || []).length;
+  if (h1Count !== 1) fail(`Expected exactly one H1 in ${file}, found ${h1Count}`);
+  const title = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.trim();
+  const description = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i)?.[1]?.trim();
+  if (!title) fail(`Missing title in ${file}`);
+  else if (titles.has(title)) fail(`Duplicate title in ${file} and ${titles.get(title)}: ${title}`);
+  else titles.set(title,file);
+  if (!description) fail(`Missing meta description in ${file}`);
+  else if (descriptions.has(description)) fail(`Duplicate description in ${file} and ${descriptions.get(description)}`);
+  else descriptions.set(description,file);
   for (const link of expectedIconLinks) if (!html.includes(link)) fail(`Missing stable favicon link in ${file}: ${link}`);
   if (/rel=["']icon["'][^>]+\.svg/i.test(html)) fail(`Unsupported SVG favicon link remains in ${file}`);
 }
@@ -87,7 +104,7 @@ const redirects = fs.readFileSync(path.join(ROOT, '_redirects'), 'utf8');
 const netlify = fs.readFileSync('netlify.toml', 'utf8');
 if (/favicon\.ico\s+\/favicon\.png\s+200/.test(redirects)) fail('_redirects still rewrites ICO to PNG');
 if (/from\s*=\s*["']\/favicon\.ico["']/.test(netlify)) fail('netlify.toml still rewrites ICO to PNG');
-for (const oldPath of ['/nl/france', '/nl/literatuur', '/nl/subsidies', '/nl/sitemap']) {
+for (const oldPath of ['/nl/france', '/nl/literatuur', '/nl/subsidies', '/nl/sitemap', '/source/M', '/source/m']) {
   const escaped = oldPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   if (!new RegExp(`^${escaped}\\s+\/pages\/404\\.html\\s+404!$`, 'm').test(redirects)) {
     fail(`Obsolete URL does not return a forced 404: ${oldPath}`);
