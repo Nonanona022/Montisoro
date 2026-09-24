@@ -1,12 +1,13 @@
 /* Montisoro — case-render.js
-   Rendert een volledige case-detailpagina (hero → quote) uit window.MONTISORO_CASES.
-   De shell-pagina bevat <main id="cs2-root" data-slug="..." data-lang="nl|en"></main>;
-   dit script vult die met exact dezelfde markup/classes als de statische pagina's,
-   zodat de bestaande CSS + scroll-engine ongewijzigd blijven werken.
+   Rendert generieke/dynamische casepagina's uit window.MONTISORO_CASES.
+   De zes publieke SEO-casepagina's worden vooraf statisch gevuld door
+   prerender-cases.mjs. Daar doet dit script niets meer, zodat crawlers de
+   volledige inhoud, headings en links direct in de HTML ontvangen.
    Titelvelden: *tekst* → <em>tekst</em> (oranje serif-accent). */
 (function(){
   var root = document.getElementById('cs2-root');
   if (!root) return;
+  if (root.hasAttribute('data-prerendered') && root.querySelector('h1')) return;
   var qs = new URLSearchParams(location.search);
   var slug = root.getAttribute('data-slug') || qs.get('c') || '';
   var lang = (root.getAttribute('data-lang') || (/-en\.html/.test(location.pathname) ? 'en' : 'nl')) === 'en' ? 'en' : 'nl';

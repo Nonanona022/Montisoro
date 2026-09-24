@@ -15,6 +15,7 @@ const clarity = read('website/scripts/clarity.js');
 const motion = read('website/scripts/motion.js');
 const privacyNl = read('website/pages/privacy.html');
 const privacyEn = read('website/pages/privacy-en.html');
+const publicHeaders = read('website/_headers');
 const adminSource = read('admin-panel/scripts/admin-analyse.js');
 const adminPublic = read('website/admin-panel/scripts/admin-analyse.js');
 
@@ -22,6 +23,7 @@ for (const [label, source] of [['GA4', ga4], ['Clarity', clarity]]) {
   requireText(source, "host==='montisoro.com' || host==='www.montisoro.com'", label);
 }
 requireText(clarity, 'function allowed(cats){ return !!(cats && cats.analytics); }', 'Clarity');
+requireText(publicHeaders, 'https://scripts.clarity.ms', 'CSP');
 requireText(clarity, "window.clarity('consentv2'", 'Clarity');
 requireText(clarity, "ad_Storage: 'denied'", 'Clarity');
 requireText(clarity, "analytics_Storage: allowed(cats) ? 'granted' : 'denied'", 'Clarity');

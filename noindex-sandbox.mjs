@@ -17,6 +17,10 @@ const PROD = new Set([
   'referentie-case-alcon.html','reference-case-alcon-en.html',
   'referentie-case-feneko.html','reference-case-feneko-en.html',
   'privacy.html','privacy-en.html','disclaimer.html','disclaimer-en.html',
+  'rit-3-0.html','rit-3-0-en.html','langdurig-verzuim.html','long-term-absence-en.html',
+  'non-clinical-casemanager.html','non-clinical-case-manager-en.html',
+  'verzuimbeleid.html','absence-policy-en.html',
+  'calculator-methodologie.html','calculator-methodology-en.html',
   'case.html','case-en.html','404.html',
 ]);
 
