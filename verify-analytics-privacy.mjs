@@ -108,11 +108,30 @@ const gaAllowed = runTag(ga4, {
 if (!gaAllowed.scripts.some(src => src === 'https://www.googletagmanager.com/gtag/js?id=G-JV1X452NRZ')) {
   failures.push('GA4 laadt niet na analytische toestemming op productie.');
 }
+if (!gaAllowed.window.mga4?.('generate_lead', { lead_source: 'verification' })) {
+  failures.push('GA4-eventhelper verzendt niet na analytische toestemming.');
+}
+const queuedLead = gaAllowed.window.dataLayer?.find(args => args[0] === 'event' && args[1] === 'generate_lead');
+if (!queuedLead || queuedLead[2]?.lead_source !== 'verification') {
+  failures.push('GA4-eventhelper zet het verwachte event niet in de datalaag.');
+}
+gaAllowed.consentListener?.({ categories: { functional: true, analytics: false, performance: false, marketing: false } });
+if (gaAllowed.window.mga4?.('generate_lead', { lead_source: 'after_withdrawal' })) {
+  failures.push('GA4-eventhelper blijft verzenden na intrekking van toestemming.');
+}
 const gaPreview = runTag(ga4, {
   host: 'preview.example.com',
   categories: { functional: true, analytics: true, performance: true, marketing: true }
 });
 if (gaPreview.scripts.length) failures.push('GA4 laadt op een previewhost.');
+if (gaPreview.window.mga4?.('generate_lead', { lead_source: 'preview' })) {
+  failures.push('GA4-eventhelper verzendt op een previewhost.');
+}
+
+const gaNoConsent = runTag(ga4, { host: 'montisoro.com', categories: null });
+if (gaNoConsent.scripts.length || gaNoConsent.window.mga4?.('generate_lead', { lead_source: 'no_consent' })) {
+  failures.push('GA4-eventhelper of script verzendt vóór analytische toestemming.');
+}
 
 if (failures.length) {
   console.error(`Analytics/privacy verification failed (${failures.length}):`);

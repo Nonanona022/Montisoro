@@ -361,7 +361,7 @@ body{padding-top:64px;}
 <noscript><style>.rv{opacity:1!important;transform:none!important;}</style></noscript>
 <link rel="stylesheet" href="../stylesheets/ds2.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://montisoro.com/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://montisoro.com/contact"}]}</script>
-<script src="../scripts/ga4.js?v=20260901-1"></script>
+<script src="../scripts/ga4.js?v=20261012-1"></script>
 <script src="../scripts/clarity.js"></script>
 </head>
 <body class="ms-dark-hero ds2">
@@ -895,6 +895,7 @@ body{padding-top:64px;}
       .then(function(data){
         showBookingResult(data);
         try{ if(window.mtrack){ window.mtrack(data.booking_confirmed?'booking_confirmed':'booking_requested',{type:state.type}); window.mtrack('form_submit',{form:'booking'}); } }catch(e){}
+        try{ if(window.mga4) window.mga4('generate_lead',{lead_source:'booking'}); }catch(e){}
       })
       .catch(function(){
         next.disabled=false;
@@ -1075,7 +1076,7 @@ body{padding-top:64px;}
     fetch('/api/form-submit', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
       .then(function(r){ return r.json(); })
       .then(function(data){
-        if (data && data.ok){ main.style.display='none'; success.style.display='block'; try{ if(window.mtrack){ window.mtrack('contact_sent',{}); window.mtrack('form_submit',{form:'contact'}); } }catch(e){} }
+        if (data && data.ok){ main.style.display='none'; success.style.display='block'; try{ if(window.mtrack){ window.mtrack('contact_sent',{}); window.mtrack('form_submit',{form:'contact'}); } if(window.mga4) window.mga4('generate_lead',{lead_source:'contact_form'}); }catch(e){} }
         else { fallback(); }
       })
       .catch(fallback);

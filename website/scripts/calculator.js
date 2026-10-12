@@ -729,6 +729,7 @@
           // Eerlijke status: enkel "verzonden" tonen als de mail effectief slaagde
           var sent = (d.mail_status==='sent') || (d.mail_status==null);
           try{ if(window.mtrack && sent){ window.mtrack('report_sent',{}); } }catch(e){}
+          try{ if(window.mga4 && sent) window.mga4('generate_lead',{lead_source:'calculator_report'}); }catch(e){}
           btn.textContent='✓';
           if(msg){ msg.textContent = sent ? T.successSent : T.successPending; msg.style.display='block'; }
           showDownload();

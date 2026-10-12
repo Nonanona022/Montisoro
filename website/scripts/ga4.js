@@ -5,6 +5,7 @@
   'use strict';
   var GA_ID='G-JV1X452NRZ';
   var KEY='montisoro.cookie.v2';
+  var analyticsGranted=false;
 
   function dnt(){
     return navigator.doNotTrack==='1' || window.doNotTrack==='1' || navigator.msDoNotTrack==='1';
@@ -20,9 +21,18 @@
   function allowed(cats){ return !!(cats && cats.analytics); }
   function gtag(){ window.dataLayer.push(arguments); }
 
+  // Publieke, consent-gebonden eventhelper. Aanroepers geven uitsluitend
+  // niet-persoonlijke procesmetadata door; zonder toestemming is dit een no-op.
+  window.mga4=function(name,params){
+    if(!analyticsGranted || !window.__ga4Booted || !window.gtag || typeof name!=='string') return false;
+    try { window.gtag('event',name,params||{}); return true; }
+    catch(e){ return false; }
+  };
+
   function apply(cats){
+    analyticsGranted=allowed(cats);
     if(!window.__ga4Booted || !window.gtag) return;
-    var analytics=allowed(cats)?'granted':'denied';
+    var analytics=analyticsGranted?'granted':'denied';
     var marketing=(cats&&cats.marketing)?'granted':'denied';
     window.gtag('consent','update',{
       analytics_storage:analytics,
@@ -34,6 +44,7 @@
 
   function boot(cats){
     if(dnt() || !allowed(cats) || window.__ga4Booted) return;
+    analyticsGranted=true;
     window.__ga4Booted=true;
     window.dataLayer=window.dataLayer||[];
     window.gtag=window.gtag||gtag;

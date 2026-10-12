@@ -570,7 +570,7 @@ body{padding-top:64px;}
 @media(prefers-reduced-motion:reduce){.fc-modal .fc-content{animation:none;}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://montisoro.com/home-en"},{"@type":"ListItem","position":2,"name":"Fit Check","item":"https://montisoro.com/fit-check-en"}]}</script>
-<script src="../scripts/ga4.js?v=20260901-1"></script>
+<script src="../scripts/ga4.js?v=20261012-1"></script>
 <script src="../scripts/clarity.js"></script>
 </head>
 <body class="ms-dark-hero ds2">
@@ -1400,7 +1400,7 @@ var FitCheck = {
     this.modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     this.render();
-    if (window.dataLayer) window.dataLayer.push({event:'fitcheck_open'});
+    if (window.mga4) window.mga4('fitcheck_open',{fitcheck_language:'en'});
   },
 
   close: function(){
@@ -1457,7 +1457,7 @@ var FitCheck = {
       this.saveSession();
       this.render(); // re-render to show selection + Next button
     }
-    if (window.dataLayer) window.dataLayer.push({event:'fitcheck_answer', step:this.state.step + 1, answer:value});
+    if (window.mga4) window.mga4('fitcheck_answer',{step:this.state.step + 1,fitcheck_language:'en'});
   },
 
   updateScrollCue: function(){
@@ -1800,8 +1800,8 @@ var FitCheck = {
             },
             botcheck:''
           })
-        }).then(function(r){return r.json();}).then(function(d){
-          try{ if(window.mtrack) window.mtrack('form_submit',{form:'fitcheck'}); }catch(e){}
+        }).then(function(r){return r.json().then(function(d){return {ok:r.ok&&d&&d.ok};});}).then(function(submitResult){
+          try{ if(submitResult.ok){ if(window.mtrack) window.mtrack('form_submit',{form:'fitcheck'}); if(window.mga4) window.mga4('generate_lead',{lead_source:'fitcheck_report'}); } }catch(e){}
           fcUnlockDone();
         }).catch(function(){
           fcUnlockDone();
@@ -1840,7 +1840,9 @@ var FitCheck = {
           })
           .catch(function(err){ fcReset(); alert('Could not generate the PDF \u2014 please try again.' + (err&&err.message?'\n('+err.message+')':'')); });
       });
-      if (window.dataLayer) window.dataLayer.push({event:'fitcheck_complete', route:result.route, maturity:result.maturity, scale:result.scale});
+      if (!this.state.analyticsComplete && window.mga4 && window.mga4('fitcheck_complete',{fitcheck_language:'en'})){
+        this.state.analyticsComplete=true; this.saveSession();
+      }
     }
   }
 };
