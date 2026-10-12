@@ -15,6 +15,11 @@ const clarity = read('website/scripts/clarity.js');
 const motion = read('website/scripts/motion.js');
 const privacyNl = read('website/pages/privacy.html');
 const privacyEn = read('website/pages/privacy-en.html');
+const fitCheckNl = read('website/pages/fit-check.html');
+const fitCheckEn = read('website/pages/fit-check-en.html');
+const contactNl = read('website/pages/contact.html');
+const contactEn = read('website/pages/contact-en.html');
+const calculator = read('website/scripts/calculator.js');
 const publicHeaders = read('website/_headers');
 const adminSource = read('admin-panel/scripts/admin-analyse.js');
 const adminPublic = read('website/admin-panel/scripts/admin-analyse.js');
@@ -41,6 +46,19 @@ requireText(privacyNl, 'sessie-opnamen', 'Privacy NL');
 requireText(privacyEn, 'session recordings', 'Privacy EN');
 forbidText(privacyNl, 'Vandaag gebruiken we <strong>geen optionele cookies</strong>', 'Privacy NL');
 forbidText(privacyEn, 'Today we use <strong>no optional cookies</strong>', 'Privacy EN');
+
+for (const [label, source] of [['Fit-check NL', fitCheckNl], ['Fit-check EN', fitCheckEn]]) {
+  requireText(source, "window.mga4('fitcheck_complete'", label);
+  requireText(source, "window.mga4('generate_lead',{lead_source:'fitcheck_report'})", label);
+  if (source.indexOf("window.mga4('fitcheck_complete'") > source.indexOf('this.renderResult();')) {
+    failures.push(`${label}: fitcheck_complete wordt pas na de resultaatweergave aangeroepen.`);
+  }
+}
+for (const [label, source] of [['Contact NL', contactNl], ['Contact EN', contactEn]]) {
+  requireText(source, "window.mga4('generate_lead',{lead_source:'booking'})", label);
+  requireText(source, "window.mga4('generate_lead',{lead_source:'contact_form'})", label);
+}
+requireText(calculator, "window.mga4('generate_lead',{lead_source:'calculator_report'})", 'Calculator');
 
 if (adminSource !== adminPublic) failures.push('De twee admin-analysebestanden zijn niet identiek.');
 requireText(adminPublic, 'https://clarity.microsoft.com/projects/view/xmf5h83z44/heatmaps', 'Admin heatmap');

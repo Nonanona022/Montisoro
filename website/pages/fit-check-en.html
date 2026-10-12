@@ -1482,6 +1482,9 @@ var FitCheck = {
     this.updateStepper();
     if (this.state.step >= QUESTIONS.length){
       try{ if(window.mtrack && !window.__fcDone){ window.__fcDone=1; window.mtrack('fitcheck_completed',{}); } }catch(e){}
+      if (!this.state.analyticsComplete && window.mga4 && window.mga4('fitcheck_complete',{fitcheck_language:'en'})){
+        this.state.analyticsComplete=true; this.saveSession();
+      }
       this.renderResult();
       return;
     }
@@ -1840,9 +1843,6 @@ var FitCheck = {
           })
           .catch(function(err){ fcReset(); alert('Could not generate the PDF \u2014 please try again.' + (err&&err.message?'\n('+err.message+')':'')); });
       });
-      if (!this.state.analyticsComplete && window.mga4 && window.mga4('fitcheck_complete',{fitcheck_language:'en'})){
-        this.state.analyticsComplete=true; this.saveSession();
-      }
     }
   }
 };
