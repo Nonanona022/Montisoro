@@ -348,7 +348,6 @@
   object-fit:cover;
   object-position:center;
 }
-.cs2-about.cs2-about-no-photo{grid-template-columns:1fr;}
 #cs2-root[data-slug="referentie-case-feneko"] .cs2-photo > img{object-position:center 50%;}
 #cs2-root[data-slug="referentie-case-alcon"] .cs2-photo > img{object-position:center 48%;}
 #cs2-root[data-slug="referentie-case-volvo"] .cs2-photo{

@@ -96,19 +96,18 @@
     '</div></section>';
 
   /* 02 OVER HET BEDRIJF */
-  var hasAboutPhoto = c.photo_about !== 'none';
   html += '<section class="chapter light" data-screen-label="' + esc(T.lbAbout) + '">' +
     '<div class="chapter-inner">' +
       '<span class="eyebrow on-light">' + T.about + '</span>' +
       '<h2 class="title h-section on-light">' + emph(f('about_title')) + '</h2>' +
-      '<div class="cs2-about' + (hasAboutPhoto ? '' : ' cs2-about-no-photo') + '">' +
+      '<div class="cs2-about">' +
         '<div class="cs2-facts">' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kSector + '</div><div class="cs2-fact-v">' + esc(f('fact_sector')) + '</div></div></div>' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kFoot + '</div><div class="cs2-fact-v">' + footprint() + '</div></div></div>' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kScope + '</div><div class="cs2-fact-v">' + esc(f('fact_scope')) + '</div></div></div>' +
           '<div class="cs2-fact"><div><div class="cs2-fact-k">' + T.kTech + '</div><div class="cs2-fact-v">' + (c.tech ? 'SaaS-platform ' + esc(c.tech) : L('NVT','N/A')) + '</div></div></div>' +
         '</div>' +
-        (hasAboutPhoto ? '<div class="cs2-photo rv">' + photoInner('about', 'rounded', 16, T.photoAbout, c.photo_about) + '</div>' : '') +
+        '<div class="cs2-photo rv">' + photoInner('about', 'rounded', 16, T.photoAbout, c.photo_about) + '</div>' +
       '</div>' +
     '</div></section>';
 

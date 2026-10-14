@@ -46,6 +46,17 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /Referentie-en.html   /references-en  301!
 /pages/Home.html      /               301!
 /pages/Home           /               301!
+# ── Verwijderde Novartis-case → referentie-overzicht (alle oude NL/EN-vormen) ──
+/referentie-case-novartis              /referentie     301!
+/referentie-case-novartis.html         /referentie     301!
+/reference-case-novartis-en            /references-en  301!
+/reference-case-novartis-en.html       /references-en  301!
+/referentie-case-novartis-en           /references-en  301!
+/referentie-case-novartis-en.html      /references-en  301!
+/pages/referentie-case-novartis        /referentie     301!
+/pages/referentie-case-novartis.html   /referentie     301!
+/pages/reference-case-novartis-en      /references-en  301!
+/pages/reference-case-novartis-en.html /references-en  301!
 /pages/referentie-case.html  /referentie-case-volvo     301!
 /pages/reference-case-en.html /reference-case-volvo-en   301!
 /pages/:slug.html     /:slug          301!
@@ -70,8 +81,6 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /referentie-case-feneko-en.html   /reference-case-feneko-en     301!
 /referentie-case-lonza-en         /reference-case-lonza-en      301!
 /referentie-case-lonza-en.html    /reference-case-lonza-en      301!
-/referentie-case-novartis-en      /reference-case-novartis-en   301!
-/referentie-case-novartis-en.html /reference-case-novartis-en   301!
 
 # ── OUDE WEBSITE (pre-2026, /nl/…) → nieuwe pagina's (301, SEO-waarde mee) ──
 /nl/home                                      /            301

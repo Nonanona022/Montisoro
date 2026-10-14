@@ -36,6 +36,10 @@ for (const [language, relativePath, formattedSalary] of pages) {
     /calculator\.js\?v=20261014-2/.test(html),
     `${language}: de calculator gebruikt geen versiegebonden script-URL.`
   );
+  assert(!html.includes('class="b-logos"'), `${language}: de verwijderde logostrook staat nog in de HTML.`);
 }
+
+const calculatorCss = fs.readFileSync(path.join(root, 'website/stylesheets/calculator.css'), 'utf8');
+assert(!/\.b-logos|bLogoScroll/.test(calculatorCss), 'De verwijderde logostrook heeft nog dode CSS of animatiecode.');
 
 console.log('✓ Calculatordefaults en cachebeveiliging zijn consistent in NL en EN');

@@ -82,43 +82,6 @@ window.MONTISORO_CASES = [
     quote_role_nl: 'HR Manager', quote_role_en: 'HR Manager'
   },
   {
-    slug: 'referentie-case-novartis', company: 'Novartis Manufacturing Puurs', logo: '../assets/logos/novartis.png',
-    eyebrow_nl: 'Farmaceutische productie', eyebrow_en: 'Pharmaceutical manufacturing',
-    hero_title_nl: 'Verbinding vooraan, *grip* als resultaat.', hero_title_en: 'Connection up front, *control* as the result.',
-    hero_sum_nl: 'Bij Novartis Manufacturing Puurs vertaalde Montisoro de aanpak van langdurig verzuim naar echte verbinding met de medewerker — met scherp beleid, SMT-overleg, nauwe samenwerking met de arbeidsarts en onderzoeken die op tijd gepland staan.',
-    hero_sum_en: 'At Novartis Manufacturing Puurs, Montisoro turned the approach to long-term absence into genuine connection with the employee — with a sharp policy, SMT consultation, close collaboration with the occupational physician and examinations scheduled on time.',
-    about_title_nl: 'Internationale referentie in *biologicals en oogzorg.*', about_title_en: 'An international reference in *biologics and eye care.*',
-    fact_sector_nl: 'Farmaceutische productie', fact_sector_en: 'Pharmaceutical manufacturing',
-    foot_loc: '1', foot_mdw: '1100', foot_txt_nl: '', foot_txt_en: '',
-    fact_scope_nl: 'Langdurig verzuim.', fact_scope_en: 'Long-term absence.',
-    tech: 'Storm',
-    photo_about: 'none', photo_approach: 'none', quote_photo: '',
-    chal_title_nl: 'Stijgend verzuim, steeds *minder grip*.', chal_title_en: 'Rising absence, less and less *grip*.',
-    chal_nl: ['Langdurig verzuim liep op, zonder dat iemand er echt grip op had.','Een re-integratiebeleid dat ontbrak, waardoor richting soms zoek was.','Versnipperde opvolging en informatie tussen HR, leidinggevende en arbeidsarts — niemand hield het overzicht.','Onderzoeken volgden één vaste structuur, niet afgestemd op ieders werkhervattingsmogelijkheden.','Niemand had scherp zicht op de verzuimcijfers en de trends erachter.'],
-    chal_en: ['Long-term absence was rising, without anyone truly having a grip on it.','A missing return-to-work policy, which meant direction was sometimes lost.','Fragmented follow-up and information between HR, managers and the occupational physician — no one kept the overview.','Examinations followed one fixed structure, not tailored to each person\'s return-to-work options.','No one had a sharp view of the absence figures and the trends behind them.'],
-    appr_title_nl: 'Eén traject in *zes* stappen.', appr_title_en: 'One journey in *six* steps.',
-    appr_nl: ['We brachten de verzuimcijfers, processen en knelpunten van de site in kaart.','Samen bouwden we een verzuimstrategie en -beleid op maat van Puurs.','We voerden structureel SMT-overleg in, mét leidinggevenden, over complexe dossiers.','De samenwerking met de arbeidsarts werd nauwer en beter afgestemd.','Just in time onderzoeken, afgestemd op de werkhervattingsmogelijkheden van het individu.','Meer ruimte voor ander of aangepast werk dat leidt tot duurzame inzetbaarheid.'],
-    appr_en: ['We mapped the site\'s absence figures, processes and bottlenecks.','Together we built an absence strategy and policy tailored to Puurs.','We introduced structural SMT consultation, with managers, on complex cases.','Collaboration with the occupational physician became closer and better aligned.','Just-in-time examinations, tailored to the individual\'s return-to-work options.','More room for other or adapted work that leads to sustainable employability.'],
-    res_title_nl: 'Wat de samenwerking *opleverde.*', res_title_en: 'What the collaboration *delivered.*',
-    results: [
-      { t_nl:'Re-integratiestrategie en beleid', t_en:'Return-to-work strategy and policy', d_nl:'Eén re-integratiebeleid, gedragen door HR en leidinggevenden.', d_en:'One return-to-work policy, carried by HR and managers.' },
-      { t_nl:'Sneller, duurzaam re-integreren', t_en:'Faster, sustainable return-to-work', d_nl:'90 → 59 langdurige verzuimcases in 9 maanden — een daling van 34%.', d_en:'90 → 59 long-term absence cases in 9 months — a 34% drop.' },
-      { t_nl:'Sterkere samenwerking', t_en:'Stronger collaboration', d_nl:'Non-clinical casemanagement verbindt HR, leidinggevenden, arbeidsarts.', d_en:'Non-clinical case management connects HR, managers and physician.' },
-      { t_nl:'Structureel overleg', t_en:'Structural consultation', d_nl:'Een vast SMT-overleg voor de opvolging van complexe dossiers.', d_en:'A fixed SMT consultation for following up complex cases.' },
-      { t_nl:'Meer grip', t_en:'More grip', d_nl:'Scherp zicht op verzuimcijfers en de trends erachter.', d_en:'A sharp view of absence figures and the trends behind them.' }
-    ],
-    glance_sub_nl: 'De hele case in *vier* punten.', glance_sub_en: 'The whole case in *four* points.',
-    glance: [
-      { t_nl:'Uitdaging', t_en:'Challenge', d_nl:'Langdurig verzuim, zonder consequente aanpak of houvast.', d_en:'Long-term absence, without a consistent approach or anchor.' },
-      { t_nl:'Aanpak', t_en:'Approach', d_nl:'Verzuimstrategie, SMT-overleg en nauwe samenwerking met de arbeidsarts.', d_en:'Absence strategy, SMT consultation and close collaboration with the physician.' },
-      { t_nl:'Resultaat', t_en:'Result', d_nl:'Duidelijke daling van het aantal langdurige dossiers: 34% op 9 maanden tijd.', d_en:'A clear drop in the number of long-term cases: 34% in 9 months.' },
-      { t_nl:'Duur', t_en:'Duration', d_nl:'Gestart in november 2024, meerjarig traject van 3 jaar voor continuïteit.', d_en:'Started in November 2024, a multi-year 3-year programme for continuity.' }
-    ],
-    quote_nl: '', quote_en: '',
-    quote_name: '',
-    quote_role_nl: '', quote_role_en: ''
-  },
-  {
     slug: 'referentie-case-lonza', company: 'Lonza', logo: '../assets/logos/lonza.svg',
     eyebrow_nl: 'Life sciences', eyebrow_en: 'Life sciences',
     hero_title_nl: 'Rust en onderbouwing als *basis*.', hero_title_en: 'Calm and evidence as the *foundation*.',

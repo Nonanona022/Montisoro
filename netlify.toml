@@ -262,6 +262,67 @@
   status = 301
   force = true
 
+# Verwijderde Novartis-case: alle oude NL/EN-vormen in één hop naar het referentie-overzicht.
+[[redirects]]
+  from = "/referentie-case-novartis"
+  to = "/referentie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/referentie-case-novartis.html"
+  to = "/referentie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reference-case-novartis-en"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reference-case-novartis-en.html"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/referentie-case-novartis-en"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/referentie-case-novartis-en.html"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/referentie-case-novartis"
+  to = "/referentie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/referentie-case-novartis.html"
+  to = "/referentie"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/reference-case-novartis-en"
+  to = "/references-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/reference-case-novartis-en.html"
+  to = "/references-en"
+  status = 301
+  force = true
+
 # Overige: /pages/X(.html) én /X.html → schone extensieloze /X
 [[redirects]]
   from = "/pages/:slug.html"
@@ -363,12 +424,6 @@
   to = "/reference-case-lonza-en"
   status = 301
   force = true
-[[redirects]]
-  from = "/referentie-case-novartis-en"
-  to = "/reference-case-novartis-en"
-  status = 301
-  force = true
-
 # Legacy bronroute zonder inhoudelijk equivalent: echte 404 voor Google-opruiming.
 [[redirects]]
   from = "/source/M"

@@ -7,6 +7,8 @@ const root = path.resolve(__dirname, '..');
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 const css = read('website/stylesheets/site.css');
 const cases = read('website/data/cases.js');
+const testimonials = read('website/data/testimonials.js');
+const motion = read('website/scripts/motion.js');
 const netlify = read('netlify.toml');
 const redirects = read('website/_redirects');
 
@@ -59,9 +61,36 @@ for (const image of ['volvo-truck-production.jpg', 'alcon-cleanroom.jpg', 'fenek
   assert(size < 250000, `${image}: geoptimaliseerde foto is nog groter dan 250 KB.`);
 }
 
-assert(!cases.includes('novartis-about.'), 'De niet-gepubliceerde Novartis-case mag geen casefoto refereren.');
+assert(!/novartis/i.test(cases), 'De verwijderde Novartis-case mag niet in de case-data blijven staan.');
+assert(!/novartis/i.test(testimonials), 'De verwijderde Novartis-case mag niet in de testimonialdata blijven staan.');
+assert(!/referentie-case-novartis|reference-case-novartis/i.test(motion), 'De verwijderde Novartis-route mag niet in de taalroutering blijven staan.');
 assert(!fs.existsSync(path.join(root, 'website/assets/cases/novartis-about.jpg')), 'De Novartis-JPG mag niet in de website staan.');
 assert(!fs.existsSync(path.join(root, 'website/assets/cases/novartis-about.png')), 'De Novartis-PNG mag niet in de website staan.');
+assert(!fs.existsSync(path.join(root, 'website/pages/referentie-case-novartis.html')), 'De Nederlandse Novartis-casepagina moet verwijderd zijn.');
+assert(!fs.existsSync(path.join(root, 'website/pages/reference-case-novartis-en.html')), 'De Engelse Novartis-casepagina moet verwijderd zijn.');
+
+const escapeRegex = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const novartisRedirects = [
+  ['/referentie-case-novartis', '/referentie'],
+  ['/referentie-case-novartis.html', '/referentie'],
+  ['/reference-case-novartis-en', '/references-en'],
+  ['/reference-case-novartis-en.html', '/references-en'],
+  ['/referentie-case-novartis-en', '/references-en'],
+  ['/referentie-case-novartis-en.html', '/references-en'],
+  ['/pages/referentie-case-novartis', '/referentie'],
+  ['/pages/referentie-case-novartis.html', '/referentie'],
+  ['/pages/reference-case-novartis-en', '/references-en'],
+  ['/pages/reference-case-novartis-en.html', '/references-en']
+];
+
+for (const [from, to] of novartisRedirects) {
+  const netlifyRule = new RegExp(
+    `\\[\\[redirects\\]\\]\\s*from = "${escapeRegex(from)}"\\s*to = "${escapeRegex(to)}"\\s*status = 301\\s*force = true`
+  );
+  const fallbackRule = new RegExp(`^${escapeRegex(from)}\\s+${escapeRegex(to)}\\s+301!$`, 'm');
+  assert(netlifyRule.test(netlify), `Netlify mist de permanente redirect van ${from} naar ${to}.`);
+  assert(fallbackRule.test(redirects), `De fallbackredirect van ${from} naar ${to} ontbreekt.`);
+}
 
 assert(!cases.includes('Volvo Group'), 'De case-data moet overal Volvo Trucks gebruiken.');
 
@@ -76,4 +105,4 @@ assert(/from = "\/reference-case-en"[\s\S]*?to = "\/reference-case-volvo-en"[\s\
 assert(redirects.includes('/referentie-case.html              /referentie-case-volvo         301!'), 'De fallbackredirect voor de oude Nederlandse .html-URL ontbreekt.');
 assert(redirects.includes('/reference-case-en.html            /reference-case-volvo-en       301!'), 'De fallbackredirect voor de oude Engelse .html-URL ontbreekt.');
 
-console.log('✓ Casefoto’s, Volvo-canonicals en permanente redirects zijn correct');
+console.log('✓ Casefoto’s, opgeschoonde Novartis-case, Volvo-canonicals en permanente redirects zijn correct');

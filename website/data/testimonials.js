@@ -76,22 +76,5 @@ window.MONTISORO_TESTIMONIALS = [
     pdf: '',
     order: 4,
     active: true
-  },
-  {
-    id: 't5',
-    company: 'Novartis Manufacturing Puurs',
-    company_en: 'Novartis Manufacturing Puurs',
-    logo: '../assets/logos/novartis.png',
-    role_nl: 'Farmaceutische productie · 1.100 medewerkers',
-    role_en: 'Pharmaceutical manufacturing · 1,100 employees',
-    title_nl: 'Verbinding vooraan, grip als resultaat',
-    title_en: 'Connection up front, control as the result',
-    quote_nl: 'Van vastgelopen dossiers naar trajecten die vooruitgaan: heldere afspraken tussen non-clinical casemanager, HR, leidinggevenden en arbeidsarts.',
-    quote_en: 'From stalled cases to journeys that move forward: clear agreements between the non-clinical case manager, HR, managers and the occupational physician.',
-    link_nl: 'referentie-case-novartis.html',
-    link_en: 'reference-case-novartis-en.html',
-    pdf: '',
-    order: 3,
-    active: false
   }
 ];
