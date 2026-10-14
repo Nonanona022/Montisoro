@@ -10,12 +10,12 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms https://scripts.clarity.ms; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https://www.googletagmanager.com https://*.google-analytics.com https://*.clarity.ms https://c.bing.com; frame-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.clarity.ms https://c.bing.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests;
 
-# Stylesheets/scripts/assets — files are NOT fingerprinted (no build step),
-# so cache for 1 day instead of 1 year. Updates propagate within 24h.
+# Stylesheets/assets are not fingerprinted (no build step). JavaScript is
+# revalidated on every visit so functional fixes cannot remain stale for 24h.
 /stylesheets/*
   Cache-Control: public, max-age=86400, must-revalidate
 /scripts/*
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
 /services/*
   Cache-Control: public, max-age=86400, must-revalidate
 /utils/*

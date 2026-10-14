@@ -5,7 +5,7 @@
   "description": "Montisoro FASE 2 — calculator report backend (Netlify Functions)",
   "engines": { "node": ">=18" },
   "scripts": {
-    "test": "node test/run-engine-tests.js",
+    "test": "node test/run-engine-tests.js && node test/run-calculator-default-tests.js",
     "analytics:verify": "node verify-analytics-privacy.mjs",
     "seo:generate-content": "node generate-seo-pages.mjs",
     "seo:generate-sitemap": "node generate-sitemap.mjs",
