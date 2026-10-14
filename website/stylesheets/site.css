@@ -350,4 +350,11 @@
 }
 #cs2-root[data-slug="referentie-case-feneko"] .cs2-photo > img{object-position:center 50%;}
 #cs2-root[data-slug="referentie-case-alcon"] .cs2-photo > img{object-position:center 48%;}
-#cs2-root[data-slug="referentie-case"] .cs2-photo > img{object-position:center 48%;}
+#cs2-root[data-slug="referentie-case"] .cs2-photo{
+  height:auto;
+  aspect-ratio:16 / 9;
+}
+#cs2-root[data-slug="referentie-case"] .cs2-photo > img{
+  object-fit:contain;
+  object-position:center;
+}

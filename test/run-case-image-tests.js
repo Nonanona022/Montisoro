@@ -20,10 +20,14 @@ assert(
   /referentie-case-alcon[\s\S]*?photo_about:\s*'\.\.\/assets\/cases\/alcon-cleanroom\.png'/.test(cases),
   'De Alcon-case moet de aangeleverde cleanroomfoto gebruiken.'
 );
+assert(
+  /#cs2-root\[data-slug="referentie-case"\][\s\S]*?aspect-ratio:16 \/ 9;[\s\S]*?object-fit:contain;/.test(css),
+  'De volledige Volvo-foto moet zonder bijkomende uitsnede in een 16:9-kader staan.'
+);
 
 const pages = [
-  ['website/pages/referentie-case.html', 'volvo-about.png', 'Medewerker in een Volvo-productieomgeving.'],
-  ['website/pages/reference-case-en.html', 'volvo-about.png', 'Employee in a Volvo production environment.'],
+  ['website/pages/referentie-case.html', 'volvo-truck-production.png', 'Rode Volvo-vrachtwagen op de productielijn in de fabriek.'],
+  ['website/pages/reference-case-en.html', 'volvo-truck-production.png', 'Red Volvo truck on the production line inside the factory.'],
   ['website/pages/referentie-case-alcon.html', 'alcon-cleanroom.png', 'Twee Alcon-medewerkers aan het werk in een cleanroom.'],
   ['website/pages/reference-case-alcon-en.html', 'alcon-cleanroom.png', 'Two Alcon employees working in a cleanroom.'],
   ['website/pages/referentie-case-feneko.html', 'feneko-about.png', 'Medewerker aan het werk in de aluminiumproductie van FenekO.'],
@@ -33,7 +37,7 @@ const pages = [
 for (const [relative, image, alt] of pages) {
   const html = read(relative);
   assert(
-    html.includes('href="../stylesheets/site.css?v=20261014-case-images-1"'),
+    html.includes('href="../stylesheets/site.css?v=20261014-case-images-2"'),
     `${relative}: de casefotocorrectie kan door oude browsercache worden overschreven.`
   );
   assert(html.includes(`src="../assets/cases/${image}"`), `${relative}: onjuist beeldbestand.`);
