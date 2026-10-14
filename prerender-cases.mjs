@@ -12,8 +12,8 @@ vm.runInContext(dataSource, dataContext, { filename: 'cases.js' });
 const cases = dataContext.window.MONTISORO_CASES;
 
 const targets = [
-  ['referentie-case.html', 'referentie-case', 'nl'],
-  ['reference-case-en.html', 'referentie-case', 'en'],
+  ['referentie-case-volvo.html', 'referentie-case-volvo', 'nl'],
+  ['reference-case-volvo-en.html', 'referentie-case-volvo', 'en'],
   ['referentie-case-alcon.html', 'referentie-case-alcon', 'nl'],
   ['reference-case-alcon-en.html', 'referentie-case-alcon', 'en'],
   ['referentie-case-feneko.html', 'referentie-case-feneko', 'nl'],

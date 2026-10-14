@@ -4,7 +4,7 @@
    Titelvelden gebruiken *sterretjes* voor het oranje serif-accent: "in *één* beweging". */
 window.MONTISORO_CASES = [
   {
-    slug: 'referentie-case', company: 'Volvo Group', logo: '../assets/logos/volvo.svg',
+    slug: 'referentie-case-volvo', company: 'Volvo Group', logo: '../assets/logos/volvo.svg',
     eyebrow_nl: 'Productie & industrie', eyebrow_en: 'Manufacturing & industry',
     hero_title_nl: 'Van versnipperde opvolging naar één *onderbouwde* aanpak.',
     hero_title_en: 'From fragmented follow-up to one *evidence-based* approach.',

@@ -23,7 +23,7 @@ const routeToFile = new Map([
   ['/disclaimer', 'disclaimer.html'], ['/disclaimer-en', 'disclaimer-en.html'],
   ['/faq', 'FAQ.html'], ['/faq-en', 'FAQ-en.html'],
   ['/referentie', 'Referentie.html'], ['/references-en', 'references-en.html'],
-  ['/referentie-case', 'referentie-case.html'], ['/reference-case-en', 'reference-case-en.html'],
+  ['/referentie-case-volvo', 'referentie-case-volvo.html'], ['/reference-case-volvo-en', 'reference-case-volvo-en.html'],
   ['/referentie-case-alcon', 'referentie-case-alcon.html'], ['/reference-case-alcon-en', 'reference-case-alcon-en.html'],
   ['/referentie-case-feneko', 'referentie-case-feneko.html'], ['/reference-case-feneko-en', 'reference-case-feneko-en.html'],
   ['/rit-3-0', 'rit-3-0.html'], ['/rit-3-0-en', 'rit-3-0-en.html'],

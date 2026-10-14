@@ -27,7 +27,7 @@ for (const [route,name] of files){
   }
 }
 
-for(const name of ['referentie-case.html','reference-case-en.html','referentie-case-alcon.html','reference-case-alcon-en.html','referentie-case-feneko.html','reference-case-feneko-en.html']){
+for(const name of ['referentie-case-volvo.html','reference-case-volvo-en.html','referentie-case-alcon.html','reference-case-alcon-en.html','referentie-case-feneko.html','reference-case-feneko-en.html']){
   const html=fs.readFileSync(path.join(pagesDir,name),'utf8');
   if(!html.includes('data-prerendered="true"')) fail(`${name}: missing pre-render marker`);
   if(!html.includes('"@type":"Article"')) fail(`${name}: missing Article schema`);

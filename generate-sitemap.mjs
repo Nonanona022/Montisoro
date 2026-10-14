@@ -12,7 +12,7 @@ const pairs = [
   ['/disclaimer', '/disclaimer-en', '2026-07-10'],
   ['/faq', '/faq-en', '2026-07-10'],
   ['/referentie', '/references-en', '2026-07-10'],
-  ['/referentie-case', '/reference-case-en', '2026-09-24'],
+  ['/referentie-case-volvo', '/reference-case-volvo-en', '2026-10-14'],
   ['/referentie-case-alcon', '/reference-case-alcon-en', '2026-09-24'],
   ['/referentie-case-feneko', '/reference-case-feneko-en', '2026-09-24'],
   ['/rit-3-0', '/rit-3-0-en', '2026-09-24'],

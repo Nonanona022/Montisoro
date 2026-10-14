@@ -46,6 +46,8 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /Referentie-en.html   /references-en  301!
 /pages/Home.html      /               301!
 /pages/Home           /               301!
+/pages/referentie-case.html  /referentie-case-volvo     301!
+/pages/reference-case-en.html /reference-case-volvo-en   301!
 /pages/:slug.html     /:slug          301!
 /pages/:slug          /:slug          301!
 
@@ -56,8 +58,12 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 /technologie-en.html              /technology-en                301!
 /referentie-en                    /references-en                301!
 /referentie-en.html               /references-en                301!
-/referentie-case-en               /reference-case-en            301!
-/referentie-case-en.html          /reference-case-en            301!
+/referentie-case                   /referentie-case-volvo         301!
+/referentie-case.html              /referentie-case-volvo         301!
+/reference-case-en                 /reference-case-volvo-en       301!
+/reference-case-en.html            /reference-case-volvo-en       301!
+/referentie-case-en                /reference-case-volvo-en       301!
+/referentie-case-en.html           /reference-case-volvo-en       301!
 /referentie-case-alcon-en         /reference-case-alcon-en      301!
 /referentie-case-alcon-en.html    /reference-case-alcon-en      301!
 /referentie-case-feneko-en        /reference-case-feneko-en     301!

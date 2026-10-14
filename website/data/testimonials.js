@@ -20,8 +20,8 @@ window.MONTISORO_TESTIMONIALS = [
     title_en: 'From fragmented follow-up to one approach',
     quote_nl: 'We brachten structuur, maakten de kosten zichtbaar en grepen sneller in waar het telde.',
     quote_en: 'We brought structure, made the costs visible and intervened sooner where it counted.',
-    link_nl: 'referentie-case.html',
-    link_en: 'reference-case-en.html',
+    link_nl: '/referentie-case-volvo',
+    link_en: '/reference-case-volvo-en',
     pdf: '',
     order: 1,
     active: true

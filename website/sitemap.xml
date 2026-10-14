@@ -156,18 +156,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie" />
   </url>
   <url>
-    <loc>https://montisoro.com/referentie-case</loc>
-    <lastmod>2026-09-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case" />
+    <loc>https://montisoro.com/referentie-case-volvo</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-volvo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-volvo-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-volvo" />
   </url>
   <url>
-    <loc>https://montisoro.com/reference-case-en</loc>
-    <lastmod>2026-09-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case" />
+    <loc>https://montisoro.com/reference-case-volvo-en</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/referentie-case-volvo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/reference-case-volvo-en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/referentie-case-volvo" />
   </url>
   <url>
     <loc>https://montisoro.com/referentie-case-alcon</loc>

@@ -805,8 +805,8 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
           : '<span class="t-logo-fallback">'+name+'</span>';
         var pdf = t.pdf
           ? '<a class="t-pdf" href="'+esc(t.pdf)+'" download>'+PDF_ICON+'Download de case</a>'
-          : '<a class="t-pdf" href="'+esc(t.link_nl||t.link||'referentie-case.html')+'">Lees meer'+ARROW_ICON+'</a>';
-        var caseHref=esc(t.link_nl||t.link||t.pdf||'referentie-case.html');
+          : '<a class="t-pdf" href="'+esc(t.link_nl||t.link||'/referentie-case-volvo')+'">Lees meer'+ARROW_ICON+'</a>';
+        var caseHref=esc(t.link_nl||t.link||t.pdf||'/referentie-case-volvo');
         var title=esc(t.title_nl||t.title||'');
         return '<div class="t-card rv" style="--d:'+(i*100)+'ms">'+
           '<div class="t-logo">'+head+'</div>'+

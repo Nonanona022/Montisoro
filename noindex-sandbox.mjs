@@ -13,7 +13,7 @@ const PROD = new Set([
   'Home.html','Home-en.html','about.html','about-en.html','aanpak.html','approach-en.html',
   'technologie.html','technology-en.html','calculator.html','calculator-en.html',
   'fit-check.html','fit-check-en.html','contact.html','contact-en.html','FAQ.html','FAQ-en.html',
-  'Referentie.html','references-en.html','referentie-case.html','reference-case-en.html',
+  'Referentie.html','references-en.html','referentie-case-volvo.html','reference-case-volvo-en.html',
   'referentie-case-alcon.html','reference-case-alcon-en.html',
   'referentie-case-feneko.html','reference-case-feneko-en.html',
   'privacy.html','privacy-en.html','disclaimer.html','disclaimer-en.html',

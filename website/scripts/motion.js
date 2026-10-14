@@ -198,7 +198,7 @@
   function localizeNavLinks(){
     var path = location.pathname.split('/').pop() || '';
     if (!/-en(?:\.html)?$/i.test(path)) return;                 // alleen EN-pagina's
-    var NL2EN = {'Home':'home-en','about':'about-en','aanpak':'approach-en','technologie':'technology-en','calculator':'calculator-en','fit-check':'fit-check-en','contact':'contact-en','privacy':'privacy-en','disclaimer':'disclaimer-en','FAQ':'faq-en','Referentie':'references-en','referentie-case':'reference-case-en','referentie-case-alcon':'reference-case-alcon-en','referentie-case-feneko':'reference-case-feneko-en','referentie-case-lonza':'reference-case-lonza-en','referentie-case-novartis':'reference-case-novartis-en'};
+    var NL2EN = {'Home':'home-en','about':'about-en','aanpak':'approach-en','technologie':'technology-en','calculator':'calculator-en','fit-check':'fit-check-en','contact':'contact-en','privacy':'privacy-en','disclaimer':'disclaimer-en','FAQ':'faq-en','Referentie':'references-en','referentie-case-volvo':'reference-case-volvo-en','referentie-case':'reference-case-volvo-en','referentie-case-alcon':'reference-case-alcon-en','referentie-case-feneko':'reference-case-feneko-en','referentie-case-lonza':'reference-case-lonza-en','referentie-case-novartis':'reference-case-novartis-en'};
     document.querySelectorAll('.m-nav-links a, a.m-nav-logo, .m-footer a, .ms-footer a').forEach(function(a){
       if (a.classList.contains('m-lang-btn') || a.classList.contains('m-lang-opt') || (a.closest && a.closest('.m-lang'))) return;
       var href = a.getAttribute('href');
@@ -413,7 +413,7 @@
       'disclaimer':{nl:'/disclaimer',en:'/disclaimer-en'},
       'faq':{nl:'/faq',en:'/faq-en'},
       'referentie':{nl:'/referentie',en:'/references-en'},
-      'referentie-case':{nl:'/referentie-case',en:'/reference-case-en'},
+      'referentie-case-volvo':{nl:'/referentie-case-volvo',en:'/reference-case-volvo-en'},
       'referentie-case-alcon':{nl:'/referentie-case-alcon',en:'/reference-case-alcon-en'},
       'referentie-case-feneko':{nl:'/referentie-case-feneko',en:'/reference-case-feneko-en'},
       'referentie-case-lonza':{nl:'/referentie-case-lonza',en:'/reference-case-lonza-en'},
@@ -432,7 +432,8 @@
       'disclaimer':'disclaimer','disclaimer-en':'disclaimer',
       'faq':'faq','faq-en':'faq',
       'referentie':'referentie','referentie-en':'referentie','references-en':'referentie','references':'referentie',
-      'referentie-case':'referentie-case','referentie-case-en':'referentie-case','reference-case-en':'referentie-case',
+      'referentie-case-volvo':'referentie-case-volvo','referentie-case-volvo-en':'referentie-case-volvo','reference-case-volvo-en':'referentie-case-volvo',
+      'referentie-case':'referentie-case-volvo','referentie-case-en':'referentie-case-volvo','reference-case-en':'referentie-case-volvo',
       'referentie-case-alcon':'referentie-case-alcon','referentie-case-alcon-en':'referentie-case-alcon','reference-case-alcon-en':'referentie-case-alcon',
       'referentie-case-feneko':'referentie-case-feneko','referentie-case-feneko-en':'referentie-case-feneko','reference-case-feneko-en':'referentie-case-feneko',
       'referentie-case-lonza':'referentie-case-lonza','referentie-case-lonza-en':'referentie-case-lonza','reference-case-lonza-en':'referentie-case-lonza',

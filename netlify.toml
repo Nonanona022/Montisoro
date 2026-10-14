@@ -345,7 +345,7 @@
   force = true
 [[redirects]]
   from = "/referentie-case-en"
-  to = "/reference-case-en"
+  to = "/reference-case-volvo-en"
   status = 301
   force = true
 [[redirects]]
@@ -380,6 +380,49 @@
   from = "/source/m"
   to = "/pages/404.html"
   status = 404
+  force = true
+
+# Volvo-case: beschrijvende canonieke URL's, met permanente redirects vanaf alle oude adressen.
+[[redirects]]
+  from = "/referentie-case"
+  to = "/referentie-case-volvo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/referentie-case.html"
+  to = "/referentie-case-volvo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reference-case-en"
+  to = "/reference-case-volvo-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/reference-case-en.html"
+  to = "/reference-case-volvo-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/referentie-case-en.html"
+  to = "/reference-case-volvo-en"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/referentie-case.html"
+  to = "/referentie-case-volvo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pages/reference-case-en.html"
+  to = "/reference-case-volvo-en"
+  status = 301
   force = true
 
 # Legacy .html blijft werken (200-serve; canonical dedupt naar extensieloos)
