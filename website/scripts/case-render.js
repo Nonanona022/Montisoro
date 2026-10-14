@@ -174,11 +174,13 @@
 
   function photoInner(id, shape, radius, placeholder, val, wrapCls){
     // returns the inner element(s) for a photo container; caller wraps except quote
+    var customAlt = f('photo_' + id + '_alt');
+    var imageAlt = customAlt || (placeholder ? c.company + ' \u2014 ' + placeholder : c.company);
     if (wrapCls){
-      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt="' + esc(placeholder ? c.company + ' \u2014 ' + placeholder : c.company) + '"></div>'; }
+      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt="' + esc(imageAlt) + '"></div>'; }
       return '<div class="' + wrapCls + '"><image-slot id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '" placeholder="' + esc(placeholder) + '"></image-slot></div>';
     }
-    if (val){ return '<img src="' + esc(val) + '" alt="' + esc(placeholder ? c.company + ' \u2014 ' + placeholder : c.company) + '">'; }
+    if (val){ return '<img src="' + esc(val) + '" alt="' + esc(imageAlt) + '" loading="lazy" decoding="async">'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<image-slot ' + attr + '></image-slot>';
   }
