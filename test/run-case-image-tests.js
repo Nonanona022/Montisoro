@@ -54,10 +54,14 @@ for (const [relative, image, width, height, alt] of pages) {
   assert(!/alt="[^"]*Sleep hier een sfeerfoto/.test(html), `${relative}: interne placeholder staat nog in de alt-tekst.`);
 }
 
-for (const image of ['volvo-truck-production.jpg', 'alcon-cleanroom.jpg', 'feneko-about.jpg', 'novartis-about.jpg']) {
+for (const image of ['volvo-truck-production.jpg', 'alcon-cleanroom.jpg', 'feneko-about.jpg']) {
   const size = fs.statSync(path.join(root, 'website/assets/cases', image)).size;
   assert(size < 250000, `${image}: geoptimaliseerde foto is nog groter dan 250 KB.`);
 }
+
+assert(!cases.includes('novartis-about.'), 'De niet-gepubliceerde Novartis-case mag geen casefoto refereren.');
+assert(!fs.existsSync(path.join(root, 'website/assets/cases/novartis-about.jpg')), 'De Novartis-JPG mag niet in de website staan.');
+assert(!fs.existsSync(path.join(root, 'website/assets/cases/novartis-about.png')), 'De Novartis-PNG mag niet in de website staan.');
 
 assert(!cases.includes('Volvo Group'), 'De case-data moet overal Volvo Trucks gebruiken.');
 
