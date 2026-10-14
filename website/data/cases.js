@@ -17,7 +17,7 @@ window.MONTISORO_CASES = [
     fact_scope_nl: 'Kort- en langdurig verzuim, re-integratie en inzetbaarheid.', fact_scope_en: 'Short- and long-term absence, return-to-work and employability.',
     tech: 'Storm',
     photo_about: '../assets/cases/volvo-about.png', photo_approach: 'none', quote_photo: '',
-    chal_title_nl: 'Stijgend verzuim, steeds *minder grip*.', chal_title_en: 'Rising absence, less and less *grip*.',
+    chal_title_nl: 'Stijgend verzuim, steeds *minder vat op de dossiers*.', chal_title_en: 'Rising absence, less and less *control over the cases*.',
     chal_nl: ['Stijgend ziekteverzuim en complexe dossiers','Gebrek aan een uniforme en duidelijke aanpak','Beperkte interne capaciteit en expertise','Nood aan meer betrokkenheid van leidinggevenden','Vraag naar duurzame en mensgerichte re-integratie'],
     chal_en: ['Rising absence and complex cases','No uniform, clear approach','Limited internal capacity and expertise','A need for more manager involvement','Demand for sustainable, people-centred return-to-work'],
     appr_title_nl: 'Eén traject in *zes* stappen.', appr_title_en: 'One journey in *six* steps.',
@@ -35,7 +35,7 @@ window.MONTISORO_CASES = [
     glance: [
       { t_nl:'Uitdaging', t_en:'Challenge', d_nl:'Stijgend verzuim, complexe dossiers en gebrek aan uniforme aanpak.', d_en:'Rising absence, complex cases and no uniform approach.' },
       { t_nl:'Aanpak', t_en:'Approach', d_nl:'Analyse, workshops, aanpak op maat, coaching en begeleiding.', d_en:'Analysis, workshops, tailored approach, coaching and guidance.' },
-      { t_nl:'Resultaat', t_en:'Result', d_nl:'Meer grip, snellere opvolging en duurzame verankering in de organisatie.', d_en:'More grip, faster follow-up and lasting embedding in the organisation.' },
+      { t_nl:'Resultaat', t_en:'Result', d_nl:'Meer inzicht, snellere opvolging en duurzame verankering in de organisatie.', d_en:'More insight, faster follow-up and lasting embedding in the organisation.' },
       { t_nl:'Duur', t_en:'Duration', d_nl:'Het traject liep over 6 maanden met een blijvende impact.', d_en:'The programme ran over 6 months with lasting impact.' }
     ],
     quote_nl: 'Montisoro bracht rust en structuur in complexe dossiers. We hebben nu een aanpak die uitlegbaar is, naar onze mensen én naar de organisatie.',
