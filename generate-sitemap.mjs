@@ -19,7 +19,6 @@ const pairs = [
   ['/langdurig-verzuim', '/long-term-absence-en', '2026-09-24'],
   ['/non-clinical-casemanager', '/non-clinical-case-manager-en', '2026-09-24'],
   ['/verzuimbeleid', '/absence-policy-en', '2026-09-24'],
-  ['/calculator-methodologie', '/calculator-methodology-en', '2026-09-24'],
 ];
 
 const absolute = route => `https://montisoro.com${route === '/' ? '/' : route}`;

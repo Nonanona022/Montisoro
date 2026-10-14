@@ -30,7 +30,6 @@ const routeToFile = new Map([
   ['/langdurig-verzuim', 'langdurig-verzuim.html'], ['/long-term-absence-en', 'long-term-absence-en.html'],
   ['/non-clinical-casemanager', 'non-clinical-casemanager.html'], ['/non-clinical-case-manager-en', 'non-clinical-case-manager-en.html'],
   ['/verzuimbeleid', 'verzuimbeleid.html'], ['/absence-policy-en', 'absence-policy-en.html'],
-  ['/calculator-methodologie', 'calculator-methodologie.html'], ['/calculator-methodology-en', 'calculator-methodology-en.html'],
 ]);
 
 const additionalPublicPages = new Set([
@@ -109,6 +108,17 @@ for (const oldPath of ['/nl/france', '/nl/literatuur', '/nl/subsidies', '/nl/sit
   if (!new RegExp(`^${escaped}\\s+\/pages\/404\\.html\\s+404!$`, 'm').test(redirects)) {
     fail(`Obsolete URL does not return a forced 404: ${oldPath}`);
   }
+}
+for (const [oldPath, destination] of [
+  ['/calculator-methodologie', '/calculator'],
+  ['/calculator-methodology-en', '/calculator-en'],
+]) {
+  const escaped = oldPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (!new RegExp(`^${escaped}\\s+${destination}\\s+301!$`, 'm').test(redirects)) {
+    fail(`Removed methodology URL does not redirect permanently: ${oldPath}`);
+  }
+  const legacyFile = path.join(PAGES, `${oldPath.slice(1)}.html`);
+  if (fs.existsSync(legacyFile)) fail(`Removed methodology page still exists: ${legacyFile}`);
 }
 
 const headers = fs.readFileSync(path.join(ROOT, '_headers'), 'utf8');

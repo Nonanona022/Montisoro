@@ -118,6 +118,10 @@ https://www.montisoro.be/*    https://montisoro.com/:splat    301!
 # redirect naar de homepage. Zo kan Google onbekende legacy-URL's opruimen.
 /nl/*                                         /pages/404.html 404!
 
+# ── Verwijderde methodologiepagina's → calculator ──
+/calculator-methodologie     /calculator     301!
+/calculator-methodology-en   /calculator-en  301!
+
 # ── Schone URL's serveren (200 rewrite, URL blijft schoon) ──
 /                     /pages/Home.html             200!
 /home-en              /pages/Home-en.html          200!

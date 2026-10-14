@@ -253,18 +253,4 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/absence-policy-en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/verzuimbeleid" />
   </url>
-  <url>
-    <loc>https://montisoro.com/calculator-methodologie</loc>
-    <lastmod>2026-09-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator-methodologie" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-methodology-en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator-methodologie" />
-  </url>
-  <url>
-    <loc>https://montisoro.com/calculator-methodology-en</loc>
-    <lastmod>2026-09-24</lastmod>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://montisoro.com/calculator-methodologie" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://montisoro.com/calculator-methodology-en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://montisoro.com/calculator-methodologie" />
-  </url>
 </urlset>

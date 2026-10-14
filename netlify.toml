@@ -279,6 +279,18 @@
 # SCHONE URL's SERVEREN (200 rewrite — URL blijft schoon, geen hop)
 # ═══════════════════════════════════════════════════════════════════
 [[redirects]]
+  from = "/calculator-methodologie"
+  to = "/calculator"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/calculator-methodology-en"
+  to = "/calculator-en"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/"
   to = "/pages/Home.html"
   status = 200

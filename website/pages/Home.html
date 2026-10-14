@@ -134,6 +134,7 @@ img{max-width:100%;display:block;}
 .hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-top:0;margin-bottom:22px;display:flex;align-items:center;gap:12px;}
 .hero-headline{font-family:var(--serif);font-weight:900;font-size:clamp(40px,5.2vw,72px);line-height:.96;color:var(--white);letter-spacing:-.025em;max-width:14ch;}
 .hero-headline em{font-style:italic;color:var(--orange);font-weight:900;}
+.hero-tagline.in{opacity:1;transform:none;}
 .hero-meta{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);margin-top:clamp(24px,3.2vw,40px);align-items:end;}
 .hero-body{font-weight:300;font-size:clamp(15px,1.5vw,17px);line-height:1.85;color:rgba(240,237,232,0.82);max-width:52ch;}
 .hero-body strong{color:var(--off);font-weight:500;}
@@ -236,6 +237,7 @@ body.theme-light .t-logo img{filter:brightness(0);opacity:.5;}
 body.theme-light .t-card:hover .t-logo img{opacity:.85;}
 .t-logo-fallback{font-family:var(--serif);font-weight:700;font-size:clamp(26px,2.8vw,34px);color:var(--orange);letter-spacing:-.02em;line-height:1;}
 .t-title{font-family:var(--sans);font-size:clamp(18px,1.8vw,22px);font-weight:600;color:var(--off);letter-spacing:-.01em;line-height:1.24;margin-bottom:clamp(12px,1.6vw,18px);transition:color .25s var(--ease);}
+@media(min-width:781px){.t-title{min-height:calc(2 * 1.24em);}}
 .t-text{font-size:clamp(14px,1.4vw,15px);font-weight:300;color:var(--muted-d);line-height:1.72;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .t-foot{margin-top:auto;padding-top:clamp(24px,2.8vw,34px);}
 .t-pdf{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);text-decoration:none;border:none;border-radius:0;padding:0;background:none;transition:gap .2s var(--ease),color .2s var(--ease);}
@@ -680,7 +682,7 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
   <div class="hero-lines" aria-hidden="true"></div>
   <div class="eb hero-inner">
     <h1 class="hero-headline" id="heroHL"><span class="line"><span class="w"><span class="re">Re</span>integrate</span></span> <span class="line"><span class="w"><span class="what">What</span></span> <span class="w">Matters</span></span></h1>
-    <p class="hero-tagline" style="font-family:var(--sans);font-weight:400;font-size:clamp(15px,1.6vw,19px);line-height:1.5;color:rgba(240,237,232,.88);margin-top:16px;max-width:34ch;opacity:1 !important;transform:none !important;">Technologie en expertise om verzuim écht te verminderen.</p>
+    <p class="hero-tagline" style="font-family:var(--sans);font-weight:400;font-size:clamp(15px,1.6vw,19px);line-height:1.5;color:rgba(240,237,232,.88);margin-top:16px;max-width:34ch;">Technologie en expertise om verzuim écht te verminderen.</p>
     <div class="hero-meta">
       <div class="rv" style="--d:300ms">
         <div class="hero-cta">
@@ -700,26 +702,25 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
     <div class="hero-data-grid">
       <div class="hd-stat rv" style="--d:0ms">
         <p class="hd-tag">Ervaring</p>
-        <div class="hd-num" data-count="2.500+" data-icon-label="en meer"><i class="ph-light ph-caret-right hd-num-icon" role="img" aria-label="en meer"></i>2.500</div>
+        <div class="hd-num" data-count="2.500+" data-icon="none">2.500+</div>
         <p class="hd-lbl">Re-integratiecases</p>
       </div>
       <div class="hd-stat rv" style="--d:120ms">
-        <p class="hd-tag">Impact</p>
-        <div class="hd-num" data-count="+€14,7M"><i class="ph-light ph-caret-right hd-num-icon" role="img" aria-label="toename"></i>€14,7M</div>
-        <p class="hd-lbl">Besparing uitkeringen</p>
+        <p class="hd-tag">Reductie</p>
+        <div class="hd-num" data-count="-30–35%" data-icon="down"><i class="ph-light ph-arrow-down hd-num-icon" role="img" aria-label="afname"></i>30–35%</div>
+        <p class="hd-lbl">Verzuimduur</p>
       </div>
       <div class="hd-stat rv" style="--d:240ms">
-        <p class="hd-tag">Reductie</p>
-        <div class="hd-num" data-count="-30–35%"><i class="ph-light ph-arrow-down hd-num-icon" role="img" aria-label="afname"></i>30–35%</div>
-        <p class="hd-lbl">Verzuim duur</p>
+        <p class="hd-tag">Aangepast werk</p>
+        <div class="hd-num" data-count="+20–25%" data-icon="up"><i class="ph-light ph-arrow-up hd-num-icon" role="img" aria-label="toename"></i>20–25%</div>
+        <p class="hd-lbl">Mogelijkheden</p>
       </div>
       <div class="hd-stat rv" style="--d:360ms">
-        <p class="hd-tag">Effect</p>
-        <div class="hd-num" data-count="-92–100K"><i class="ph-light ph-arrow-down hd-num-icon" role="img" aria-label="afname"></i>92–100K</div>
-        <p class="hd-lbl">Ziektedagen</p>
+        <p class="hd-tag">Sinds</p>
+        <div class="hd-num">2019</div>
+        <p class="hd-lbl">Niet-medisch casemanagement</p>
       </div>
     </div>
-    <p style="margin:18px 0 0;text-align:right;font-size:12px;color:rgba(240,237,232,.68);"><a href="/calculator-methodologie" style="color:inherit;text-underline-offset:3px;">Hoe we meten en welke aannames gelden →</a></p>
   </div>
 </header>
 
@@ -997,10 +998,11 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
   var words=[].slice.call(hl.querySelectorAll('.w'));
   var re=hl.querySelector('.re'), what=hl.querySelector('.what');
   var eyebrow=document.querySelector('.hero-eyebrow');
+  var tagline=document.querySelector('.hero-tagline');
   var ctaWrap=document.querySelector('.hero-meta > .rv');
   var body=document.querySelector('.hero-body');
   var stats=[].slice.call(document.querySelectorAll('.hd-stat'));
-  var holds=[eyebrow,ctaWrap,body].concat(stats).filter(Boolean);
+  var holds=[eyebrow,tagline,ctaWrap,body].concat(stats).filter(Boolean);
 
   // Deze tijdlijn is de ENIGE regisseur van de hero: data-hold zodat de scroll-observer
   // deze elementen niet vroeg onthult.
@@ -1077,7 +1079,8 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
       requestAnimationFrame(function(){ hl.style.transition='opacity .5s ease'; hl.style.opacity='1'; });
       reveal(eyebrow);
     });
-    // 3 — CTA's
+    // 3 — tagline, daarna CTA's
+    at(_wd+1160,function(){ reveal(tagline); });
     at(_wd+1360,function(){ reveal(ctaWrap); });
     // 4 — TEKST
     at(_wd+1800,function(){ reveal(body); });
@@ -1105,6 +1108,9 @@ body.titel-line .ch-head{border-top:2px solid var(--orange);padding-top:clamp(22
   if(!('IntersectionObserver' in window)) return;
   var ICON_LABEL={down:'afname',up:'toename'};
   function sign(s,el){
+    var iconMode=el&&el.getAttribute('data-icon');
+    if(iconMode==='none') return s;
+    if(iconMode==='up') return '<i class="ph-light ph-arrow-up hd-num-icon" role="img" aria-label="'+((el&&el.getAttribute('data-icon-label'))||ICON_LABEL.up)+'"></i>'+s.replace(/^\+/,'');
     var lead=/^[+\-]/.test(s), trail=!lead&&/[+\-]$/.test(s);
     if(!lead&&!trail) return s;
     var isDown=(lead?s[0]:s[s.length-1])==='-';

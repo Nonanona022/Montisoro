@@ -60,11 +60,11 @@
   }
   function moneyFull(n){ return '€\u00A0'+Math.round(n).toLocaleString(LOC,{maximumFractionDigits:0}); }
 
-  /* ── state (zelfde defaults als productie → eerlijke vergelijking) ── */
+  /* ── state ── */
   var CONFIG = window.MONTISORO_CALC_CONFIG || {};
   var SECTOR = CONFIG.sector || {K:3.18,M:3.10,L:3.86};
   var state = {
-    fte:0, splitA:0, salary:0,
+    fte:500, splitA:50, salary:0,
     voordelen:0, firmawagen:0, groepsv:0, hospv:0, andereverz:0,
     grpVoordelen:'beide', grpFirmawagen:'bediende', grpGroepsv:'bediende', grpHospv:'beide', grpAndereverz:'beide',
     days:220,
@@ -74,7 +74,7 @@
   };
   var edited = { fte:false, salary:false };
   window.__betaState = state;
-  /* schone nul-snapshot om naar terug te zetten bij "Opnieuw beginnen" */
+  /* beginwaarden om naar terug te zetten bij "Opnieuw beginnen" */
   var ZERO = JSON.parse(JSON.stringify(state));
 
   var SECTOR_TOTAL = SECTOR.K + SECTOR.M + SECTOR.L;
@@ -316,7 +316,7 @@
   /* ─────────────── NUDGE ─────────────── */
   function updateNudge(){
     var n=$('bNudge'); if(!n) return;
-    n.style.display = (!edited.fte && !edited.salary) ? 'flex' : 'none';
+    n.style.display = state.fte>0 ? 'none' : 'flex';
   }
 
   /* ─────────────── WIRING ─────────────── */
@@ -631,7 +631,7 @@
     });
     render();
 
-    /* ── altijd leeg starten: reset-knoppen wiren + oude sessie wissen ── */
+    /* ── reset-knoppen en sessieherstel ── */
     (function(){
       /* Event-delegatie zodat óók dynamisch geïnjecteerde reset-knoppen
          (bv. de "Opnieuw beginnen" in de focus-overlay) werken. */
@@ -639,8 +639,8 @@
         var btn = e.target && e.target.closest && e.target.closest('.js-calc-reset');
         if(!btn) return;
         var ok = (LANG==='en')
-          ? confirm('Start over with a blank calculator? Your current entries will be cleared.')
-          : confirm('Opnieuw beginnen met een lege calculator? Uw huidige invoer wordt gewist.');
+          ? confirm('Start over with the example values? Your current entries will be cleared.')
+          : confirm('Opnieuw beginnen met de voorbeeldwaarden? Uw huidige invoer wordt gewist.');
         if(ok) resetAll();
       });
       /* Sessie-herstel (op verzoek terug, 3 juli 2026): bewaarde invoer < 24u herstellen,
