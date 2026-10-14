@@ -57,7 +57,7 @@ window.initCases = function(DATA, $, $$, esc, openDrawer, closeDrawer, drawer, d
   function clone(a){ return JSON.parse(JSON.stringify(a)); }
   function seed(){
     return [
-      { id:'case-volvo', slug:'referentie-case-volvo', order:1, active:true, company:'Volvo Group', sector:'Productie & industrie', logo:'../assets/logos/volvo.svg',
+      { id:'case-volvo', slug:'referentie-case-volvo', order:1, active:true, company:'Volvo Trucks', sector:'Productie & industrie', logo:'../assets/logos/volvo.svg',
         hero_title_nl:'Van versnipperde opvolging naar één *onderbouwde* aanpak.', hero_title_en:'From fragmented follow-up to one *evidence-based* approach.',
         card_nl:'Van versnipperde opvolging naar één systeem van inzicht, structuur en opvolging.', card_en:'From fragmented follow-up to one system of insight, structure and follow-through.',
         hero_sum_nl:'In een industriële omgeving met meerdere ploegen bracht Montisoro verzuim opnieuw onder controle, met één systeem dat inzicht, structuur en opvolging samenbrengt.', hero_sum_en:'In an industrial, multi-shift environment, Montisoro brought absence back under control, with one system that unites insight, structure and follow-through.',

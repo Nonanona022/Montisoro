@@ -17,7 +17,7 @@
    To regenerate this file from the admin panel: "Vertrouwd door" → Exporteer.
 ═══════════════════════════════════════════════════════════════════ */
 window.MONTISORO_TRUSTED = [
-  { name:'Volvo Group',                logo:'../assets/logos/volvo.svg', order:1,  active:true },
+  { name:'Volvo Trucks',               logo:'../assets/logos/volvo.svg', order:1,  active:true },
   { name:'Novartis Manufacturing',     logo:'../assets/logos/novartis.png', order:2,  active:true },
   { name:'Lonza',                      logo:'../assets/logos/lonza.svg', order:3,  active:true },
   { name:'LyondellBasell',             logo:'../assets/logos/lyondellbasell.png', order:4,  active:true },

@@ -10,7 +10,7 @@ een **PDF-downloadknop**. Die knop is per kaart gekoppeld aan het `pdf:`-veld in
 1. Leg het PDF-bestand hier neer, bv. `volvo.pdf`.
 2. Zet in `testimonials.js` het `pdf:`-veld van die klant op het pad:
 
-       { id:'q1', company:'Volvo Group', logo:'../assets/logos/volvo.svg',
+       { id:'q1', company:'Volvo Trucks', logo:'../assets/logos/volvo.svg',
          ... pdf:'../documents/cases/volvo.pdf', ... }
 
 3. Klaar — de knop wordt automatisch de actieve **"Download case (PDF)"**.
@@ -20,7 +20,7 @@ een **PDF-downloadknop**. Die knop is per kaart gekoppeld aan het `pdf:`-veld in
 
 | Klant                         | id  | bestandsnaam        |
 |-------------------------------|-----|---------------------|
-| Volvo Group                   | q1  | `volvo.pdf`         |
+| Volvo Trucks                   | q1  | `volvo.pdf`         |
 | Alcon Laboratories Belgium    | q2  | `alcon.pdf`         |
 | Novartis Manufacturing        | q3  | `novartis.pdf`      |
 | AXA Belgium                   | q4  | `axa.pdf`           |

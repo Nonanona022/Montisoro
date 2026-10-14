@@ -131,7 +131,7 @@ window.initTestimonials = function(DATA, $, $$, esc, openDrawer, closeDrawer, dr
       return '<div class="drawer-head"><div><div class="eyebrow">' + (isNew?mtT('tm_add'):mtT('tm_edit')) + '</div><h3>' + esc(isNew?mtT('tm_new'):c.company) + '</h3></div><button class="drawer-close" data-close><i class="ti ti-x"></i></button></div>' +
         '<div class="drawer-body">' +
           '<div class="drawer-section-label is-first"><i class="ti ti-building u-mr-6"></i>' + mtT('tm_company_role') + '</div>' +
-          '<div class="field"><label>' + mtT('tm_company') + '</label><input id="tm-company" value="' + esc(c.company) + '" placeholder="Bijv. Volvo Group"></div>' +
+          '<div class="field"><label>' + mtT('tm_company') + '</label><input id="tm-company" value="' + esc(c.company) + '" placeholder="Bijv. Volvo Trucks"></div>' +
           '<div class="field"><label>' + mtT('tm_role_nl') + '</label><input id="tm-role-nl" value="' + esc(c.role_nl) + '" placeholder="'+mtT('tm_ph_role_nl')+'"></div>' +
           '<div class="field"><label>' + mtT('tm_role_en') + '</label><input id="tm-role-en" value="' + esc(c.role_en) + '" placeholder="'+mtT('tm_ph_role_en')+'"></div>' +
           '<div class="drawer-section-label"><i class="ti ti-photo u-mr-6"></i>' + mtT('ui_logo') + '</div>' +

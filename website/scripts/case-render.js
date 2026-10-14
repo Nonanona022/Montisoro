@@ -176,11 +176,14 @@
     // returns the inner element(s) for a photo container; caller wraps except quote
     var customAlt = f('photo_' + id + '_alt');
     var imageAlt = customAlt || (placeholder ? c.company + ' \u2014 ' + placeholder : c.company);
+    var imageWidth = Number(c['photo_' + id + '_width']) || 0;
+    var imageHeight = Number(c['photo_' + id + '_height']) || 0;
+    var dimensions = imageWidth && imageHeight ? ' width="' + imageWidth + '" height="' + imageHeight + '"' : '';
     if (wrapCls){
-      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt="' + esc(imageAlt) + '"></div>'; }
+      if (val){ return '<div class="' + wrapCls + '"><img src="' + esc(val) + '" alt="' + esc(imageAlt) + '"' + dimensions + '></div>'; }
       return '<div class="' + wrapCls + '"><image-slot id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '" placeholder="' + esc(placeholder) + '"></image-slot></div>';
     }
-    if (val){ return '<img src="' + esc(val) + '" alt="' + esc(imageAlt) + '" loading="lazy" decoding="async">'; }
+    if (val){ return '<img src="' + esc(val) + '" alt="' + esc(imageAlt) + '"' + dimensions + ' loading="lazy" decoding="async">'; }
     var attr = 'id="' + esc(c.slug + '-' + id) + '" shape="' + shape + '"' + (radius ? ' radius="' + radius + '"' : '') + ' placeholder="' + esc(placeholder) + '"';
     return '<image-slot ' + attr + '></image-slot>';
   }

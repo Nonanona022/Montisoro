@@ -11,8 +11,8 @@ window.MONTISORO_TESTIMONIALS_SECTION = { enabled: true };
 window.MONTISORO_TESTIMONIALS = [
   {
     id: 't1',
-    company: 'Volvo Group',
-    company_en: 'Volvo Group',
+    company: 'Volvo Trucks',
+    company_en: 'Volvo Trucks',
     logo: '../assets/logos/volvo.svg',
     role_nl: 'Productie & industrie · meerdere sites',
     role_en: 'Manufacturing & industry · multiple sites',

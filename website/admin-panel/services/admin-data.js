@@ -79,7 +79,7 @@
       { id:'st-011', name:'Ahmed', role_nl:'Senior Platform Engineer', role_en:'Senior Platform Engineer', bio_nl:'Verantwoordelijk voor de opbouw, beveiliging, monitoring en schaalbaarheid van de AWS-cloudinfrastructuur van Storm en Casey AI.', bio_en:'Responsible for building, securing, monitoring and scaling the AWS cloud infrastructure behind Storm and Casey AI.', photo:'/assets/team/ahmed.jpg', initial:'A', status:'active', order:11 }
     ],
     trustedBy: [
-      { id:'tb-001', name:'Volvo Group',                logo:'/assets/logos/volvo.png', order:1,  active:true },
+      { id:'tb-001', name:'Volvo Trucks',               logo:'/assets/logos/volvo.png', order:1,  active:true },
       { id:'tb-002', name:'Novartis Manufacturing',     logo:'/assets/logos/novartis.png', order:2,  active:true },
       { id:'tb-003', name:'Lonza',                      logo:'/assets/logos/lonza.svg', order:3,  active:true },
       { id:'tb-004', name:'LyondellBasell',             logo:'/assets/logos/lyondellbasell.png', order:4,  active:true },
