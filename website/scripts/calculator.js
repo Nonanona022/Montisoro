@@ -64,7 +64,7 @@
   var CONFIG = window.MONTISORO_CALC_CONFIG || {};
   var SECTOR = CONFIG.sector || {K:3.18,M:3.10,L:3.86};
   var state = {
-    fte:500, splitA:50, salary:0,
+    fte:500, splitA:50, salary:45000,
     voordelen:0, firmawagen:0, groepsv:0, hospv:0, andereverz:0,
     grpVoordelen:'beide', grpFirmawagen:'bediende', grpGroepsv:'bediende', grpHospv:'beide', grpAndereverz:'beide',
     days:220,
