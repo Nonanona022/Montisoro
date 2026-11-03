@@ -205,6 +205,13 @@
   to = "/.netlify/functions/health"
   status = 200
 
+# Vacature-PDF: korte deelbare URL is canoniek; oude link blijft werken.
+[[redirects]]
+  from = "/assets/vacature-ncm.pdf"
+  to = "/vacature-ncm.pdf"
+  status = 301
+  force = true
+
 # ═══════════════════════════════════════════════════════════════════
 # SEO — SCHONE, EXTENSIELOZE, KLEINE-LETTER URL's (canoniek)
 # Canonical + hreflang + sitemap wijzen naar /aanpak, /faq, /home-en, …
