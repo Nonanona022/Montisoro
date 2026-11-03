@@ -29,19 +29,6 @@
       font-family: "DM Sans", Arial, sans-serif;
     }
 
-    .pdf-frame {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: var(--paper);
-      opacity: 0;
-      transition: opacity 180ms ease;
-    }
-
-    .is-ready .pdf-frame { opacity: 1; }
-
     .loader {
       position: fixed;
       inset: 0;
@@ -50,15 +37,6 @@
       place-items: center;
       padding: 32px;
       background: var(--paper);
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 180ms ease, visibility 0s linear 180ms;
-    }
-
-    .is-ready .loader {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
     }
 
     .loader-card {
@@ -100,13 +78,18 @@
       background: rgba(23, 17, 15, 0.12);
     }
 
-    .progress::after {
+    .progress-bar {
       position: absolute;
-      inset: 0 auto 0 -45%;
-      width: 45%;
+      inset: 0 auto 0 0;
+      width: 0;
       border-radius: inherit;
       background: var(--orange);
-      content: "";
+      transition: width 160ms ease;
+    }
+
+    .progress.is-indeterminate .progress-bar {
+      left: -45%;
+      width: 45%;
       animation: loading 1.15s cubic-bezier(.65, 0, .35, 1) infinite;
     }
 
@@ -124,22 +107,13 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pdf-frame,
-      .loader { transition: none; }
-      .progress::after { animation-duration: 2.4s; }
+      .progress-bar { transition: none; }
+      .progress.is-indeterminate .progress-bar { animation-duration: 2.4s; }
     }
   </style>
 </head>
 <body aria-busy="true">
   <main>
-    <iframe
-      id="vacature-pdf"
-      class="pdf-frame"
-      src="/vacature-ncm.pdf#view=FitH&amp;toolbar=1&amp;navpanes=0"
-      title="Vacature NCM van Montisoro"
-      loading="eager"
-    ></iframe>
-
     <section class="loader" aria-live="polite" aria-label="Document wordt geladen">
       <div class="loader-card">
         <img
@@ -149,32 +123,74 @@
           height="456"
           alt="Montisoro"
         >
-        <h1 class="loader-title">Vacature wordt geladen</h1>
-        <p class="loader-copy">Een ogenblik, het volledige document wordt klaargezet.</p>
-        <div class="progress" role="progressbar" aria-label="Document laden"></div>
+        <h1 id="loader-title" class="loader-title">Vacature wordt geladen</h1>
+        <p id="loader-copy" class="loader-copy">Een ogenblik, het volledige document wordt klaargezet.</p>
+        <div id="progress" class="progress is-indeterminate" role="progressbar" aria-label="Document laden">
+          <span id="progress-bar" class="progress-bar"></span>
+        </div>
         <a class="direct-link" href="/vacature-ncm.pdf">PDF rechtstreeks openen</a>
       </div>
     </section>
   </main>
 
   <noscript>
-    <style>.loader { display: none; }.pdf-frame { opacity: 1; }</style>
+    <style>.progress { display: none; }</style>
   </noscript>
 
   <script>
     (function () {
-      var frame = document.getElementById("vacature-pdf");
+      var pdfUrl = "/vacature-ncm.pdf";
+      var progress = document.getElementById("progress");
+      var progressBar = document.getElementById("progress-bar");
+      var title = document.getElementById("loader-title");
+      var copy = document.getElementById("loader-copy");
 
-      function revealDocument() {
-        window.requestAnimationFrame(function () {
-          window.requestAnimationFrame(function () {
-            document.body.classList.add("is-ready");
-            document.body.setAttribute("aria-busy", "false");
-          });
-        });
+      function openPdf() {
+        progress.classList.remove("is-indeterminate");
+        progressBar.style.width = "100%";
+        window.setTimeout(function () {
+          window.location.replace(pdfUrl);
+        }, 140);
       }
 
-      frame.addEventListener("load", revealDocument, { once: true });
+      fetch(pdfUrl, { cache: "force-cache", credentials: "same-origin" })
+        .then(function (response) {
+          if (!response.ok) throw new Error("PDF kon niet worden geladen");
+
+          var total = Number(response.headers.get("content-length")) || 0;
+          if (!response.body || !response.body.getReader) {
+            return response.blob().then(openPdf);
+          }
+
+          var loaded = 0;
+          var reader = response.body.getReader();
+          if (total) progress.classList.remove("is-indeterminate");
+
+          function read() {
+            return reader.read().then(function (result) {
+              if (result.done) {
+                openPdf();
+                return;
+              }
+
+              loaded += result.value.byteLength;
+              if (total) {
+                var percentage = Math.min(99, Math.round((loaded / total) * 100));
+                progressBar.style.width = percentage + "%";
+                progress.setAttribute("aria-valuenow", String(percentage));
+              }
+              return read();
+            });
+          }
+
+          return read();
+        })
+        .catch(function () {
+          title.textContent = "Document kon niet automatisch openen";
+          copy.textContent = "Gebruik de link hieronder om de PDF rechtstreeks te openen.";
+          progress.hidden = true;
+          document.body.setAttribute("aria-busy", "false");
+        });
     }());
   </script>
 </body>
