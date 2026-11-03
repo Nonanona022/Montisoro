@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vacature NCM | Montisoro</title>
+  <meta name="description" content="Bekijk de vacature voor NCM bij Montisoro.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://montisoro.com/vacature-ncm">
+  <link rel="stylesheet" href="/stylesheets/fonts.css">
+  <style>
+    :root {
+      --paper: #f9f8f6;
+      --ink: #17110f;
+      --muted: #736b67;
+      --orange: #e8592b;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", Arial, sans-serif;
+    }
+
+    .pdf-frame {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: var(--paper);
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .is-ready .pdf-frame { opacity: 1; }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      background: var(--paper);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 180ms ease, visibility 0s linear 180ms;
+    }
+
+    .is-ready .loader {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-card {
+      display: flex;
+      width: min(360px, 100%);
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .loader-logo {
+      width: 138px;
+      height: auto;
+      margin-bottom: 34px;
+    }
+
+    .loader-title {
+      margin: 0 0 9px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(24px, 4vw, 31px);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .loader-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .progress {
+      position: relative;
+      width: 164px;
+      height: 2px;
+      margin-top: 28px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(23, 17, 15, 0.12);
+    }
+
+    .progress::after {
+      position: absolute;
+      inset: 0 auto 0 -45%;
+      width: 45%;
+      border-radius: inherit;
+      background: var(--orange);
+      content: "";
+      animation: loading 1.15s cubic-bezier(.65, 0, .35, 1) infinite;
+    }
+
+    .direct-link {
+      margin-top: 24px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 600;
+      text-underline-offset: 3px;
+    }
+
+    @keyframes loading {
+      from { transform: translateX(0); }
+      to { transform: translateX(325%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pdf-frame,
+      .loader { transition: none; }
+      .progress::after { animation-duration: 2.4s; }
+    }
+  </style>
+</head>
+<body aria-busy="true">
+  <main>
+    <iframe
+      id="vacature-pdf"
+      class="pdf-frame"
+      src="/vacature-ncm.pdf#view=FitH&amp;toolbar=1&amp;navpanes=0"
+      title="Vacature NCM van Montisoro"
+      loading="eager"
+    ></iframe>
+
+    <section class="loader" aria-live="polite" aria-label="Document wordt geladen">
+      <div class="loader-card">
+        <img
+          class="loader-logo"
+          src="/assets/montisoro-logo-dark.png"
+          width="617"
+          height="456"
+          alt="Montisoro"
+        >
+        <h1 class="loader-title">Vacature wordt geladen</h1>
+        <p class="loader-copy">Een ogenblik, het volledige document wordt klaargezet.</p>
+        <div class="progress" role="progressbar" aria-label="Document laden"></div>
+        <a class="direct-link" href="/vacature-ncm.pdf">PDF rechtstreeks openen</a>
+      </div>
+    </section>
+  </main>
+
+  <noscript>
+    <style>.loader { display: none; }.pdf-frame { opacity: 1; }</style>
+  </noscript>
+
+  <script>
+    (function () {
+      var frame = document.getElementById("vacature-pdf");
+
+      function revealDocument() {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(function () {
+            document.body.classList.add("is-ready");
+            document.body.setAttribute("aria-busy", "false");
+          });
+        });
+      }
+
+      frame.addEventListener("load", revealDocument, { once: true });
+    }());
+  </script>
+</body>
+</html>
